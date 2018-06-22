@@ -16,7 +16,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _mainTabController = [[PsfTabBarController alloc] init];
+    self.window.rootViewController = _mainTabController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

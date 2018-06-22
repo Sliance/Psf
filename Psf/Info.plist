@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>请选择&quot;始终允许&quot;以保证您的定位功能正常</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>请选择&quot;始终允许&quot;以保证您的定位功能正常</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>请选择&quot;始终允许&quot;以保证您的定位功能正常</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>icomoon.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

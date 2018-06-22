@@ -1,0 +1,332 @@
+//
+//  BaseViewController.m
+//  Psf
+//
+//  Created by 燕来秋mac9 on 2018/6/14.
+//  Copyright © 2018年 zhangshu. All rights reserved.
+//
+
+#import "BaseViewController.h"
+
+@interface BaseViewController ()
+@property (nonatomic, strong) UIControl *controlPopBottom;
+@property (nonatomic, strong) UIControl *controlPop;
+@property (nonatomic, strong) UIView *suspensionView;//悬浮窗背景
+@property (nonatomic, copy) refreshListBlock refreshMsg;
+@property (nonatomic, copy) scrollToTopBlcok scrollMsg;
+
+@end
+
+@implementation BaseViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self initData];
+        self.view.backgroundColor = DSColorFromHex(0xffffff);
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initBaseUI];
+    //获取通知中心单例对象
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+//    [center addObserver:self selector:@selector(loginOutSelector) name:LogOutNotificationCenter object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self adjustNavigationUI:self.navigationController];
+    self.navigationController.navigationBar.translucent = NO;
+}
+
+- (void)adjustNavigationUI:(UINavigationController *) nav {
+    [[UINavigationBar appearance] setBarTintColor:DSNavi];
+    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor whiteColor], NSForegroundColorAttributeName,
+                                                           shadow, NSShadowAttributeName,
+                                                           [UIFont systemFontOfSize:20], NSFontAttributeName, nil]];
+    //去掉返回按钮上的字
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, 0)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    [UIBarButtonItem appearance].tintColor = [UIColor lightGrayColor];
+    NSArray *viewControllerArray = [self.navigationController viewControllers];
+    long previousViewControllerIndex = [viewControllerArray indexOfObject:self] - 1;
+    UIViewController *previous;
+    if (previousViewControllerIndex >= 0) {
+        previous = [viewControllerArray objectAtIndex:previousViewControllerIndex];
+        previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
+                                                     initWithTitle:@" "
+                                                     style:UIBarButtonItemStylePlain
+                                                     target:self
+                                                     action:nil];
+    }
+}
+
+- (void)showToast:(NSString *)info {
+//    [self showInfo:info];
+}
+
+- (void)initData {
+    
+}
+
+- (void)initBaseUI {
+    [self setTitle:@""];
+}
+
+- (void)setRightButtonWithTitle:(NSString *) title  {
+    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didRightClick)];
+    [rightBar setTintColor:[UIColor whiteColor]];
+    [rightBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
+    [rightBar setTitlePositionAdjustment:UIOffsetMake(-10, 0) forBarMetrics:UIBarMetricsDefault];
+    [self.navigationItem setRightBarButtonItem:rightBar];
+    [self adjustNavigationUI:self.navigationController];
+}
+
+- (void)setRightButtonWithIcon:(UIImage *) image {
+    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(didRightClick)];
+    [self.navigationItem setRightBarButtonItem:rightBar];
+    [self adjustNavigationUI:self.navigationController];
+    
+}
+
+- (void)setLeftButtonWithIcon:(UIImage *) image {
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
+    [self.navigationItem setLeftBarButtonItem:leftBar];
+    [self adjustNavigationUI:self.navigationController];
+}
+
+- (void)setLeftButtonWithTitle:(NSString *) title  {
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didLeftClick)];
+    [leftBar setTintColor:[UIColor whiteColor]];
+    [leftBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
+    [leftBar setTitlePositionAdjustment:UIOffsetMake(10, 0) forBarMetrics:UIBarMetricsDefault];
+    [self.navigationItem setLeftBarButtonItem:leftBar];
+    [self adjustNavigationUI:self.navigationController];
+}
+
+- (void)didRightClick {
+    
+}
+
+- (void)didLeftClick {
+    
+}
+
+- (void)doLogin {
+//    LoginViewController *controller = [[LoginViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)doCheckLogin:(LoginComplited) complited {
+//    if ([[UserCacheBean share] isLogin]) {
+//        if (complited) {
+//            complited();
+//        }
+//        return;
+//    }
+//    LoginViewController *controller = [[LoginViewController alloc] init];
+//    controller.loginComplitedBlock = complited;
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+//    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)doCheckSupplier:(LoginComplited) complited {
+//    if ([[UserCacheBean share] isSupplier]) {
+//        if (complited) {
+//            complited();
+//        }
+//        return;
+//    }
+//    ChechAgentEnterViewController *controller = [[ChechAgentEnterViewController alloc] init];
+//    controller.loginComplitedBlock = complited;
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+//    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)showViewBottom:(UIView *) view {
+//    view.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, view.ctHeight);
+//    self.controlPopBottom = [[UIControl alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.controlPopBottom.backgroundColor = DSColorAlphaMake(0, 0, 0, 0.2);
+//    [self.controlPopBottom addTarget:self action:@selector(didClickCancel:) forControlEvents:UIControlEventTouchDown];
+//    [self.controlPopBottom addSubview:view];
+//    NSDictionary *dic = @{@"view":view, @"type":@1};
+//    [self.controlPopBottom setObjectDSValue:dic];
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    [window addSubview:self.controlPopBottom];
+//
+//    [UIView animateWithDuration:0.3 animations:^{
+//        view.frame = CGRectMake(0, SCREENHEIGHT - view.ctHeight, SCREENWIDTH, view.ctHeight);
+//    } completion:^(BOOL finished) {
+//
+//    }];
+}
+
+- (void)hiddenBottomView {
+//    NSDictionary *dicView = self.controlPopBottom.objectDSValue;
+//    UIView *view = dicView[@"view"];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        view.frame = CGRectMake(0, SCREENHEIGHT , view.ctWidth, view.ctHeight);
+//    } completion:^(BOOL finished) {
+//        [view removeFromSuperview];
+//        [view.layer removeAllAnimations];
+//        self.controlPopBottom.backgroundColor = [UIColor clearColor];
+//        [self.controlPopBottom removeFromSuperview];
+//        self.controlPopBottom = nil;
+//    }];
+}
+
+
+- (void)popView:(UIView *)view withOffset:(CGFloat) offset {
+//    self.controlPop = [[UIControl alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.controlPop.backgroundColor = DSColorAlphaMake(0, 0, 0, 0.5);
+//    [self.controlPop addTarget:self action:@selector(didClickCancel:) forControlEvents:UIControlEventTouchDown];
+//    [self.controlPop addSubview:view];
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    [window addSubview:self.controlPop];
+//
+//    CGRect frame = CGRectMake((SCREENWIDTH - view.ctWidth) / 2, (SCREENHEIGHT - view.ctHeight)/2 - offset, view.ctWidth, view.ctHeight);
+//    //    view.frame = CGRectMake(0, 0, SCREENWIDTH, 0);
+//    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+//    anim.fromValue = [NSValue valueWithCGRect:frame];
+//    anim.toValue = [NSValue valueWithCGRect:frame];
+//    [view.layer pop_addAnimation:anim forKey:@"size"];
+//    //传递数据
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setValue:anim.toValue forKey:@"toValue"];
+//    [dic setValue:anim.fromValue forKey:@"fromValue"];
+//    [dic setValue:view forKey:@"view"];
+//    [dic setValue:@2 forKey:@"type"];
+//    [self.controlPop setObjectDSValue:dic];
+}
+
+- (void)hidPopView {
+//    NSDictionary *dic = (NSDictionary *)self.controlPop.objectDSValue;
+//    if ([dic[@"type"] integerValue] == 1) {
+//        UIView *view = dic[@"view"];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            view.frame = CGRectMake(0, SCREENHEIGHT , view.ctWidth, view.ctHeight);
+//        } completion:^(BOOL finished) {
+//            [view removeFromSuperview];
+//            [view.layer removeAllAnimations];
+//            self.controlPop.backgroundColor = [UIColor clearColor];
+//            [self.controlPop removeFromSuperview];
+//            self.controlPop = nil;
+//        }];
+//    } else {
+//        UIView *view = dic[@"view"];
+//        [view.layer removeAllAnimations];
+//        self.controlPop.backgroundColor = [UIColor clearColor];
+//        [self.controlPop removeFromSuperview];
+//        self.controlPop = nil;
+//    }
+}
+
+- (void)didClickCancel:(UIControl *)control {
+    if (self.controlPop != nil) {
+        [self hiddenPopViewWithDoOtherThing];
+        [self hidPopView];
+    } else {
+        [self hiddenBottomView];
+    }
+}
+
+- (void)hiddenPopViewWithDoOtherThing{
+    
+}
+
+- (UIView *)suspensionView{
+    if (_suspensionView == nil) {
+        _suspensionView = [[UIView alloc] init];
+        UIButton *refeshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        refeshButton.frame = CGRectMake(0, 0, 36, 36);
+        [refeshButton setImage:[UIImage imageNamed:@"icon_suspension_refresh"] forState:UIControlStateNormal];
+        [refeshButton addTarget:self action:@selector(refreshList) forControlEvents:UIControlEventTouchUpInside];
+        [_suspensionView addSubview:refeshButton];
+        
+        UIButton *scrollButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [scrollButton setImage:[UIImage imageNamed:@"icon_suspension_toTop"] forState:UIControlStateNormal];
+        scrollButton.tag = 100;
+        scrollButton.hidden = YES;
+        [scrollButton addTarget:self action:@selector(scrollToTop) forControlEvents:UIControlEventTouchUpInside];
+        scrollButton.frame = CGRectMake(0, 46, 36, 36);
+        [_suspensionView addSubview:scrollButton];
+        _suspensionView.hidden = YES;
+    }
+    return _suspensionView;
+}
+
+- (void)refreshList{
+    if (self.refreshMsg) {
+        self.refreshMsg();
+    }
+}
+
+- (void)scrollToTop{
+    if (self.scrollMsg) {
+        self.scrollMsg();
+    }
+}
+
+- (void)showSuspension:(refreshListBlock)refreshBlock and:(scrollToTopBlcok)scrollToTopBlck{
+    [self.view addSubview:self.suspensionView];
+    self.suspensionView.hidden = NO;
+    //    self.suspensionView.frame = CGRectMake(SCREENWIDTH - 20 - 36, SCREENHEIGHT - 300, 36, 82);
+    float suspensionHeght = -60;
+    if (SCREENHEIGHT > 800) {
+        suspensionHeght = -100;
+    }
+    
+//    [self.suspensionView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo (self.view.mas_right).offset(-20);
+//        make.bottom. equalTo (self.view.mas_bottom).offset(suspensionHeght);
+//        make.width. equalTo (@(36));
+//        make.height. equalTo (@(82));
+//    }];
+    [self.view bringSubviewToFront:self.suspensionView];
+    self.refreshMsg = refreshBlock;
+    self.scrollMsg = scrollToTopBlck;
+}
+
+- (void)showToTopButtonWith:(CGPoint)contentOffset{
+    
+    UIButton * toTopBtn = (UIButton *)[self.suspensionView viewWithTag:100];
+    if (contentOffset.y > 0) {
+        toTopBtn.hidden = NO;
+    } else {
+        toTopBtn.hidden = YES;
+    }
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [transition setType:kCATransitionFade];
+    [toTopBtn.layer addAnimation:transition forKey:nil];
+}
+//退出登录的通知方法
+-(void)loginOutSelector{
+    NSLog(@">>>>>>>>>>>>>退出成功<<<<<<<<<<<<<");
+}
+
+- (void)reloginApp{
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    NSInteger index = appDelegate.mainTabController.selectedIndex;
+    appDelegate.mainTabController = nil;
+    appDelegate.mainTabController = [[PsfTabBarController alloc] init];
+    appDelegate.mainTabController.selectedIndex = index;
+    appDelegate.window.rootViewController = appDelegate.mainTabController;
+}
+-(void)setNavHeight:(NSInteger)navHeight{
+    if(SCREENHEIGHT == 812){
+   _navHeight = 145;
+   }else{
+   _navHeight = 64;
+   }
+}
+@end
