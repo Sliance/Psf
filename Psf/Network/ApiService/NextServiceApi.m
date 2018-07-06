@@ -19,14 +19,16 @@
     });
     return global;
 }
-- (void)requestApplyLoadWithParam:(NSDictionary *) dic response:(responseModel) responseModel {
-    NSString *url = @"/lxn/product/banner/mobile/v1/list";
+- (void)requestApplyLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel {
+    NSString *url = @"/lxn/product/category/mobile/v1/list";
+    NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
-            if ([dicResponse[@"code"] integerValue] == 0) {
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                NSArray *result = (NSArray*)[StairCategoryRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(response.content);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {

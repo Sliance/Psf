@@ -13,4 +13,5 @@
 @property(nonatomic,strong)UIImageView *headImage;
 ///物品名
 @property(nonatomic,strong)UILabel *nameLabel;
+@property(nonatomic,assign)NSInteger imageHeight;
 @end

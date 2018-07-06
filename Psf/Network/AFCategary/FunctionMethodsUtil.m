@@ -84,8 +84,8 @@
                     }
                 }else{
                     [[ZSAPIProxy shareProxy] cancelAllRequest];//取消其他所有请求
-                    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@", dict[@"message"]] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-                    [alertView show];
+//                    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@", dict[@"message"]] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//                    [alertView show];
                 }
         }
         if ([dict[@"code"] integerValue] == 404) {

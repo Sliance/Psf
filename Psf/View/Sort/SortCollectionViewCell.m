@@ -31,24 +31,25 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        [self setcornerLayout];
+        [self addSubview:self.headImage];
+        [self addSubview:self.nameLabel];
     }
     return self;
 }
--(void)setcornerLayout{
-    [self addSubview:self.headImage];
-    [self addSubview:self.nameLabel];
+-(void)setImageHeight:(NSInteger )imageHeight{
+    _imageHeight = imageHeight;
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self);
-        make.width.height.mas_equalTo(75);
+        make.width.height.mas_equalTo(imageHeight);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
         make.top.equalTo(self.headImage.mas_bottom);
-        make.width.mas_equalTo(75);
+        make.width.mas_equalTo(imageHeight);
         
     }];
 }
+
 @end

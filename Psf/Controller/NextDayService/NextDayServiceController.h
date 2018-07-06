@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "VTMagicController.h"
 
-@interface NextDayServiceController : BaseViewController
-
+@interface NextDayServiceController : VTMagicController
+@property(nonatomic,assign)NSInteger selectedIndex;
 @end

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Masonry.h>
-#import "PrefixHeader.pch"
+#import "ZSConfig.h"
 @interface BaseView : UIView
 
 @end

@@ -22,10 +22,14 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self initData];
-        self.view.backgroundColor = DSColorFromHex(0xffffff);
+        self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
+        
+        
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,17 +38,19 @@
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
 //    [center addObserver:self selector:@selector(loginOutSelector) name:LogOutNotificationCenter object:nil];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self adjustNavigationUI:self.navigationController];
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)adjustNavigationUI:(UINavigationController *) nav {
     [[UINavigationBar appearance] setBarTintColor:DSNavi];
-    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
     NSShadow *shadow = [[NSShadow alloc] init];
@@ -59,14 +65,16 @@
     NSArray *viewControllerArray = [self.navigationController viewControllers];
     long previousViewControllerIndex = [viewControllerArray indexOfObject:self] - 1;
     UIViewController *previous;
-    if (previousViewControllerIndex >= 0) {
-        previous = [viewControllerArray objectAtIndex:previousViewControllerIndex];
+    if (previousViewControllerIndex >= 0&&previousViewControllerIndex<= viewControllerArray.count) {
+        previous            = [viewControllerArray objectAtIndex:previousViewControllerIndex];
         previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
                                                      initWithTitle:@" "
                                                      style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:nil];
     }
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    
 }
 
 - (void)showToast:(NSString *)info {
@@ -80,7 +88,14 @@
 - (void)initBaseUI {
     [self setTitle:@""];
 }
-
+-(void)setNavWithTitle:(NSString *)navtitle{
+    UILabel *navlabel = [[UILabel alloc]init];
+    navlabel.textAlignment = NSTextAlignmentCenter;
+    navlabel.textColor = DSColorFromHex(0x474747);
+    navlabel.font = [UIFont systemFontOfSize:18];
+    navlabel.text = navtitle;
+     self.navigationItem.titleView = navlabel;
+}
 - (void)setRightButtonWithTitle:(NSString *) title  {
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didRightClick)];
     [rightBar setTintColor:[UIColor whiteColor]];
@@ -100,6 +115,7 @@
 - (void)setLeftButtonWithIcon:(UIImage *) image {
     UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
     [self.navigationItem setLeftBarButtonItem:leftBar];
+    [leftBar setTintColor:[UIColor lightGrayColor]];
     [self adjustNavigationUI:self.navigationController];
 }
 
@@ -277,7 +293,7 @@
 
 - (void)showSuspension:(refreshListBlock)refreshBlock and:(scrollToTopBlcok)scrollToTopBlck{
     [self.view addSubview:self.suspensionView];
-    self.suspensionView.hidden = NO;
+    self.suspensionView.hidden = YES;
     //    self.suspensionView.frame = CGRectMake(SCREENWIDTH - 20 - 36, SCREENHEIGHT - 300, 36, 82);
     float suspensionHeght = -60;
     if (SCREENHEIGHT > 800) {
@@ -322,11 +338,31 @@
     appDelegate.mainTabController.selectedIndex = index;
     appDelegate.window.rootViewController = appDelegate.mainTabController;
 }
--(void)setNavHeight:(NSInteger)navHeight{
+
+-(CGFloat)navHeightWithHeight{
     if(SCREENHEIGHT == 812){
-   _navHeight = 145;
-   }else{
-   _navHeight = 64;
-   }
+        return  88
+        ;
+    }else{
+        return 64;
+    }
+}
+-(CGFloat)tabBarHeight{
+    if(SCREENHEIGHT == 812){
+        return  83;
+    }else{
+        return 49;
+    }
+}
+-(void)setTextFieldLeftView:(UITextField *)textField :(NSString *)imgStr :(NSInteger)width{
+    UIImageView *LeftViewNum = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imgStr]];
+    //图片的显示模式
+    LeftViewNum.contentMode= UIViewContentModeCenter;
+    //图片的位置和大小
+    LeftViewNum.frame= CGRectMake(10,0,width,30);
+    //左视图默认是不显示的 设置为始终显示
+    textField.leftViewMode= UITextFieldViewModeAlways;
+    textField.leftView= LeftViewNum;
+    
 }
 @end

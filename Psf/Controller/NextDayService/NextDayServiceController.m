@@ -10,7 +10,7 @@
 
 #import "HomeLocationView.h"
 #import "ZJScrollPageView.h"
-#import "ZSPageCollectionViewController.h"
+#import "ZSPageViewController.h"
 #import <MJRefresh.h>
 #import "PYSearchViewController.h"
 #import "JFLocation.h"
@@ -18,6 +18,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "JFCityViewController.h"
+#import "ZSSortSelectorView.h"
+#import "MenuInfo.h"
+#import "ChooseAddressViewController.h"
+#import "detailGoodsViewController.h"
+#import "NextSelectorView.h"
 
 #define kCurrentCityInfoDefaults [NSUserDefaults standardUserDefaults]
 #define KCURRENTCITYINFODEFAULTS [NSUserDefaults standardUserDefaults]
@@ -26,26 +31,13 @@ static CGFloat const naviBarHeight = 64.0;
 static CGFloat const headViewHeight = 240.0;
 
 NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableViewDidLeaveFromTopNotification";
-@interface ZJCustomGestureTableView : UITableView
 
-@end
+@interface NextDayServiceController ()<ZJScrollPageViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,PYSearchViewControllerDelegate,JFLocationDelegate, JFCityViewControllerDelegate,CLLocationManagerDelegate,ZSSortSelectorViewDelegate>
 
-@implementation ZJCustomGestureTableView
 
-/// 返回YES同时识别多个手势
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && [otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]];
-}
-@end
-@interface NextDayServiceController ()<ZJPageViewControllerDelegate,ZJScrollPageViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,PYSearchViewControllerDelegate,JFLocationDelegate, JFCityViewControllerDelegate,CLLocationManagerDelegate>
-
-@property (strong, nonatomic) NSArray<NSString *> *titles;
-@property (strong, nonatomic) UIView *containerView;
-@property (strong, nonatomic) ZJScrollSegmentView *segmentView;
-@property (strong, nonatomic) ZJContentView *contentView;
-@property (strong, nonatomic) UIScrollView *childScrollView;
 @property(nonatomic,strong)HomeLocationView *locView;
-@property (strong, nonatomic) ZJCustomGestureTableView *tableView;
+@property(nonatomic,strong)NextSelectorView *seclectorView;
+
 @property (nonatomic, strong) CLLocationManager *locationManagers;//定位管理
 /** 城市定位管理器*/
 @property (nonatomic, strong) JFLocation *locationManager;
@@ -53,34 +45,39 @@ NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableVi
 @property (nonatomic, strong) JFAreaDataManager *manager;
 @property (nonatomic, strong) NSString *latitude;//纬度
 @property (nonatomic, strong) NSString *longitude;//经度
+@property (nonatomic, strong)  NSArray *menuList;
+@property (nonatomic, assign)  BOOL autoSwitch;
 @end
 static NSString * const cellID = @"cellID";
 @implementation NextDayServiceController
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.locationManagers startUpdatingLocation];
-   
+        [self adjustNavigationUI:self.navigationController];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        _autoSwitch = 0 != self.tabBarController.selectedIndex;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+      [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setNavWithTitle:@"我的收货地址"];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.sortscrollView];
-//    [self.view addSubview:self.cycleScroll];
+    [self setNavWithTitle:@"11"];
+    
     [self.view addSubview:self.locView];
-    self.title = @"犁小农";
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.view addSubview:self.tableView];
-    
-    __weak typeof(self) weakself = self;
-    
-    /// 下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            typeof(weakself) strongSelf = weakself;
-            [strongSelf.tableView.mj_header endRefreshing];
-        });
-    }];
+
     ///定位
     self.locationManagers = [[CLLocationManager alloc] init];
     self.locationManagers.delegate = self;
@@ -91,13 +88,65 @@ static NSString * const cellID = @"cellID";
     [self.locationManagers requestWhenInUseAuthorization];
     self.locationManager = [[JFLocation alloc] init];
     _locationManager.delegate = self;
+    
+    self.magicView.itemScale = 1;
+    self.magicView.headerHeight = 45;
+    self.magicView.navigationHeight = 64+60;
+    self.magicView.againstStatusBar = YES;
+    self.magicView.navigationInset = UIEdgeInsetsMake(64+30, 0, 0, 0);
+    self.magicView.headerView.backgroundColor = [UIColor whiteColor];
+    self.magicView.navigationColor = [UIColor whiteColor];
+    self.magicView.layoutStyle = VTLayoutStyleDefault;
+    self.magicView.sliderColor = DSColorMake(256, 76, 77);
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+    [self integrateComponents];
+    [self configSeparatorView];
+    
+    [self addNotification];
+    [self generateTestData];
+    [self.magicView reloadData];
+    [self.view addSubview:self.seclectorView];
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"推荐",@"蔬菜",@"水果",@"肉蛋",@"乳品",@"饮料酒水",@"粮油杂货",@"干货",@"速食",@"水产", nil];
+    [self.seclectorView setDataArr:arr];
+    self.seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, (arr.count/4+1)*35+40);
+    __weak typeof(self)weakSelf = self;
+    [self.seclectorView setPressUpBlock:^(NSInteger index) {
+        weakSelf.seclectorView.hidden = YES;
+    }];
+    [self.seclectorView setChooseBlock:^(NSInteger index) {
+        weakSelf.seclectorView.hidden = YES;
+        [weakSelf.magicView reloadDataToPage:index];
+    }];
+}
+-(void)setSelectedIndex:(NSInteger)selectedIndex{
+    _selectedIndex = selectedIndex;
+    [self.magicView reloadDataToPage:selectedIndex];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (_autoSwitch) {
+        [self.magicView switchToPage:0 animated:YES];
+        _autoSwitch = NO;
+    }
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(NextSelectorView *)seclectorView{
+    if (!_seclectorView) {
+        _seclectorView = [[NextSelectorView alloc]init];
+        _seclectorView.hidden = YES;
+        _seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, 130);
+    }
+    return _seclectorView;
+}
 -(HomeLocationView *)locView{
     if (!_locView) {
         _locView = [[HomeLocationView alloc]init];
-        _locView.frame = CGRectMake(0, self.navHeight, SCREENWIDTH, 45);
+        _locView.frame = CGRectMake(0, 64, SCREENWIDTH, 45);
         [_locView.searchBtn addTarget:self action:@selector(pressSearch:) forControlEvents:UIControlEventTouchUpInside];
         [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -111,145 +160,9 @@ static NSString * const cellID = @"cellID";
     return _manager;
 }
 
-#pragma ZJScrollPageViewDelegate 代理方法
-- (NSInteger)numberOfChildViewControllers {
-    return self.titles.count;
-}
-
-- (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index {
-    UIViewController<ZJScrollPageViewChildVcDelegate> *childVc = reuseViewController;
-    
-    if (index%2==0) {
-        childVc = [[ZSPageCollectionViewController alloc] init];
-        ZSPageCollectionViewController *vc = (ZSPageCollectionViewController *)childVc;
-        vc.delegate = self;
-    } else {
-        childVc = [[ZSPageCollectionViewController alloc] init];
-        ZSPageCollectionViewController *vc = (ZSPageCollectionViewController *)childVc;
-        vc.delegate = self;
-        
-    }
-    
-    return childVc;
-}
-
--(CGRect)frameOfChildControllerForContainer:(UIView *)containerView{
-    return CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
-}
-#pragma mark- ZJPageViewControllerDelegate
-
-- (void)scrollViewIsScrolling:(UIScrollView *)scrollView {
-    _childScrollView = scrollView;
-    if (self.tableView.contentOffset.y < headViewHeight) {
-        scrollView.contentOffset = CGPointZero;
-        scrollView.showsVerticalScrollIndicator = NO;
-    }
-    else {
-        self.tableView.contentOffset = CGPointMake(0,headViewHeight);
-        scrollView.showsVerticalScrollIndicator = YES;
-    }
-    
-}
-
-#pragma mark- UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.childScrollView && _childScrollView.contentOffset.y > 0) {
-        self.tableView.contentOffset = CGPointMake(0.0f, headViewHeight);
-    }
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if(offsetY < headViewHeight) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:ZJParentTableViewDidLeaveFromTopNotification object:nil];
-
-    }
-}
-
-#pragma mark- UITableViewDelegate, UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
-    
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.contentView addSubview:self.contentView];
-    
-    return cell;
-}
 
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return self.segmentView;
-}
 
-#pragma mark- setter getter
-- (ZJScrollSegmentView *)segmentView {
-    if (_segmentView == nil) {
-        ZJSegmentStyle *style = [[ZJSegmentStyle alloc] init];
-        style.showCover = NO;
-        // 渐变
-        style.gradualChangeTitleColor = NO;
-        style.showLine = YES;
-        style.scrollLineColor = [UIColor colorWithRed:255.0/255.0 green:75/255.0 blue:77/255.0 alpha:1.0];
-        // 遮盖背景颜色
-        style.coverBackgroundColor = [UIColor whiteColor];
-        //标题一般状态颜色 --- 注意一定要使用RGB空间的颜色值
-        style.normalTitleColor = [UIColor colorWithRed:69/255.0 green:69/255.0 blue:69/255.0 alpha:1.0];
-        //标题选中状态颜色 --- 注意一定要使用RGB空间的颜色值
-        style.selectedTitleColor = [UIColor colorWithRed:255.0/255.0 green:75/255.0 blue:77/255.0 alpha:1.0];
-        
-        self.titles = @[@"推荐",@"周期购",@"蔬菜",@"日百",@"水产",@"乳品",@"肉蛋",@"等等"];
-        
-        // 注意: 一定要避免循环引用!!
-        __weak typeof(self) weakSelf = self;
-        ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc] initWithFrame:CGRectMake(0,self.navHeight+45, self.view.bounds.size.width, segmentViewHeight) segmentStyle:style delegate:self titles:self.titles titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
-            
-            [weakSelf.contentView setContentOffSet:CGPointMake(weakSelf.contentView.bounds.size.width * index, 0.0) animated:YES];
-            
-        }];
-        segment.backgroundColor = [UIColor whiteColor];
-        _segmentView = segment;
-        
-    }
-    return _segmentView;
-}
-
-- (ZJContentView *)contentView {
-    if (_contentView == nil) {
-        ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) segmentView:self.segmentView parentViewController:self delegate:self];
-        _contentView = content;
-    }
-    return _contentView;
-}
-
-
-- (ZJCustomGestureTableView *)tableView {
-    if (!_tableView) {
-        CGRect frame = CGRectMake(0.0f, self.navHeight+45, self.view.bounds.size.width, SCREENHEIGHT);
-        ZJCustomGestureTableView *tableView = [[ZJCustomGestureTableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-        // 设置tableView的headView
-//        tableView.tableFooterView = self.headView;
-        tableView.tableFooterView = [UIView new];
-        // 设置cell行高为contentView的高度
-        tableView.rowHeight = self.contentView.bounds.size.height;
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        // 设置tableView的sectionHeadHeight为segmentViewHeight
-        tableView.sectionHeaderHeight = segmentViewHeight;
-        tableView.showsVerticalScrollIndicator = false;
-        tableView.separatorColor = [UIColor whiteColor];
-        _tableView = tableView;
-    }
-
-    return _tableView;
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -257,20 +170,24 @@ static NSString * const cellID = @"cellID";
 -(BOOL)shouldAutomaticallyForwardAppearanceMethods{
     return NO;
 }
-
+-(void)didClickCancel:(PYSearchViewController *)searchViewController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)didClickBack:(PYSearchViewController *)searchViewController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark--Action
 -(void)pressSearch:(UIButton*)sender{
     NSArray *hotSeaches = @[@"新西兰樱桃", @"妃子笑荔枝", @"金凤凰蜜瓜", @"蜜柚", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
     // 2. Create a search view controller
     PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"请输入商品名称", @"搜索编程语言") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        // Called when search begain.
-        // eg：Push to a temp view controller
-        [searchViewController.navigationController pushViewController:[[UIViewController alloc] init] animated:YES];
+//        [searchViewController.navigationController pushViewController:[[UIViewController alloc] init] animated:YES];
     }];
     searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
     searchViewController.searchHistoryStyle = 1;
     searchViewController.delegate = self;
     searchViewController.searchViewControllerShowMode = PYSearchViewControllerShowModePush;
+     searchViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchViewController animated:YES];
 }
 #pragma mark - PYSearchViewControllerDelegate
@@ -291,9 +208,8 @@ static NSString * const cellID = @"cellID";
 }
 ///定位
 -(void)pressHomeLocation:(UIButton*)sender {
-    JFCityViewController *cityViewController = [[JFCityViewController alloc] init];
-    cityViewController.delegate = self;
-    [self presentViewController:cityViewController animated:YES completion:nil];
+    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+    [self.navigationController pushViewController:cityViewController animated:YES];
 }
 #pragma mark - JFCityViewControllerDelegate
 
@@ -400,6 +316,120 @@ static NSString * const cellID = @"cellID";
         NSLog(@"无法获取位置信息");
     }
 }
+#pragma mark - NSNotification
+- (void)addNotification {
+    [self removeNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(statusBarOrientationChange:)
+                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
+                                               object:nil];
+}
+
+- (void)removeNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+}
+
+- (void)statusBarOrientationChange:(NSNotification *)notification {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+}
+
+#pragma mark - VTMagicViewDataSource
+- (NSArray<NSString *> *)menuTitlesForMagicView:(VTMagicView *)magicView {
+    NSMutableArray *titleList = [NSMutableArray array];
+    for (MenuInfo *menu in _menuList) {
+        [titleList addObject:menu.title];
+    }
+    return titleList;
+}
+
+- (UIButton *)magicView:(VTMagicView *)magicView menuItemAtIndex:(NSUInteger)itemIndex {
+    static NSString *itemIdentifier = @"itemIdentifier";
+    UIButton *menuItem = [magicView dequeueReusableItemWithIdentifier:itemIdentifier];
+    if (!menuItem) {
+        menuItem = [UIButton buttonWithType:UIButtonTypeCustom];
+        [menuItem setTitleColor:RGBCOLOR(69, 69, 69) forState:UIControlStateNormal];
+        [menuItem setTitleColor:RGBCOLOR(256, 76, 77) forState:UIControlStateSelected];
+        menuItem.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.f];
+    }
+    // 默认会自动完成赋值
+    //    MenuInfo *menuInfo = _menuList[itemIndex];
+    //    [menuItem setTitle:menuInfo.title forState:UIControlStateNormal];
+    return menuItem;
+}
+
+- (UIViewController *)magicView:(VTMagicView *)magicView viewControllerAtPage:(NSUInteger)pageIndex {
+    MenuInfo *menuInfo = _menuList[pageIndex];
+    static NSString *gridId = @"grid.identifier";
+    ZSPageViewController *viewController = [magicView dequeueReusablePageWithIdentifier:gridId];
+    if (!viewController) {
+        viewController = [[ZSPageViewController alloc] init];
+       
+    }
+    viewController.selectedIndex = pageIndex;
+//    viewController.menuInfo = menuInfo;
+    return viewController;
+}
+
+#pragma mark - VTMagicViewDelegate
+- (void)magicView:(VTMagicView *)magicView viewDidAppear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
+    //    NSLog(@"index:%ld viewDidAppear:%@", (long)pageIndex, viewController.view);
+}
+
+- (void)magicView:(VTMagicView *)magicView viewDidDisappear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
+    //    NSLog(@"index:%ld viewDidDisappear:%@", (long)pageIndex, viewController.view);
+}
+
+- (void)magicView:(VTMagicView *)magicView didSelectItemAtIndex:(NSUInteger)itemIndex {
+    //    NSLog(@"didSelectItemAtIndex:%ld", (long)itemIndex);
+}
+
+#pragma mark - actions
+- (void)subscribeAction {
+    self.seclectorView.hidden = NO;
+    
+}
+
+#pragma mark - functional methods
+- (void)generateTestData {
+    NSString *title = @"推荐";
+    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:24];
+    [menuList addObject:[MenuInfo menuInfoWithTitl:title]];
+    NSArray *arr = @[@"推荐",@"蔬菜",@"水果",@"肉蛋",@"乳品",@"饮料酒水",@"粮油杂货",@"干货",@"速食",@"水产"];
+    [menuList removeAllObjects];
+    for (int index = 0; index < arr.count; index++) {
+        title = arr[index];
+        MenuInfo *menu = [MenuInfo menuInfoWithTitl:title];
+        [menuList addObject:menu];
+    }
+  
+    _menuList = menuList;
+}
+
+- (void)integrateComponents {
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, 64+40, 50, 40)];
+    [rightButton addTarget:self action:@selector(subscribeAction) forControlEvents:UIControlEventTouchUpInside];
+    [rightButton setImage:[UIImage imageNamed:@"down_icon"] forState:UIControlStateNormal];
+    rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, -10, 0);
+   
+    UIButton *btn =  [[UIButton alloc] initWithFrame:CGRectMake(0,0, 50, 40)];
+    self.magicView.rightNavigatoinItem = btn;
+    [self.magicView.navigationView addSubview:rightButton];
+    
+}
+
+- (void)configSeparatorView {
+    //    UIImageView *separatorView = [[UIImageView alloc] init];
+    //    [self.magicView setSeparatorView:separatorView];
+    self.magicView.separatorHeight = 2.f;
+    self.magicView.separatorColor = RGBCOLOR(256, 76, 77);
+    self.magicView.navigationView.layer.shadowColor = [UIColor whiteColor].CGColor;
+    self.magicView.navigationView.layer.shadowOffset = CGSizeMake(0, 0.5);
+    self.magicView.navigationView.layer.shadowOpacity = 0.8;
+    self.magicView.navigationView.clipsToBounds = NO;
+    
+    
+}
+
 /*
 #pragma mark - Navigation
 

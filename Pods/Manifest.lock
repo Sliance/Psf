@@ -22,6 +22,7 @@ PODS:
   - Mantle/extobjc (2.1.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.15)
   - MJRefresh (3.1.15.3)
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - Mantle
   - Masonry
   - MBProgressHUD (~> 1.0.0)
+  - MJExtension (~> 3.0.11)
   - MJRefresh
   - SDWebImage
   - YYKit
@@ -47,6 +49,7 @@ SPEC REPOS:
     - Mantle
     - Masonry
     - MBProgressHUD
+    - MJExtension
     - MJRefresh
     - SDWebImage
     - YYKit
@@ -57,10 +60,11 @@ SPEC CHECKSUMS:
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 3f039575db1b135a20699ad298713b26acec1528
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 78f8bbd489d8a204f9c44728cd5502937692074b
+PODFILE CHECKSUM: 054da135cc467bd8e4c0dd54901d1a367fdf4d03
 
 COCOAPODS: 1.5.3

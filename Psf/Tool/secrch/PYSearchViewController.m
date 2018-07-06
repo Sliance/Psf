@@ -8,12 +8,15 @@
 #import "PYSearchConst.h"
 #import "PYSearchSuggestionViewController.h"
 #import "ZSConfig.h"
+#import "NextCollectionViewCell.h"
+#import "detailGoodsViewController.h"
+
 #define PYRectangleTagMaxCol 3
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
 #define PYSEARCH_COLORPolRandomColor self.colorPol[arc4random_uniform((uint32_t)self.colorPol.count)]
 
-@interface PYSearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, PYSearchSuggestionViewDataSource>
-
+@interface PYSearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, PYSearchSuggestionViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource>
+@property (nonatomic, strong)UICollectionView *collectionView;
 /**
  The header view of search view
  */
@@ -95,7 +98,7 @@
 @property (nonatomic, assign) CGFloat cancelButtonWidth;
 
 @end
-
+static NSString *cellId = @"cellId";
 @implementation PYSearchViewController
 
 - (instancetype)init
@@ -185,8 +188,8 @@
     
     // Adjust the view according to the `navigationBar.translucent`
     if (NO == self.navigationController.navigationBar.translucent) {
-        self.baseSearchTableView.contentInset = UIEdgeInsetsMake(0, 0, self.view.py_y, 0);
-        self.searchSuggestionVC.view.frame = CGRectMake(0, 32, self.view.py_width, self.view.py_height + self.view.py_y);
+        self.baseSearchTableView.contentInset = UIEdgeInsetsMake(0,[self navHeightWithHeight], self.view.py_y, 0);
+        self.searchSuggestionVC.view.frame = CGRectMake(0, 45+[self navHeightWithHeight], self.view.py_width, self.view.py_height + self.view.py_y);
         if (!self.navigationController.navigationBar.barTintColor) {
             self.navigationController.navigationBar.barTintColor = PYSEARCH_COLOR(249, 249, 249);
         }
@@ -224,8 +227,8 @@
 - (UITableView *)baseSearchTableView
 {
     if (!_baseSearchTableView) {
-        UITableView *baseSearchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45,self.view.py_width, self.view.py_height) style:UITableViewStyleGrouped];
-        baseSearchTableView.backgroundColor = [UIColor clearColor];
+        UITableView *baseSearchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45+[self navHeightWithHeight],self.view.py_width, self.view.py_height) style:UITableViewStyleGrouped];
+        baseSearchTableView.backgroundColor = [UIColor whiteColor];
         baseSearchTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         if ([baseSearchTableView respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) { // For the adapter iPad
             baseSearchTableView.cellLayoutMarginsFollowReadableWidth = NO;
@@ -261,7 +264,7 @@
                 [_swSelf searchBarSearchButtonClicked:_swSelf.searchBar];
             }
         };
-        searchSuggestionVC.view.frame = CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), PYScreenW, PYScreenH);
+        searchSuggestionVC.view.frame = CGRectMake(0, [self navHeightWithHeight]+45, PYScreenW, PYScreenH);
         searchSuggestionVC.view.backgroundColor = self.baseSearchTableView.backgroundColor;
         searchSuggestionVC.view.hidden = YES;
         _searchSuggestionView = (UITableView *)searchSuggestionVC.view;
@@ -355,6 +358,7 @@
 
 - (void)setup
 {
+    [self adjustNavigationUI:self.navigationController];
     self.view.backgroundColor = [UIColor whiteColor];
     self.baseSearchTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationController.navigationBar.backIndicatorImage = nil;
@@ -365,24 +369,35 @@
     [cancleButton addTarget:self action:@selector(cancelDidClick)  forControlEvents:UIControlEventTouchUpInside];
     [cancleButton sizeToFit];
     cancleButton.py_width += PYSEARCH_MARGIN;
-    cancleButton.frame = CGRectMake(PYScreenW-58, 0, 58, 45);
+    cancleButton.frame = CGRectMake(PYScreenW-58, [self navHeightWithHeight], 58, 45);
     [cancleButton setTitleColor:DSColorFromHex(0x454545) forState:UIControlStateNormal];
     [cancleButton setTitle:@"取消" forState:UIControlStateNormal];
     [self.view addSubview:cancleButton];
     self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancleButton];
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-//    [backButton setTitle:[NSBundle py_localizedStringForKey:PYSearchBackButtonText] forState:UIControlStateNormal];
+    [backButton setTitle:@"    " forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backDidClick)  forControlEvents:UIControlEventTouchUpInside];
     [backButton sizeToFit];
-    
-    backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -35, 0, -15);
-    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    backButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     backButton.py_width -= PYSEARCH_MARGIN;
+    [backButton setTintColor:DSColorFromHex(0x000000)];
     self.backButton = backButton;
-    self.backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+
+    UILabel *label = [[UILabel alloc]init];
+                       
+    label.text = @"搜索";
     
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = DSColorFromHex(0x474747);
+    label.font = [UIFont systemFontOfSize:18];
+
+    self.navigationItem.titleView = label;
+    
+  
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     /**
      * Initialize settings
      */
@@ -402,7 +417,7 @@
     self.searchBarCornerRadius = 0.0;
     
    
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 7, SCREENWIDTH-73, 32)];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 7+[self navHeightWithHeight], SCREENWIDTH-73, 32)];
     searchBar.barStyle = UISearchBarStyleDefault;
     searchBar.placeholder = [NSBundle py_localizedStringForKey:PYSearchSearchPlaceholderText];
     searchBar.backgroundImage = [NSBundle py_imageNamed:@"clearImage"];
@@ -458,8 +473,23 @@
     self.baseSearchTableView.tableFooterView = footerView;
     
     self.hotSearches = nil;
+    [self.view addSubview:self.collectionView];
+    self.collectionView.frame = CGRectMake(0, self.searchBar.ctBottom+20, SCREENWIDTH, SCREENHEIGHT-116);
 }
-
+-(UICollectionView *)collectionView{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.itemSize = CGSizeMake(165, 165);
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) collectionViewLayout:layout];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        _collectionView.hidden = YES;
+        [_collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellId];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+       
+    }
+    return _collectionView;
+}
 - (UILabel *)setupTitleLabel:(NSString *)title
 {
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -946,10 +976,10 @@
     _searchViewControllerShowMode = searchViewControllerShowMode;
     if (_searchViewControllerShowMode == PYSearchViewControllerShowModeModal) { // modal
         self.navigationItem.rightBarButtonItem = _cancelBarButtonItem;
-        self.navigationItem.leftBarButtonItem = nil;
+//        self.navigationItem.leftBarButtonItem = nil;
     } else if (_searchViewControllerShowMode == PYSearchViewControllerShowModePush) { // push
         self.navigationItem.hidesBackButton = YES;
-        self.navigationItem.leftBarButtonItem = _backBarButtonItem;
+//        self.navigationItem.leftBarButtonItem = _backBarButtonItem;
         self.navigationItem.rightBarButtonItem = nil;
     }
 }
@@ -984,7 +1014,7 @@
     self.keyboardHeight = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     self.keyboardShowing = YES;
     // Adjust the content inset of suggestion view
-    self.searchSuggestionVC.tableView.contentInset = UIEdgeInsetsMake(-30, 0, self.keyboardHeight + 30, 0);
+    self.searchSuggestionVC.tableView.contentInset = UIEdgeInsetsMake(-130, 0, self.keyboardHeight + 30, 0);
 }
 
 
@@ -1143,7 +1173,10 @@
         [self saveSearchCacheAndRefreshView];
         return;
     }
-    if (self.didSearchBlock) self.didSearchBlock(self, searchBar, searchBar.text);
+//    if (self.didSearchBlock) self.didSearchBlock(self, searchBar, searchBar.text);
+    self.searchSuggestionVC.tableView.hidden = YES;
+    self.collectionView.hidden = NO;
+    
     [self saveSearchCacheAndRefreshView];
 }
 
@@ -1266,9 +1299,52 @@
 {
     if (self.keyboardShowing) {
         // Adjust the content inset of suggestion view
-        self.searchSuggestionVC.tableView.contentInset = UIEdgeInsetsMake(-30, 0, 30, 0);
+        self.searchSuggestionVC.tableView.contentInset = UIEdgeInsetsMake(-130, 0, 30, 0);
         [self.searchBar resignFirstResponder];
     }
+}
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 6;
+}
+//设置每个item的UIEdgeInsets
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 15, 0, 15);
+    
+}
+
+//设置每个item水平间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return -10;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(165, 300);
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    
+    return cell;
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(SCREENWIDTH, 0);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    //    [self showViewController:nav sender:nil];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 @end

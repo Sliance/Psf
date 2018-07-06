@@ -11,6 +11,15 @@
 #import "MineHeadView.h"
 #import "MineFootView.h"
 #import "LoginViewController.h"
+#import "MyReceiveAddressController.h"
+#import "MessageCenterController.h"
+#import "MyCouponController.h"
+#import "SettingViewController.h"
+#import "MineInformationController.h"
+#import "BaseOrdersController.h"
+#import "MineWalletViewController.h"
+#import "ChooseServiceTypeController.h"
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *listArr;
@@ -22,7 +31,7 @@
 @implementation MineViewController
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-self.navHeight-49) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.tableFooterView = [[UIView alloc]init];
@@ -39,21 +48,50 @@
 -(MineFootView *)footView{
     if (!_footView) {
         _footView = [[MineFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 175)];
+        
     }
     return _footView;
 }
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setNavWithTitle:@"我的"];
+    }
+    return self;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+     self.navigationController.navigationBar.shadowImage = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _listArr = @[@"\U0000e906",@"\U0000e915",@"\U0000e92c",@"\U0000e90c",@"\U0000e910"];
-    _dataArr = @[@"我的收货地址",@"我的消息",@"我的优惠券",@"我的客服",@"设置"];
+    _listArr = @[@"\U0000e906",@"\U0000e915",@"\U0000e915",@"\U0000e92c",@"\U0000e90c",@"\U0000e910"];
+    _dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"我的客服",@"设置"];
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     self.tableview.separatorColor = [UIColor whiteColor];
     __weak typeof(self) weakSelf = self;
     [self.headView setSkipBlock:^(NSInteger tag) {
-        LoginViewController *loginVC = [[LoginViewController alloc]init];
-        loginVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:loginVC animated:YES];
+        MineInformationController *infoVC = [[MineInformationController alloc]init];
+        infoVC.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:infoVC animated:YES];
+    }];
+    [self.footView setSkipMineBlock:^(NSInteger index) {
+        if (index ==5) {
+            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+            chooseVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:chooseVC animated:YES];
+        }else{
+            BaseOrdersController *orderVC = [[BaseOrdersController alloc]init];
+            orderVC.hidesBottomBarWhenPushed = YES;
+            [orderVC setSelectedIndex:index];
+            [weakSelf.navigationController pushViewController:orderVC animated:YES];
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -102,6 +140,62 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setSection:indexPath.section];
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section ==0) {
+        BaseOrdersController *baseOrderVC = [[BaseOrdersController alloc]init];
+        baseOrderVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:baseOrderVC animated:YES];
+        
+    }else if (indexPath.section ==1) {
+        switch (indexPath.row) {
+            case 0:
+                {
+                    MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
+                    addressVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:addressVC animated:YES];
+                }
+                break;
+            case 2:
+            {
+                MessageCenterController *messageVC = [[MessageCenterController alloc]init];
+                messageVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:messageVC animated:YES];
+            }
+                break;
+            case 3:
+            {
+                MyCouponController *couponVC = [[MyCouponController alloc]init];
+                couponVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:couponVC animated:YES];
+            }
+                break;
+            case 4:
+            {
+            }
+                break;
+            case 5:
+            {
+                SettingViewController *setVC = [[SettingViewController alloc]init];
+                setVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:setVC animated:YES];
+            }
+                break;
+            case 1:
+            {
+                MineWalletViewController *walletVC = [[MineWalletViewController alloc]init];
+                walletVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:walletVC animated:YES];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+   
+}
+-(void)pressMinefootBtnWithIndex:(NSInteger)index{
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

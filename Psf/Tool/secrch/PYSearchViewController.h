@@ -6,6 +6,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PYSearchConst.h"
+#import "BaseViewController.h"
 
 @class PYSearchViewController, PYSearchSuggestionViewController;
 
@@ -197,7 +198,7 @@ didSelectSearchSuggestionAtIndex:(NSInteger)index
 
 @end
 
-@interface PYSearchViewController : UIViewController
+@interface PYSearchViewController : BaseViewController
 
 /**
  The delegate

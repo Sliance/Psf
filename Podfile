@@ -11,4 +11,5 @@ platform :ios, '9.0'
   pod 'Masonry'
   pod 'Mantle'
   pod 'FMDB', '~> 2.7.2'
+  pod 'MJExtension','~>3.0.11'
 end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StairCategoryRes.h"
+
 @protocol SortLeftScrollowDelegate<NSObject>
 -(void)selectedSortIndex:(NSInteger)index;
 

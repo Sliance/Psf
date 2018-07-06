@@ -7,8 +7,11 @@
 //
 
 #import "BaseApi.h"
+#import "StairCategoryReq.h"
+#import "ZSConfig.h"
+#import "StairCategoryRes.h"
 
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
-- (void)requestApplyLoadWithParam:(NSDictionary *) dic response:(responseModel) responseModel;
+- (void)requestApplyLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

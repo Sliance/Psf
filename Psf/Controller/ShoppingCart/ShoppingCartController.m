@@ -13,19 +13,35 @@
 #import "ValidShopHeadView.h"
 #import "LoseShopHeadView.h"
 #import "LikeShopHeadView.h"
+#import "ShopFootView.h"
+#import "FillOrderViewController.h"
 
 @interface ShoppingCartController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
+@property(nonatomic,strong)ShopFootView *footView;
 
 @end
 static NSString *cellId = @"ShoppingCollectionViewCell";
 static NSString *cellIds = @"NextCollectionViewCell";
 @implementation ShoppingCartController
-
+-(ShopFootView *)footView{
+    if (!_footView) {
+        _footView = [[ShopFootView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-49, SCREENWIDTH, 49)];
+        [_footView.submitBtn addTarget:self action:@selector(pressSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footView;
+}
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setNavWithTitle:@"购物车"];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.navHeight, SCREENWIDTH, SCREENHEIGHT) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ShoppingCollectionViewCell class] forCellWithReuseIdentifier:cellId];
@@ -36,6 +52,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
+    [self.view addSubview:self.footView];
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 3;
@@ -136,7 +153,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [detailGoodsViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController showViewController:vc sender:nil];
+}
+-(void)pressSubmitBtn:(UIButton*)sender{
+    FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
+    fillVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:fillVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

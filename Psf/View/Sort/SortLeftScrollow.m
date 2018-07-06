@@ -44,7 +44,8 @@
             btn.selected = NO;
         }
         [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.sortLabel.text = dataArr[i];
+        StairCategoryRes*model =dataArr[i];
+        btn.sortLabel.text = model.productCategoryName;
         btn.tag = i+100;
         [self addSubview:btn];
     }

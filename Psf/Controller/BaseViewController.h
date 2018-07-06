@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PrefixHeader.pch"
+#import "ZSConfig.h"
 #import "AppDelegate.h"
 #import "NavgationView.h"
 typedef void (^LoginComplited) ();
@@ -21,6 +21,7 @@ typedef void(^scrollToTopBlcok)();
 - (void)showToast:(NSString *)info;
 
 - (void)setRightButtonWithTitle:(NSString *) title;
+- (void)setNavWithTitle:(NSString *) navtitle;
 - (void)setRightButtonWithIcon:(UIImage *) image;
 - (void)setLeftButtonWithIcon:(UIImage *) image;
 - (void)setLeftButtonWithTitle:(NSString *) title;
@@ -48,6 +49,11 @@ typedef void(^scrollToTopBlcok)();
 
 //重新设置app数据
 - (void)reloginApp;
-@property(nonatomic,assign)NSInteger navHeight;
+
 @property(nonatomic,strong)NavgationView *navView;
+@property(nonatomic,strong)UIButton *backBtn;
+-(void)setTextFieldLeftView:(UITextField *)textField :(NSString *)imgStr :(NSInteger)width;
+
+-(CGFloat)navHeightWithHeight;
+-(CGFloat)tabBarHeight;
 @end

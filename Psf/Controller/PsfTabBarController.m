@@ -52,10 +52,13 @@
     
     sortItem = [[PsfTabBarItem alloc]initWithTitle:@"分类" image:[UIImage imageNamed:@"sort_icon_selected"] selectedImage:[UIImage imageNamed:@"sort_icon_selected"]];
     sortItem.image = [[UIImage imageNamed:@"sort_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    sortItem.selectedImage = [UIImage imageNamed:@"sort_icon_selected"];
     shopItem = [[PsfTabBarItem alloc]initWithTitle:@"购物车" image:[UIImage imageNamed:@"shopping_icon_selected"] selectedImage:[UIImage imageNamed:@"shopping_icon_selected"]];
     shopItem.image = [[UIImage imageNamed:@"shopping_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shopItem.selectedImage = [UIImage imageNamed:@"shopping_icon_selected"];
     mineItem = [[PsfTabBarItem alloc]initWithTitle:@"我的" image:[UIImage imageNamed:@"mine_icon_selected"] selectedImage:[UIImage imageNamed:@"mine_icon_selected"]];
     mineItem.image = [[UIImage imageNamed:@"mine_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    mineItem.selectedImage = [UIImage imageNamed:@"mine_icon_selected"];
     
     //次日达
     NextDayServiceController *nextController = [[NextDayServiceController alloc] init];
@@ -115,7 +118,7 @@
     if (previousViewControllerIndex >= 0) {
         previous = [viewControllerArray objectAtIndex:previousViewControllerIndex];
         previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
-                                                     initWithTitle:@" "
+                                                     initWithTitle:@""
                                                      style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:nil];
