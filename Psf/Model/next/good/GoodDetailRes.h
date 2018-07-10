@@ -10,7 +10,7 @@
 
 @interface GoodDetailRes : NSObject
 ///商品编号
-@property(nonatomic,copy)NSString *productId;
+@property(nonatomic,assign)NSInteger productId;
 ///商品名称
 @property(nonatomic,copy)NSString *productName;
 ///商品类型

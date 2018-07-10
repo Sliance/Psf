@@ -173,6 +173,7 @@
         [self setCornerLayoutNormal];
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
+        [self setCornerLayoutGroup];
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
          self.groupLabel.text = @"距离预售结束还剩:";
         [self setCornerLayoutGroup];

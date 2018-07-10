@@ -28,4 +28,5 @@
 @property(nonatomic,strong)UILabel *groupLabel;
 ///剩余时间
 @property(nonatomic,strong)UILabel *dateLabel;
+
 @end

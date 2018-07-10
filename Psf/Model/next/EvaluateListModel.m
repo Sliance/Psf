@@ -9,5 +9,10 @@
 #import "EvaluateListModel.h"
 
 @implementation EvaluateListModel
-
++ (NSDictionary *)mj_objectClassInArray {
+    
+    return @{
+             @"saleOrderProductCommentImageList" : @"ImageModel",
+             };
+}
 @end

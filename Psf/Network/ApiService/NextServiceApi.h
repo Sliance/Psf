@@ -11,6 +11,8 @@
 #import "ZSConfig.h"
 #import "StairCategoryRes.h"
 #import "GoodDetailRes.h"
+#import "EvaluateListModel.h"
+
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
 ///商品分类列表,包含一二级分类

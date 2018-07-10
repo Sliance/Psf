@@ -7,7 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ImageModel.h"
 
 @interface EvaluateListModel : NSObject
-
+///
+@property(nonatomic,copy)NSString *memberAvatarPath;
+///
+@property(nonatomic,assign)NSInteger memberId;
+///
+@property(nonatomic,copy)NSString *memberNickName;
+///
+@property(nonatomic,assign)NSInteger productId;
+///
+@property(nonatomic,assign)NSInteger productSkuId;
+///
+@property(nonatomic,assign)NSInteger saleOrderId;
+///
+@property(nonatomic,copy)NSString *saleOrderProductCommentContent;
+///
+@property(nonatomic,assign)NSInteger saleOrderProductCommentId;
+///
+@property(nonatomic,strong)NSArray *saleOrderProductCommentImageList;
+///
+@property(nonatomic,assign)NSInteger saleOrderProductCommentSatisfaction;
+///
+@property(nonatomic,assign)NSInteger saleOrderProductId;
+///
+@property(nonatomic,assign)NSInteger systemCreateTime;
 @end

@@ -90,8 +90,6 @@
         _cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 375)];
         _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 375);
         _cycleScroll.delegate =self;
-        NSArray *images = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],nil];
-//        _cycleScroll.localImageGroups = images;
         _cycleScroll.autoScrollTimeInterval = 3.0;
         _cycleScroll.dotColor = [UIColor redColor];
     }
@@ -147,7 +145,11 @@
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
    
-   
+    [self.footView setSelectedCollect:^(NSInteger productId) {
+        detailGoodsViewController*detailVC = [[detailGoodsViewController alloc]init];
+        [detailVC setProductID:productId];
+        [_weakSelf.navigationController pushViewController:detailVC animated:YES];
+    }];
 }
 
 -(void)setProductID:(NSInteger )productID{
@@ -178,10 +180,10 @@
         weakself.result = response;
            
             weakself.cycleScroll.imageUrlGroups = (NSMutableArray*)weakself.result.productImageList;
-            
+            [weakself requestEvaluate];
       }
     }];
-     [self requestEvaluate];
+    
     
 }
 -(void)requestCoupon{
@@ -249,10 +251,9 @@
        
         [self requestCoupon];
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
-       
+        _tourHeight = 0;
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
-        
-        self.tourDiyView.hidden = YES;
+        _tourHeight = 0;
     }else {//满减
          [self requestCoupon];
     }
@@ -265,6 +266,9 @@
     if (self.evaArr.count ==0) {
         _evaHeight =0;
         _evaView.hidden = YES;
+    }else{
+        _evaHeight = 50;
+        _evaView.hidden = NO;
     }
     self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, _tourHeight);
     self.couponCell.frame = CGRectMake(0, self.tourDiyView.ctBottom, SCREENWIDTH, _couponHeight);

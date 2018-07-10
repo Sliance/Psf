@@ -127,7 +127,8 @@ static NSString *cellId = @"GoodCollectionViewCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    GoodDetailRes *model = _dataArr[indexPath.row];
+    self.selectedCollect(model.productId);
 }
 -(void)pressBtn:(UIButton*)sender{
     _kanBtn.selected = NO;

@@ -11,4 +11,5 @@
 @interface ImageModel : NSObject
 @property(nonatomic,assign)NSInteger productImageId;
 @property(nonatomic,copy)NSString* productImagePath;
+@property(nonatomic,copy)NSString* saleOrderProductCommentImagePath;
 @end
