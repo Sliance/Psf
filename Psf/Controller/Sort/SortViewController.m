@@ -21,6 +21,8 @@
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)SortCollectHeadView *headView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *detailDataArr;
+@property(nonatomic,assign)NSInteger headIndex;
 @end
 static NSString *cellId = @"SortCollectionViewCell";
 @implementation SortViewController
@@ -33,7 +35,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 -(SortLeftScrollow *)sortLeftView{
     if (!_sortLeftView) {
-        _sortLeftView = [[SortLeftScrollow alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+45, 75, SCREENHEIGHT-[self navHeightWithHeight]-45)];
+        _sortLeftView = [[SortLeftScrollow alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+45, 75, SCREENHEIGHT-[self tabBarHeight]-45)];
         _sortLeftView.delegate = self;
     }
     return _sortLeftView;
@@ -50,7 +52,7 @@ static NSString *cellId = @"SortCollectionViewCell";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
--(void)requestData{
+-(void)requestData:(NSString*)categoryId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -59,43 +61,48 @@ static NSString *cellId = @"SortCollectionViewCell";
     req.userId = @"1009660103519952898";
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.couponType = @"allProduct";
-    req.saleOrderStatus = @"0";
+//    req.couponType = @"allProduct";
+//    req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = @"1014123154812694529";
+    req.productId = [NSString stringWithFormat:@"%ld",(long)categoryId];
 //    req.pageIndex = @"1";
 //    req.pageSize = @"10";
-    req.productCategoryParentId = @"";
+    req.productCategoryParentId = categoryId;
 //    req.saleOrderId = @"1013703405872041985";
-//    req.cityId = @"310100";
+    req.cityId = @"310100";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestApplyLoadWithParam:req response:^(id response) {
         if (response) {
-            
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
-            [weakself.sortLeftView setDataArr:weakself.dataArr];
+            if([categoryId isEqualToString:@""]){
+                [weakself.dataArr removeAllObjects];
+                [weakself.dataArr addObjectsFromArray:response];
+                [weakself.sortLeftView setDataArr:weakself.dataArr];
+                StairCategoryRes *model = [weakself.dataArr firstObject];
+                [weakself requestData:[NSString stringWithFormat:@"%ld",(long)model.productCategoryId]];
+                weakself.headIndex = 0;
+                [weakself.collectionView reloadData];
+            }else{
+                [weakself.detailDataArr removeAllObjects];
+                [weakself.detailDataArr addObjectsFromArray:response];
+                [weakself.collectionView reloadData];
+            }
         }
     }];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
    [self.view addSubview:self.locView];
    [self.view addSubview:self.sortLeftView];
     _dataArr = [NSMutableArray array];
-    [self requestData];
+    _detailDataArr = [NSMutableArray array];
+    [self requestData:@""];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(100, 100);
-   
-    //设置collectionView滚动方向
-    //    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    //设置headerView的尺寸大小
-    layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 150);
-    layout.footerReferenceSize = CGSizeMake(SCREENWIDTH, 5);
-    
+    layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 170);
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(75, [self navHeightWithHeight]+45, SCREENWIDTH-75, SCREENHEIGHT) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -111,7 +118,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 100;
+    return _detailDataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -137,12 +144,12 @@ static NSString *cellId = @"SortCollectionViewCell";
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        UICollectionReusableView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView" forIndexPath:indexPath];
-        footview.backgroundColor =DSColorFromHex(0xF2F2F2);
-        
-        return footview;
-    }
+//    if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+//        UICollectionReusableView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView" forIndexPath:indexPath];
+//        footview.backgroundColor =DSColorFromHex(0xF2F2F2);
+//
+//        return footview;
+//    }
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
     
     
@@ -151,23 +158,25 @@ static NSString *cellId = @"SortCollectionViewCell";
             [view removeFromSuperview];
         }
     }
-
-   
-    _headView = [[SortCollectHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH-75, 150)];
-    
+    _headView = [[SortCollectHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH-75, 170)];
+    StairCategoryRes *model = _dataArr[_headIndex];
+    _headView.nameLabel.text = model.productCategoryName;
     [headerView addSubview:_headView];
     return headerView;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     SortCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     [cell setImageHeight:75];
+    StairCategoryRes *model = _detailDataArr[indexPath.row];
+    [cell setModel:model];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DetailSortController *vc = [DetailSortController new];
+    [vc setSelectedIndex:indexPath.row];
+     [vc setDataArr:self.detailDataArr];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController showViewController:vc sender:nil];
 }
@@ -175,7 +184,8 @@ static NSString *cellId = @"SortCollectionViewCell";
 #pragma mark--SortLeftScrollowDelegate
 -(void)selectedSortIndex:(NSInteger)index{
     StairCategoryRes *model =_dataArr[index];
-    _headView.nameLabel.text = model.productCategoryName;
+    [self requestData:[NSString stringWithFormat:@"%ld",model.productCategoryId]];
+    _headIndex = index;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

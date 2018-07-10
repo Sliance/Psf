@@ -10,4 +10,5 @@
 
 @interface DetailSortController : VTMagicController
 @property(nonatomic,assign)NSInteger selectedIndex;
+@property(nonatomic,assign)NSMutableArray* dataArr;
 @end

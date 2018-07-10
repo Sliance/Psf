@@ -17,9 +17,11 @@
 #import "TourDiyGooddetailView.h"
 #import "DetailGroupController.h"
 #import "GoodBottomView.h"
+#import "NextServiceApi.h"
 
-
-@interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate>
+@interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
+    NSInteger _couponHeight;
+}
 
 @property(nonatomic,strong)UIScrollView *bgscrollow;
 @property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
@@ -31,7 +33,9 @@
 @property(nonatomic,strong)GetCouponsView *couponView;
 @property(nonatomic,strong)TourDiyGooddetailView *tourDiyView;
 @property(nonatomic,strong)GoodBottomView *bottomView;
-
+@property(nonatomic,strong)GoodDetailRes *result;
+@property (strong, nonatomic) UIWebView *webView;
+@property(strong,nonatomic)NSMutableArray *evaArr;
 @end
 
 @implementation detailGoodsViewController
@@ -87,7 +91,7 @@
         _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 375);
         _cycleScroll.delegate =self;
         NSArray *images = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],[UIImage imageNamed:@"banner"],nil];
-        _cycleScroll.localImageGroups = images;
+//        _cycleScroll.localImageGroups = images;
         _cycleScroll.autoScrollTimeInterval = 3.0;
         _cycleScroll.dotColor = [UIColor redColor];
     }
@@ -102,6 +106,13 @@
     }
     return _bgscrollow;
 }
+-(UIWebView *)webView{
+    if(!_webView){
+        _webView = [[UIWebView alloc]init];
+        _webView.delegate = self;
+    }
+    return _webView;
+}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -111,7 +122,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    _evaArr = [NSMutableArray array];
     [self.view addSubview:self.bgscrollow];
     [self.bgscrollow addSubview:self.cycleScroll];
     [self.bgscrollow addSubview:self.headView];
@@ -121,11 +132,8 @@
     [self.bgscrollow addSubview:self.tourDiyView];
      [self.view addSubview:self.bottomView];
     [self.view addSubview:self.couponView];
+    [self.bgscrollow addSubview:self.webView];
     self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
-    self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 192);
-    self.couponCell.frame = CGRectMake(0, self.tourDiyView.ctBottom, SCREENWIDTH, 50);
-    self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, 50);
-    self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
    __weak typeof(self) _weakSelf = self;
     [self.evaView setSkipBlock:^(NSInteger index) {
         EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
@@ -138,6 +146,131 @@
         DetailGroupController *detailVC = [[DetailGroupController alloc]init];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
+   
+   
+}
+
+-(void)setProductID:(NSInteger )productID{
+    _productID = productID;
+    
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+        req.couponType = @"allProduct";
+        req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",productID];
+        req.pageIndex = @"1";
+        req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+        req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
+        if(response != nil){
+        weakself.result = response;
+           
+            weakself.cycleScroll.imageUrlGroups = (NSMutableArray*)weakself.result.productImageList;
+            
+      }
+    }];
+     [self requestEvaluate];
+    
+}
+-(void)requestCoupon{
+  
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestCouponListLoadWithParam:req response:^(id response) {
+       
+    }];
+}
+-(void)requestEvaluate{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestEvaluateListModelListLoadWithParam:req response:^(id response) {
+         [weakself.footView setPruductId:weakself.productID];
+         [weakself.evaArr addObjectsFromArray:response];
+         [weakself reloadData];
+    }];
+}
+-(void)reloadData{
+        [self.headView setModel:self.result];
+    
+    NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH,self.result.productContent];
+    
+    [self.webView loadHTMLString:html_str baseURL:nil];
+    NSInteger _tourHeight = 0;
+    NSInteger _evaHeight = 0;
+    if([self.result.productType isEqualToString:@"normal"]){//正常
+       
+        [self requestCoupon];
+    }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
+       
+    }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
+        
+        self.tourDiyView.hidden = YES;
+    }else {//满减
+         [self requestCoupon];
+    }
+    if (_couponHeight ==0) {
+        _couponCell.hidden = YES;
+    }
+    if (_tourHeight ==0) {
+        self.tourDiyView.hidden = YES;
+    }
+    if (self.evaArr.count ==0) {
+        _evaHeight =0;
+        _evaView.hidden = YES;
+    }
+    self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, _tourHeight);
+    self.couponCell.frame = CGRectMake(0, self.tourDiyView.ctBottom, SCREENWIDTH, _couponHeight);
+    self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
+    self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
+    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
 }
 
 - (void)viewWillAppear:(BOOL)animated {

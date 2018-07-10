@@ -141,6 +141,8 @@ static inline NSString *cachePath() {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // 不加上这句话，会报“Request failed: unacceptable content-type: text/plain”错误，因为要获取text/plain类型数据
+//    manager.securityPolicy = [self customSecurityPolicy];
+    manager.securityPolicy.allowInvalidCertificates = YES;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     if (type == NetworkRequestTypeGET) {
         // GET请求

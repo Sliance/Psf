@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZSConfig.h"
+#import "StairCategoryListRes.h"
 
 @interface StairCategoryRes : NSObject
 ///
@@ -17,4 +19,6 @@
 @property(nonatomic,copy)NSString *productCategoryName;
 ///
 @property(nonatomic,copy)NSString *productCategoryParentId;
+///分类下商品
+@property(nonatomic,copy)NSArray *productList;
 @end

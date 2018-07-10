@@ -495,7 +495,13 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     self.responseSerializer = [AFJSONResponseSerializer serializer];
 
     self.securityPolicy = [AFSecurityPolicy defaultPolicy];
-
+    // 客户端是否信任非法证书
+    self.securityPolicy.allowInvalidCertificates = YES;
+    // 是否在证书域字段中验证域名
+    
+    self.securityPolicy.validatesDomainName = NO;
+    
+    
 #if !TARGET_OS_WATCH
     self.reachabilityManager = [AFNetworkReachabilityManager sharedManager];
 #endif

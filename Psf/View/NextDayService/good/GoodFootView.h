@@ -7,6 +7,8 @@
 //
 
 #import "BaseView.h"
+#import "NextServiceApi.h"
+#import "StairCategoryReq.h"
 
 @interface GoodFootView : BaseView<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic,strong)UIButton *kanBtn;
@@ -16,4 +18,8 @@
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)UIButton *tmpBtn;
 @property (nonatomic, strong)UICollectionView *collectionView;
+@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,assign)NSInteger pruductId;
+
+
 @end

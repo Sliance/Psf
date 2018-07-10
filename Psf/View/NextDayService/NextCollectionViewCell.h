@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StairCategoryListRes.h"
+#import "ZSConfig.h"
 
 @interface NextCollectionViewCell : UICollectionViewCell
 ///图片
@@ -23,4 +25,5 @@
 @property(nonatomic,strong)UILabel *raiseLabel;
 ///爆款
 @property(nonatomic,strong)UILabel *quickLabel;
+@property(nonatomic,strong)StairCategoryListRes *model;
 @end

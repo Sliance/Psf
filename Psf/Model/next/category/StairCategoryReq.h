@@ -16,7 +16,7 @@
 ///
 @property(nonatomic,copy)NSString *token;
 ///客户端
-@property(nonatomic,copy)NSString *platform;
+@property(nonatomic,strong)NSString *platform;
 ///时间戳
 @property(nonatomic,copy)NSString *timestamp;
 @property(nonatomic,copy)NSString *userId;

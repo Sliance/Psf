@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "StairCategoryRes.h"
+#import "ZSConfig.h"
 @interface SortCollectionViewCell : UICollectionViewCell
 ///图片
 @property(nonatomic,strong)UIImageView *headImage;
 ///物品名
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,assign)NSInteger imageHeight;
+@property(nonatomic,strong)StairCategoryRes *model;
 @end

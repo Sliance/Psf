@@ -88,7 +88,7 @@
     CFRelease(puuid);
     CFRelease(uuidString);
     NSString *uuid = [NSString stringWithFormat:@"%@", result];
-    CFRelease((__bridge CFTypeRef)(result));
+//    CFRelease((__bridge CFTypeRef)(result));
     return  uuid;
 }
 

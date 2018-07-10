@@ -179,6 +179,7 @@ typedef NS_ENUM(NSInteger, NetworkRequestType) {
     }
     NSURLSessionDataTask * sessionTask;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     ///入参转json格式
      manager.requestSerializer = [AFJSONRequestSerializer serializer];

@@ -1,18 +1,20 @@
 //
-//  StairCategoryRes.m
+//  GoodDetailRes.m
 //  Psf
 //
-//  Created by 燕来秋mac9 on 2018/7/6.
+//  Created by 燕来秋mac9 on 2018/7/9.
 //  Copyright © 2018年 zhangshu. All rights reserved.
 //
 
-#import "StairCategoryRes.h"
+#import "GoodDetailRes.h"
 
-@implementation StairCategoryRes
+@implementation GoodDetailRes
+
 + (NSDictionary *)mj_objectClassInArray {
     
     return @{
              @"productList" : @"StairCategoryListRes",
+             @"productImageList":@"ImageModel"
              };
 }
 @end

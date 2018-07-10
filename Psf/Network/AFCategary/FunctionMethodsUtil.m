@@ -72,14 +72,14 @@
     if ([responseObject isKindOfClass:[NSData class]]) {
         NSError *error = nil;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&error];
-        NSLog(@"请求接口返回的Code>>>>> %@", [NSString stringWithFormat:@"%@", dict[@"code"]]);
+        NSLog(@"请求接口返回的>>>>> %@",dict);
         if ([dict[@"code"] integerValue] != 0  && [dict[@"code"] integerValue] != 404 ){
                 if([dict[@"code"] integerValue] == 33333){//33333表示表示被踢掉 需要重新登录
                     if ([UserCacheBean share].userInfo.token.length > 1) {//有Token 表示是登录之后发生的特殊情况 没有Token 的时候发生特殊情况不用做出提示
                         [[ZSAPIProxy shareProxy] cancelAllRequest];//取消其他所有请求
                         [FunctionMethodsUtil loginAgain];
-                        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@", dict[@"message"]] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-                        [alertView show];
+//                        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@", dict[@"message"]] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//                        [alertView show];
                     }else{
                     }
                 }else{

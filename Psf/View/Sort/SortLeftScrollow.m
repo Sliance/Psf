@@ -16,7 +16,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:_bgScrollow];
+        [self addSubview:self.bgScrollow];
     }
     return self;
 }
@@ -24,7 +24,8 @@
     if (!_bgScrollow) {
         _bgScrollow = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0,75, self.frame.size.height)];
         _bgScrollow.delegate = self;
-        
+        _bgScrollow.showsHorizontalScrollIndicator = NO;
+        _bgScrollow.showsVerticalScrollIndicator = NO;
         
     }
     return _bgScrollow;
@@ -47,9 +48,11 @@
         StairCategoryRes*model =dataArr[i];
         btn.sortLabel.text = model.productCategoryName;
         btn.tag = i+100;
-        [self addSubview:btn];
+        [self.bgScrollow addSubview:btn];
+        _bgScrollow.contentSize = CGSizeMake(0, 52*dataArr.count+10);
     }
 }
+
 -(void)pressBtn:(SortBtn*)sender{
     for (int i = 0; i < _dataArr.count; i++) {
         SortBtn *btn = (SortBtn *)[[sender superview]viewWithTag:100 + i];

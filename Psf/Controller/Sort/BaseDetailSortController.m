@@ -9,9 +9,11 @@
 #import "BaseDetailSortController.h"
 #import "detailGoodsViewController.h"
 #import "NextCollectionViewCell.h"
+#import "NextServiceApi.h"
 
 @interface BaseDetailSortController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
+@property(nonatomic,strong)NSMutableArray *dateArr;
 @end
 static NSString *cellId = @"cellId";
 @implementation BaseDetailSortController
@@ -19,10 +21,10 @@ static NSString *cellId = @"cellId";
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.itemSize = CGSizeMake(165, 165);
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, SCREENWIDTH, SCREENHEIGHT*10) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, SCREENWIDTH, SCREENHEIGHT-100) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.scrollEnabled = YES;
+//        _collectionView.scrollEnabled = YES;
         [_collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellId];
         _collectionView.backgroundColor = [UIColor whiteColor];
     }
@@ -32,10 +34,46 @@ static NSString *cellId = @"cellId";
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
+    
 }
-
+-(void)requestData{
+     StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    //    req.couponType = @"allProduct";
+    //    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",self.model.productCategoryId];
+    //    req.pageIndex = @"1";
+    //    req.pageSize = @"10";
+    req.productCategoryParentId = self.model.productCategoryParentId;
+    //    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    self.dateArr = [[NSMutableArray alloc]init];
+    __weak typeof(self) weakSelf = self;
+    [[NextServiceApi share]requestSortListLoadWithParam:req response:^(id response) {
+        if(response!=nil){
+            StairCategoryRes *model = [response firstObject];
+            [weakSelf.dateArr removeAllObjects];
+            [weakSelf.dateArr addObjectsFromArray:model.productList];
+            [weakSelf.collectionView reloadData];
+        }
+    }];
+}
+-(void)setModel:(StairCategoryRes *)model{
+    _model = model;
+    [self requestData];
+   
+}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 100;
+    return _dateArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -90,14 +128,16 @@ static NSString *cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    StairCategoryListRes *model = _dateArr[indexPath.row];
+    [cell setModel:model];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    //    [self showViewController:nav sender:nil];
+   StairCategoryListRes *model = _dateArr[indexPath.row];
+    [vc setProductID:model.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

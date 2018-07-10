@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "StairCategoryReq.h"
+#import "StairCategoryRes.h"
 
 @interface BaseDetailSortController : BaseViewController
-
+@property(nonatomic,strong)StairCategoryRes *model;
 @end

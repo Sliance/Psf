@@ -13,8 +13,6 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"banana_sort"];
-
     }
     return _headImage;
 }
@@ -24,7 +22,7 @@
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
         _nameLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
-        _nameLabel.text = @"香蕉";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -51,5 +49,11 @@
         
     }];
 }
-
+-(void)setModel:(StairCategoryRes *)model{
+    _model = model;
+    self.nameLabel.text = model.productCategoryName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productCategoryImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    
+}
 @end

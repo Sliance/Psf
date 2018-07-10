@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
+#import "ImageModel.h"
 
 
 /**

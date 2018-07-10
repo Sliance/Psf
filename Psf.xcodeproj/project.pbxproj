@@ -169,6 +169,9 @@
 		88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8420EDFA7C000BC993 /* FillEvaluateController.m */; };
 		88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8720EDFB97000BC993 /* FillEvaluateHwadView.m */; };
 		88747E8F20EE34D0000BC993 /* GoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8E20EE34D0000BC993 /* GoodBottomView.m */; };
+		88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9B20F3162D0044A527 /* StairCategoryListRes.m */; };
+		88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9F20F34A910044A527 /* GoodDetailRes.m */; };
+		88797FA320F34E570044A527 /* ImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797FA220F34E570044A527 /* ImageModel.m */; };
 		888D66D020E9C7EA0007D471 /* NextSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888D66CF20E9C7EA0007D471 /* NextSelectorView.m */; };
 		888D66D320E9ECE00007D471 /* NextCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888D66D220E9ECE00007D471 /* NextCollectionHeadView.m */; };
 		888D66D720E9FA970007D471 /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888D66D620E9FA970007D471 /* GroupTableViewCell.m */; };
@@ -549,6 +552,12 @@
 		88747E8720EDFB97000BC993 /* FillEvaluateHwadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FillEvaluateHwadView.m; sourceTree = "<group>"; };
 		88747E8D20EE34D0000BC993 /* GoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodBottomView.h; sourceTree = "<group>"; };
 		88747E8E20EE34D0000BC993 /* GoodBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodBottomView.m; sourceTree = "<group>"; };
+		88797F9A20F3162D0044A527 /* StairCategoryListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StairCategoryListRes.h; sourceTree = "<group>"; };
+		88797F9B20F3162D0044A527 /* StairCategoryListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StairCategoryListRes.m; sourceTree = "<group>"; };
+		88797F9E20F34A910044A527 /* GoodDetailRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodDetailRes.h; sourceTree = "<group>"; };
+		88797F9F20F34A910044A527 /* GoodDetailRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodDetailRes.m; sourceTree = "<group>"; };
+		88797FA120F34E570044A527 /* ImageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
+		88797FA220F34E570044A527 /* ImageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageModel.m; sourceTree = "<group>"; };
 		888D66CE20E9C7EA0007D471 /* NextSelectorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextSelectorView.h; sourceTree = "<group>"; };
 		888D66CF20E9C7EA0007D471 /* NextSelectorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextSelectorView.m; sourceTree = "<group>"; };
 		888D66D120E9ECE00007D471 /* NextCollectionHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextCollectionHeadView.h; sourceTree = "<group>"; };
@@ -1232,8 +1241,21 @@
 				8852A22420EEFE50002C2D12 /* StairCategoryReq.m */,
 				8852A22920EF79AD002C2D12 /* StairCategoryRes.h */,
 				8852A22A20EF79AD002C2D12 /* StairCategoryRes.m */,
+				88797F9A20F3162D0044A527 /* StairCategoryListRes.h */,
+				88797F9B20F3162D0044A527 /* StairCategoryListRes.m */,
 			);
 			path = category;
+			sourceTree = "<group>";
+		};
+		88797F9D20F34A770044A527 /* good */ = {
+			isa = PBXGroup;
+			children = (
+				88797F9E20F34A910044A527 /* GoodDetailRes.h */,
+				88797F9F20F34A910044A527 /* GoodDetailRes.m */,
+				88797FA120F34E570044A527 /* ImageModel.h */,
+				88797FA220F34E570044A527 /* ImageModel.m */,
+			);
+			path = good;
 			sourceTree = "<group>";
 		};
 		887B412920D38B8D00D51233 /* Tool */ = {
@@ -1305,6 +1327,7 @@
 		888E717620E0C3F500BFBAFF /* next */ = {
 			isa = PBXGroup;
 			children = (
+				88797F9D20F34A770044A527 /* good */,
 				88747E8920EE250D000BC993 /* category */,
 				888E717920E0C49100BFBAFF /* DataManager.h */,
 				888E717720E0C49100BFBAFF /* DataManager.m */,
@@ -1759,6 +1782,7 @@
 				888E719120E0CAA300BFBAFF /* VTMagicController.m in Sources */,
 				88484D7720EB069A00400D16 /* RechargeViewController.m in Sources */,
 				88534C3620E63BD600D6F43C /* FillOrderViewController.m in Sources */,
+				88797FA320F34E570044A527 /* ImageModel.m in Sources */,
 				8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */,
 				8857EA7720E3597500D7E167 /* WaitPaymentCell.m in Sources */,
 				88636D0920E1FD73006CE5D8 /* BaseTableViewCell.m in Sources */,
@@ -1875,6 +1899,7 @@
 				888D66DB20EA34FE0007D471 /* MineWalletViewController.m in Sources */,
 				8871B8CE20DBB29200DAA5D6 /* JFButton.m in Sources */,
 				888E719020E0CAA300BFBAFF /* VTMenuBar.m in Sources */,
+				88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */,
 				88600BDA20D890FF0098CF10 /* ZSSortSelectorView.m in Sources */,
 				88D8935E20D25C41007E3C41 /* ViewController.m in Sources */,
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
@@ -1898,6 +1923,7 @@
 				88484D8920EB5CD300400D16 /* GroupCollectionViewCell.m in Sources */,
 				88534C3320E63B9800D6F43C /* GroupViewController.m in Sources */,
 				8871B8B120DB702700DAA5D6 /* PYSearchConst.m in Sources */,
+				88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */,
 				88590B8220E4F26200F51BC5 /* EvaluateListModel.m in Sources */,
 				88D8939420D26AE0007E3C41 /* PsfTabBarController.m in Sources */,
 				8871B89020DB4B2A00DAA5D6 /* UDIDWrapper.m in Sources */,

@@ -9,6 +9,7 @@
 #import "DetailSortController.h"
 #import "BaseDetailSortController.h"
 #import "MenuInfo.h"
+#import "StairCategoryRes.h"
 
 @interface DetailSortController ()
 @property (nonatomic, strong)  NSArray *menuList;
@@ -50,8 +51,7 @@
     [self configSeparatorView];
     
     [self addNotification];
-    [self generateTestData];
-    [self.magicView reloadData];
+    
 }
 -(void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
@@ -100,19 +100,21 @@
 }
 
 - (UIViewController *)magicView:(VTMagicView *)magicView viewControllerAtPage:(NSUInteger)pageIndex {
-            static NSString *gridId = @"AllOrdersController";
-            BaseDetailSortController *viewController = [magicView dequeueReusablePageWithIdentifier:gridId];
-            if (!viewController) {
-                viewController = [[BaseDetailSortController alloc] init];
-            }
+    static NSString *gridId = @"AllOrdersController";
+    BaseDetailSortController *viewController;
     
+        viewController = [magicView dequeueReusablePageWithIdentifier:gridId];
+        if (!viewController) {
+            viewController = [[BaseDetailSortController alloc] init];
+        }
             return viewController;
 }
 
 #pragma mark - VTMagicViewDelegate
 - (void)magicView:(VTMagicView *)magicView viewDidAppear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
-    
-    
+    _selectedIndex = pageIndex;
+    StairCategoryRes *model = _dataArr[pageIndex];
+    [viewController setModel:model];
 }
 
 - (void)magicView:(VTMagicView *)magicView viewDidDisappear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
@@ -120,7 +122,6 @@
 }
 
 - (void)magicView:(VTMagicView *)magicView didSelectItemAtIndex:(NSUInteger)itemIndex {
-    
     
 }
 - (void)switchToPage:(NSUInteger)pageIndex animated:(BOOL)animated {
@@ -133,20 +134,25 @@
     //    self.magicView.againstStatusBar = !self.magicView.againstStatusBar;
     [self.magicView setHeaderHidden:!self.magicView.isHeaderHidden duration:0.35];
 }
-
+-(void)setDataArr:(NSMutableArray *)dataArr{
+    _dataArr = dataArr;
+    StairCategoryRes *model = dataArr[_selectedIndex];
+    [self setNavWithTitle:model.productCategoryName];
+    [self generateTestData];
+    [self.magicView reloadDataToPage:_selectedIndex];
+}
 #pragma mark - functional methods
 - (void)generateTestData {
     NSString *title = @"推荐";
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:24];
     [menuList addObject:[MenuInfo menuInfoWithTitl:title]];
-    NSArray *arr = @[@"苹果梨",@"柑橙柚",@"小果类",@"热带果"];
+   
     [menuList removeAllObjects];
-    for (int index = 0; index < arr.count; index++) {
-        title = arr[index];
-        MenuInfo *menu = [MenuInfo menuInfoWithTitl:title];
+    for (int index = 0; index < _dataArr.count; index++) {
+        StairCategoryRes *model = _dataArr[index];
+        MenuInfo *menu = [MenuInfo menuInfoWithTitl:model.productCategoryName];
         [menuList addObject:menu];
     }
-    
     _menuList = menuList;
 }
 

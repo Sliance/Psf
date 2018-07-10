@@ -365,6 +365,15 @@
 
     HTTPClient.requestSerializer = [self.requestSerializer copyWithZone:zone];
     HTTPClient.responseSerializer = [self.responseSerializer copyWithZone:zone];
+    // 客户端是否信任非法证书
+    
+    self.securityPolicy.allowInvalidCertificates = YES;
+    
+    // 是否在证书域字段中验证域名
+    
+    self.securityPolicy.validatesDomainName = NO;
+    
+
     HTTPClient.securityPolicy = [self.securityPolicy copyWithZone:zone];
     return HTTPClient;
 }

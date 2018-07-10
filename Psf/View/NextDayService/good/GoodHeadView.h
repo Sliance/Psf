@@ -7,7 +7,7 @@
 //
 
 #import "BaseView.h"
-
+#import "GoodDetailRes.h"
 @interface GoodHeadView : BaseView
 ///分享按钮
 @property(nonatomic,strong)UIButton *shareBtn;
@@ -21,4 +21,11 @@
 @property(nonatomic,strong)UILabel *weightLabel;
 ///已售数量
 @property(nonatomic,strong)UILabel *soldLabel;
+@property(nonatomic,strong)GoodDetailRes *model;
+///拼团、预售
+@property(nonatomic,strong)UIView *groupView;
+///
+@property(nonatomic,strong)UILabel *groupLabel;
+///剩余时间
+@property(nonatomic,strong)UILabel *dateLabel;
 @end

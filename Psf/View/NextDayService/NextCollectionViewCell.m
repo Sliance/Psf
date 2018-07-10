@@ -70,6 +70,7 @@
         [_raiseLabel.layer setCornerRadius:1];
         [_raiseLabel.layer setMasksToBounds:YES];
         _raiseLabel.textColor = [UIColor whiteColor];
+        _raiseLabel.hidden = YES;
         _raiseLabel.text = @"加价购";
     }
     return _raiseLabel;
@@ -80,6 +81,7 @@
         _quickLabel.textAlignment = NSTextAlignmentCenter;
         _quickLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:11];
         _quickLabel.backgroundColor = [UIColor colorWithRed:215/255.0 green:133/255.0 blue:131/255.0 alpha:1];
+        _quickLabel.hidden = YES;
         [_quickLabel.layer setCornerRadius:1];
         [_quickLabel.layer setMasksToBounds:YES];
         _quickLabel.textColor = [UIColor whiteColor];
@@ -142,5 +144,14 @@
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(18);
     }];
+}
+-(void)setModel:(StairCategoryListRes *)model{
+    _model = model;
+    self.nameLabel.text = model.productName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.contentLabel.text = model.productTitle;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+    self.weightLabel.text = [NSString stringWithFormat:@"/%@%@",model.productWeight,model.productUnit];
 }
 @end

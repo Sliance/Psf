@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
+#import "GoodDetailRes.h"
 
 @interface GoodCollectionViewCell : UICollectionViewCell
 ///图片
@@ -15,4 +16,5 @@
 ///物品名
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UILabel *priceLabel;
+@property(nonatomic,strong)GoodDetailRes *model;
 @end

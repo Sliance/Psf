@@ -16,4 +16,5 @@
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)RatingView *ratingView;
 @property(nonatomic,strong)UILabel *titleLabel;
+
 @end

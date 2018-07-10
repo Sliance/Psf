@@ -313,7 +313,10 @@ static NSString *cellId = @"SortCollectionViewCell";
  *  分别加载每一张图片，并保存在缓存当中，以便下一次的从缓存读取
  */
 - (void)loadImageAndReplaceItemAtIndex:(NSInteger)index{
-    NSURL *url = [self.imageUrlGroups[index] isKindOfClass:[NSURL class]] ? self.imageUrlGroups[index]:[NSURL URLWithString:self.imageUrlGroups[index]];
+    ImageModel *model = self.imageUrlGroups[index];
+    NSString* imageURL=[NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    
+    NSURL *url = [NSURL URLWithString:imageURL];
     
     // 如果有缓存，直接加载缓存
     NSData *data = [NSData getDataCacheWithIdentifier:url.absoluteString];
