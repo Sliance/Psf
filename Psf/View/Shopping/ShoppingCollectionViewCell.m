@@ -212,6 +212,8 @@
         [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
     }
+    self.addBlock(sender.tag);
+    
 }
 -(void)pressSubBtn:(UIButton*)sender{
     NSInteger count = [_countField.text integerValue];
@@ -228,6 +230,7 @@
             [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
         }
     }
+    self.subBlock(sender.tag);
 }
 -(void)setGoodtype:(GOODSTYPE)goodtype{
     _goodtype = goodtype;
@@ -257,5 +260,14 @@
         default:
             break;
     }
+}
+-(void)setModel:(CartProductModel *)model{
+    _model = model;
+    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = model.productName;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
+    self.weightLabel.text = [NSString stringWithFormat:@"/%@%@",model.productWeight,model.productUnit];
+    self.countField.text = [NSString stringWithFormat:@"%@",model.productQuantity];
 }
 @end

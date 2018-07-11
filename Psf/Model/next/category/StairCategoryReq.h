@@ -31,8 +31,12 @@
 @property(nonatomic,copy)NSString *userLongitude;
 ///
 @property(nonatomic,copy)NSString *userLatitude;
-///
+///商品编号
 @property(nonatomic,copy)NSString *productId;
+///商品规格编号
+@property(nonatomic,copy)NSString *productSkuId;
+///商品数量
+@property(nonatomic,copy)NSNumber *productQuantity;
 ///
 @property(nonatomic,copy)NSString *pageIndex;
 ///
@@ -41,4 +45,12 @@
 @property(nonatomic,copy)NSString *saleOrderId;
 ///
 @property(nonatomic,copy)NSString *cityId;
+
+///购物车编号(全选或者反选购物车信息)
+@property(nonatomic,copy)NSString *cartId;
+///购物车商品编号(选中单条购物车信息)
+@property(nonatomic,copy)NSString *cartProductId;
+///购物车商品是否选中
+@property(nonatomic,assign)NSInteger cartProductIsActive;
+
 @end

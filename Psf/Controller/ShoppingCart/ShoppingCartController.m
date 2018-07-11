@@ -111,6 +111,160 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }];
 }
+-(void)getShopCount{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]getShopCartCountWithParam:req response:^(id response) {
+        
+    }];
+}
+-(void)addShopCount:(CartProductModel*)model{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        if (response!= nil) {
+            weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
+-(void)deleteShopCount:(CartProductModel*)model{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cartProductId = [NSString stringWithFormat:@"%@",model.productId];
+    req.productSkuId = model.productSkuId;
+    req.productQuantity = model.productQuantity;
+    req.cartId = model.cartId;
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]deleteShopCartCountWithParam:req response:^(id response) {
+        if (response!= nil) {
+            weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
+-(void)changeShopCount{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]changeShopCartCountWithParam:req response:^(id response) {
+        if (response!= nil) {
+            weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 3;
 }
@@ -162,9 +316,19 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }else{
         if (section ==0) {
-            return  CGSizeMake(SCREENWIDTH, 36);
+            if (_dataArr.count ==0) {
+                return  CGSizeMake(SCREENWIDTH, 0);
+            } else {
+                return  CGSizeMake(SCREENWIDTH, 36);
+            }
+            
         }else if (section ==1){
-            return  CGSizeMake(SCREENWIDTH, 50);
+            if (_loseArr.count ==0) {
+                 return  CGSizeMake(SCREENWIDTH, 0);
+            } else {
+                 return  CGSizeMake(SCREENWIDTH, 50);
+            }
+           
         }
     }
     return CGSizeMake(SCREENWIDTH, 70);
@@ -225,9 +389,20 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     if (indexPath.section ==0) {
         [cell setGoodtype:TYPEVALID];
+        CartProductModel *model = _dataArr[indexPath.row];
+        [cell setModel:model];
+        __weak typeof(self)weakself = self;
+        [cell setSubBlock:^(NSInteger index) {
+            [weakself deleteShopCount:model];
+        }];
+        [cell setAddBlock:^(NSInteger index) {
+            [weakself addShopCount:model];
+        }];
         return cell;
     }else if (indexPath.section ==1){
         [cell setGoodtype:TYPELOSE];
+        CartProductModel *model = _loseArr[indexPath.row];
+        [cell setModel:model];
         return cell;
     }
     return collectcell;

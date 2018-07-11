@@ -16,13 +16,15 @@
 ///
 @property(nonatomic,assign)NSInteger cartProductIsActive;
 ///
+@property(nonatomic,copy)NSNumber *productId;
+///
 @property(nonatomic,copy)NSString *productImagePath;
 ///
 @property(nonatomic,copy)NSString *productName;
 ///
 @property(nonatomic,copy)NSString *productPrice;
 ///
-@property(nonatomic,assign)NSInteger productQuantity;
+@property(nonatomic,copy)NSNumber *productQuantity;
 ///
 @property(nonatomic,copy)NSString *productSkuId;
 ///

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
+#import "CartProductModel.h"
+
 typedef NS_ENUM(NSInteger, GOODSTYPE){
     TYPEVALID = 1,//有效
     TYPELOSE //失效
@@ -25,5 +27,8 @@ typedef NS_ENUM(NSInteger, GOODSTYPE){
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)UILabel *loseLabel;
 @property(nonatomic,assign)GOODSTYPE goodtype;
+@property(nonatomic,strong)CartProductModel *model;
+@property(nonatomic,copy)void(^subBlock)(NSInteger);
+@property(nonatomic,copy)void(^addBlock)(NSInteger);
 
 @end

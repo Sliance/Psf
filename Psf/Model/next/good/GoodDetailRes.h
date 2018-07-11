@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ProductSkuModel.h"
 @interface GoodDetailRes : NSObject
 ///商品编号
 @property(nonatomic,assign)NSInteger productId;
@@ -31,17 +31,17 @@
 ///商品信息
 @property(nonatomic,copy)NSString *productContent;
 ///团购编号
-@property(nonatomic,copy)NSString *grouponId;
+@property(nonatomic,copy)NSNumber *grouponId;
 ///商品产地
 @property(nonatomic,copy)NSString *productBirthPlace;
 ///满减编号
-@property(nonatomic,copy)NSString *rewardId;
+@property(nonatomic,copy)NSNumber *rewardId;
 ///商品分类编号
 @property(nonatomic,copy)NSString *productCategoryId;
 ///满减名称
 @property(nonatomic,copy)NSString *rewardName;
 ///商品规格编号
-@property(nonatomic,copy)NSString *productSkuId;
+@property(nonatomic,copy)NSNumber *productSkuId;
 ///满减生效时间
 @property(nonatomic,copy)NSString *rewardValidTime;
 ///团购价格
@@ -61,7 +61,7 @@
 ///预售发货时间
 @property(nonatomic,copy)NSString *preSaleDeliveryTime;
 ///预售编号
-@property(nonatomic,copy)NSString *preSaleId;
+@property(nonatomic,copy)NSNumber *preSaleId;
 ///团购过期时间
 @property(nonatomic,copy)NSString *grouponExpireTime;
 ///团购活动失效小时

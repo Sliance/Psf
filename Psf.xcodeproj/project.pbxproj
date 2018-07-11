@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		884400E620F5AB05001F85EA /* ProductSkuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884400E520F5AB05001F85EA /* ProductSkuModel.m */; };
 		88484D7120EB03F700400D16 /* RechargeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7020EB03F700400D16 /* RechargeBtn.m */; };
 		88484D7420EB065D00400D16 /* RechargeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7320EB065D00400D16 /* RechargeHeadView.m */; };
 		88484D7720EB069A00400D16 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7620EB069A00400D16 /* RechargeViewController.m */; };
@@ -240,6 +241,8 @@
 		19BA346D8487624EF7798C3A /* libPods-PsfTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PsfTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E7D2AFA109F43898A14A61C /* libPods-PsfUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PsfUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54EE4F738F42BE594B755CF4 /* Pods-Psf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psf/Pods-Psf.debug.xcconfig"; sourceTree = "<group>"; };
+		884400E420F5AB05001F85EA /* ProductSkuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSkuModel.h; sourceTree = "<group>"; };
+		884400E520F5AB05001F85EA /* ProductSkuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSkuModel.m; sourceTree = "<group>"; };
 		88484D6F20EB03F700400D16 /* RechargeBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeBtn.h; sourceTree = "<group>"; };
 		88484D7020EB03F700400D16 /* RechargeBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeBtn.m; sourceTree = "<group>"; };
 		88484D7220EB065D00400D16 /* RechargeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeHeadView.h; sourceTree = "<group>"; };
@@ -1295,6 +1298,8 @@
 				88797F9F20F34A910044A527 /* GoodDetailRes.m */,
 				88797FA120F34E570044A527 /* ImageModel.h */,
 				88797FA220F34E570044A527 /* ImageModel.m */,
+				884400E420F5AB05001F85EA /* ProductSkuModel.h */,
+				884400E520F5AB05001F85EA /* ProductSkuModel.m */,
 			);
 			path = good;
 			sourceTree = "<group>";
@@ -1915,6 +1920,7 @@
 				8857EA7020E3410E00D7E167 /* BaseOrdersController.m in Sources */,
 				886A9EDB20ECDEF4000503D2 /* LogisticsTableViewCell.m in Sources */,
 				88636D1020E21185006CE5D8 /* SettingViewController.m in Sources */,
+				884400E620F5AB05001F85EA /* ProductSkuModel.m in Sources */,
 				888D66E220EA3CE90007D471 /* TradingDetailController.m in Sources */,
 				8857EA8320E35B5400D7E167 /* WaitPaymentController.m in Sources */,
 				88590B7C20E4D84300F51BC5 /* BaseDetailSortController.m in Sources */,

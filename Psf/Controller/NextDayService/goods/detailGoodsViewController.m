@@ -18,6 +18,8 @@
 #import "DetailGroupController.h"
 #import "GoodBottomView.h"
 #import "NextServiceApi.h"
+#import "ShopServiceApi.h"
+#import "ProductSkuModel.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -118,6 +120,7 @@
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -151,11 +154,17 @@
         [detailVC setProductID:productId];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
+    [self.bottomView setPressAddBlock:^{
+        [_weakSelf addShopCount];
+       
+    }];
 }
 
 -(void)setProductID:(NSInteger )productID{
     _productID = productID;
     
+}
+-(void)reloadGoodDetail{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -164,25 +173,25 @@
     req.userId = @"1009660103519952898";
     req.version = @"1.0.0";
     req.platform = @"ios";
-        req.couponType = @"allProduct";
-        req.saleOrderStatus = @"0";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",productID];
-        req.pageIndex = @"1";
-        req.pageSize = @"10";
+    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
     req.productCategoryParentId = @"";
-        req.saleOrderId = @"1013703405872041985";
+    req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if(response != nil){
-        weakself.result = response;
-           
+            weakself.result = response;
+            
             weakself.cycleScroll.imageUrlGroups = (NSMutableArray*)weakself.result.productImageList;
             [weakself requestEvaluate];
-      }
+        }
     }];
     
     
@@ -243,6 +252,69 @@
          [weakself reloadData];
     }];
 }
+-(void)addShopCount{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    ProductSkuModel *model =[self.result.productSkuList firstObject];
+    req.productSkuId = [NSString stringWithFormat:@"%ld",(long)model.productSkuId];
+    req.productQuantity = @"1";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        [weakself getShopCount:1];
+    }];
+}
+-(void)getShopCount:(NSInteger)index{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]getShopCartCountWithParam:req response:^(id response) {
+        if (response!= nil) {
+            NSDictionary* dic= response;
+            if ([dic[@"cartProductCount"] integerValue]>0) {
+                weakself.bottomView.countLabel.hidden = NO;
+                weakself.bottomView.countLabel.text = [NSString stringWithFormat:@"%@",dic[@"cartProductCount"]];
+            }
+            if (index == 0) {
+                 [self reloadGoodDetail];
+            }
+           
+        }
+    }];
+}
 -(void)reloadData{
         [self.headView setModel:self.result];
     
@@ -280,12 +352,11 @@
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self adjustNavigationUI:self.navigationController];
-    
+    [self getShopCount:0];
 }
 
 -(void)cycleScrollView:(ZSCycleScrollView *)cycleScrollView didSelectItemAtRow:(NSInteger)row{

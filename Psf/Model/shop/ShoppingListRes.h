@@ -17,6 +17,8 @@
 @property(nonatomic,copy)NSString *cartRewardAmount;
 ///实付金额
 @property(nonatomic,copy)NSString *cartPayAmount;
+///快递费金额
+@property(nonatomic,copy)NSString *cartExpressAmount;
 ///购物车是否全选
 @property(nonatomic,assign)NSInteger cartIsActive;
 ///购物车商品列表

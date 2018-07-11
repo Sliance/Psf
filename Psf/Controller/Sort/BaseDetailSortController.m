@@ -36,6 +36,7 @@ static NSString *cellId = @"cellId";
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     
 }
+
 -(void)requestData{
      StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
