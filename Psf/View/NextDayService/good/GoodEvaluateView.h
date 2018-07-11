@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "EvaluateListRes.h"
 
 @interface GoodEvaluateView : BaseView
 @property(nonatomic,strong)UILabel *topLine;
@@ -23,4 +24,6 @@
 ///详情
 @property(nonatomic,strong)UILabel *contentLabel;
 @property (nonatomic, copy) void(^skipBlock)(NSInteger);
+@property(nonatomic,strong)EvaluateListRes *model;
+
 @end

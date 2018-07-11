@@ -35,7 +35,7 @@
 @property(nonatomic,strong)GoodBottomView *bottomView;
 @property(nonatomic,strong)GoodDetailRes *result;
 @property (strong, nonatomic) UIWebView *webView;
-@property(strong,nonatomic)NSMutableArray *evaArr;
+@property(strong,nonatomic)EvaluateListRes *evaRes;
 @end
 
 @implementation detailGoodsViewController
@@ -120,7 +120,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _evaArr = [NSMutableArray array];
+    
     [self.view addSubview:self.bgscrollow];
     [self.bgscrollow addSubview:self.cycleScroll];
     [self.bgscrollow addSubview:self.headView];
@@ -135,6 +135,7 @@
    __weak typeof(self) _weakSelf = self;
     [self.evaView setSkipBlock:^(NSInteger index) {
         EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
+        [evaVC setProductId:_weakSelf.productID];
         [_weakSelf.navigationController pushViewController:evaVC animated:YES];
     }];
     [self.couponCell setPressCoupBlock:^(NSInteger index) {
@@ -235,7 +236,10 @@
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestEvaluateListModelListLoadWithParam:req response:^(id response) {
          [weakself.footView setPruductId:weakself.productID];
-         [weakself.evaArr addObjectsFromArray:response];
+        
+        weakself.evaRes = response;
+        [weakself.evaView setModel:weakself.evaRes];
+        
          [weakself reloadData];
     }];
 }
@@ -263,7 +267,7 @@
     if (_tourHeight ==0) {
         self.tourDiyView.hidden = YES;
     }
-    if (self.evaArr.count ==0) {
+    if (self.evaRes.total ==0) {
         _evaHeight =0;
         _evaView.hidden = YES;
     }else{

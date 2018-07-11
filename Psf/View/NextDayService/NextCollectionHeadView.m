@@ -29,16 +29,16 @@
     [self.typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgView).offset(15);
         make.width.mas_equalTo(100);
-        make.centerX.equalTo(self.bgView).offset(-8);
+        make.centerX.equalTo(self.bgView);
     }];
 }
 -(UIButton *)typeBtn{
     if (!_typeBtn) {
         _typeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_typeBtn setTitle:@"牛肉" forState:UIControlStateNormal];
-        [_typeBtn setImage:[UIImage imageNamed:@"icon_right"] forState:UIControlStateNormal];
+        [_typeBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         _typeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        _typeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -100);
+//        _typeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -100);
         [_typeBtn addTarget:self action:@selector(pressType:) forControlEvents:UIControlEventTouchUpInside];
         
         [_typeBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];

@@ -11,7 +11,7 @@
 #import "ZSConfig.h"
 #import "StairCategoryRes.h"
 #import "GoodDetailRes.h"
-#import "EvaluateListModel.h"
+#import "EvaluateListRes.h"
 
 @interface NextServiceApi : BaseApi
 + (instancetype)share;

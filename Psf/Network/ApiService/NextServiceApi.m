@@ -184,9 +184,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = (NSArray*)[EvaluateListModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"saleOrderProductCommentList"]];
+                EvaluateListRes *model = [EvaluateListRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(model);
                 }
             }else {
                 if (responseModel) {

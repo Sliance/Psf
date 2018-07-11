@@ -13,6 +13,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setCornerLayout];
+        _tmpBtn = _allBtn;
     }
     return self;
 }
@@ -42,7 +43,6 @@
     if (!_allBtn) {
         _allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _allBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_allBtn setTitle:@"全部(999+)" forState:UIControlStateNormal];
         [_allBtn.layer setCornerRadius:4];
         [_allBtn.layer setMasksToBounds:YES];
         _allBtn.selected = YES;
@@ -50,6 +50,7 @@
         [_allBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         [_allBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_allBtn.layer setBorderWidth:0.5];
+        _allBtn.tag =0;
         [_allBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
     }
     return _allBtn;
@@ -58,13 +59,13 @@
     if (!_photoBtn) {
         _photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _photoBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_photoBtn setTitle:@"有图(231)" forState:UIControlStateNormal];
         [_photoBtn.layer setCornerRadius:4];
         [_photoBtn.layer setMasksToBounds:YES];
         [_photoBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_photoBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
          [_photoBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_photoBtn.layer setBorderWidth:0.5];
+        _photoBtn.tag = 1;
         [_photoBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
     }
     return _photoBtn;
@@ -73,13 +74,13 @@
     if (!_contentBtn) {
         _contentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _contentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_contentBtn setTitle:@"有内容(126)" forState:UIControlStateNormal];
         [_contentBtn.layer setCornerRadius:4];
         [_contentBtn.layer setMasksToBounds:YES];
         [_contentBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_contentBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         [_contentBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_contentBtn.layer setBorderWidth:0.5];
+        _contentBtn.tag = 2;
         [_contentBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
     }
     return _contentBtn;
@@ -103,11 +104,27 @@
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _titleLabel.textColor =DSColorFromHex(0x474747);
-        _titleLabel.text = @"92.5%好评";
+        
     }
     return _titleLabel;
 }
 -(void)pressBtn:(UIButton*)sender{
     
+    if (_tmpBtn == nil){
+        sender.selected = YES;
+         [sender.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+        _tmpBtn = sender;
+    }else if (_tmpBtn !=nil && _tmpBtn == sender){
+        sender.selected = YES;
+         [sender.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+    }else if (_tmpBtn!= sender && _tmpBtn!=nil){
+        _tmpBtn.selected = NO;
+        [_tmpBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+         [sender.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+        sender.selected = YES;
+        _tmpBtn = sender;
+    }
+    
+    self.chooseTypeBlock(sender.tag);
 }
 @end

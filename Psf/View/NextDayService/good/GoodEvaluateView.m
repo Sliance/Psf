@@ -37,7 +37,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.text = @"评价(468)";
+        
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont systemFontOfSize:14];
         _titleLabel.textColor = DSColorFromHex(0x464646);
@@ -47,7 +47,7 @@
 -(UILabel *)detailLabel{
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc]init];
-        _detailLabel.text = @"96.5% 好评";
+        
         _detailLabel.textAlignment = NSTextAlignmentRight;
         _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = DSColorFromHex(0x787878);
@@ -114,5 +114,10 @@
 }
 -(void)pressTopBtn:(UIButton*)sender{
     self.skipBlock(sender.tag);
+}
+-(void)setModel:(EvaluateListRes *)model{
+    _model = model;
+    _titleLabel.text = [NSString stringWithFormat:@"评价(%ld)",model.total];
+    _detailLabel.text = [NSString stringWithFormat:@"%.1f%% 好评",model.rate.floatValue*100];
 }
 @end

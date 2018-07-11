@@ -10,11 +10,19 @@
 #import "EvaluateTableViewCell.h"
 #import "EvaluateListHeadView.h"
 #import "FillEvaluateController.h"
+#import "StairCategoryReq.h"
+#import "NextServiceApi.h"
+#import "EvaluateListModel.h"
 
 @interface EvaluateViewController ()<UITableViewDelegate,UITableViewDataSource>
+
 @property(nonatomic,strong)UITableView *tableview;
-@property(nonatomic,strong)NSArray *dataArr;
+
 @property(nonatomic,strong)EvaluateListHeadView *headView;
+@property(nonatomic,strong)EvaluateListRes *evaRes;
+@property(nonatomic,strong)NSMutableArray *imageDataArr;
+@property(nonatomic,strong)NSMutableArray *contentDataArr;
+@property(nonatomic,assign) NSInteger type;
 
 @end
 
@@ -48,15 +56,87 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
+    _imageDataArr = [NSMutableArray array];
+    _contentDataArr = [NSMutableArray array];
     self.tableview.tableHeaderView = self.headView;
-    _dataArr = @[@"清除缓存",@"意见反馈",@"关于我们",@"分享应用"];
+    self.type = 0;
+}
+- (void)setProductId:(NSInteger)productId{
+    _productId = productId;
+    [self requestEvaluate];
+}
+-(void)requestEvaluate{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSString stringWithFormat:@"%ld",_productId];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestEvaluateListModelListLoadWithParam:req response:^(id response) {
+      
+        weakself.evaRes = response;
+        [weakself updateData];
+    }];
+    [self.headView setChooseTypeBlock:^(NSInteger index) {
+        weakself.type = index;
+        [weakself.tableview reloadData];
+    }];
+}
+-(void)updateData{
+    [self.imageDataArr removeAllObjects];
+    [self.contentDataArr removeAllObjects];
+    for (EvaluateListModel *model in self.evaRes.saleOrderProductCommentList) {
+        if (model.saleOrderProductCommentImageList.count>0) {
+            [self.imageDataArr addObject:model];
+        }else{
+            [self.contentDataArr addObject:model];
+        }
+        
+    }
+    [self.headView.allBtn setTitle:[NSString stringWithFormat:@"全部（%ld）",self.evaRes.saleOrderProductCommentList.count] forState:UIControlStateNormal];
+    [self.headView.photoBtn setTitle:[NSString stringWithFormat:@"有图（%ld）",self.imageDataArr.count] forState:UIControlStateNormal];
+    [self.headView.contentBtn setTitle:[NSString stringWithFormat:@"有内容（%ld）",self.contentDataArr.count] forState:UIControlStateNormal];
+    self.headView.titleLabel.text = [NSString stringWithFormat:@"%.1f%% 好评",self.evaRes.rate.floatValue*100];
+    if (self.evaRes.rate.floatValue >=0.8&&self.evaRes.rate.floatValue <1) {
+        self.headView.ratingView.rating = 4;
+    }else if (self.evaRes.rate.floatValue >=0.6&&self.evaRes.rate.floatValue <0.8){
+        self.headView.ratingView.rating = 3;
+    }else if (self.evaRes.rate.floatValue >=0.4&&self.evaRes.rate.floatValue <0.6){
+        self.headView.ratingView.rating = 2;
+    }else if (self.evaRes.rate.floatValue >=0.2&&self.evaRes.rate.floatValue <0.4){
+        self.headView.ratingView.rating = 1;
+    }else if (self.evaRes.rate.floatValue >=0&&self.evaRes.rate.floatValue <0.2){
+        self.headView.ratingView.rating = 0;
+    }else if (self.evaRes.rate.floatValue ==1){
+        self.headView.ratingView.rating = 5;
+    }
+
+    [self.tableview reloadData];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return 4;
+    if (self.type ==1) {
+        return self.imageDataArr.count;
+    }else if (self.type ==2){
+        return self.contentDataArr.count;
+    }
+    return self.evaRes.saleOrderProductCommentList.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

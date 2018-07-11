@@ -16,5 +16,7 @@
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)RatingView *ratingView;
 @property(nonatomic,strong)UILabel *titleLabel;
+@property(nonatomic,strong)UIButton *tmpBtn;
+@property(nonatomic,copy)void(^chooseTypeBlock)(NSInteger);
 
 @end

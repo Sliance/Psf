@@ -9,6 +9,6 @@
 #import "BaseViewController.h"
 
 @interface EvaluateViewController : BaseViewController
-@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,assign)NSInteger productId;
 
 @end

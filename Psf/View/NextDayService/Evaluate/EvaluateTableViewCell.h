@@ -8,6 +8,8 @@
 
 #import "BaseTableViewCell.h"
 #import "RatingView.h"
+#import "EvaluateListModel.h"
+
 @interface EvaluateTableViewCell : BaseTableViewCell<FloatRatingViewDelegate>
 ///图片
 @property(nonatomic,strong)UIImageView *headImage;
@@ -17,4 +19,5 @@
 ///详情
 @property(nonatomic,strong)UILabel *contentsLabel;
 @property(nonatomic,strong)RatingView *ratingView;
+-(CGFloat)getCellHeightWithData:(EvaluateListModel *)model;
 @end

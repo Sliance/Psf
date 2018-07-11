@@ -21,6 +21,11 @@
 		8852A22520EEFE50002C2D12 /* StairCategoryReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22420EEFE50002C2D12 /* StairCategoryReq.m */; };
 		8852A22820EF1100002C2D12 /* NextReceiveDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22720EF1100002C2D12 /* NextReceiveDateView.m */; };
 		8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22A20EF79AD002C2D12 /* StairCategoryRes.m */; };
+		885303C420F4A19C009807B2 /* EvaluateListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 885303C320F4A19C009807B2 /* EvaluateListRes.m */; };
+		885303C720F4B455009807B2 /* EmptyShoppingHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 885303C620F4B455009807B2 /* EmptyShoppingHeadView.m */; };
+		885303CA20F4B4D1009807B2 /* ShopServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 885303C920F4B4D1009807B2 /* ShopServiceApi.m */; };
+		885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 885303CD20F4BF6C009807B2 /* ShoppingListRes.m */; };
+		885303D120F4BF89009807B2 /* CartProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 885303D020F4BF89009807B2 /* CartProductModel.m */; };
 		88534C1920E5C67800D6F43C /* GoodEvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C1820E5C67800D6F43C /* GoodEvaluateView.m */; };
 		88534C1D20E5C76700D6F43C /* GoodHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C1C20E5C76700D6F43C /* GoodHeadView.m */; };
 		88534C2020E5D2E900D6F43C /* EvaluateListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C1F20E5D2E900D6F43C /* EvaluateListHeadView.m */; };
@@ -263,6 +268,16 @@
 		8852A22720EF1100002C2D12 /* NextReceiveDateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextReceiveDateView.m; sourceTree = "<group>"; };
 		8852A22920EF79AD002C2D12 /* StairCategoryRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StairCategoryRes.h; sourceTree = "<group>"; };
 		8852A22A20EF79AD002C2D12 /* StairCategoryRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StairCategoryRes.m; sourceTree = "<group>"; };
+		885303C220F4A19C009807B2 /* EvaluateListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateListRes.h; sourceTree = "<group>"; };
+		885303C320F4A19C009807B2 /* EvaluateListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateListRes.m; sourceTree = "<group>"; };
+		885303C520F4B455009807B2 /* EmptyShoppingHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmptyShoppingHeadView.h; sourceTree = "<group>"; };
+		885303C620F4B455009807B2 /* EmptyShoppingHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmptyShoppingHeadView.m; sourceTree = "<group>"; };
+		885303C820F4B4D1009807B2 /* ShopServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopServiceApi.h; sourceTree = "<group>"; };
+		885303C920F4B4D1009807B2 /* ShopServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopServiceApi.m; sourceTree = "<group>"; };
+		885303CC20F4BF6C009807B2 /* ShoppingListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingListRes.h; sourceTree = "<group>"; };
+		885303CD20F4BF6C009807B2 /* ShoppingListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingListRes.m; sourceTree = "<group>"; };
+		885303CF20F4BF89009807B2 /* CartProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartProductModel.h; sourceTree = "<group>"; };
+		885303D020F4BF89009807B2 /* CartProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartProductModel.m; sourceTree = "<group>"; };
 		88534C1720E5C67800D6F43C /* GoodEvaluateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodEvaluateView.h; sourceTree = "<group>"; };
 		88534C1820E5C67800D6F43C /* GoodEvaluateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodEvaluateView.m; sourceTree = "<group>"; };
 		88534C1B20E5C76700D6F43C /* GoodHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodHeadView.h; sourceTree = "<group>"; };
@@ -704,6 +719,28 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		885303C120F4A162009807B2 /* evaluat */ = {
+			isa = PBXGroup;
+			children = (
+				885303C220F4A19C009807B2 /* EvaluateListRes.h */,
+				885303C320F4A19C009807B2 /* EvaluateListRes.m */,
+				88590B8020E4F26200F51BC5 /* EvaluateListModel.h */,
+				88590B8120E4F26200F51BC5 /* EvaluateListModel.m */,
+			);
+			path = evaluat;
+			sourceTree = "<group>";
+		};
+		885303CB20F4BF4D009807B2 /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				885303CC20F4BF6C009807B2 /* ShoppingListRes.h */,
+				885303CD20F4BF6C009807B2 /* ShoppingListRes.m */,
+				885303CF20F4BF89009807B2 /* CartProductModel.h */,
+				885303D020F4BF89009807B2 /* CartProductModel.m */,
+			);
+			path = shop;
+			sourceTree = "<group>";
+		};
 		88534C1A20E5C74500D6F43C /* good */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,6 +866,8 @@
 				886A9EC720EC9DE8000503D2 /* SureOrderTableViewCell.m */,
 				8852A22620EF1100002C2D12 /* NextReceiveDateView.h */,
 				8852A22720EF1100002C2D12 /* NextReceiveDateView.m */,
+				885303C520F4B455009807B2 /* EmptyShoppingHeadView.h */,
+				885303C620F4B455009807B2 /* EmptyShoppingHeadView.m */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -1167,6 +1206,8 @@
 				8871B89620DB639C00DAA5D6 /* BaseApi.m */,
 				8871B89B20DB64C400DAA5D6 /* NextServiceApi.h */,
 				8871B89C20DB64C400DAA5D6 /* NextServiceApi.m */,
+				885303C820F4B4D1009807B2 /* ShopServiceApi.h */,
+				885303C920F4B4D1009807B2 /* ShopServiceApi.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -1327,14 +1368,13 @@
 		888E717620E0C3F500BFBAFF /* next */ = {
 			isa = PBXGroup;
 			children = (
+				885303C120F4A162009807B2 /* evaluat */,
 				88797F9D20F34A770044A527 /* good */,
 				88747E8920EE250D000BC993 /* category */,
 				888E717920E0C49100BFBAFF /* DataManager.h */,
 				888E717720E0C49100BFBAFF /* DataManager.m */,
 				888E717A20E0C49200BFBAFF /* MenuInfo.h */,
 				888E717820E0C49100BFBAFF /* MenuInfo.m */,
-				88590B8020E4F26200F51BC5 /* EvaluateListModel.h */,
-				88590B8120E4F26200F51BC5 /* EvaluateListModel.m */,
 			);
 			path = next;
 			sourceTree = "<group>";
@@ -1533,6 +1573,7 @@
 		88D8939120D26A88007E3C41 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				885303CB20F4BF4D009807B2 /* shop */,
 				888E717620E0C3F500BFBAFF /* next */,
 			);
 			path = Model;
@@ -1767,7 +1808,9 @@
 				88600BF620D8D16E0098CF10 /* UIView+ZJFrame.m in Sources */,
 				8871B85620DB424A00DAA5D6 /* NSString+Hash.m in Sources */,
 				8871B89320DB4EC800DAA5D6 /* UserDefaultCashe.m in Sources */,
+				885303C720F4B455009807B2 /* EmptyShoppingHeadView.m in Sources */,
 				8857EA7320E3444800D7E167 /* AllOrdersController.m in Sources */,
+				885303CA20F4B4D1009807B2 /* ShopServiceApi.m in Sources */,
 				8871B8C620DBB29200DAA5D6 /* JFCityViewController.m in Sources */,
 				8857EA8620E35B6A00D7E167 /* WaitDeliverController.m in Sources */,
 				8857EA8920E35B7D00D7E167 /* WaitReceiveController.m in Sources */,
@@ -1797,6 +1840,7 @@
 				888E719D20E0EC8E00BFBAFF /* ChooseAddressViewController.m in Sources */,
 				8871B86120DB441000DAA5D6 /* FilePathManager.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
+				885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */,
 				886A9EC820EC9DE8000503D2 /* SureOrderTableViewCell.m in Sources */,
 				88600BCE20D890B80098CF10 /* UIView+Frame.m in Sources */,
 				88600BCD20D890B80098CF10 /* NSData+ZSCache.m in Sources */,
@@ -1812,6 +1856,7 @@
 				8871B84620DB419A00DAA5D6 /* NSDictionary+TYAFNetworking.m in Sources */,
 				8871B8CC20DBB29200DAA5D6 /* JFSearchView.m in Sources */,
 				88484D7120EB03F700400D16 /* RechargeBtn.m in Sources */,
+				885303C420F4A19C009807B2 /* EvaluateListRes.m in Sources */,
 				888D66D720E9FA970007D471 /* GroupTableViewCell.m in Sources */,
 				88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */,
 				88590B7520E4707500F51BC5 /* OrderDetailBottomView.m in Sources */,
@@ -1891,6 +1936,7 @@
 				88600BF920D8D16E0098CF10 /* ZJTitleView.m in Sources */,
 				8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */,
 				88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */,
+				885303D120F4BF89009807B2 /* CartProductModel.m in Sources */,
 				88600BCC20D890B80098CF10 /* ZSAnimatedDotView.m in Sources */,
 				88636D2320E24A72006CE5D8 /* EvaluateViewController.m in Sources */,
 				88534C2320E5F5DA00D6F43C /* RatingView.m in Sources */,

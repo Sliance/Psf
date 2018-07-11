@@ -15,10 +15,17 @@
 #import "LikeShopHeadView.h"
 #import "ShopFootView.h"
 #import "FillOrderViewController.h"
+#import "ShopServiceApi.h"
+#import "EmptyShoppingHeadView.h"
+#import "NextCollectionHeadView.h"
+#import "CartProductModel.h"
 
 @interface ShoppingCartController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)ShopFootView *footView;
+@property(nonatomic,strong)ShoppingListRes *result;
+@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *loseArr;
 
 @end
 static NSString *cellId = @"ShoppingCollectionViewCell";
@@ -27,6 +34,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(ShopFootView *)footView{
     if (!_footView) {
         _footView = [[ShopFootView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-49, SCREENWIDTH, 49)];
+        _footView.hidden = YES;
         [_footView.submitBtn addTarget:self action:@selector(pressSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _footView;
@@ -53,15 +61,64 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
     [self.view addSubview:self.footView];
+    _dataArr = [NSMutableArray array];
+    _loseArr = [NSMutableArray array];
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestData];
+}
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+//    req.productId = [NSString stringWithFormat:@"%ld",productID];
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]requestShopListModelListLoadWithParam:req response:^(id response) {
+        if (response!= nil) {
+             weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.collectionView reloadData];
+        }
+    }];
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 3;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section ==0) {
-        return 2;
+        return self.dataArr.count;
     }else if (section ==1){
-        return 2;
+        return self.loseArr.count;
     }
     return 4;
 }
@@ -96,10 +153,19 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    if (section ==0) {
-       return  CGSizeMake(SCREENWIDTH, 36);
-    }else if (section ==1){
-         return  CGSizeMake(SCREENWIDTH, 50);
+    
+    if (self.result.cartProductList.count ==0) {
+        if (section ==0) {
+         return  CGSizeMake(SCREENWIDTH, 319);
+        }else if (section ==1){
+            return  CGSizeMake(SCREENWIDTH, 0);
+        }
+    }else{
+        if (section ==0) {
+            return  CGSizeMake(SCREENWIDTH, 36);
+        }else if (section ==1){
+            return  CGSizeMake(SCREENWIDTH, 50);
+        }
     }
     return CGSizeMake(SCREENWIDTH, 70);
 }
@@ -122,18 +188,34 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }
     
-    if (indexPath.section ==0) {
-        ValidShopHeadView* validView = [[ValidShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 36)];
-        [headerView addSubview:validView];
-    }else if (indexPath.section ==1){
-        LoseShopHeadView* loseView = [[LoseShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
-        [headerView addSubview:loseView];
-      
-    }else if (indexPath.section ==2){
-        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-        [headerView addSubview:likeView];
+    
+    if (self.result.cartProductList.count ==0) {
+        if (indexPath.section ==0) {
+            EmptyShoppingHeadView *emptyview = [[EmptyShoppingHeadView alloc]init];
+            emptyview.frame = CGRectMake(0, 0, SCREENWIDTH, 319);
+            [headerView addSubview:emptyview];
+        }
+    }else{
+        if (indexPath.section ==0) {
+            ValidShopHeadView* validView = [[ValidShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 36)];
+            [headerView addSubview:validView];
+        }else if (indexPath.section ==1){
+            LoseShopHeadView* loseView = [[LoseShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+            [headerView addSubview:loseView];
+            
+        }
     }
-   
+    if (indexPath.section ==2){
+//        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+//        [headerView addSubview:likeView];
+        NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 69)];
+        [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
+        __weak typeof(self)weakSelf = self;
+        [validView setPressTypeBlock:^(NSInteger index) {
+            
+        }];
+        [headerView addSubview:validView];
+    }
     return headerView;
 }
 
