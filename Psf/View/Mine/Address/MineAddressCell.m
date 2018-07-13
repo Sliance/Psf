@@ -110,6 +110,7 @@
         _morenLabel.backgroundColor = DSColorFromHex(0xFF4C4D);
         _morenLabel.textAlignment = NSTextAlignmentCenter;
         _morenLabel.text = @"默认";
+        _morenLabel.hidden = YES;
     }
     return _morenLabel;
 }
@@ -142,6 +143,17 @@
 -(void)pressEditBtn:(UIButton*)sender{
     if ([self.delegate respondsToSelector:@selector(editAddressIndex:)]) {
         [self.delegate editAddressIndex:sender.tag];
+    }
+}
+-(void)setModel:(ChangeAddressReq *)model{
+    _model = model;
+    _titleLabel.text = model.memberAddressName;
+    _detailLabel.text = model.memberAddressDetail;
+    _phoneLabel.text = model.memberAddressMobile;
+    if (model.memberAddressIsDefault ==0) {
+        self.morenLabel.hidden = YES;
+    }else{
+        self.morenLabel.hidden = NO;
     }
 }
 @end

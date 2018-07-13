@@ -7,6 +7,8 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "ChangeAddressReq.h"
+
 @protocol MineAddressCellDelegate<NSObject>
 -(void)editAddressIndex:(NSInteger)index;
 
@@ -23,4 +25,5 @@
 @property(nonatomic,strong)UIButton *editBtn;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,assign)NSInteger index;
+@property(nonatomic,strong)ChangeAddressReq *model ;
 @end

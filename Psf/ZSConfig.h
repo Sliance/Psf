@@ -10,9 +10,7 @@
 #define ZSConfig_h
 #define DPSIGNATURE @"RNKCoeffPosGEwv7FpLsWokxTozPt9ki"//加密key
 //#define DEBUG_DPHOST @"http://192.168.1.198:8088" // 开发环境
-//#define TEST_DPHOST @"http://192.168.1.198:8088" // 测试环境
-#define DEBUG_DPHOST @"http://47.96.229.213:8088" // 开发环境
-#define TEST_DPHOST @"http://47.96.229.213:8088" // 测试环境
+//#define DPHOST @"http://192.168.1.198:20506" // 测试环境
 #define DPHOST @"http://47.96.229.213:8088"// 生产环境
 #define APPNAME @"Psf"
 #define SUPPLIERAPIKEY @"PsfAppApiKey"

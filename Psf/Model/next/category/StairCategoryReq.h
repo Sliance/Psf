@@ -23,8 +23,7 @@
 @property(nonatomic,copy)NSString *version;
 ///
 @property(nonatomic,copy)NSString *cityName;
-///
-@property(nonatomic,copy)NSString *couponType;
+
 ///
 @property(nonatomic,copy)NSString *saleOrderStatus;
 ///
@@ -52,5 +51,11 @@
 @property(nonatomic,copy)NSString *cartProductId;
 ///购物车商品是否选中
 @property(nonatomic,assign)NSInteger cartProductIsActive;
+
+@property(nonatomic,copy)NSString *goodsCategoryId;
+///商品编号列表
+@property(nonatomic,copy)NSString *saleOrderProductList;
+///优惠券类型（singleProduct单品，allProduct全场）
+@property(nonatomic,copy)NSString *couponType;
 
 @end

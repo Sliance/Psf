@@ -48,7 +48,7 @@
 - (void)requestShopCartSelectedSingleWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/cart/mobile/v1/active";
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
@@ -127,7 +127,7 @@
 - (void)getShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/cart/mobile/v1/count";
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
@@ -212,6 +212,33 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
                 ShoppingListRes *result = [ShoppingListRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///猜你喜欢
+- (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/product/mobile/v1/guest/list";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                NSArray *result = (NSArray*)[StairCategoryListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
                 if (responseModel) {
                     responseModel(result);
                 }

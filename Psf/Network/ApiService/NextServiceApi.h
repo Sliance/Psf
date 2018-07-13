@@ -8,10 +8,10 @@
 
 #import "BaseApi.h"
 #import "StairCategoryReq.h"
-#import "ZSConfig.h"
 #import "StairCategoryRes.h"
 #import "GoodDetailRes.h"
 #import "EvaluateListRes.h"
+
 
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
@@ -25,8 +25,8 @@
 - (void)requestRecommendListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///获取爆款商品列表
 - (void)requestHotListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-///获取优惠券列表
-- (void)requestCouponListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 ///获取评价列表
 - (void)requestEvaluateListModelListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 @end

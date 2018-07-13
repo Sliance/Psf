@@ -27,5 +27,6 @@
 @property(nonatomic,strong)UIButton *sortBtn;
 @property(nonatomic,strong)UIButton *singleBtn;
 @property(nonatomic,strong)UIButton *tmpBtn;
+@property(nonatomic,copy)void (^typeBlock)(NSInteger);
 
 @end

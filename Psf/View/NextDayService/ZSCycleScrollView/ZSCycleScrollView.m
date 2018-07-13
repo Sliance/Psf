@@ -32,9 +32,7 @@
  */
 @property (nonatomic, strong) ZSPageControl *pageControl;
 
-@property(nonatomic,strong)UIButton *supportBtn;
-@property(nonatomic,strong)UIButton *returnBtn;
-@property(nonatomic,strong)UIButton *sendBtn;
+
 @end
 static NSString *cellId = @"SortCollectionViewCell";
 @implementation ZSCycleScrollView

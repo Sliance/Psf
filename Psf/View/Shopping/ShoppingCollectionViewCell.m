@@ -255,6 +255,10 @@
             _addBtn.hidden = NO;
             _countField.hidden = NO;
             _chooseBtn.selected = YES;
+            _nameLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
+            _countLabel.textColor =  [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
+            _priceLabel.textColor =  [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
+            _weightLabel.textColor =  [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
         }
             break;
         default:
@@ -266,8 +270,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
-    self.weightLabel.text = [NSString stringWithFormat:@"/%@%@",model.productWeight,model.productUnit];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productSkuPrice];
+    self.weightLabel.text = model.productUnit;
     self.countField.text = [NSString stringWithFormat:@"%@",model.productQuantity];
 }
 @end

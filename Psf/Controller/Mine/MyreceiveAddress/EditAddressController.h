@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
-
+#import "AddressServiceApi.h"
 @interface EditAddressController : BaseViewController
+@property(nonatomic,strong)ChangeAddressReq *changeReq;
+///添加是0修改是1
+@property(nonatomic,assign)NSInteger type;
 
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZSAPIProxy.h"
 #import "UserCacheBean.h"
-
+#import "ZSConfig.h"
 typedef void(^responseModel)(id response);
 @interface BaseApi : NSObject
 + (void)requestAccountInfoModel:(responseModel ) response;

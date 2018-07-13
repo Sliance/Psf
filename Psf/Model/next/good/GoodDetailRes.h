@@ -22,7 +22,7 @@
 ///
 @property(nonatomic,copy)NSString *productUnit;
 ///
-@property(nonatomic,copy)NSNumber *productWeight;
+//@property(nonatomic,copy)NSNumber *productWeight;
 @property(nonatomic,copy)NSString *productImagePath;
 ///
 @property(nonatomic,strong)NSArray *productImageList;

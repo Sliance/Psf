@@ -161,6 +161,9 @@ typedef NS_ENUM(NSInteger,ZSCycleScrollPageControlAliment){
  *  清除缓存
  */
 - (void)clearCache;
+@property(nonatomic,strong)UIButton *supportBtn;
+@property(nonatomic,strong)UIButton *returnBtn;
+@property(nonatomic,strong)UIButton *sendBtn;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,copy)void (^selectedItemBlock)(NSInteger);
 

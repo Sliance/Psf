@@ -14,4 +14,6 @@
 @property(nonatomic,strong)UILabel *bottomLineLabel;
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UIButton *clearBtn;
+@property(nonatomic,copy)void(^clearBlock)(NSInteger);
+
 @end

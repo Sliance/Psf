@@ -8,8 +8,9 @@
 
 #import "BaseApi.h"
 #import "StairCategoryReq.h"
-#import "ZSConfig.h"
 #import "ShoppingListRes.h"
+#import "StairCategoryListRes.h"
+
 
 @interface ShopServiceApi : BaseApi
 + (instancetype)share;
@@ -29,4 +30,6 @@
 - (void)addShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///修改购物车信息
 - (void)changeShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///猜你喜欢
+- (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

@@ -26,6 +26,7 @@
 @property(nonatomic,strong)ShoppingListRes *result;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *loseArr;
+@property(nonatomic,strong)NSMutableArray *likeArr;
 
 @end
 static NSString *cellId = @"ShoppingCollectionViewCell";
@@ -63,12 +64,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.view addSubview:self.footView];
     _dataArr = [NSMutableArray array];
     _loseArr = [NSMutableArray array];
+    _likeArr = [NSMutableArray array];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self requestData];
-}
+    }
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -109,6 +111,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }
             [weakself.collectionView reloadData];
         }
+        [self  guessLikeList];
     }];
 }
 -(void)getShopCount{
@@ -265,6 +268,52 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }];
 }
+-(void)guessLikeList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.goodsCategoryId = @"";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]guessYouLikeWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.likeArr removeAllObjects];
+            [weakself.likeArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
+-(void)clearGoodCount{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.goodsCategoryId = @"";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]clearLoseProductWithParam:req response:^(id response) {
+        
+    }];
+}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 3;
 }
@@ -274,7 +323,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     }else if (section ==1){
         return self.loseArr.count;
     }
-    return 4;
+    return _likeArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -331,7 +380,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
            
         }
     }
-    return CGSizeMake(SCREENWIDTH, 70);
+    if (_likeArr.count>0) {
+         return CGSizeMake(SCREENWIDTH, 70);
+    }
+    return CGSizeMake(SCREENWIDTH, 0);
 }
 
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
@@ -360,16 +412,20 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [headerView addSubview:emptyview];
         }
     }else{
-        if (indexPath.section ==0) {
+        if (indexPath.section ==0&&_dataArr.count>0) {
             ValidShopHeadView* validView = [[ValidShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 36)];
             [headerView addSubview:validView];
-        }else if (indexPath.section ==1){
+        }else if (indexPath.section ==1&&_loseArr.count>0){
             LoseShopHeadView* loseView = [[LoseShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+            __weak typeof(self)weakself = self;
+            [loseView setClearBlock:^(NSInteger index) {
+                [weakself clearGoodCount];
+            }];
             [headerView addSubview:loseView];
             
         }
     }
-    if (indexPath.section ==2){
+    if (indexPath.section ==2&&_likeArr.count>0){
 //        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
 //        [headerView addSubview:likeView];
         NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 69)];
@@ -405,6 +461,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [cell setModel:model];
         return cell;
     }
+    StairCategoryListRes *model = _likeArr[indexPath.row];
+    
+    [collectcell setModel:model];
     return collectcell;
 }
 

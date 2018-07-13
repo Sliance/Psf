@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
+#import "CouponListRes.h"
 
 @interface MyCouponCell : UITableViewCell
 ///图片
@@ -21,4 +22,8 @@
 @property(nonatomic,strong)UIButton *getBtn;
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,copy)void(^getBlock)(NSInteger);
+
+@property(nonatomic,strong)CouponListRes *model;
+
+
 @end

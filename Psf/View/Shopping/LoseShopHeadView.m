@@ -82,6 +82,6 @@
     return _clearBtn;
 }
 -(void)pressClearBtn:(UIButton*)sender{
-    
+    self.clearBlock(sender.tag);
 }
 @end

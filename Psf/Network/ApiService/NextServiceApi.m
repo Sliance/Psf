@@ -150,32 +150,7 @@
         
     }];
 }
-///获取优惠券列表
-- (void)requestCouponListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/coupon/mobile/v1/list/product/id";
-    NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
-        if ([response.content isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dicResponse = (NSDictionary *) response.content;
-            if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = (NSArray*)[GoodDetailRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
-                if (responseModel) {
-                    responseModel(result);
-                }
-            }else {
-                if (responseModel) {
-                    responseModel(nil);
-                }
-            }
-        } else {
-            if (responseModel) {
-                responseModel(nil);
-            }
-        }
-    } faildCallBack:^(ZSURLResponse *response) {
-        
-    }];
-}
+
 ///获取评价列表
 - (void)requestEvaluateListModelListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/saleOrderProductComment/mobile/v1/list";
@@ -202,4 +177,5 @@
         
     }];
 }
+
 @end

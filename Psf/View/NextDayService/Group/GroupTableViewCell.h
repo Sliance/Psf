@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "GroupListRes.h"
 
 @interface GroupTableViewCell : BaseTableViewCell
 @property(nonatomic,strong)UIImageView *headImage;
@@ -18,4 +19,7 @@
 @property(nonatomic,copy)void(^pressAddBlock)(NSInteger);
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,strong)UILabel *lineLabel;
+
+@property(nonatomic,strong)GroupListRes *model;
+
 @end

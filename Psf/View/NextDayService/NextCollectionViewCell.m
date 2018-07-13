@@ -151,7 +151,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-    self.weightLabel.text = [NSString stringWithFormat:@"/%@%@",model.productWeight,model.productUnit];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+    self.weightLabel.text = model.productUnit;
 }
 @end

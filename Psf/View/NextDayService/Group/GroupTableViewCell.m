@@ -109,7 +109,6 @@
         _groupLabel.font = [UIFont systemFontOfSize:12];
         _groupLabel.textColor = DSColorFromHex(0xB4B4B4);
         _groupLabel.textAlignment = NSTextAlignmentCenter;
-        _groupLabel.text = @"单买价¥36.5";
     
     }
     return _groupLabel;
@@ -150,5 +149,14 @@
 }
 -(void)pressAddBtn:(UIButton*)sender{
     self.pressAddBlock(sender.tag);
+}
+-(void)setModel:(GroupListRes *)model{
+    _model = model;
+    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.titleLabel.text = model.productName;
+    self.detailLabel.text = model.productTitle;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/%@",model.grouponPrice,model.productUnit];
+    self.groupLabel.text = [NSString stringWithFormat:@"单买价¥%@",model.productPrice];
 }
 @end

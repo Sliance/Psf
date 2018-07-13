@@ -119,4 +119,10 @@
     }];
    
 }
+-(void)setModel:(CouponListRes *)model{
+    _model = model;
+    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.couponImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = model.couponName;
+}
 @end

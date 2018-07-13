@@ -53,6 +53,8 @@
     [self.groupView addSubview:self.weightLabel];
     [self.groupView addSubview:self.groupLabel];
     [self.groupView addSubview:self.priceLabel];
+    [self.groupView addSubview:self.originLabel];
+    [self.originLabel addSubview:self.lineLabel];
     [self addSubview:self.soldLabel];
     [self addSubview:self.shareBtn];
     self.groupView.frame = CGRectMake(0, 0, SCREENWIDTH, 50);
@@ -67,7 +69,16 @@
         make.left.equalTo(self.priceLabel.mas_right);
         make.bottom.equalTo(self.priceLabel.mas_bottom);
     }];
-    
+    [self.originLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.weightLabel.mas_right);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+    }];
+    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.originLabel.mas_left);
+        make.width.mas_equalTo(self.originLabel.mas_width);
+        make.height.mas_equalTo(1);
+        make.centerY.equalTo(self.originLabel);
+    }];
      [self.groupLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.groupView).offset(7);
         make.right.equalTo(self.groupView).offset(-15);
@@ -114,7 +125,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc]init];
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Bold" size:24];
+        _priceLabel.font = [UIFont systemFontOfSize:24];
         
         _priceLabel.text = @"";
     }
@@ -166,14 +177,36 @@
     }
     return _groupView;
 }
+-(UILabel *)originLabel{
+    if (!_originLabel) {
+        _originLabel = [[UILabel alloc]init];
+        _originLabel.textAlignment = NSTextAlignmentLeft;
+        _originLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+        _originLabel.textColor = [UIColor whiteColor];
+        _originLabel.hidden = YES;
+    }
+    return _originLabel;
+}
+-(UILabel *)lineLabel{
+    if (!_lineLabel) {
+        _lineLabel = [[UILabel alloc]init];
+        _lineLabel.backgroundColor = [UIColor whiteColor];
+    }
+    return _lineLabel;
+}
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
+    _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
+        self.originLabel.hidden = NO;
+        self.lineLabel.hidden = NO;
         [self setCornerLayoutGroup];
+        self.originLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
          self.groupLabel.text = @"距离预售结束还剩:";
         [self setCornerLayoutGroup];
@@ -182,8 +215,8 @@
     }
     _nameLabel.text = model.productName;
     _contentLabel.text = model.productTitle;
-    _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-    _weightLabel.text = [NSString stringWithFormat:@"/%@%@",model.productWeight,model.productUnit];
+    _weightLabel.text = model.productUnit;
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
+
 }
 @end

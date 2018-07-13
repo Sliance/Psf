@@ -39,6 +39,7 @@
         _contentField = [[UITextField alloc]init];
         _contentField.font = [UIFont systemFontOfSize:13];
         _contentField.textColor = DSColorFromHex(0x454545);
+        _contentField.delegate = self;
     }
     return _contentField;
 }

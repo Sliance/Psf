@@ -22,6 +22,6 @@
 ///单位
 @property(nonatomic,copy)NSString *productUnit;
 ///重量
-@property(nonatomic,assign)NSNumber *productWeight;
+//@property(nonatomic,assign)NSNumber *productWeight;
 
 @end

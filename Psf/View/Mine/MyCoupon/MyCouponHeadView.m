@@ -203,6 +203,7 @@
     if (!_allBtn) {
         _allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _allBtn.tag = 0;
     }
     return _allBtn;
 }
@@ -217,6 +218,7 @@
     if (!_singleBtn) {
         _singleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_singleBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _singleBtn.tag = 2;
     }
     return _singleBtn;
 }
@@ -247,5 +249,6 @@
         _sortLine.hidden = YES;
         _singleLine.hidden = NO;
     }
+    self.typeBlock(sender.tag);
 }
 @end

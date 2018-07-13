@@ -9,10 +9,12 @@
 #import "GroupViewController.h"
 #import "GroupTableViewCell.h"
 #import "detailGoodsViewController.h"
+#import "GroupServiceApi.h"
 
 @interface GroupViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end
 
@@ -36,6 +38,29 @@
     }
     return _tableview;
 }
+-(void)getGroupList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getGroupListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.tableview reloadData];
+        }
+    }];
+}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -51,6 +76,7 @@
     _goodtype = goodtype;
     if (_goodtype ==GOODTYPEGROUP) {
         [self setNavWithTitle:@"团购商品"];
+         [self getGroupList];
     }else{
         [self setNavWithTitle:@"预售商品"];
     }
@@ -59,12 +85,14 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headImage;
+    _dataArr = [NSMutableArray array];
+   
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return _dataArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 136;
@@ -77,6 +105,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (_goodtype ==GOODTYPEGROUP) {
+        GroupListRes *model = _dataArr[indexPath.row];
+        [cell setModel:model];
         cell.addBtn.hidden = NO;
     }else{
         cell.addBtn.hidden = YES;
@@ -84,12 +114,16 @@
     __weak typeof(self)weakSelf = self;
     [cell setPressAddBlock:^(NSInteger index) {
         detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+        GroupListRes *model = weakSelf.dataArr[indexPath.row];
+        [detailVC setProductID:model.productId];
         [weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+    GroupListRes *model = _dataArr[indexPath.row];
+    [detailVC setProductID:model.productId];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

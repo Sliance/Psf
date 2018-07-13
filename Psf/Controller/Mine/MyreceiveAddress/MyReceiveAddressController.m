@@ -10,10 +10,14 @@
 #import "BottomView.h"
 #import "MineAddressCell.h"
 #import "EditAddressController.h"
+#import "AddressServiceApi.h"
+
+
 
 @interface MyReceiveAddressController ()<UITableViewDelegate,UITableViewDataSource,MineAddressCellDelegate>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)BottomView *bottomView;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end
 
@@ -49,10 +53,32 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.bottomView];
+    _dataArr = [NSMutableArray array];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestAddressList];
+}
+-(void)requestAddressList{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
     
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.systemVersion = @"1.0.0";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]getAddressListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.tableview reloadData];
+        }
+    }];
 }
 -(void)pressBottom:(UIButton*)sender{
     EditAddressController *editVC = [[EditAddressController alloc]init];
+    [editVC setType:0];
     [self.navigationController pushViewController:editVC animated:YES];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -60,7 +86,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return _dataArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -83,13 +109,18 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = DSColorFromHex(0x464646);
     cell.textLabel.font = [UIFont systemFontOfSize:14];
+    ChangeAddressReq *model = _dataArr[indexPath.row];
+    [cell setModel:model];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
 }
 -(void)editAddressIndex:(NSInteger)index{
     EditAddressController *editVC = [[EditAddressController alloc]init];
+    ChangeAddressReq *model = _dataArr[index];
+    [editVC setChangeReq:model];
+    [editVC setType:1];
     [self.navigationController pushViewController:editVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

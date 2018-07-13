@@ -41,5 +41,6 @@
 }
 -(void)pressMorenBtn:(UIButton*)sender{
     sender.selected = !sender.selected;
+    self.morenBlock(sender.selected);
 }
 @end

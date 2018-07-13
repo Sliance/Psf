@@ -12,4 +12,6 @@
 
 @property(nonatomic,strong)UIButton *morenBtn;
 
+@property(nonatomic,copy)void(^morenBlock)(BOOL);
+
 @end

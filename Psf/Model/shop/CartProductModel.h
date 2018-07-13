@@ -34,7 +34,7 @@
 ///
 @property(nonatomic,copy)NSString *productUnit;
 ///
-@property(nonatomic,copy)NSString *productWeight;
+//@property(nonatomic,copy)NSString *productWeight;
 ///
 @property(nonatomic,copy)NSString *systemCreateTime;
 ///
