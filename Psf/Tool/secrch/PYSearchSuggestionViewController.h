@@ -5,6 +5,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StairCategoryListRes.h"
 
 typedef void(^PYSearchSuggestionDidSelectCellBlock)(UITableViewCell *selectedCell);
 
@@ -22,7 +23,7 @@ typedef void(^PYSearchSuggestionDidSelectCellBlock)(UITableViewCell *selectedCel
 @interface PYSearchSuggestionViewController : UITableViewController
 
 @property (nonatomic, weak) id<PYSearchSuggestionViewDataSource> dataSource;
-@property (nonatomic, copy) NSArray<NSString *> *searchSuggestions;
+@property (nonatomic, strong) NSMutableArray *searchSuggestions;
 @property (nonatomic, copy) PYSearchSuggestionDidSelectCellBlock didSelectCellBlock;
 
 + (instancetype)searchSuggestionViewControllerWithDidSelectCellBlock:(PYSearchSuggestionDidSelectCellBlock)didSelectCellBlock;

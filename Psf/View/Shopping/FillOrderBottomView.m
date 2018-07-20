@@ -28,7 +28,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _payableLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _payableLabel.text = @"应付:￥39.8";
+        _payableLabel.text = @"应付款：￥0";
     }
     return _payableLabel;
 }

@@ -34,9 +34,10 @@
     }
     return self;
 }
--(UILabel *)imageLabel{
+-(UIButton *)imageLabel{
     if (!_imageLabel) {
-        _imageLabel = [[UILabel alloc]init];
+        _imageLabel = [[UIButton alloc]init];
+        [_imageLabel setImage:[UIImage imageNamed:@"wechat_icon"] forState:UIControlStateNormal];
     }
     return _imageLabel;
 }

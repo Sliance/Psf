@@ -11,7 +11,7 @@
 #import "ShoppingListRes.h"
 #import "StairCategoryListRes.h"
 #import "CalculateReq.h"
-
+#import "CalculateThePriceRes.h"
 
 @interface ShopServiceApi : BaseApi
 + (instancetype)share;

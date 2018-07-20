@@ -9,7 +9,7 @@
 #import "BaseView.h"
 
 @interface PayTypeView : BaseView
-@property(nonatomic,strong)UILabel *imageLabel;
+@property(nonatomic,strong)UIButton *imageLabel;
 @property(nonatomic,strong)UILabel *typeLabel;
 @property(nonatomic,strong)UIButton *chooseBtn;
 @property(nonatomic,copy)void(^chooseBlock)(NSInteger);

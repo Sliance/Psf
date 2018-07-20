@@ -154,17 +154,38 @@ static NSString *cellId = @"cellId";
 }
 #pragma mark--Action
 -(void)pressSearch{
-    NSArray *hotSeaches = @[@"新西兰樱桃", @"妃子笑荔枝", @"金凤凰蜜瓜", @"蜜柚", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    // 2. Create a search view controller
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"请输入商品名称", @"搜索编程语言") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        //        [searchViewController.navigationController pushViewController:[[UIViewController alloc] init] animated:YES];
+    NSMutableArray *hotSeaches = [NSMutableArray array];
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.productCategoryId = @"" ;
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
+        [hotSeaches removeAllObjects];
+        for (GoodDetailRes *model in response) {
+            if (model.productName) {
+                [hotSeaches addObject:model.productName];
+            }
+        }
+        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"请输入商品名称", @"搜索编程语言") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+            //        [searchViewController.navigationController pushViewController:[[UIViewController alloc] init] animated:YES];
+        }];
+        searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
+        searchViewController.searchHistoryStyle = 1;
+        searchViewController.delegate = self;
+        searchViewController.searchViewControllerShowMode = PYSearchViewControllerShowModePush;
+        searchViewController.hidesBottomBarWhenPushed = YES;
+        [weakself.navigationController pushViewController:searchViewController animated:YES];
+        
     }];
-    searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
-    searchViewController.searchHistoryStyle = 1;
-    searchViewController.delegate = self;
-    searchViewController.searchViewControllerShowMode = PYSearchViewControllerShowModePush;
-    searchViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchViewController animated:YES];
 }
 #pragma mark - PYSearchViewControllerDelegate
 - (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
@@ -173,12 +194,29 @@ static NSString *cellId = @"cellId";
         // Simulate a send request to get a search suggestions
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSMutableArray *searchSuggestionsM = [NSMutableArray array];
-            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
-                NSString *searchSuggestion = [NSString stringWithFormat:@"苹果%d", i];
-                [searchSuggestionsM addObject:searchSuggestion];
-            }
-            // Refresh and display the search suggustions
-            searchViewController.searchSuggestions = searchSuggestionsM;
+            StairCategoryReq *req = [[StairCategoryReq alloc]init];
+            req.appId = @"993335466657415169";
+            req.timestamp = @"529675086";
+            req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+            req.userId = @"1009660103519952898";
+            req.version = @"1.0.0";
+            req.platform = @"ios";
+            req.userLongitude = @"121.4737";
+            req.userLatitude = @"31.23037";
+            req.productName = searchText;
+            req.cityId = @"310100";
+            req.cityName = @"上海市";
+            req.pageIndex = @"1";
+            req.pageSize = @"10";
+            __weak typeof(self)weakself = self;
+            [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {
+                if (response) {
+                    [searchSuggestionsM removeAllObjects];
+                    [searchSuggestionsM addObjectsFromArray:response];
+                    searchViewController.searchSuggestions = searchSuggestionsM;
+                }
+            }];
+            
         });
     }
 }

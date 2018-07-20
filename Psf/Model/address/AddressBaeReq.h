@@ -20,4 +20,8 @@
 ///会员地址编号
 @property(nonatomic,copy)NSString *memberAddressId;
 @property(nonatomic,copy)NSString *systemVersion;
+///用户经度
+@property(nonatomic,copy)NSString *userLongitude;
+///用户纬度
+@property(nonatomic,copy)NSString *userLatitude;
 @end

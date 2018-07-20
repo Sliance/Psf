@@ -79,6 +79,7 @@
 -(GoodFootView *)footView{
     if (!_footView) {
         _footView = [[GoodFootView alloc]init];
+        _footView.hidden = YES;
     }
     return _footView;
 }
@@ -203,6 +204,9 @@
         [_weakSelf addShopCount];
        
     }];
+    [self.normalBView setShopBlock:^{
+        _weakSelf.tabBarController.selectedIndex = 2;
+    }];
     [self.preBView setPressAddBlock:^{
         
     }];
@@ -245,7 +249,7 @@
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.productId = [NSNumber numberWithInteger:_productID];
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -256,8 +260,13 @@
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if(response != nil){
             weakself.result = response;
-            NSMutableArray *arr ;
-            weakself.cycleScroll.imageUrlGroups = (NSMutableArray*)weakself.result.productImageList;
+            NSMutableArray *arr  = [NSMutableArray array];
+            for (ImageModel *model in self.result.productImageList) {
+                if (model.productImagePath) {
+                    [arr addObject:model.productImagePath];
+                }
+            }
+            weakself.cycleScroll.imageUrlGroups = arr;
             [weakself requestEvaluate];
         }
     }];
@@ -278,7 +287,7 @@
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.productId = [NSNumber numberWithInteger:_productID];
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -389,10 +398,11 @@
     req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.productId = [NSNumber numberWithInteger:_productID];
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]spellGroupListWithParam:req response:^(id response) {
          [weakself.footView setPruductId:weakself.productID];
+        self.footView.hidden = NO;
         if (response != nil) {
             [weakself.groupArr removeAllObjects];
             [weakself.groupArr addObjectsFromArray:response];

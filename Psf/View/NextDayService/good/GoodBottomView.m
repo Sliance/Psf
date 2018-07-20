@@ -58,6 +58,7 @@
         [_shopBtn.layer setBorderColor:DSColorFromHex(0xDCDCDC).CGColor];
         [_shopBtn.layer setBorderWidth:0.5];
         [_shopBtn setImage:[UIImage imageNamed:@"shopping_cart"] forState:UIControlStateNormal];
+        [_shopBtn addTarget:self action:@selector(pressShop) forControlEvents:UIControlEventTouchUpInside];
     }
     return _shopBtn;
 }
@@ -87,5 +88,8 @@
 }
 -(void)pressAdd{
     self.pressAddBlock();
+}
+-(void)pressShop{
+    self.shopBlock();
 }
 @end

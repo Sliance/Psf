@@ -34,4 +34,6 @@
 - (void)requestBannerWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///搜索商品提示列表
 - (void)SearchHintListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///搜索商品列表
+- (void)SearchDataListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

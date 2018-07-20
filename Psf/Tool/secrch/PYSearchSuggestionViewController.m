@@ -67,9 +67,9 @@
 }
 
 #pragma mark - setter
-- (void)setSearchSuggestions:(NSArray<NSString *> *)searchSuggestions
+- (void)setSearchSuggestions:(NSMutableArray *)searchSuggestions
 {
-    _searchSuggestions = [searchSuggestions copy];
+    _searchSuggestions = searchSuggestions;
     
     [self.tableView reloadData];
     
@@ -126,7 +126,8 @@
         [cell.contentView addSubview:line];
     }
     cell.imageView.image = [NSBundle py_imageNamed:@""];
-    cell.textLabel.text = self.searchSuggestions[indexPath.row];
+    StairCategoryListRes *model =self.searchSuggestions[indexPath.row];
+    cell.textLabel.text = model.productName;
     return cell;
 }
 

@@ -11,6 +11,7 @@
 @interface StairCategoryReq : NSObject
 ///品父类编号
 @property(nonatomic,copy)NSString *productCategoryParentId;
+@property(nonatomic,copy)NSString *productCategoryId;
 ///应用编号
 @property(nonatomic,copy)NSString *appId;
 ///

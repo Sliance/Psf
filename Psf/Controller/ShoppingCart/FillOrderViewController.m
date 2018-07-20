@@ -16,6 +16,7 @@
 #import "NextReceiveDateView.h"
 #import "AddressServiceApi.h"
 #import "ShopServiceApi.h"
+#import "PointAmountCell.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,6 +27,7 @@
 @property(nonatomic,strong)FillOrderTypeView *typeView;
 @property(nonatomic,strong)NextReceiveDateView *dateView;
 @property(nonatomic,strong)CalculateReq *calculateModel;
+@property(nonatomic,strong)CalculateThePriceRes* resModel;
 
 @property(nonatomic,assign)NSInteger type;
 @end
@@ -126,7 +128,7 @@
     [_dataArr removeAllObjects];
     [_dataArr addObjectsFromArray:self.result.cartProductList];
     [_tableview reloadData];
-    self.bottomView.payableLabel.text = [NSString stringWithFormat:@"￥%@",self.result.cartPayAmount];
+
     [self reloadLeftAddress];
 }
 
@@ -163,7 +165,7 @@
 -(void)calculatePrice:(CalculateReq*)req{
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYzNDUzNjA5MDc1LCJ1c2VySWQiOiIxMDE2NjExMjI4MzA0NTgwNjExIiwib2JqZWN0SWQiOiIxMDE2NjExMjI4MzA0NTgwNjEwIn0=";
     req.platform = @"ios";
     NSMutableArray *arr = [NSMutableArray array];
     for (CartProductModel *model in self.result.cartProductList) {
@@ -175,7 +177,12 @@
     req.productList = arr;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
-        
+        if (response) {
+            weakself.resModel = [[CalculateThePriceRes alloc]init];
+            weakself.resModel = response;
+            weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+            [weakself.tableview reloadData];
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -220,9 +227,55 @@
         if (!cell) {
             cell = [[FillOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         CartProductModel *model = _dataArr[indexPath.row];
         [cell setModel:model];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
+    }
+    if (indexPath.row ==3||indexPath.row ==4) {
+        static NSString *identify = @"PointAmountCell";
+        PointAmountCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+        if (!cell) {
+            cell = [[PointAmountCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        }
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setIndex:indexPath.row];
+        if(indexPath.row ==3) {
+            if (self.resModel.saleOrderPointAmount) {
+                cell.nameLabel.text = [NSString stringWithFormat:@"积分抵扣（￥%@）",self.resModel.saleOrderPointAmount];
+            }else{
+                cell.nameLabel.text = @"积分抵扣（￥0）";
+            }
+            
+            
+            if (self.calculateModel) {
+                cell.yuEswitch.on = self.calculateModel.usePointIs;
+            }else{
+                cell.yuEswitch.on = YES;
+                self.calculateModel.usePointIs = YES;
+            }
+            
+        }else if(indexPath.row ==4) {
+            cell.nameLabel.text = [NSString stringWithFormat:@"余额抵扣（￥%@）",self.resModel.useMemberBalance];
+            if (self.calculateModel) {
+                cell.yuEswitch.on = self.calculateModel.useIsBalance;
+            }else{
+                cell.yuEswitch.on = YES;
+                self.calculateModel.useIsBalance = YES;
+            }
+            
+        }
+        __weak typeof(self)weakself = self;
+        [cell setYuEBlock:^(NSInteger index) {
+            if (index ==4) {
+                weakself.calculateModel.useIsBalance = !weakself.calculateModel.useIsBalance;
+                [weakself calculatePrice:weakself.calculateModel];
+            }else if (index ==3){
+                weakself.calculateModel.usePointIs = !weakself.calculateModel.usePointIs;
+                [weakself calculatePrice:weakself.calculateModel];
+            }
+        }];
         return cell;
     }
     static NSString *identify = @"UITableViewCell";
@@ -230,7 +283,13 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
     }
+   cell.imageView.image = [UIImage imageNamed:@""];
    cell.accessoryType = UITableViewCellAccessoryNone;
+    for (UIView*view in cell.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
     if (indexPath.section ==1) {
         if (indexPath.row ==0) {
             cell.textLabel.text = @"优惠券：暂无可用";
@@ -238,35 +297,14 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }else if(indexPath.row ==2) {
             cell.textLabel.text = @"配送费";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.result.cartExpressAmount];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderExpressAmount];
         }else if(indexPath.row ==1) {
             cell.textLabel.text = @"开具发票（否）";
             cell.detailTextLabel.text = @"";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if(indexPath.row ==5) {
+        }else if(indexPath.row ==5) {
             cell.textLabel.text = @"合计";
-            cell.detailTextLabel.text = @"¥ 399.80";
-        }
-        else if(indexPath.row ==3) {
-            cell.textLabel.text = @"积分抵扣（￥）";
-            cell.detailTextLabel.text = @"";
-            UISwitch *yuEswitch = [[UISwitch alloc]init];
-            [yuEswitch addTarget:self action:@selector(pressWeChart:) forControlEvents:UIControlEventValueChanged];
-            yuEswitch.tag = 3;
-            yuEswitch.on = YES;
-            yuEswitch.frame = CGRectMake(SCREENWIDTH-65, 12, 40, 20);
-            [cell addSubview:yuEswitch];
-        }
-        else if(indexPath.row ==4) {
-            cell.textLabel.text = @"余额抵扣（￥）";
-            cell.detailTextLabel.text = @"";
-            UISwitch *yuEswitch = [[UISwitch alloc]init];
-            [yuEswitch addTarget:self action:@selector(pressWeChart:) forControlEvents:UIControlEventValueChanged];
-            yuEswitch.tag = 4;
-            yuEswitch.on = YES;
-             yuEswitch.frame = CGRectMake(SCREENWIDTH-65, 12, 40, 20);
-            [cell addSubview:yuEswitch];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥ %@",self.resModel.saleOrderPayAmount];
         }
     }else if (indexPath.section ==2){
         cell.textLabel.text = @"微信支付";
@@ -284,14 +322,13 @@
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
     cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
--(void)pressSwitch:(UISwitch*)sender{
-    
-}
+
 -(void)pressWeChart:(UIButton*)sender{
     sender.selected = !sender.selected;
+    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {

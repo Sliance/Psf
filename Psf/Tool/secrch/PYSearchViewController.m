@@ -10,6 +10,7 @@
 #import "ZSConfig.h"
 #import "NextCollectionViewCell.h"
 #import "detailGoodsViewController.h"
+#import "NextServiceApi.h"
 
 #define PYRectangleTagMaxCol 3
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
@@ -1176,7 +1177,7 @@ static NSString *cellId = @"cellId";
 //    if (self.didSearchBlock) self.didSearchBlock(self, searchBar, searchBar.text);
     self.searchSuggestionVC.tableView.hidden = YES;
     self.collectionView.hidden = NO;
-    
+    [self requestSearchData:searchBar.text];
     [self saveSearchCacheAndRefreshView];
 }
 
@@ -1307,7 +1308,7 @@ static NSString *cellId = @"cellId";
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return self.dataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -1330,7 +1331,8 @@ static NSString *cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    StairCategoryListRes *res = self.dataArr[indexPath.row];
+    [cell setModel:res];
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -1340,11 +1342,35 @@ static NSString *cellId = @"cellId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    //    [self showViewController:nav sender:nil];
+     StairCategoryListRes *res = self.dataArr[indexPath.row];
+    [vc setProductID:res.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-
+-(void)requestSearchData:(NSString*)search{
+    _dataArr = [NSMutableArray array];
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productName = search;
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]SearchDataListWithParam:req response:^(id response) {
+        if (response) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
 @end

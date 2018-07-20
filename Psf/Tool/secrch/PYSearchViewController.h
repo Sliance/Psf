@@ -428,5 +428,6 @@ didSelectSearchSuggestionAtIndex:(NSInteger)index
 + (instancetype)searchViewControllerWithHotSearches:(NSArray<NSString *> *)hotSearches
                                searchBarPlaceholder:(NSString *)placeholder
                                      didSearchBlock:(PYDidSearchBlock)block;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end

@@ -14,5 +14,5 @@
 @property(nonatomic,strong)UIButton *addBtn;
 @property(nonatomic,strong)UILabel *countLabel;
 @property(nonatomic,copy)void(^pressAddBlock)();
-
+@property(nonatomic,copy)void(^shopBlock)();
 @end

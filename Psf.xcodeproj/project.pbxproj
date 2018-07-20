@@ -138,6 +138,9 @@
 		886A9ED520ECD5F7000503D2 /* DetailMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9ED420ECD5F7000503D2 /* DetailMessageCell.m */; };
 		886A9ED820ECDEDB000503D2 /* LogisticsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9ED720ECDEDB000503D2 /* LogisticsListController.m */; };
 		886A9EDB20ECDEF4000503D2 /* LogisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9EDA20ECDEF4000503D2 /* LogisticsTableViewCell.m */; };
+		886AC4072101B79200B6F32F /* CalculateThePriceRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC4062101B79200B6F32F /* CalculateThePriceRes.m */; };
+		886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC4092101D79000B6F32F /* PointAmountCell.m */; };
+		886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40C2101EAF900B6F32F /* StoreRes.m */; };
 		8871B82020DB3E9800DAA5D6 /* ZSAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */; };
 		8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83020DB406C00DAA5D6 /* ZSRequestCenter.m */; };
 		8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83320DB408600DAA5D6 /* ZSRequestGenerator.m */; };
@@ -526,6 +529,12 @@
 		886A9ED720ECDEDB000503D2 /* LogisticsListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListController.m; sourceTree = "<group>"; };
 		886A9ED920ECDEF4000503D2 /* LogisticsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsTableViewCell.h; sourceTree = "<group>"; };
 		886A9EDA20ECDEF4000503D2 /* LogisticsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsTableViewCell.m; sourceTree = "<group>"; };
+		886AC4052101B79200B6F32F /* CalculateThePriceRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateThePriceRes.h; sourceTree = "<group>"; };
+		886AC4062101B79200B6F32F /* CalculateThePriceRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculateThePriceRes.m; sourceTree = "<group>"; };
+		886AC4082101D79000B6F32F /* PointAmountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointAmountCell.h; sourceTree = "<group>"; };
+		886AC4092101D79000B6F32F /* PointAmountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointAmountCell.m; sourceTree = "<group>"; };
+		886AC40B2101EAF900B6F32F /* StoreRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreRes.h; sourceTree = "<group>"; };
+		886AC40C2101EAF900B6F32F /* StoreRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreRes.m; sourceTree = "<group>"; };
 		8871B81B20DB3DA400DAA5D6 /* ZSAFNetworkingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAFNetworkingConfig.h; sourceTree = "<group>"; };
 		8871B81E20DB3E9800DAA5D6 /* ZSAPIProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAPIProxy.h; sourceTree = "<group>"; };
 		8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAPIProxy.m; sourceTree = "<group>"; };
@@ -824,6 +833,8 @@
 				885303D020F4BF89009807B2 /* CartProductModel.m */,
 				88662062210051E500C7923D /* CalculateReq.h */,
 				88662063210051E500C7923D /* CalculateReq.m */,
+				886AC4052101B79200B6F32F /* CalculateThePriceRes.h */,
+				886AC4062101B79200B6F32F /* CalculateThePriceRes.m */,
 			);
 			path = shop;
 			sourceTree = "<group>";
@@ -960,6 +971,8 @@
 				8852A22720EF1100002C2D12 /* NextReceiveDateView.m */,
 				885303C520F4B455009807B2 /* EmptyShoppingHeadView.h */,
 				885303C620F4B455009807B2 /* EmptyShoppingHeadView.m */,
+				886AC4082101D79000B6F32F /* PointAmountCell.h */,
+				886AC4092101D79000B6F32F /* PointAmountCell.m */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -1203,6 +1216,8 @@
 				886427A920F70096006A160E /* ChangeAddressReq.m */,
 				88A2B43D20F732A6007F338A /* ZHPlaceInfoModel.h */,
 				88A2B43E20F732A7007F338A /* ZHPlaceInfoModel.m */,
+				886AC40B2101EAF900B6F32F /* StoreRes.h */,
+				886AC40C2101EAF900B6F32F /* StoreRes.m */,
 			);
 			path = address;
 			sourceTree = "<group>";
@@ -2051,6 +2066,7 @@
 				8857EA7720E3597500D7E167 /* WaitPaymentCell.m in Sources */,
 				88636D0920E1FD73006CE5D8 /* BaseTableViewCell.m in Sources */,
 				886A9ECC20ECBAAF000503D2 /* ChooseServiceTypeController.m in Sources */,
+				886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */,
 				888E719520E0CAA300BFBAFF /* UIScrollView+VTMagic.m in Sources */,
 				886427AA20F70096006A160E /* ChangeAddressReq.m in Sources */,
 				8871B85320DB424A00DAA5D6 /* NSString+MoneyStyle.m in Sources */,
@@ -2166,6 +2182,7 @@
 				88636D1D20E2266C006CE5D8 /* EditAddressController.m in Sources */,
 				88600BFC20D8D16E0098CF10 /* ZJScrollSegmentView.m in Sources */,
 				88636D0C20E1FF1E006CE5D8 /* MineAddressCell.m in Sources */,
+				886AC4072101B79200B6F32F /* CalculateThePriceRes.m in Sources */,
 				8871B84820DB419A00DAA5D6 /* NSURLRequest+TYAFNetworking.m in Sources */,
 				88600BF920D8D16E0098CF10 /* ZJTitleView.m in Sources */,
 				8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */,
@@ -2187,6 +2204,7 @@
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
+				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
 				88600BD120D890B80098CF10 /* ZSDotView.m in Sources */,
 				8871B83A20DB40B700DAA5D6 /* ZSURLResponse.m in Sources */,
