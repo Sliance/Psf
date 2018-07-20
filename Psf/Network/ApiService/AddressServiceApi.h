@@ -9,6 +9,7 @@
 #import "BaseApi.h"
 #import "AddressBaeReq.h"
 #import "ChangeAddressReq.h"
+#import "StoreRes.h"
 
 
 @interface AddressServiceApi : BaseApi

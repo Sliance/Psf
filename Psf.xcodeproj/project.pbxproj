@@ -141,6 +141,7 @@
 		886AC4072101B79200B6F32F /* CalculateThePriceRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC4062101B79200B6F32F /* CalculateThePriceRes.m */; };
 		886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC4092101D79000B6F32F /* PointAmountCell.m */; };
 		886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40C2101EAF900B6F32F /* StoreRes.m */; };
+		886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40F2101F9A000B6F32F /* StoreAddressController.m */; };
 		8871B82020DB3E9800DAA5D6 /* ZSAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */; };
 		8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83020DB406C00DAA5D6 /* ZSRequestCenter.m */; };
 		8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83320DB408600DAA5D6 /* ZSRequestGenerator.m */; };
@@ -535,6 +536,8 @@
 		886AC4092101D79000B6F32F /* PointAmountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointAmountCell.m; sourceTree = "<group>"; };
 		886AC40B2101EAF900B6F32F /* StoreRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreRes.h; sourceTree = "<group>"; };
 		886AC40C2101EAF900B6F32F /* StoreRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreRes.m; sourceTree = "<group>"; };
+		886AC40E2101F9A000B6F32F /* StoreAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreAddressController.h; sourceTree = "<group>"; };
+		886AC40F2101F9A000B6F32F /* StoreAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressController.m; sourceTree = "<group>"; };
 		8871B81B20DB3DA400DAA5D6 /* ZSAFNetworkingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAFNetworkingConfig.h; sourceTree = "<group>"; };
 		8871B81E20DB3E9800DAA5D6 /* ZSAPIProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAPIProxy.h; sourceTree = "<group>"; };
 		8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAPIProxy.m; sourceTree = "<group>"; };
@@ -1645,6 +1648,8 @@
 				888E71A020E0F29C00BFBAFF /* MyReceiveAddressController.m */,
 				88636D1B20E2266C006CE5D8 /* EditAddressController.h */,
 				88636D1C20E2266C006CE5D8 /* EditAddressController.m */,
+				886AC40E2101F9A000B6F32F /* StoreAddressController.h */,
+				886AC40F2101F9A000B6F32F /* StoreAddressController.m */,
 			);
 			path = MyreceiveAddress;
 			sourceTree = "<group>";
@@ -2132,6 +2137,7 @@
 				88534C2C20E614ED00D6F43C /* GetCouponsView.m in Sources */,
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
 				88484D7A20EB179B00400D16 /* PayTypeView.m in Sources */,
+				886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */,
 				886A9EC520EC9D6B000503D2 /* SureOrderViewController.m in Sources */,
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,

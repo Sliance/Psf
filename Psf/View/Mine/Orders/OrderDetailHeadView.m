@@ -241,6 +241,24 @@
         self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",model.memberAddressProvince,model.memberAddressCity,model.memberAddressArea,model.memberAddressDetail];
     }else{
         self.centerLabel.hidden = NO;
+        self.detailLabel.text =@"";
+    }
+}
+
+
+
+-(void)setStoremodel:(StoreRes *)storemodel{
+    _storemodel = storemodel;
+    self.titleLabel.text = storemodel.storeName;
+    self.phoneLabel.text = storemodel.storeTel;
+    self.morenLabel.hidden = !storemodel.memberStoreIsDefaul;
+    
+    if (storemodel.storeProvinces.length>0) {
+        self.centerLabel.hidden = YES;
+        self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",storemodel.storeProvinces,storemodel.storeCity,storemodel.storeArea,storemodel.storeAddress];
+    }else{
+        self.centerLabel.hidden = NO;
+        self.detailLabel.text =@"";
     }
 }
 @end

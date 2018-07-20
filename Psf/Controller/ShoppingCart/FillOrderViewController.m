@@ -17,6 +17,7 @@
 #import "AddressServiceApi.h"
 #import "ShopServiceApi.h"
 #import "PointAmountCell.h"
+#import "StoreAddressController.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,6 +29,8 @@
 @property(nonatomic,strong)NextReceiveDateView *dateView;
 @property(nonatomic,strong)CalculateReq *calculateModel;
 @property(nonatomic,strong)CalculateThePriceRes* resModel;
+@property(nonatomic,strong)StoreRes *storemodel;
+@property(nonatomic,strong)ChangeAddressReq *leftModel;
 
 @property(nonatomic,assign)NSInteger type;
 @end
@@ -100,17 +103,24 @@
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
         }else if (index ==2){
              [weakSelf.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+            [weakSelf pickUpStoreData];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
         }
         weakSelf.tableview.tableHeaderView = weakSelf.headView;
     }];
     [self.headView setAddressBlock:^(NSInteger index) {
-        MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
-        [addressVC setChooseBlock:^(ChangeAddressReq * model) {
-            [weakSelf.headView setModel:model];
-        }];
-        addressVC.type = ADDRESSTYPEOrder;
-        [weakSelf.navigationController pushViewController:addressVC animated:YES];
+        if (index ==1) {
+            MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
+            [addressVC setChooseBlock:^(ChangeAddressReq * model) {
+                [weakSelf.headView setModel:model];
+            }];
+            addressVC.type = ADDRESSTYPEOrder;
+            [weakSelf.navigationController pushViewController:addressVC animated:YES];
+        }else if (index ==2){
+            StoreAddressController *addressVC = [[StoreAddressController alloc]init];
+            [weakSelf.navigationController pushViewController:addressVC animated:YES];
+        }
+       
     }];
     [self.headView setDateBlock:^(NSInteger index) {
         weakSelf.dateView.hidden = NO;
@@ -141,9 +151,9 @@
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]getSingleDefaultAddresWithParam:req response:^(id response) {
         if (response!=nil) {
-            ChangeAddressReq *res = [[ChangeAddressReq alloc]init];
-            res = response;
-            [weakself.headView setModel:res];
+            weakself.leftModel = [[ChangeAddressReq alloc]init];
+            weakself.leftModel = response;
+            [weakself.headView setModel:weakself.leftModel];
         
         }else{
              weakself.headView.centerLabel.hidden = NO;
@@ -185,6 +195,26 @@
         }
     }];
 }
+
+-(void)pickUpStoreData{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]pickUpSingleDefaultAddresWithParam:req response:^(id response) {
+        if (response) {
+            weakself.storemodel = response;
+            [weakself.headView setStoremodel:weakself.storemodel];
+            
+        }
+    }];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }

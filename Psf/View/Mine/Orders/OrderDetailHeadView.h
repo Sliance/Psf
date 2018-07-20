@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #import "ChangeAddressReq.h"
+#import "StoreRes.h"
 
 typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
     CLAIMGOODSTYPECOMMON = 0,//其他
@@ -38,4 +39,5 @@ typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
 
 @property(nonatomic,strong)ChangeAddressReq *model;
 
+@property(nonatomic,strong)StoreRes *storemodel;
 @end
