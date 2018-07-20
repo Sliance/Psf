@@ -88,7 +88,7 @@
     if(section ==0){
         return 2;
     }else if (section ==1){
-        return 4;
+        return 3;
     }
     return 1;
 }
@@ -133,18 +133,14 @@
     }
     
     if (indexPath.section ==1) {
-        if (indexPath.row ==0) {
-            cell.textLabel.text = @"优惠券：暂无可用";
-            cell.detailTextLabel.text = @"0张";
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }else if(indexPath.row ==1) {
+         if(indexPath.row ==0) {
             cell.textLabel.text = @"配送费";
             cell.detailTextLabel.text = @"¥ 0.00";
-        }else if(indexPath.row ==2) {
+        }else if(indexPath.row ==1) {
             cell.textLabel.text = @"开具发票";
             cell.detailTextLabel.text = @"";
         }
-        else if(indexPath.row ==3) {
+        else if(indexPath.row ==2) {
             cell.textLabel.text = @"合计";
             cell.detailTextLabel.text = @"¥ 399.80";
         }

@@ -138,7 +138,7 @@
 }
 -(void)setIndex:(NSInteger)index{
     _index = index;
-    _editBtn.tag = _index;
+    _editBtn.tag = index;
 }
 -(void)pressEditBtn:(UIButton*)sender{
     if ([self.delegate respondsToSelector:@selector(editAddressIndex:)]) {
@@ -148,7 +148,7 @@
 -(void)setModel:(ChangeAddressReq *)model{
     _model = model;
     _titleLabel.text = model.memberAddressName;
-    _detailLabel.text = model.memberAddressDetail;
+    _detailLabel.text =[NSString stringWithFormat:@"%@%@%@%@",model.memberAddressProvince,model.memberAddressCity,model.memberAddressArea,model.memberAddressDetail];;
     _phoneLabel.text = model.memberAddressMobile;
     if (model.memberAddressIsDefault ==0) {
         self.morenLabel.hidden = YES;

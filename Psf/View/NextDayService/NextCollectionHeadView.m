@@ -22,20 +22,27 @@
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.typeBtn];
     [self.bgView addSubview:self.detailLabel];
+    [self.bgView addSubview:self.headImage];
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
         make.top.equalTo(self).offset(5);
     }];
     [self.typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bgView).offset(15);
+        make.top.equalTo(self.bgView);
         make.width.mas_equalTo(100);
         make.centerX.equalTo(self.bgView);
+        make.height.mas_equalTo(40);
+    }];
+    [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bgView);
+        make.top.equalTo(self.typeBtn.mas_bottom);
+        make.height.mas_equalTo(100);
     }];
 }
 -(UIButton *)typeBtn{
     if (!_typeBtn) {
         _typeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_typeBtn setTitle:@"牛肉" forState:UIControlStateNormal];
+        [_typeBtn setTitle:@"" forState:UIControlStateNormal];
         [_typeBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         _typeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
 //        _typeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -100);
@@ -54,5 +61,17 @@
 }
 -(void)pressType:(UIButton *)sender{
     self.pressTypeBlock(sender.tag);
+}
+-(UIImageView *)headImage{
+    if (!_headImage) {
+        _headImage = [[UIImageView alloc]init];
+        _headImage.image = [UIImage imageNamed:@"presale_banner"];
+    }
+    return _headImage;
+}
+-(void)setModel:(SubjectCategoryModel *)model{
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.subjectCategoryImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    [self.typeBtn setTitle:model.subjectCategoryName forState:UIControlStateNormal];
 }
 @end

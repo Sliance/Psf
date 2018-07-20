@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "CartProductModel.h"
 
 @interface FillOrderTableViewCell : BaseTableViewCell
 @property(nonatomic,strong)UIView *bgView;
@@ -32,4 +33,5 @@
 @property(nonatomic,strong)UIButton *sendBtn;
 ///付款按钮
 @property(nonatomic,strong)UIButton *payBtn;
+@property(nonatomic,strong)CartProductModel *model;
 @end

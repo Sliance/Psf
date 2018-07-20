@@ -31,7 +31,9 @@
 ///
 @property(nonatomic,copy)NSString *userLatitude;
 ///商品编号
-@property(nonatomic,copy)NSString *productId;
+@property(nonatomic,copy)NSNumber *productId;
+///
+@property(nonatomic,copy)NSString *productName;
 ///商品规格编号
 @property(nonatomic,copy)NSString *productSkuId;
 ///商品数量
@@ -48,7 +50,7 @@
 ///购物车编号(全选或者反选购物车信息)
 @property(nonatomic,copy)NSString *cartId;
 ///购物车商品编号(选中单条购物车信息)
-@property(nonatomic,copy)NSString *cartProductId;
+@property(nonatomic,copy)NSNumber *cartProductId;
 ///购物车商品是否选中
 @property(nonatomic,assign)NSInteger cartProductIsActive;
 
@@ -57,5 +59,8 @@
 @property(nonatomic,copy)NSString *saleOrderProductList;
 ///优惠券类型（singleProduct单品，allProduct全场）
 @property(nonatomic,copy)NSString *couponType;
-
+///专题位置(@"1+2")
+@property(nonatomic,copy)NSString*subjectPosition;
+///自定义专题
+@property(nonatomic,copy)NSString*subjectId;
 @end

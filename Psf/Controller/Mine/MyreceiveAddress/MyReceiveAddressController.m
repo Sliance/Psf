@@ -10,9 +10,6 @@
 #import "BottomView.h"
 #import "MineAddressCell.h"
 #import "EditAddressController.h"
-#import "AddressServiceApi.h"
-
-
 
 @interface MyReceiveAddressController ()<UITableViewDelegate,UITableViewDataSource,MineAddressCellDelegate>
 @property(nonatomic,strong)UITableView *tableview;
@@ -76,6 +73,9 @@
         }
     }];
 }
+-(void)setType:(ADDRESSTYPE)type{
+    _type = type;
+}
 -(void)pressBottom:(UIButton*)sender{
     EditAddressController *editVC = [[EditAddressController alloc]init];
     [editVC setType:0];
@@ -110,10 +110,16 @@
     cell.textLabel.textColor = DSColorFromHex(0x464646);
     cell.textLabel.font = [UIFont systemFontOfSize:14];
     ChangeAddressReq *model = _dataArr[indexPath.row];
+    [cell setIndex:indexPath.row];
     [cell setModel:model];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type ==ADDRESSTYPEOrder) {
+        ChangeAddressReq *model = _dataArr[indexPath.row];
+        self.chooseBlock(model);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
 }
 -(void)editAddressIndex:(NSInteger)index{

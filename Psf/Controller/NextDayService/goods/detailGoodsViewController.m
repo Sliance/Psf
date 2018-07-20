@@ -22,6 +22,10 @@
 #import "ProductSkuModel.h"
 #import "CouponServiceApi.h"
 #import "GroupServiceApi.h"
+#import "GroupGoodBottomView.h"
+#import "PresaleGoodBottomView.h"
+#import "GroupBuyView.h"
+#import "SureOrderViewController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -36,11 +40,16 @@
 @property(nonatomic,strong)GetCouponsCellView *couponCell;
 @property(nonatomic,strong)GetCouponsView *couponView;
 @property(nonatomic,strong)TourDiyGooddetailView *tourDiyView;
-@property(nonatomic,strong)GoodBottomView *bottomView;
+@property(nonatomic,strong)GoodBottomView *normalBView;
+@property(nonatomic,strong)PresaleGoodBottomView *preBView;
+@property(nonatomic,strong)GroupGoodBottomView *groupBView;
 @property(nonatomic,strong)GoodDetailRes *result;
 @property (strong, nonatomic) UIWebView *webView;
 @property(strong,nonatomic)EvaluateListRes *evaRes;
 @property(nonatomic,strong)NSMutableArray *groupArr;
+@property(nonatomic,strong)GroupBuyView *groupBuyView;
+
+
 @end
 
 @implementation detailGoodsViewController
@@ -73,12 +82,26 @@
     }
     return _footView;
 }
--(GoodBottomView *)bottomView{
-    if (!_bottomView) {
-        _bottomView = [[GoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
+-(GoodBottomView *)normalBView{
+    if (!_normalBView) {
+        _normalBView = [[GoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
         
     }
-    return _bottomView;
+    return _normalBView;
+}
+-(PresaleGoodBottomView *)preBView{
+    if (!_preBView) {
+        _preBView = [[PresaleGoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
+        
+    }
+    return _preBView;
+}
+-(GroupGoodBottomView *)groupBView{
+    if (!_groupBView) {
+        _groupBView = [[GroupGoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
+        
+    }
+    return _groupBView;
 }
 -(GetCouponsCellView *)couponCell{
     if (!_couponCell) {
@@ -93,10 +116,18 @@
         _couponView = [[GetCouponsView alloc]init];
         _couponView.hidden = YES;
          _couponView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
-        _couponView.hidden = YES;
         _couponView.delegate = self;
     }
     return _couponView;
+}
+-(GroupBuyView *)groupBuyView{
+    if (!_groupBuyView) {
+        _groupBuyView = [[GroupBuyView alloc]init];
+        _groupBuyView.hidden = YES;
+        _groupBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        [_groupBuyView setHeight:[self tabBarHeight]];
+    }
+    return _groupBuyView;
 }
 -(ZSCycleScrollView *)cycleScroll{
     if (!_cycleScroll) {
@@ -146,8 +177,7 @@
     [self.bgscrollow addSubview:self.footView];
     [self.bgscrollow addSubview:self.couponCell];
     [self.bgscrollow addSubview:self.tourDiyView];
-     [self.view addSubview:self.bottomView];
-    [self.view addSubview:self.couponView];
+    
     [self.bgscrollow addSubview:self.webView];
     self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
    __weak typeof(self) _weakSelf = self;
@@ -169,9 +199,32 @@
         [detailVC setProductID:productId];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
-    [self.bottomView setPressAddBlock:^{
+    [self.normalBView setPressAddBlock:^{
         [_weakSelf addShopCount];
        
+    }];
+    [self.preBView setPressAddBlock:^{
+        
+    }];
+    [self.groupBView setSingleBlock:^{
+        
+    }];
+    [self.groupBView setGroupBlock:^{
+        _weakSelf.groupBuyView.hidden = NO;
+    }];
+    [self.groupBuyView setPressAddBlock:^{
+        
+    }];
+    [self.groupBuyView setSubBlock:^{
+        
+    }];
+    [self.groupBuyView setSubmitBlock:^{
+        _weakSelf.groupBuyView.hidden = YES;
+        SureOrderViewController *sureVC = [[SureOrderViewController alloc]init];
+        [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+    }];
+    [self.groupBuyView setTapBlock:^{
+        _weakSelf.groupBuyView.hidden = YES;
     }];
 }
 
@@ -203,7 +256,7 @@
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if(response != nil){
             weakself.result = response;
-            
+            NSMutableArray *arr ;
             weakself.cycleScroll.imageUrlGroups = (NSMutableArray*)weakself.result.productImageList;
             [weakself requestEvaluate];
         }
@@ -319,8 +372,8 @@
         if (response!= nil) {
             NSDictionary* dic= response;
             if ([dic[@"cartProductCount"] integerValue]>0) {
-                weakself.bottomView.countLabel.hidden = NO;
-                weakself.bottomView.countLabel.text = [NSString stringWithFormat:@"%@",dic[@"cartProductCount"]];
+                weakself.normalBView.countLabel.hidden = NO;
+                weakself.normalBView.countLabel.text = [NSString stringWithFormat:@"%@",dic[@"cartProductCount"]];
             }
             if (index == 0) {
                  [self reloadGoodDetail];
@@ -359,16 +412,20 @@
     if([self.result.productType isEqualToString:@"normal"]){//正常
        
         [self requestCoupon];
+         [self.view addSubview:self.normalBView];
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
         if (self.groupArr.count ==0) {
             _tourHeight = 0;
         }else{
             _tourHeight = 50;
         }
+         [self.view addSubview:self.groupBView];
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         _tourHeight = 0;
+         [self.view addSubview:self.preBView];
     }else {//满减
          [self requestCoupon];
+         [self.view addSubview:self.normalBView];
     }
     if (_couponHeight ==0) {
         _couponCell.hidden = YES;
@@ -392,6 +449,8 @@
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
+    [self.view addSubview:self.couponView];
+    [self.view addSubview:self.groupBuyView];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

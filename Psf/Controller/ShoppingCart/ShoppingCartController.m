@@ -65,7 +65,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
     _dataArr = [NSMutableArray array];
     _loseArr = [NSMutableArray array];
     _likeArr = [NSMutableArray array];
-    
+    __weak typeof(self)weakself = self;
+    [self.footView setAllBlock:^(BOOL selected) {
+        [weakself selectedAll:selected];
+    }];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -109,6 +112,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }else{
                 weakself.footView.hidden = NO;
             }
+            [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
         [self  guessLikeList];
@@ -139,7 +143,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
         
     }];
 }
--(void)addShopCount:(CartProductModel*)model{
+
+
+-(void)changeShopCount:(CartProductModel*)model{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -148,104 +154,14 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.userId = @"1009660103519952898";
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.couponType = @"allProduct";
-    req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
-    req.pageIndex = @"1";
-    req.pageSize = @"10";
+    req.cartProductId = model.cartProductId;
     req.productCategoryParentId = @"";
-    req.saleOrderId = @"1013703405872041985";
+   
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    __weak typeof(self)weakself = self;
-    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
-        if (response!= nil) {
-            weakself.result = response;
-            [weakself.dataArr removeAllObjects];
-            [weakself.loseArr removeAllObjects];
-            for (CartProductModel *model  in weakself.result.cartProductList) {
-                if (model.productIsOnSale ==1) {
-                    [weakself.dataArr addObject:model];
-                }else{
-                    [weakself.loseArr addObject:model];
-                }
-            }
-            if(weakself.result.cartProductList.count ==0){
-                weakself.footView.hidden = YES;
-            }else{
-                weakself.footView.hidden = NO;
-            }
-            [weakself.collectionView reloadData];
-        }
-    }];
-}
--(void)deleteShopCount:(CartProductModel*)model{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
-    req.version = @"1.0.0";
-    req.platform = @"ios";
-    req.couponType = @"allProduct";
-    req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
-    req.cartProductId = [NSString stringWithFormat:@"%@",model.productId];
-    req.productSkuId = model.productSkuId;
     req.productQuantity = model.productQuantity;
-    req.cartId = model.cartId;
-    req.pageIndex = @"1";
-    req.pageSize = @"10";
-    req.productCategoryParentId = @"";
-    
-    req.cityId = @"310100";
-    req.cityName = @"上海市";
-    __weak typeof(self)weakself = self;
-    [[ShopServiceApi share]deleteShopCartCountWithParam:req response:^(id response) {
-        if (response!= nil) {
-            weakself.result = response;
-            [weakself.dataArr removeAllObjects];
-            [weakself.loseArr removeAllObjects];
-            for (CartProductModel *model  in weakself.result.cartProductList) {
-                if (model.productIsOnSale ==1) {
-                    [weakself.dataArr addObject:model];
-                }else{
-                    [weakself.loseArr addObject:model];
-                }
-            }
-            if(weakself.result.cartProductList.count ==0){
-                weakself.footView.hidden = YES;
-            }else{
-                weakself.footView.hidden = NO;
-            }
-            [weakself.collectionView reloadData];
-        }
-    }];
-}
--(void)changeShopCount{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
-    req.version = @"1.0.0";
-    req.platform = @"ios";
-    req.couponType = @"allProduct";
-    req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
-    //    req.productId = [NSString stringWithFormat:@"%ld",productID];
-    req.pageIndex = @"1";
-    req.pageSize = @"10";
-    req.productCategoryParentId = @"";
-    req.saleOrderId = @"1013703405872041985";
-    req.cityId = @"310100";
-    req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]changeShopCartCountWithParam:req response:^(id response) {
         if (response!= nil) {
@@ -264,6 +180,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }else{
                 weakself.footView.hidden = NO;
             }
+            [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
     }];
@@ -297,21 +214,90 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]clearLoseProductWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] ==200) {
+            [self showToast:response[@"message"]];
+            self.result.cartProductList = nil;
+            [weakself.loseArr removeAllObjects];
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
+///全选、反选
+-(void)selectedAll:(BOOL)selected{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
     
     req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
-    req.pageSize = @"10";
-    req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
     req.cityName = @"上海市";
+    req.cartId = self.result.cartId;
+    req.cartProductIsActive = selected;
     __weak typeof(self)weakself = self;
-    [[ShopServiceApi share]clearLoseProductWithParam:req response:^(id response) {
-        
+    [[ShopServiceApi share]requestShopCartSelectedAllWithParam:req response:^(id response) {
+        if (response!= nil) {
+            weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.footView setModel:weakself.result];
+            [weakself.collectionView reloadData];
+        }
+    }];
+}
+
+-(void)selectedSingle:(CartProductModel*)model{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.cartProductId = model.cartProductId;
+    req.cartProductIsActive = model.cartProductIsActive;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]requestShopCartSelectedSingleWithParam:req response:^(id response) {
+        if (response!= nil) {
+            weakself.result = response;
+            [weakself.dataArr removeAllObjects];
+            [weakself.loseArr removeAllObjects];
+            for (CartProductModel *model  in weakself.result.cartProductList) {
+                if (model.productIsOnSale ==1) {
+                    [weakself.dataArr addObject:model];
+                }else{
+                    [weakself.loseArr addObject:model];
+                }
+            }
+            if(weakself.result.cartProductList.count ==0){
+                weakself.footView.hidden = YES;
+            }else{
+                weakself.footView.hidden = NO;
+            }
+            [weakself.footView setModel:weakself.result];
+            [weakself.collectionView reloadData];
+        }
     }];
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -368,7 +354,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             if (_dataArr.count ==0) {
                 return  CGSizeMake(SCREENWIDTH, 0);
             } else {
-                return  CGSizeMake(SCREENWIDTH, 36);
+                return  CGSizeMake(SCREENWIDTH, 0);
             }
             
         }else if (section ==1){
@@ -381,7 +367,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }
     if (_likeArr.count>0) {
-         return CGSizeMake(SCREENWIDTH, 70);
+         return CGSizeMake(SCREENWIDTH, 50);
     }
     return CGSizeMake(SCREENWIDTH, 0);
 }
@@ -413,7 +399,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }else{
         if (indexPath.section ==0&&_dataArr.count>0) {
-            ValidShopHeadView* validView = [[ValidShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 36)];
+            ValidShopHeadView* validView = [[ValidShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 0)];
             [headerView addSubview:validView];
         }else if (indexPath.section ==1&&_loseArr.count>0){
             LoseShopHeadView* loseView = [[LoseShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
@@ -428,7 +414,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
     if (indexPath.section ==2&&_likeArr.count>0){
 //        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
 //        [headerView addSubview:likeView];
-        NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 69)];
+        NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+        validView.headImage.hidden = YES;
         [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
         __weak typeof(self)weakSelf = self;
         [validView setPressTypeBlock:^(NSInteger index) {
@@ -448,11 +435,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
         CartProductModel *model = _dataArr[indexPath.row];
         [cell setModel:model];
         __weak typeof(self)weakself = self;
-        [cell setSubBlock:^(NSInteger index) {
-            [weakself deleteShopCount:model];
+        [cell setAddBlock:^(CartProductModel* req) {
+            [weakself changeShopCount:req];
         }];
-        [cell setAddBlock:^(NSInteger index) {
-            [weakself addShopCount:model];
+        [cell setChooseBlock:^(CartProductModel *req) {
+            [weakself selectedSingle:req];
         }];
         return cell;
     }else if (indexPath.section ==1){
@@ -475,6 +462,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)pressSubmitBtn:(UIButton*)sender{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
     fillVC.hidesBottomBarWhenPushed = YES;
+    [fillVC setResult:self.result];
     [self.navigationController pushViewController:fillVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

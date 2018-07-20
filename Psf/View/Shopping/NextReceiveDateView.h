@@ -23,6 +23,6 @@
 @property(nonatomic,strong)UIButton *tmpBtn;
 @property(nonatomic,strong)UIButton *leftBtn;
 @property(nonatomic,strong)UIButton *cancleBtn;
-@property(nonatomic,copy)void(^cancleBlock)(NSInteger);
-
+@property(nonatomic,copy)void(^cancleBlock)(NSString*);
+@property(nonatomic,strong)NSArray *datearr;
 @end

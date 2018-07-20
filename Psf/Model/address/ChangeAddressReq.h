@@ -37,4 +37,8 @@
 @property(nonatomic,strong)NSString *platform;
 ///时间戳
 @property(nonatomic,strong)NSString *timestamp;
+///会员地址编号
+@property(nonatomic,copy)NSString *memberAddressId;
+///
+@property(nonatomic,copy)NSString *systemVersion;
 @end

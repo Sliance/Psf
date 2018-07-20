@@ -22,7 +22,6 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"banner_mine"];
         _headImage.frame = CGRectMake(0, 0, SCREENWIDTH, 120);
     }
     return _headImage;
@@ -57,7 +56,54 @@
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
+            [weakself getBanner:@"Groupon"];
             [weakself.tableview reloadData];
+        }
+    }];
+}
+-(void)getPresaleList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getPresaleListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself getBanner:@"preSale"];
+            [weakself.tableview reloadData];
+        }
+    }];
+}
+
+-(void)getBanner:(NSString*)type{
+    GroupModelReq *req = [[GroupModelReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityName = @"上海市";
+    req.productBannerPosition = type;
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
+        if (response!= nil) {
+            NSMutableArray*imagArr = [NSMutableArray array];
+            [imagArr addObjectsFromArray:response];
+            GroupBannerModel *model = [imagArr firstObject];
+            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productBannerImagePath];
+            [weakself.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+            
         }
     }];
 }
@@ -79,6 +125,7 @@
          [self getGroupList];
     }else{
         [self setNavWithTitle:@"预售商品"];
+        [self getPresaleList];
     }
 }
 - (void)viewDidLoad {
@@ -105,12 +152,13 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (_goodtype ==GOODTYPEGROUP) {
-        GroupListRes *model = _dataArr[indexPath.row];
-        [cell setModel:model];
+        
         cell.addBtn.hidden = NO;
     }else{
         cell.addBtn.hidden = YES;
     }
+    GroupListRes *model = _dataArr[indexPath.row];
+    [cell setModel:model];
     __weak typeof(self)weakSelf = self;
     [cell setPressAddBlock:^(NSInteger index) {
         detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];

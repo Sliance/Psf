@@ -47,6 +47,8 @@
         [_searchBtn setTitleColor:DSColorFromHex(0x787878) forState:UIControlStateNormal];
         _searchBtn.frame = CGRectMake(108, 5, SCREENWIDTH-119, 36);
         _searchBtn.backgroundColor = DSColorFromHex(0xF0F0F0);
+        _searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2-119/2);
+        _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2-119/2-20);
         [_searchBtn.layer setCornerRadius:4];
         [_searchBtn.layer setMasksToBounds:YES];
     }

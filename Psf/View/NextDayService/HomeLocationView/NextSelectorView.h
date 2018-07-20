@@ -7,7 +7,7 @@
 //
 
 #import "BaseView.h"
-
+#import "StairCategoryRes.h"
 @interface NextSelectorView : BaseView
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UIButton *rightButton;

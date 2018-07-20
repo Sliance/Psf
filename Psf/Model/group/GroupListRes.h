@@ -27,6 +27,8 @@
 @property(nonatomic,copy)NSString *grouponPrice;
 ///商品图片路径
 @property(nonatomic,copy)NSString *productImagePath;
-///商品重量
-//@property(nonatomic,copy)NSString *productWeight;
+///预售编号
+@property(nonatomic,copy)NSString *preSaleId;
+///预售过期时间
+@property(nonatomic,copy)NSString *preSaleExpireTime;
 @end

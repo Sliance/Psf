@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "ShoppingListRes.h"
 
 @interface FillOrderViewController : BaseViewController
-
+@property(nonatomic,strong)ShoppingListRes *result;
 @end

@@ -81,7 +81,7 @@
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
-                NSArray *result = (NSArray*)[ChangeAddressReq mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                ChangeAddressReq *result = [ChangeAddressReq mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
                     responseModel(result);
                 }
@@ -109,7 +109,7 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
     
                 if (responseModel) {
-                    responseModel(dicResponse[@"data"]);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
@@ -135,7 +135,7 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
                 if (responseModel) {
-                    responseModel(dicResponse[@"data"]);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {

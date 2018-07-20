@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, GOODSTYPE){
     TYPEVALID = 1,//有效
     TYPELOSE //失效
 };
-@interface ShoppingCollectionViewCell : UICollectionViewCell
+@interface ShoppingCollectionViewCell : UICollectionViewCell<UITextFieldDelegate>
 @property(nonatomic,strong)UIButton *chooseBtn;
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UILabel *nameLabel;
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, GOODSTYPE){
 @property(nonatomic,strong)UILabel *loseLabel;
 @property(nonatomic,assign)GOODSTYPE goodtype;
 @property(nonatomic,strong)CartProductModel *model;
-@property(nonatomic,copy)void(^subBlock)(NSInteger);
-@property(nonatomic,copy)void(^addBlock)(NSInteger);
 
+@property(nonatomic,copy)void(^addBlock)(CartProductModel*);
+@property(nonatomic,copy)void(^chooseBlock)(CartProductModel*);
 @end

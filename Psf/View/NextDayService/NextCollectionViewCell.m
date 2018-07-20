@@ -148,10 +148,11 @@
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
     self.nameLabel.text = model.productName;
-    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     self.weightLabel.text = model.productUnit;
 }
+
 @end

@@ -121,7 +121,7 @@
         _allTitle.textAlignment = NSTextAlignmentCenter;
         _allTitle.font = [UIFont systemFontOfSize:24];
         _allTitle.textColor = DSColorFromHex(0x646464);
-        _allTitle.text = @"5张";
+        _allTitle.text = @"0张";
     }
     return _allTitle;
 }
@@ -131,7 +131,7 @@
         _sortTitle.textAlignment = NSTextAlignmentCenter;
         _sortTitle.font = [UIFont systemFontOfSize:24];
         _sortTitle.textColor = DSColorFromHex(0x646464);
-        _sortTitle.text = @"2张";
+        _sortTitle.text = @"0张";
     }
     return _sortTitle;
 }

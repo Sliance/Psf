@@ -46,13 +46,17 @@
     _dataArr = dataArr;
     for (int i = 0; i<dataArr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:dataArr[i] forState:UIControlStateNormal];
+        StairCategoryRes *model = dataArr[i];
+        [btn setTitle:model.productCategoryName forState:UIControlStateNormal];
         btn.frame = CGRectMake(30+i%4*SCREENWIDTH/4-75/4, i/4*35+40, SCREENWIDTH/4-75/4, 25);
         [btn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [btn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
         [btn.layer setBorderWidth:0.5];
         btn.tag = i;
+        if (i==0) {
+            _tmpBtn = btn;
+        }
         [btn addTarget:self action:@selector(pressChoose:) forControlEvents:UIControlEventTouchUpInside];
         [btn.layer setBorderColor:DSColorFromHex(0x474747).CGColor];
         [self addSubview:btn];

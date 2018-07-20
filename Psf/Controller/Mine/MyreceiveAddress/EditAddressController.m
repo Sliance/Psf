@@ -12,8 +12,9 @@
 #import "DefaultAddressFootView.h"
 #import "ZHMapAroundInfoViewController.h"
 #import "AddressServiceApi.h"
+#import "BLAreaPickerView.h"
 
-@interface EditAddressController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface EditAddressController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BLPickerViewDelegate>
 {
     UITextField *_addressfield;
     UITextField *_namefield;
@@ -61,7 +62,6 @@
     
     _changeReq = [[ChangeAddressReq alloc]init];
     _changeReq = changeReq;
-    _changeReq.memberAddressCity = @"000";
     self.footView.morenBtn.selected =changeReq.memberAddressIsDefault;
     [_tableview reloadData];
 
@@ -89,6 +89,9 @@
     [self.footView setMorenBlock:^(BOOL selected) {
         weakself.changeReq.memberAddressIsDefault = selected;
     }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard:)];
+    [self.view addGestureRecognizer:tap];
+    
 }
 -(void)pressBottom{
     if (_type ==0) {
@@ -103,9 +106,12 @@
     
     self.changeReq.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
     self.changeReq.platform = @"ios";
-    
+    self.changeReq.systemVersion = @"1.1.0";
     [[AddressServiceApi share]addAddressWithParam:self.changeReq response:^(id response) {
-        
+        if ([response[@"code"] integerValue] == 200) {
+            [self showToast:response[@"message"]];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
 }
 -(void)changeAddress{
@@ -115,7 +121,11 @@
     self.changeReq.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
     self.changeReq.platform = @"ios";
     [[AddressServiceApi share]updateAddressWithParam:self.changeReq response:^(id response) {
-        
+        if ([response[@"code"] integerValue] == 200) {
+            [self showToast:response[@"message"]];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -147,17 +157,15 @@
         cell.textLabel.textColor = DSColorFromHex(0x454545);
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         if (indexPath.row==0) {
-            
-            if (_type ==0) {
-                cell.textLabel.text = @"请选择省市区";
-            }else{
                 if (self.changeReq.memberAddressProvince.length<1) {
                     cell.textLabel.text = @"请选择省市区";
                 }else{
                 cell.textLabel.text = [NSString stringWithFormat:@"%@   %@   %@",self.changeReq.memberAddressProvince,self.changeReq.memberAddressCity,self.changeReq.memberAddressArea];
                 }
-            }
         }else if (indexPath.row ==1){
+            if (self.changeReq.memberAddressDetail.length<1) {
+                cell.textLabel.text = @"请选择相关位置";
+            }
             cell.textLabel.text =self.changeReq.memberAddressPositionDetail;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -179,6 +187,7 @@
     }else if (indexPath.row ==4){
          cell.contentField.placeholder = @"请填写手机号";
         cell.contentField.text = _changeReq.memberAddressMobile;
+        cell.contentField.keyboardType = UIKeyboardTypePhonePad;
         _numfield = cell.contentField;
     }
     cell.contentField.delegate = self;
@@ -199,13 +208,37 @@
             
         }];
         [self.navigationController pushViewController:mapVC animated:YES];
+    }else if (indexPath.row ==0){
+      BLAreaPickerView*  pickView = [[BLAreaPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+        pickView.pickViewDelegate = self;
+        [pickView bl_show];
     }
+}
+#pragma mark - - BLPickerViewDelegate
+- (void)bl_selectedAreaResultWithProvince:(NSString *)provinceTitle city:(NSString *)cityTitle area:(NSString *)areaTitle{
+    NSLog(@"%@,%@,%@",provinceTitle,cityTitle,areaTitle);
+    if (self.changeReq==nil) {
+        self.changeReq = [[ChangeAddressReq alloc]init];
+    }
+    self.changeReq.memberAddressProvince = provinceTitle;
+    self.changeReq.memberAddressCity = cityTitle;
+    self.changeReq.memberAddressArea = areaTitle;
+    [self.tableview reloadData];
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     self.changeReq.memberAddressName = _namefield.text;
     self.changeReq.memberAddressMobile = _numfield.text;
     self.changeReq.memberAddressDetail = _addressfield.text;
     return [textField resignFirstResponder];
+}
+
+-(void)hideKeyBoard:(UITapGestureRecognizer*)sender{
+    self.changeReq.memberAddressName = _namefield.text;
+    self.changeReq.memberAddressMobile = _numfield.text;
+    self.changeReq.memberAddressDetail = _addressfield.text;
+    [_namefield resignFirstResponder];
+    [_numfield resignFirstResponder];
+    [_addressfield resignFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

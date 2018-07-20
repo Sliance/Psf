@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StairCategoryRes.h"
 #import "ZSConfig.h"
+#import "SubjectModel.h"
 @interface SortCollectionViewCell : UICollectionViewCell
 ///图片
 @property(nonatomic,strong)UIImageView *headImage;
@@ -16,4 +17,6 @@
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,assign)NSInteger imageHeight;
 @property(nonatomic,strong)StairCategoryRes *model;
+///首页banner
+@property(nonatomic,strong)SubjectModel* homeBannermodel;
 @end

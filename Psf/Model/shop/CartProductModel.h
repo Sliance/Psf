@@ -12,7 +12,7 @@
 ///
 @property(nonatomic,copy)NSString *appId;
 ///购物车编号
-@property(nonatomic,copy)NSString *cartId;
+@property(nonatomic,copy)NSNumber *cartId;
 ///
 @property(nonatomic,assign)NSInteger cartProductIsActive;
 ///
@@ -34,7 +34,7 @@
 ///
 @property(nonatomic,copy)NSString *productUnit;
 ///
-//@property(nonatomic,copy)NSString *productWeight;
+@property(nonatomic,copy)NSNumber *cartProductId;
 ///
 @property(nonatomic,copy)NSString *systemCreateTime;
 ///
@@ -49,5 +49,8 @@
 @property(nonatomic,copy)NSString *systemUpdateUserId;
 ///
 @property(nonatomic,assign)NSInteger productIsOnSale;
+///
+@property(nonatomic,copy)NSNumber* saleOrderProductQty;
+
 
 @end

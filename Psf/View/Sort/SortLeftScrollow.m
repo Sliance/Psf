@@ -38,11 +38,12 @@
             btn.selectedLabel.hidden = NO;
             btn.backgroundColor = [UIColor whiteColor];
             btn.sortLabel.textColor = [UIColor colorWithRed:235/255.0 green:90/255.0 blue:85/255.0 alpha:1];
-            [btn setSelected:YES];
+            _tmpBtn = btn;
         }else{
             btn.sortLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
             btn.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
-            btn.selected = NO;
+            btn.selectedLabel.hidden = YES;
+            
         }
         [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         StairCategoryRes*model =dataArr[i];
@@ -54,19 +55,36 @@
 }
 
 -(void)pressBtn:(SortBtn*)sender{
-    for (int i = 0; i < _dataArr.count; i++) {
-        SortBtn *btn = (SortBtn *)[[sender superview]viewWithTag:100 + i];
-        btn.selectedLabel.hidden = YES;
-        btn.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
-        btn.sortLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
-        [btn setSelected:NO];
-    }
-    SortBtn *button = (SortBtn *)sender;
-    button.selectedLabel.hidden = NO;
-    button.backgroundColor = [UIColor whiteColor];
+//    for (int i = 0; i < _dataArr.count; i++) {
+//        SortBtn *btn = (SortBtn *)[[sender superview]viewWithTag:100 + i];
+//        btn.selectedLabel.hidden = YES;
+//        btn.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
+//        btn.sortLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
+//        [btn setSelected:NO];
+//    }
     
-    button.sortLabel.textColor = [UIColor colorWithRed:235/255.0 green:90/255.0 blue:85/255.0 alpha:1];
-    [button setSelected:YES];
+    if (_tmpBtn == nil){
+        sender.selected = YES;
+        sender.selectedLabel.hidden = NO;
+        sender.backgroundColor = [UIColor whiteColor];
+        sender.sortLabel.textColor = [UIColor colorWithRed:235/255.0 green:90/255.0 blue:85/255.0 alpha:1];
+        _tmpBtn = sender;
+    }else if (_tmpBtn !=nil && _tmpBtn == sender){
+        sender.selected = YES;
+        sender.selectedLabel.hidden = NO;
+        sender.backgroundColor = [UIColor whiteColor];
+        sender.sortLabel.textColor = [UIColor colorWithRed:235/255.0 green:90/255.0 blue:85/255.0 alpha:1];
+    }else if (_tmpBtn!= sender && _tmpBtn!=nil){
+        _tmpBtn.selected = NO;
+        _tmpBtn.selectedLabel.hidden = YES;
+        _tmpBtn.sortLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
+        _tmpBtn.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
+        sender.selected = YES;
+        sender.selectedLabel.hidden = NO;
+        sender.backgroundColor = [UIColor whiteColor];
+        sender.sortLabel.textColor = [UIColor colorWithRed:235/255.0 green:90/255.0 blue:85/255.0 alpha:1];
+        _tmpBtn = sender;
+    }
     if ([self.delegate respondsToSelector:@selector(selectedSortIndex:)]) {
         [self.delegate selectedSortIndex:sender.tag-100];
     }

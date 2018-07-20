@@ -11,6 +11,7 @@
 #import "TradingDetailController.h"
 #import "RechargeViewController.h"
 #import "MyIntegralController.h"
+#import "MineServiceApi.h"
 
 @interface MineWalletViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -53,6 +54,24 @@
     [super viewDidLoad];
     self.tableview.tableFooterView = self.detailBtn;
      [self.view addSubview:self.tableview];
+    [self requestData];
+}
+
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]getMemberBalanceWithParam:req response:^(id response) {
+        
+    }];
 }
 -(void)pressDetail:(UIButton*)sender{
     TradingDetailController *detailVC = [[TradingDetailController alloc]init];

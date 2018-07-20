@@ -23,6 +23,7 @@
 #import "ChooseAddressViewController.h"
 #import "detailGoodsViewController.h"
 #import "NextSelectorView.h"
+#import "NextServiceApi.h"
 
 #define kCurrentCityInfoDefaults [NSUserDefaults standardUserDefaults]
 #define KCURRENTCITYINFODEFAULTS [NSUserDefaults standardUserDefaults]
@@ -45,7 +46,8 @@ NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableVi
 @property (nonatomic, strong) JFAreaDataManager *manager;
 @property (nonatomic, strong) NSString *latitude;//纬度
 @property (nonatomic, strong) NSString *longitude;//经度
-@property (nonatomic, strong)  NSArray *menuList;
+@property (nonatomic, strong)  NSMutableArray *menuList;
+@property (nonatomic, strong)  NSMutableArray *dataArr;
 @property (nonatomic, assign)  BOOL autoSwitch;
 @end
 static NSString * const cellID = @"cellID";
@@ -71,6 +73,9 @@ static NSString * const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _menuList = [NSMutableArray array];
+    _dataArr = [NSMutableArray array];
+     [self requestData:@""];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavWithTitle:@"11"];
     
@@ -104,12 +109,10 @@ static NSString * const cellID = @"cellID";
     [self configSeparatorView];
     
     [self addNotification];
-    [self generateTestData];
+   
     [self.magicView reloadData];
     [self.view addSubview:self.seclectorView];
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"推荐",@"蔬菜",@"水果",@"肉蛋",@"乳品",@"饮料酒水",@"粮油杂货",@"干货",@"速食",@"水产", nil];
-    [self.seclectorView setDataArr:arr];
-    self.seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, (arr.count/4+1)*35+40);
+    
     __weak typeof(self)weakSelf = self;
     [self.seclectorView setPressUpBlock:^(NSInteger index) {
         weakSelf.seclectorView.hidden = YES;
@@ -118,6 +121,7 @@ static NSString * const cellID = @"cellID";
         weakSelf.seclectorView.hidden = YES;
         [weakSelf.magicView reloadDataToPage:index];
     }];
+   
 }
 -(void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
@@ -197,12 +201,29 @@ static NSString * const cellID = @"cellID";
         // Simulate a send request to get a search suggestions
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSMutableArray *searchSuggestionsM = [NSMutableArray array];
-            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
-                NSString *searchSuggestion = [NSString stringWithFormat:@"苹果%d", i];
-                [searchSuggestionsM addObject:searchSuggestion];
-            }
-            // Refresh and display the search suggustions
-            searchViewController.searchSuggestions = searchSuggestionsM;
+            StairCategoryReq *req = [[StairCategoryReq alloc]init];
+            req.appId = @"993335466657415169";
+            req.timestamp = @"529675086";
+            req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+            req.userId = @"1009660103519952898";
+            req.version = @"1.0.0";
+            req.platform = @"ios";
+            req.userLongitude = @"121.4737";
+            req.userLatitude = @"31.23037";
+            req.productName = searchText;
+            req.cityId = @"310100";
+            req.cityName = @"上海市";
+            req.pageIndex = @"1";
+            req.pageSize = @"10";
+            __weak typeof(self)weakself = self;
+            [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {
+                if (response) {
+                    [searchSuggestionsM removeAllObjects];
+                    [searchSuggestionsM addObjectsFromArray:response];
+                     searchViewController.searchSuggestions = searchSuggestionsM;
+                }
+            }];
+           
         });
     }
 }
@@ -358,21 +379,23 @@ static NSString * const cellID = @"cellID";
 }
 
 - (UIViewController *)magicView:(VTMagicView *)magicView viewControllerAtPage:(NSUInteger)pageIndex {
-    MenuInfo *menuInfo = _menuList[pageIndex];
-    static NSString *gridId = @"grid.identifier";
+    
+    static NSString *gridId = @"identifier";
     ZSPageViewController *viewController = [magicView dequeueReusablePageWithIdentifier:gridId];
     if (!viewController) {
         viewController = [[ZSPageViewController alloc] init];
        
     }
     viewController.selectedIndex = pageIndex;
-//    viewController.menuInfo = menuInfo;
     return viewController;
 }
 
 #pragma mark - VTMagicViewDelegate
 - (void)magicView:(VTMagicView *)magicView viewDidAppear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
-    //    NSLog(@"index:%ld viewDidAppear:%@", (long)pageIndex, viewController.view);
+    _selectedIndex = pageIndex;
+    StairCategoryRes *model = _dataArr[pageIndex];
+    [viewController setSelectedIndex:pageIndex];
+    [viewController setModel:model];
 }
 
 - (void)magicView:(VTMagicView *)magicView viewDidDisappear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
@@ -394,14 +417,12 @@ static NSString * const cellID = @"cellID";
     NSString *title = @"推荐";
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:24];
     [menuList addObject:[MenuInfo menuInfoWithTitl:title]];
-    NSArray *arr = @[@"推荐",@"蔬菜",@"水果",@"肉蛋",@"乳品",@"饮料酒水",@"粮油杂货",@"干货",@"速食",@"水产"];
     [menuList removeAllObjects];
-    for (int index = 0; index < arr.count; index++) {
-        title = arr[index];
-        MenuInfo *menu = [MenuInfo menuInfoWithTitl:title];
+    for (int index = 0; index < _dataArr.count; index++) {
+        StairCategoryRes *model = _dataArr[index];
+        MenuInfo *menu = [MenuInfo menuInfoWithTitl:model.productCategoryName];
         [menuList addObject:menu];
     }
-  
     _menuList = menuList;
 }
 
@@ -428,6 +449,34 @@ static NSString * const cellID = @"cellID";
     self.magicView.navigationView.clipsToBounds = NO;
     
     
+}
+-(void)requestData:(NSString*)categoryId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = [NSNumber numberWithInteger:[categoryId integerValue]];
+    req.productCategoryParentId = categoryId;
+    req.cityId = @"310100";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestApplyLoadWithParam:req response:^(id response) {
+        if (response) {
+
+                [weakself.dataArr removeAllObjects];
+                [weakself.dataArr addObjectsFromArray:response];
+            [weakself generateTestData];
+            [weakself.magicView reloadMenuTitles];
+            [weakself.magicView reloadDataToPage:0];
+            [weakself.seclectorView setDataArr:weakself.dataArr];
+            weakself.seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, (weakself.dataArr.count/4+1)*35+40);
+        }
+    }];
 }
 
 /*

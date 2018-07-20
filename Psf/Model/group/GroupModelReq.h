@@ -9,5 +9,19 @@
 #import <Foundation/Foundation.h>
 
 @interface GroupModelReq : NSObject
+///preSale、Groupon
+@property(nonatomic,copy)NSString* productBannerPosition;
 
+///应用编号
+@property(nonatomic,copy)NSString *appId;
+///
+@property(nonatomic,copy)NSString *token;
+///客户端
+@property(nonatomic,strong)NSString *platform;
+///时间戳
+@property(nonatomic,copy)NSString *timestamp;
+
+@property(nonatomic,copy)NSString *version;
+///
+@property(nonatomic,copy)NSString *cityName;
 @end

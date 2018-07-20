@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StairCategoryRes.h"
+#import "SortBtn.h"
 
 @protocol SortLeftScrollowDelegate<NSObject>
 -(void)selectedSortIndex:(NSInteger)index;
@@ -18,6 +19,6 @@
 @property(nonatomic,strong)UIScrollView *bgScrollow;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,assign)id<SortLeftScrollowDelegate>delegate;
-
+@property(nonatomic,strong)SortBtn *tmpBtn;
 
 @end

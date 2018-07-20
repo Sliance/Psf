@@ -26,4 +26,5 @@
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,strong)ChangeAddressReq *model ;
+
 @end

@@ -51,6 +51,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+      [self requestData:@""];
 }
 -(void)requestData:(NSString*)categoryId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -65,7 +66,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 //    req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",(long)categoryId];
+    req.productId = categoryId;
 //    req.pageIndex = @"1";
 //    req.pageSize = @"10";
     req.productCategoryParentId = categoryId;
@@ -76,7 +77,19 @@ static NSString *cellId = @"SortCollectionViewCell";
         if (response) {
             if([categoryId isEqualToString:@""]){
                 [weakself.dataArr removeAllObjects];
+                
                 [weakself.dataArr addObjectsFromArray:response];
+                [weakself.dataArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(StairCategoryRes* res, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([res.productCategoryName isEqualToString:@"推荐"]) {
+                        [weakself.dataArr removeObject:res];
+                    }
+                }];
+                [weakself.dataArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(StairCategoryRes* res, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([res.productCategoryName isEqualToString:@"团购"]){
+                        [weakself.dataArr removeObject:res];
+                    }
+                }];
+                
                 [weakself.sortLeftView setDataArr:weakself.dataArr];
                 StairCategoryRes *model = [weakself.dataArr firstObject];
                 [weakself requestData:[NSString stringWithFormat:@"%ld",(long)model.productCategoryId]];
@@ -98,7 +111,7 @@ static NSString *cellId = @"SortCollectionViewCell";
    [self.view addSubview:self.sortLeftView];
     _dataArr = [NSMutableArray array];
     _detailDataArr = [NSMutableArray array];
-    [self requestData:@""];
+  
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(100, 100);
@@ -159,8 +172,12 @@ static NSString *cellId = @"SortCollectionViewCell";
         }
     }
     _headView = [[SortCollectHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH-75, 170)];
-    StairCategoryRes *model = _dataArr[_headIndex];
-    _headView.nameLabel.text = model.productCategoryName;
+    
+    if (_dataArr.count >0) {
+        StairCategoryRes *model = _dataArr[_headIndex];
+         _headView.nameLabel.text = model.productCategoryName;
+    }
+   
     [headerView addSubview:_headView];
     return headerView;
 }

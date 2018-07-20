@@ -18,7 +18,7 @@
     return self;
 }
 -(void)setCortnetLayout{
-    NSArray *datearr = @[@"09:00-12:00",@"12:00-15:00",@"15:00-18:00",@"18:00-21:00"];
+    _datearr = @[@"09:00-12:00",@"12:00-15:00",@"15:00-18:00",@"18:00-21:00"];
     [self addSubview:self.bgview];
     [self addSubview:self.yinview];
     [self.bgview addSubview:self.leftview];
@@ -35,10 +35,10 @@
     self.nowBtn.frame = CGRectMake(0, 0, 125, 45);
     self.nextBtn.frame = CGRectMake(0, 45, 125, 45);
     self.cancleBtn.frame = CGRectMake(SCREENWIDTH-45, 0, 45, 45);
-    for (int i = 0; i<datearr.count; i++) {
+    for (int i = 0; i<_datearr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(125, i*40+self.lineLabel.bottom, 160, 40);
-        [btn setTitle:datearr[i] forState:UIControlStateNormal];
+        [btn setTitle:_datearr[i] forState:UIControlStateNormal];
         [btn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
         [btn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -61,7 +61,7 @@
     
 }
 -(void)setDate{
-    NSDate *now = [[NSDate alloc]init];
+    NSDate *now = [[[NSDate alloc]init] dateByAddingDays:1];
     NSDate *yesterday = [now dateByAddingDays:1];
     NSInteger nowmonth = [now month];
     NSInteger nowday = [now  day];
@@ -168,10 +168,10 @@
     return _cancleBtn;
 }
 -(void)pressTap{
-     self.cancleBlock(0);
+     self.cancleBlock(@"");
 }
 -(void)pressCancle:(UIButton*)sender{
-    self.cancleBlock(sender.tag);
+    self.cancleBlock(@"");
 }
 -(void)pressLeft:(UIButton*)sender{
     sender.selected = !sender.selected;
@@ -209,6 +209,7 @@
         sender.titleEdgeInsets =UIEdgeInsetsMake(0, 0, 0, 50);
         _tmpBtn = sender;
     }
-    self.cancleBlock(sender.tag);
+    NSString *date = [NSString stringWithFormat:@"%@ %@",_leftBtn.titleLabel.text,_datearr[sender.tag]];
+    self.cancleBlock(date);
 }
 @end

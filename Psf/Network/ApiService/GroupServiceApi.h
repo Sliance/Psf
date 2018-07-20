@@ -9,6 +9,8 @@
 #import "BaseApi.h"
 #import "StairCategoryReq.h"
 #import "GroupListRes.h"
+#import "GroupModelReq.h"
+#import "GroupBannerModel.h"
 
 @interface GroupServiceApi : BaseApi
 + (instancetype)share;
@@ -22,4 +24,9 @@
 - (void)getDetailGroupWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///团购下单
 - (void)saveGroupWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///获取预售信息列表
+- (void)getPresaleListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///获取预售、团购banner
+- (void)getPreAndGroupBannerWithParam:(GroupModelReq *) req response:(responseModel) responseModel;
+
 @end

@@ -37,7 +37,7 @@
         make.top.bottom.right.equalTo(self);
         make.width.mas_equalTo(114);
     }];
-    [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
         make.right.equalTo(self.submitBtn.mas_left).offset(-15);
     }];
@@ -61,7 +61,7 @@
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _titleLabel.textColor = DSColorFromHex(0x777777);
-        _titleLabel.text = @"已选(2)";
+        _titleLabel.text = @"已选(0)";
     }
     return _titleLabel;
 }
@@ -71,14 +71,14 @@
         _priceLabel.textAlignment = NSTextAlignmentRight;
         _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _priceLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _priceLabel.text = @"￥109.8";
+        _priceLabel.text = @"￥0";
     }
     return _priceLabel;
 }
 -(UIButton *)submitBtn{
     if (!_submitBtn) {
         _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_submitBtn setTitle:@"结算(3)" forState:UIControlStateNormal];
+        [_submitBtn setTitle:@"结算(0)" forState:UIControlStateNormal];
         [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_submitBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
         [_submitBtn addTarget:self action:@selector(pressSumitBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -94,8 +94,15 @@
 }
 -(void)pressChooseBtn:(UIButton*)sender{
         sender.selected = !sender.selected;
+    self.AllBlock(sender.selected);
 }
 -(void)pressSumitBtn:(UIButton*)sender{
     
+}
+-(void)setModel:(ShoppingListRes *)model{
+    self.titleLabel.text = [NSString stringWithFormat:@"已选(%ld)",model.productActiveQuantity];
+    [self.submitBtn setTitle:[NSString stringWithFormat:@"结算(%ld)",model.productActiveQuantity] forState:UIControlStateNormal];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.cartPayAmount];
+    self.chooseBtn.selected = model.cartIsActive;
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "ShoppingListRes.h"
 
 @interface ShopFootView : BaseView
 @property(nonatomic,strong)UIButton *chooseBtn;
@@ -14,4 +15,6 @@
 @property(nonatomic,strong)UIButton *submitBtn;
 @property(nonatomic,strong)UILabel *priceLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
+@property(nonatomic,strong)ShoppingListRes*model;
+@property(nonatomic,copy)void (^AllBlock)(BOOL);
 @end

@@ -19,6 +19,7 @@
 #import "BaseOrdersController.h"
 #import "MineWalletViewController.h"
 #import "ChooseServiceTypeController.h"
+#import "MineServiceApi.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -62,6 +63,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    [self requestData];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -92,6 +94,24 @@
             [orderVC setSelectedIndex:index];
             [weakSelf.navigationController pushViewController:orderVC animated:YES];
         }
+    }];
+    
+}
+
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]getMemberInformationWithParam:req response:^(id response) {
+        
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -153,6 +173,7 @@
                 {
                     MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
                     addressVC.hidesBottomBarWhenPushed = YES;
+                    addressVC.type = ADDRESSTYPEMine;
                     [self.navigationController pushViewController:addressVC animated:YES];
                 }
                 break;

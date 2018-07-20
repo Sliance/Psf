@@ -500,7 +500,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     // 是否在证书域字段中验证域名
     
     self.securityPolicy.validatesDomainName = NO;
-    
+   
     
 #if !TARGET_OS_WATCH
     self.reachabilityManager = [AFNetworkReachabilityManager sharedManager];

@@ -8,9 +8,11 @@
 
 #import "BaseViewController.h"
 #import "ZJScrollPageViewDelegate.h"
+#import "StairCategoryRes.h"
 
 @interface ZSPageViewController : BaseViewController
 
 @property(nonatomic,assign)NSInteger selectedIndex;
+@property(nonatomic,strong)StairCategoryRes*model;
 
 @end

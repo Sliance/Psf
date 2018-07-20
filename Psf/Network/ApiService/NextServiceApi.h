@@ -11,8 +11,8 @@
 #import "StairCategoryRes.h"
 #import "GoodDetailRes.h"
 #import "EvaluateListRes.h"
-
-
+#import "SubjectCategoryModel.h"
+#import "SubjectModel.h"
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
 ///商品分类列表,包含一二级分类
@@ -28,5 +28,10 @@
 
 ///获取评价列表
 - (void)requestEvaluateListModelListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///自定义专题
+- (void)requestHomeLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///banner
+- (void)requestBannerWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///搜索商品提示列表
+- (void)SearchHintListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

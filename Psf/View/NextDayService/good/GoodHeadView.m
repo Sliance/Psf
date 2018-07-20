@@ -196,10 +196,11 @@
 }
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
-    _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+    
     
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
         self.originLabel.hidden = NO;
@@ -210,6 +211,7 @@
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
          self.groupLabel.text = @"距离预售结束还剩:";
         [self setCornerLayoutGroup];
+      _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     }else if ([model.productType isEqualToString:@"reward"]){//满减
        [self setCornerLayoutNormal];
     }

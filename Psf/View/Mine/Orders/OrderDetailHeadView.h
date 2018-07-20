@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "ChangeAddressReq.h"
 
 typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
     CLAIMGOODSTYPECOMMON = 0,//其他
@@ -32,4 +33,9 @@ typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
 @property(nonatomic,assign)CLAIMGOODSTYPE goodtype;
 @property(nonatomic,copy)void (^addressBlock)(NSInteger);
 @property(nonatomic,copy)void (^dateBlock)(NSInteger);
+
+@property(nonatomic,strong)UILabel *centerLabel;
+
+@property(nonatomic,strong)ChangeAddressReq *model;
+
 @end

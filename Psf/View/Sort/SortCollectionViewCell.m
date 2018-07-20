@@ -52,8 +52,14 @@
 -(void)setModel:(StairCategoryRes *)model{
     _model = model;
     self.nameLabel.text = model.productCategoryName;
-    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productCategoryImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productCategoryImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     
+}
+-(void)setHomeBannermodel:(SubjectModel *)homeBannermodel{
+    _homeBannermodel = homeBannermodel;
+    self.nameLabel.text = homeBannermodel.subjectName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,homeBannermodel.subjectTopImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
 }
 @end

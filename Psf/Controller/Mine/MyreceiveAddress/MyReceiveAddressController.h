@@ -7,7 +7,14 @@
 //
 
 #import "BaseViewController.h"
-
+#import "AddressServiceApi.h"
+typedef NS_ENUM(NSInteger, ADDRESSTYPE){
+    ADDRESSTYPEMine= 0 ,//我的
+    ADDRESSTYPEOrder ,//填写订单
+    
+};
 @interface MyReceiveAddressController : BaseViewController
+@property(nonatomic,assign)ADDRESSTYPE type;
 
+@property(nonatomic,copy)void (^chooseBlock)(ChangeAddressReq*);
 @end

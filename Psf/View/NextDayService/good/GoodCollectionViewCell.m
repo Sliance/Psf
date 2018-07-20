@@ -71,7 +71,7 @@
     }];
 }
 -(void)setModel:(GoodDetailRes *)model{
-    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];

@@ -9,11 +9,13 @@
 #import "MineInformationController.h"
 #import "HeadimageTableViewCell.h"
 #import "BottomView.h"
+#import "MineServiceApi.h"
 
 @interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
 @property(nonatomic,strong)BottomView *bottomView;
+@property(nonatomic,strong)MineInformationReq *result;
 @end
 
 @implementation MineInformationController
@@ -22,7 +24,7 @@
         _bottomView = [[BottomView alloc]init];
         _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
         [_bottomView.bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
-        
+        [_bottomView.bottomBtn addTarget:self action:@selector(pressSubmit) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomView;
 }
@@ -49,6 +51,26 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.bottomView];
     _dataArr = @[@"头像",@"昵称",@"性别",@"生日"];
+    [self requestData];
+}
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userId = @"1009660103519952898";
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]getMemberInformationWithParam:req response:^(id response) {
+        if (response) {
+            weakself.result = [[MineInformationReq alloc]init];
+            weakself.result = response;
+        }
+    }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -118,7 +140,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-
+-(void)pressSubmit{
+    MineInformationReq *req = [[MineInformationReq alloc]init];
+    [[MineServiceApi share]updateMemberInformationWithParam:req response:^(id response) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

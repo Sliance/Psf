@@ -104,9 +104,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-               
+            
                 if (responseModel) {
-                    responseModel(dicResponse[@"data"]);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
@@ -149,32 +149,7 @@
         
     }];
 }
-///删除购物车信息
-- (void)deleteShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/cart/mobile/v1/delete";
-    NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
-        if ([response.content isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dicResponse = (NSDictionary *) response.content;
-            if ([dicResponse[@"code"] integerValue] == 200) {
-                ShoppingListRes *result = [ShoppingListRes mj_objectWithKeyValues:dicResponse[@"data"]];
-                if (responseModel) {
-                    responseModel(result);
-                }
-            }else {
-                if (responseModel) {
-                    responseModel(nil);
-                }
-            }
-        } else {
-            if (responseModel) {
-                responseModel(nil);
-            }
-        }
-    } faildCallBack:^(ZSURLResponse *response) {
-        
-    }];
-}
+
 ///新增购物车信息
 - (void)addShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/cart/mobile/v1/save";
@@ -239,6 +214,32 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
                 NSArray *result = (NSArray*)[StairCategoryListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///填写订单计算价格
+-(void)CalculateThePriceWithParam:(CalculateReq*)req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/mobile/v1/cal/amount";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                ShoppingListRes *result = [ShoppingListRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
                     responseModel(result);
                 }

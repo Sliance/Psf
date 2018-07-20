@@ -35,13 +35,14 @@
     [self addSubview:self.priceLabel];
     [self addSubview:self.addBtn];
     [self addSubview:self.lineLabel];
+    [self addSubview:self.weightLabel];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(120);
         make.top.equalTo(self).offset(17);
         make.left.equalTo(self).offset(16);
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(30);
+        make.top.equalTo(self).offset(27);
         make.left.equalTo(self.headImage.mas_right).offset(17);
         make.right.equalTo(self).offset(-17);
     }];
@@ -57,7 +58,12 @@
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.groupLabel.mas_bottom).offset(10);
         make.left.equalTo(self.headImage.mas_right).offset(17);
-        make.right.equalTo(self).offset(-50);
+        
+    }];
+    [self.weightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        make.left.equalTo(self.priceLabel.mas_right);
+
     }];
     [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.headImage.mas_bottom).offset(-6);
@@ -123,6 +129,16 @@
     }
     return _priceLabel;
 }
+-(UILabel *)weightLabel{
+    if (!_weightLabel) {
+        _weightLabel = [[UILabel alloc]init];
+        _weightLabel.font = [UIFont systemFontOfSize:12];
+        _weightLabel.textColor = DSColorFromHex(0xFF4C4D);
+        _weightLabel.textAlignment = NSTextAlignmentLeft;
+        _weightLabel.text = @"4个";
+    }
+    return _weightLabel;
+}
 -(UIButton *)addBtn{
     if (!_addBtn) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -152,11 +168,20 @@
 }
 -(void)setModel:(GroupListRes *)model{
     _model = model;
-    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.titleLabel.text = model.productName;
     self.detailLabel.text = model.productTitle;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/%@",model.grouponPrice,model.productUnit];
+    self.weightLabel.text = model.productUnit;
+    if (model.preSaleId.length>0) {
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        _lineLabel.hidden = YES;
+        self.groupLabel.text = [NSString stringWithFormat:@"截止日期：%@",model.preSaleExpireTime];
+    }else{
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
+        
+         _lineLabel.hidden = NO;
     self.groupLabel.text = [NSString stringWithFormat:@"单买价¥%@",model.productPrice];
+    }
 }
 @end

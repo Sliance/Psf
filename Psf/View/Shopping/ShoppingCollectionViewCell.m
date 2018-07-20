@@ -189,6 +189,7 @@
         _countField.font = [UIFont systemFontOfSize:12];
         _countField.textAlignment = NSTextAlignmentCenter;
         _countField.text = @"2";
+        _countField.delegate;
     }
     return _countField;
 }
@@ -202,6 +203,8 @@
 -(void)pressChooseBtn:(UIButton*)sender{
     if (_goodtype == TYPEVALID) {
        sender.selected = !sender.selected;
+        _model.cartProductIsActive = sender.selected;
+        self.chooseBlock(_model);
     }
 }
 -(void)pressAddBtn:(UIButton*)sender{
@@ -212,7 +215,8 @@
         [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
     }
-    self.addBlock(sender.tag);
+    _model.productQuantity = [NSNumber numberWithInteger:[_countField.text integerValue]];
+    self.addBlock(_model);
     
 }
 -(void)pressSubBtn:(UIButton*)sender{
@@ -230,7 +234,8 @@
             [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
         }
     }
-    self.subBlock(sender.tag);
+    _model.productQuantity = [NSNumber numberWithInteger:[_countField.text integerValue]];
+    self.addBlock(_model);
 }
 -(void)setGoodtype:(GOODSTYPE)goodtype{
     _goodtype = goodtype;
@@ -241,7 +246,7 @@
                 _subBtn.hidden = YES;
                 _addBtn.hidden = YES;
                 _countField.hidden = YES;
-                _chooseBtn.selected = NO;
+//                _chooseBtn.selected = NO;
                 _nameLabel.textColor = DSColorAlphaFromHex(0xDCDCDC, 1);
                 _countLabel.textColor =  DSColorAlphaFromHex(0xDCDCDC, 1);
                 _priceLabel.textColor =  DSColorAlphaFromHex(0xDCDCDC, 1);
@@ -254,7 +259,7 @@
             _subBtn.hidden = NO;
             _addBtn.hidden = NO;
             _countField.hidden = NO;
-            _chooseBtn.selected = YES;
+//            _chooseBtn.selected = YES;
             _nameLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
             _countLabel.textColor =  [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
             _priceLabel.textColor =  [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
@@ -267,11 +272,22 @@
 }
 -(void)setModel:(CartProductModel *)model{
     _model = model;
-    NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productSkuPrice];
     self.weightLabel.text = model.productUnit;
     self.countField.text = [NSString stringWithFormat:@"%@",model.productQuantity];
+    if (_goodtype ==TYPELOSE) {
+        self.chooseBtn.selected = NO;
+    }else{
+         self.chooseBtn.selected = model.cartProductIsActive;
+    }
+   
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    _model.productQuantity = [NSNumber numberWithInteger:[textField.text integerValue]];
+    self.addBlock(_model);
+    return [textField resignFirstResponder];
 }
 @end

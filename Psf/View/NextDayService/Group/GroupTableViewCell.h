@@ -15,6 +15,7 @@
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong)UILabel *groupLabel;
 @property(nonatomic,strong)UILabel *priceLabel;
+@property(nonatomic,strong)UILabel *weightLabel;
 @property(nonatomic,strong)UIButton *addBtn;
 @property(nonatomic,copy)void(^pressAddBlock)(NSInteger);
 @property(nonatomic,assign)NSInteger index;

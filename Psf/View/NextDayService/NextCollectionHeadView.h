@@ -7,10 +7,13 @@
 //
 
 #import "BaseView.h"
-
+#import "SubjectCategoryModel.h"
 @interface NextCollectionHeadView : BaseView
 @property(nonatomic,strong)UIView *bgView;
 @property(nonatomic,strong)UIButton *typeBtn;
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,copy)void(^pressTypeBlock)(NSInteger);
+@property(nonatomic,strong)UIImageView *headImage;
+@property(nonatomic,strong)SubjectCategoryModel *model;
+
 @end

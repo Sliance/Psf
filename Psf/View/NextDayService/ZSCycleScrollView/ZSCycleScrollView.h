@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
 #import "ImageModel.h"
+#import "SubjectModel.h"
 
 
 /**
@@ -166,5 +167,8 @@ typedef NS_ENUM(NSInteger,ZSCycleScrollPageControlAliment){
 @property(nonatomic,strong)UIButton *sendBtn;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,copy)void (^selectedItemBlock)(NSInteger);
+@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,assign)NSInteger index;
+@property(nonatomic,assign)NSInteger collectionHeight;
 
 @end

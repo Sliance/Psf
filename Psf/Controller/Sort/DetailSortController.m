@@ -115,6 +115,7 @@
     _selectedIndex = pageIndex;
     StairCategoryRes *model = _dataArr[pageIndex];
     [viewController setModel:model];
+  
 }
 
 - (void)magicView:(VTMagicView *)magicView viewDidDisappear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {

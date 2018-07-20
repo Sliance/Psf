@@ -311,8 +311,8 @@ static NSString *cellId = @"SortCollectionViewCell";
  *  分别加载每一张图片，并保存在缓存当中，以便下一次的从缓存读取
  */
 - (void)loadImageAndReplaceItemAtIndex:(NSInteger)index{
-    ImageModel *model = self.imageUrlGroups[index];
-    NSString* imageURL=[NSString stringWithFormat:@"%@%@",DPHOST,model.productImagePath];
+    NSString *model = self.imageUrlGroups[index];
+    NSString* imageURL=[NSString stringWithFormat:@"%@%@",IMAGEHOST,model];
     
     NSURL *url = [NSURL URLWithString:imageURL];
     
@@ -551,7 +551,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumLineSpacing = 2;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 120) collectionViewLayout:layout];
         _collectionView.delegate = self;
@@ -565,11 +565,34 @@ static NSString *cellId = @"SortCollectionViewCell";
     }
     return _collectionView;
 }
+- (void)setIndex:(NSInteger)index{
+    _index = index;
+}
+-(void)setDataArr:(NSMutableArray *)dataArr{
+    _dataArr = dataArr;
+    
+    [_collectionView reloadData];
+}
+-(void)setCollectionHeight:(NSInteger)collectionHeight{
+    _collectionHeight = collectionHeight;
+    if (_index ==0) {
+        _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 120);
+    }else if (_index ==1){
+        _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 0);
+    }else{
+        _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, collectionHeight);
+    }
+}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    if (_index ==0) {
+        return 5;
+    }else if (_index ==1){
+        return 0;
+    }
+    return _dataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -592,10 +615,16 @@ static NSString *cellId = @"SortCollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SortCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     NSArray *imageArr = @[@"presell_next",@"group_next",@"pay_next",@"invite_next",@"cooperat_icon"];
-    NSArray *dataArr = @[@"预售",@"团购",@"充值",@"邀请好友",@"企业合作"];
+    NSArray *Arr = @[@"预售",@"团购",@"充值",@"邀请好友",@"企业合作"];
+    
+    if (_index ==0) {
+        collectcell.headImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
+        collectcell.nameLabel.text = Arr[indexPath.row];
+    }else{
+        StairCategoryRes *model = _dataArr[indexPath.row];
+        [collectcell setModel:model];
+    }
     [collectcell setImageHeight:50];
-    collectcell.headImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
-    collectcell.nameLabel.text = dataArr[indexPath.row];
     collectcell.nameLabel.font = [UIFont systemFontOfSize:12];
     return collectcell;
 }
