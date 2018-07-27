@@ -7,8 +7,11 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "OrderListRes.h"
+#import "CartProductModel.h"
+
 typedef NS_ENUM(NSInteger, ORDERSTYPE){
-    ORDERSTYPEAll= 0 ,//全部
+    ORDERSTYPEAll= -1 ,//全部
     ORDERSTYPEWaitPayment ,//待付款
     ORDERSTYPEWaitDeliver , //待发货
     ORDERSTYPEWaitReceive , //待收货
@@ -42,4 +45,22 @@ typedef NS_ENUM(NSInteger, ORDERSTYPE){
 @property(nonatomic,assign)ORDERSTYPE ordertype;
 ///是否多选
 @property(nonatomic,assign)BOOL isMultiSelect;
+
+@property(nonatomic,strong)OrderListRes *model;
+//付款
+@property(nonatomic,copy)void (^payBlock)(OrderListRes*);
+//提醒发货
+@property(nonatomic,copy)void (^remindBlock)(OrderListRes*);
+//查看物流
+@property(nonatomic,copy)void (^logisticsBlock)(OrderListRes*);
+//送达日历
+@property(nonatomic,copy)void (^sureBlock)(OrderListRes*);
+//再次购买
+@property(nonatomic,copy)void (^buyBlock)(OrderListRes*);
+//评价
+@property(nonatomic,copy)void (^evaBlock)(OrderListRes*);
+//退款
+@property(nonatomic,copy)void (^refundBlock)(OrderListRes*);
+//删除订单
+@property(nonatomic,copy)void (^deleteBlock)(OrderListRes*);
 @end

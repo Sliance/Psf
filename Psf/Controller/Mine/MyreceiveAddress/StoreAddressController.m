@@ -7,16 +7,122 @@
 //
 
 #import "StoreAddressController.h"
+#import "AddressServiceApi.h"
+#import "StoreAddressCell.h"
 
-@interface StoreAddressController ()
+@interface StoreAddressController ()<UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end
 
 @implementation StoreAddressController
-
+-(UITableView *)tableview{
+    if (!_tableview) {
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) style:UITableViewStylePlain];
+        _tableview.delegate = self;
+        _tableview.dataSource = self;
+        _tableview.tableFooterView = [[UIView alloc]init];
+        _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
+    }
+    return _tableview;
+}
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setNavWithTitle:@"门店地址"];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.view addSubview:self.tableview];
+    _dataArr = [NSMutableArray array];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestAddressList];
+}
+-(void)requestAddressList{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.systemVersion = @"1.0.0";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]pickUpAddresListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.tableview reloadData];
+        }
+    }];
+}
+
+-(void)updateAddress:(StoreRes*)model{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.systemVersion = @"1.0.0";
+    req.platform = @"ios";
+    req.storeId = model.storeId;
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]updateStoreAddresWithParam:req response:^(id response) {
+        if([response[@"code"] integerValue]==200){
+                weakself.storeBlock(model);
+            [weakself.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return _dataArr.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 15;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 70;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *identify = @"identify";
+    StoreAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (!cell) {
+        cell = [[StoreAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+    }
+   
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.textColor = DSColorFromHex(0x464646);
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    StoreRes *model = _dataArr[indexPath.row];
+    [cell setIndex:indexPath.row];
+    [cell setModel:model];
+     __weak typeof(self)weakself = self;
+    [cell setSelectedBlock:^(StoreRes * model) {
+        model.memberStoreIsDefault = 1;
+        [weakself updateAddress:model];
+    }];
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    StoreRes *model = _dataArr[indexPath.row];
+    model.memberStoreIsDefault = 1;
+    [self updateAddress:model];
+    
 }
 
 - (void)didReceiveMemoryWarning {

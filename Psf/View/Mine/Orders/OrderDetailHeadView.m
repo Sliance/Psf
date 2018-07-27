@@ -179,6 +179,7 @@
     self.dateBlock(0);
 }
 -(void)setGoodtype:(CLAIMGOODSTYPE)goodtype{
+    _goodtype = goodtype;
     if (goodtype == CLAIMGOODSTYPEVISIT) {
             self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 40);
        [self setCornerLayout];
@@ -251,14 +252,45 @@
     _storemodel = storemodel;
     self.titleLabel.text = storemodel.storeName;
     self.phoneLabel.text = storemodel.storeTel;
-    self.morenLabel.hidden = !storemodel.memberStoreIsDefaul;
+   
     
     if (storemodel.storeProvinces.length>0) {
+         self.morenLabel.hidden = NO;
         self.centerLabel.hidden = YES;
         self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",storemodel.storeProvinces,storemodel.storeCity,storemodel.storeArea,storemodel.storeAddress];
     }else{
+         self.morenLabel.hidden = YES;
         self.centerLabel.hidden = NO;
         self.detailLabel.text =@"";
+    }
+}
+
+-(void)setOrdermodel:(OrderDetailRes *)ordermodel{
+    _ordermodel = ordermodel;
+    if (ordermodel.saleOrderReceiveType ==0) {
+        self.titleLabel.text = ordermodel.merchantStoreName;
+        self.phoneLabel.text = ordermodel.storeTel;
+        self.morenLabel.hidden = YES;
+        self.centerLabel.hidden = YES;
+        if (ordermodel.storeProvinces.length>0) {
+            self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",ordermodel.storeProvinces,ordermodel.storeCity,ordermodel.storeArea,ordermodel.storeAddress];
+        }else{
+            
+            self.detailLabel.text =@"";
+        }
+        self.typeLabel.text = @"门店自提";
+    }else if (ordermodel.saleOrderReceiveType ==1){
+        self.typeLabel.text = @"次日达";
+        self.titleLabel.text = ordermodel.saleOrderReceiveName;
+        self.phoneLabel.text = ordermodel.saleOrderReceiveMobile;
+        self.morenLabel.hidden = YES;
+        self.centerLabel.hidden = YES;
+        if (ordermodel.saleOrderReceiveProvince) {
+            self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",ordermodel.saleOrderReceiveProvince,ordermodel.saleOrderReceiveCity,ordermodel.saleOrderReceiveArea,ordermodel.saleOrderReceiveAddress];
+        }else{
+           
+            self.detailLabel.text =@"";
+        }
     }
 }
 @end

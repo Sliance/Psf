@@ -51,8 +51,16 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"banana_sort"];
+        [_headImage.layer setMasksToBounds:YES];
+        [_headImage.layer setCornerRadius:55/2];
     }
     return _headImage;
+}
+
+-(void)setResult:(MineInformationReq *)result{
+    _result = result;
+    
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
+    
 }
 @end

@@ -26,4 +26,8 @@
 @property(nonatomic,copy)NSString* couponTitle;
 ///优惠券类型
 @property(nonatomic,copy)NSString* couponType;
+@property(nonatomic,copy)NSString* couponSubTitle;
+@property(nonatomic,copy)NSString* couponDescription;
+///生效天数
+@property(nonatomic,copy)NSString* couponValidDay;
 @end

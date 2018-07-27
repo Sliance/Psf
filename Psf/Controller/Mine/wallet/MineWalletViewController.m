@@ -17,7 +17,7 @@
 
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)UIButton *detailBtn;
-
+@property(nonatomic,strong)NSMutableDictionary *resultDic;
 @end
 
 @implementation MineWalletViewController
@@ -54,6 +54,7 @@
     [super viewDidLoad];
     self.tableview.tableFooterView = self.detailBtn;
      [self.view addSubview:self.tableview];
+    self.resultDic = [NSMutableDictionary dictionary];
     [self requestData];
 }
 
@@ -61,20 +62,22 @@
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[MineServiceApi share]getMemberBalanceWithParam:req response:^(id response) {
-        
+        if (response&&[response[@"code"] integerValue] == 200) {
+            weakself.resultDic =response[@"data"];
+            [weakself.tableview reloadData];
+        }
     }];
 }
 -(void)pressDetail:(UIButton*)sender{
     TradingDetailController *detailVC = [[TradingDetailController alloc]init];
+    detailVC.type =1;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -92,10 +95,14 @@
     if (!cell) {
         cell = [[MineWalletCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-    if (indexPath.row ==1) {
+    if (indexPath.row ==0) {
+        if (self.resultDic[@"memberBalance"]) {
+            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
+        }
+    }else if (indexPath.row ==1) {
         cell.titleLabel.text = @"积分";
         cell.contentLabel.text = @"满额积分自动抵扣现金";
-        cell.priceLabel.text = @"200";
+        cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
         cell.rechargeBtn.hidden = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -110,6 +117,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row ==1) {
         MyIntegralController *myVC = [[MyIntegralController alloc]init];
+        [myVC setDic:self.resultDic];
         [self.navigationController pushViewController:myVC animated:YES];
     }
 }

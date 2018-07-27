@@ -8,8 +8,12 @@
 
 #import "BaseViewController.h"
 #import "WaitPaymentCell.h"
+#import "OrderServiceApi.h"
 
 @interface OrderDetailViewController : BaseViewController
 ///订单状态
 @property(nonatomic,assign)ORDERSTYPE ordertype;
+
+@property(nonatomic,strong)OrderListRes *model;
+
 @end

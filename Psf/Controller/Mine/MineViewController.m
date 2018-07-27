@@ -27,6 +27,8 @@
 @property(nonatomic,strong)NSArray *dataArr;
 @property(nonatomic,strong)MineHeadView *headView;
 @property(nonatomic,strong)MineFootView *footView;
+
+@property(nonatomic,strong)MineInformationReq *result;
 @end
 
 @implementation MineViewController
@@ -63,11 +65,17 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-    [self requestData];
+    [self setNavWithTitle:@"我的"];
+    if([UserCacheBean share].userInfo.token.length<1){
+        LoginViewController *loginVC = [[LoginViewController alloc]init];
+        [self showViewController:loginVC sender:nil];
+    }else{
+         [self requestData];
+    }
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-     self.navigationController.navigationBar.shadowImage = nil;
+//     self.navigationController.navigationBar.shadowImage = nil;
 }
 
 - (void)viewDidLoad {
@@ -103,15 +111,18 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
+    self.result = [[MineInformationReq alloc]init];
     [[MineServiceApi share]getMemberInformationWithParam:req response:^(id response) {
-        
+        if (response) {
+            self.result = response;
+            [weakself.headView setResult:self.result];
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

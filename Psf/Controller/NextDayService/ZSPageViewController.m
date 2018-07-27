@@ -1,3 +1,4 @@
+
 //
 //  ZSPageViewController.m
 //  Psf
@@ -22,7 +23,8 @@
 @property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
 @property(nonatomic,strong)UIScrollView *bgScrollow;
 @property(nonatomic,strong)NSMutableArray *dataArr;
-
+@property(nonatomic,strong)NSMutableArray *collectArr;
+@property(nonatomic,assign)CGFloat height;
 @end
 static NSString *cellId = @"cellId";
 @implementation ZSPageViewController
@@ -67,25 +69,19 @@ static NSString *cellId = @"cellId";
 -(void)setModel:(StairCategoryRes *)model{
     _model = model;
     _dataArr = [NSMutableArray array];
-    if (_selectedIndex ==0) {
-        [self reloadTuiJian];
-    } else {
-          [self requestData:[NSString stringWithFormat:@"%ld",(long)_model.productCategoryId]];
-    }
+    [self requestData:[NSString stringWithFormat:@"%ld",(long)_model.productCategoryId]];
   
 }
 -(void)requestData:(NSString*)categoryId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSNumber numberWithInteger:[categoryId integerValue]];
+    req.productId = [categoryId integerValue];
     req.productCategoryParentId = categoryId;
     req.cityId = @"310100";
     __weak typeof(self)weakself = self;
@@ -94,14 +90,13 @@ static NSString *cellId = @"cellId";
         if (response) {
             [headArr removeAllObjects];
             [headArr addObjectsFromArray:response];
-           
-            CGFloat height=0;
+        
             if (headArr.count%5==0) {
-                height = headArr.count/5*100;
+                weakself.height = headArr.count/5*100;
             }else if(headArr.count<11){
-                height =(headArr.count/5+1)*100;
+                 weakself.height =(headArr.count/5+1)*100;
             }else{
-                height = 200;
+                 weakself.height = 200;
             }
            
             if (weakself.selectedIndex ==0) {
@@ -109,32 +104,28 @@ static NSString *cellId = @"cellId";
             }else if (weakself.selectedIndex ==1){
                 weakself.cycleScroll.frame = CGRectMake(0, 0,SCREENWIDTH, 240);
             }else{
-                weakself.cycleScroll.frame = CGRectMake(0, 0,SCREENWIDTH, 220+height);
+                weakself.cycleScroll.frame = CGRectMake(0, 0,SCREENWIDTH, 220+ weakself.height);
             }
-             [weakself.cycleScroll setCollectionHeight:height];
+             [weakself.cycleScroll setCollectionHeight: weakself.height];
              [weakself.cycleScroll setDataArr:headArr];
-            CGFloat collecHeight = 0;
-            
-            for (SubjectCategoryModel *model in weakself.dataArr) {
-                if (model.subjectCategoryProductList.count%2==0) {
-                    collecHeight += model.subjectCategoryProductList.count*155;
-                }else{
-                     collecHeight += model.subjectCategoryProductList.count*155+300;
-                }
-            }
-            collecHeight += weakself.dataArr.count*150;
-            weakself.collectionView.frame = CGRectMake(0, weakself.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
-            weakself.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+height);
+           
         }
-        [weakself requestBanner];
+        if (weakself.selectedIndex ==0) {
+            [self reloadTuiJian];
+        }else if (weakself.selectedIndex ==1){
+            
+        }else{
+            StairCategoryRes *model = [headArr firstObject];
+            [weakself getCollectiomData:model];
+        }
+        
     }];
 }
 -(void)reloadTuiJian{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYzMzYyNDg4OTkxLCJ1c2VySWQiOiI5OTc0MTE2ODk0ODIyMzU5MDYiLCJvYmplY3RJZCI6IjEwMTY1NjQ2MTkxNTMxNDU4NTgifQ==";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
@@ -147,17 +138,63 @@ static NSString *cellId = @"cellId";
             [weakself.dataArr addObjectsFromArray:response];
             [weakself.collectionView reloadData];
         }
-        [weakself requestData:[NSString stringWithFormat:@"%ld",(long)weakself.model.productCategoryId]];
-        
+        CGFloat collecHeight = 0;
+        for (SubjectCategoryModel *model in weakself.dataArr) {
+            if (model.subjectCategoryProductList.count%2==0) {
+                collecHeight += model.subjectCategoryProductList.count*155;
+            }else{
+                collecHeight += model.subjectCategoryProductList.count*155+300;
+            }
+        }
+        collecHeight += weakself.dataArr.count*150;
+        weakself.collectionView.frame = CGRectMake(0, weakself.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
+        weakself.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+weakself.height);
+         [weakself requestBanner];
     }];
 }
-
+-(void)getCollectiomData:(StairCategoryRes*)model{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productId = model.productCategoryId;
+    req.pageIndex = @"1";
+    req.pageSize = @"4";
+    req.productCategoryParentId = model.productCategoryParentId;
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+//    self.collectArr = [[NSMutableArray alloc]init];
+    __weak typeof(self) weakSelf = self;
+    [[NextServiceApi share]requestSortListLoadWithParam:req response:^(id response) {
+        if(response!=nil){
+            [weakSelf.dataArr removeAllObjects];
+            [weakSelf.dataArr addObjectsFromArray:response];
+            [weakSelf.collectionView reloadData];
+        }
+        CGFloat collecHeight = 0;
+        for (StairCategoryRes *model in weakSelf.dataArr) {
+            if (model.productList.count%2==0) {
+                collecHeight += model.productList.count*155;
+            }else{
+                collecHeight += model.productList.count*155+300;
+            }
+        }
+        collecHeight += weakSelf.dataArr.count*150;
+        weakSelf.collectionView.frame = CGRectMake(0, weakSelf.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
+        weakSelf.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+weakSelf.height);
+        [weakSelf requestBanner];
+    }];
+}
 -(void)requestBanner{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYzMzYyNDg4OTkxLCJ1c2VySWQiOiI5OTc0MTE2ODk0ODIyMzU5MDYiLCJvYmplY3RJZCI6IjEwMTY1NjQ2MTkxNTMxNDU4NTgifQ==";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
@@ -213,8 +250,14 @@ static NSString *cellId = @"cellId";
     return self.dataArr.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    SubjectCategoryModel *model = self.dataArr[section];
-    return model.subjectCategoryProductList.count;
+    if (self.selectedIndex ==0) {
+        SubjectCategoryModel *model = self.dataArr[section];
+        return model.subjectCategoryProductList.count;
+    }else if (self.selectedIndex ==1){
+        
+    }
+    StairCategoryRes *model = self.dataArr[section];
+    return model.productList.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -244,9 +287,16 @@ static NSString *cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    SubjectCategoryModel *model = self.dataArr[indexPath.section];
-    StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
-    [cell setModel:res];
+    if (self.selectedIndex ==0) {
+        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [cell setModel:res];
+    }else{
+        StairCategoryRes *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.productList[indexPath.row];
+        [cell setModel:res];
+    }
+   
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -265,8 +315,14 @@ static NSString *cellId = @"cellId";
         }
     }
     NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 150)];
-    SubjectCategoryModel *model = self.dataArr[indexPath.section];
-    [validView setModel:model];
+    if (self.selectedIndex ==0) {
+        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+        [validView setModel:model];
+    }else{
+        StairCategoryRes *model = self.dataArr[indexPath.section];
+        [validView setProductmodel:model];
+    }
+    
     __weak typeof(self)weakSelf = self;
     [validView setPressTypeBlock:^(NSInteger index) {
         DetailSortController *detailVC = [[DetailSortController alloc]init];
@@ -279,8 +335,15 @@ static NSString *cellId = @"cellId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-//    [self showViewController:nav sender:nil];
+    if (self.selectedIndex ==0) {
+        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [vc setProductID:res.productId];
+    }else{
+        StairCategoryRes *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.productList[indexPath.row];
+        [vc setProductID:res.productId];
+    }
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

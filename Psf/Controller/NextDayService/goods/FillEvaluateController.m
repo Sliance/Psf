@@ -43,7 +43,9 @@
     [self.view addSubview:self.bgscrollow];
     [self.bgscrollow addSubview:self.headView];
 }
-
+-(void)setModel:(OrderListRes *)model{
+    _model = model;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

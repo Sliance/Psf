@@ -30,7 +30,7 @@
 
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.tableFooterView = [[UIView alloc]init];
@@ -69,16 +69,14 @@
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",_productId];
+    req.productId = _productId;
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -144,8 +142,15 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 165;
+    if (self.type ==1) {
+        EvaluateListModel *model = self.imageDataArr[indexPath.row];
+       return  [EvaluateTableViewCell getCellHeightWithData:model];
+    }else if (self.type ==2){
+        EvaluateListModel *model = self.contentDataArr[indexPath.row];
+      return [EvaluateTableViewCell getCellHeightWithData:model];
+    }
+    EvaluateListModel *model = self.evaRes.saleOrderProductCommentList[indexPath.row];
+    return [EvaluateTableViewCell getCellHeightWithData:model];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -155,6 +160,18 @@
     if (!cell) {
         cell = [[EvaluateTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
     }
+    if (self.type ==1) {
+       EvaluateListModel *model = self.imageDataArr[indexPath.row];
+        [cell setModel:model];
+    }else if (self.type ==2){
+        EvaluateListModel *model = self.contentDataArr[indexPath.row];
+        [cell setModel:model];
+    }else{
+        EvaluateListModel *model = self.evaRes.saleOrderProductCommentList[indexPath.row];
+        [cell setModel:model];
+    }
+    
+    
     cell.accessoryType = UITableViewCellAccessoryNone;
     return cell;
 }

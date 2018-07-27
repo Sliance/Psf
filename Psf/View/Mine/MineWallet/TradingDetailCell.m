@@ -76,4 +76,34 @@
     }
     return _priceLabel;
 }
+-(void)setType:(NSInteger)type{
+    _type = type;
+}
+-(void)setModel:(IntegralRecord *)model{
+    _model = model;
+    if(_type ==1){
+        if (model.memberTradeType ==0) {
+            self.titleLabel.text = @"充值";
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+        }else if (model.memberTradeType == 1){
+            self.titleLabel.text = @"消费";
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+        }else if (model.memberTradeType ==2){
+            self.titleLabel.text = @"退款";
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
+        }
+    }else if (_type ==2){
+        if (model.memberPointRecordType ==0) {
+            self.titleLabel.text = @"充值";
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.memberPointChangePoint];
+        }else if (model.memberPointRecordType == 1){
+            self.titleLabel.text = @"消费";
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
+        }else if (model.memberPointRecordType ==2){
+            self.titleLabel.text = @"退款";
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
+        }
+    }
+    self.contentLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime];
+}
 @end

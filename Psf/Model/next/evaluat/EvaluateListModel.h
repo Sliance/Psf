@@ -33,5 +33,5 @@
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductId;
 ///
-@property(nonatomic,assign)NSInteger systemCreateTime;
+@property(nonatomic,copy)NSString* systemCreateTime;
 @end

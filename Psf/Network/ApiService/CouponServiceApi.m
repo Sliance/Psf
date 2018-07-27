@@ -107,13 +107,13 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = (NSArray*)[CouponListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {

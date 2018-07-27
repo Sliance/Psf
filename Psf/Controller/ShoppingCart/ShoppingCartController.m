@@ -78,16 +78,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-//    req.productId = [NSString stringWithFormat:@"%ld",productID];
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -122,9 +119,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
@@ -150,8 +145,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
@@ -190,7 +184,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
@@ -214,7 +208,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityName = @"上海市";
@@ -270,7 +264,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
@@ -457,6 +451,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [detailGoodsViewController new];
     vc.hidesBottomBarWhenPushed = YES;
+    if (indexPath.section ==0) {
+        CartProductModel *model = _dataArr[indexPath.row];
+        [vc setProductID:model.productId];
+    }else if (indexPath.section ==1){
+        StairCategoryListRes *model = _likeArr[indexPath.row];
+         [vc setProductID:model.productId];
+    }
     [self.navigationController showViewController:vc sender:nil];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{

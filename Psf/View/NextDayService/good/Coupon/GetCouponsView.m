@@ -91,7 +91,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return self.dataArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -107,6 +107,8 @@
     if (!cell) {
         cell = [[MyCouponCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
+    CouponListRes *model = self.dataArr[indexPath.row];
+    [cell setModel:model];
     cell.getBtn.hidden = NO;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak typeof(self) _weakSelf = self;
@@ -116,5 +118,9 @@
         }
     }];
     return cell;
+}
+-(void)setDataArr:(NSMutableArray *)dataArr{
+    _dataArr = dataArr;
+    [self.tableView reloadData];
 }
 @end

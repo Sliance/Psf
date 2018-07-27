@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		884400E620F5AB05001F85EA /* ProductSkuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884400E520F5AB05001F85EA /* ProductSkuModel.m */; };
+		884418AC21088F0D001FD73B /* IntegralRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 884418AB21088F0D001FD73B /* IntegralRecord.m */; };
 		88484D7120EB03F700400D16 /* RechargeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7020EB03F700400D16 /* RechargeBtn.m */; };
 		88484D7420EB065D00400D16 /* RechargeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7320EB065D00400D16 /* RechargeHeadView.m */; };
 		88484D7720EB069A00400D16 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D7620EB069A00400D16 /* RechargeViewController.m */; };
@@ -19,6 +20,8 @@
 		88484D8920EB5CD300400D16 /* GroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8820EB5CD300400D16 /* GroupCollectionViewCell.m */; };
 		88484D8C20EB5D7D00400D16 /* GroupHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8B20EB5D7D00400D16 /* GroupHeadView.m */; };
 		88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8E20EB81FA00400D16 /* AboutViewController.m */; };
+		8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850C0F02105882200BF8F88 /* StoreAddressCell.m */; };
+		8850C0F52105B26B00BF8F88 /* OrderListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850C0F42105B26B00BF8F88 /* OrderListRes.m */; };
 		8852A22520EEFE50002C2D12 /* StairCategoryReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22420EEFE50002C2D12 /* StairCategoryReq.m */; };
 		8852A22820EF1100002C2D12 /* NextReceiveDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22720EF1100002C2D12 /* NextReceiveDateView.m */; };
 		8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22A20EF79AD002C2D12 /* StairCategoryRes.m */; };
@@ -40,6 +43,8 @@
 		88534C3920E6401600D6F43C /* FillOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C3820E6401600D6F43C /* FillOrderTableViewCell.m */; };
 		88534C3C20E6491F00D6F43C /* FillOrderBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C3B20E6491F00D6F43C /* FillOrderBottomView.m */; };
 		88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C3E20E64C8300D6F43C /* FillOrderTypeView.m */; };
+		88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E6B210963C800997B32 /* RechargeRuleModel.m */; };
+		88535E7D2109ACE900997B32 /* LoginReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E7C2109ACE900997B32 /* LoginReq.m */; };
 		8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */; };
 		8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031E20FF4318002BCDC9 /* SubjectCategoryModel.m */; };
 		8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8857032120FF5ABD002BCDC9 /* areaArray.plist */; };
@@ -117,6 +122,7 @@
 		88636D2020E2364B006CE5D8 /* DefaultAddressFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88636D1F20E2364B006CE5D8 /* DefaultAddressFootView.m */; };
 		88636D2320E24A72006CE5D8 /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88636D2220E24A72006CE5D8 /* EvaluateViewController.m */; };
 		88636D2720E24C1C006CE5D8 /* EvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88636D2620E24C1C006CE5D8 /* EvaluateTableViewCell.m */; };
+		8863E3622106D26700648841 /* OrderDetailRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8863E3612106D26700648841 /* OrderDetailRes.m */; };
 		886427A320F6FA9B006A160E /* AddressServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 886427A220F6FA9B006A160E /* AddressServiceApi.m */; };
 		886427A720F6FB9A006A160E /* AddressBaeReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 886427A620F6FB9A006A160E /* AddressBaeReq.m */; };
 		886427AA20F70096006A160E /* ChangeAddressReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 886427A920F70096006A160E /* ChangeAddressReq.m */; };
@@ -275,6 +281,8 @@
 		54EE4F738F42BE594B755CF4 /* Pods-Psf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psf/Pods-Psf.debug.xcconfig"; sourceTree = "<group>"; };
 		884400E420F5AB05001F85EA /* ProductSkuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductSkuModel.h; sourceTree = "<group>"; };
 		884400E520F5AB05001F85EA /* ProductSkuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductSkuModel.m; sourceTree = "<group>"; };
+		884418AA21088F0D001FD73B /* IntegralRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralRecord.h; sourceTree = "<group>"; };
+		884418AB21088F0D001FD73B /* IntegralRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegralRecord.m; sourceTree = "<group>"; };
 		88484D6F20EB03F700400D16 /* RechargeBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeBtn.h; sourceTree = "<group>"; };
 		88484D7020EB03F700400D16 /* RechargeBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeBtn.m; sourceTree = "<group>"; };
 		88484D7220EB065D00400D16 /* RechargeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeHeadView.h; sourceTree = "<group>"; };
@@ -297,6 +305,10 @@
 		88484D8B20EB5D7D00400D16 /* GroupHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupHeadView.m; sourceTree = "<group>"; };
 		88484D8D20EB81FA00400D16 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		88484D8E20EB81FA00400D16 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		8850C0EF2105882200BF8F88 /* StoreAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreAddressCell.h; sourceTree = "<group>"; };
+		8850C0F02105882200BF8F88 /* StoreAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressCell.m; sourceTree = "<group>"; };
+		8850C0F32105B26B00BF8F88 /* OrderListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListRes.h; sourceTree = "<group>"; };
+		8850C0F42105B26B00BF8F88 /* OrderListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListRes.m; sourceTree = "<group>"; };
 		8852A22320EEFE50002C2D12 /* StairCategoryReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StairCategoryReq.h; sourceTree = "<group>"; };
 		8852A22420EEFE50002C2D12 /* StairCategoryReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StairCategoryReq.m; sourceTree = "<group>"; };
 		8852A22620EF1100002C2D12 /* NextReceiveDateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextReceiveDateView.h; sourceTree = "<group>"; };
@@ -339,6 +351,10 @@
 		88534C3B20E6491F00D6F43C /* FillOrderBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FillOrderBottomView.m; sourceTree = "<group>"; };
 		88534C3D20E64C8300D6F43C /* FillOrderTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FillOrderTypeView.h; sourceTree = "<group>"; };
 		88534C3E20E64C8300D6F43C /* FillOrderTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FillOrderTypeView.m; sourceTree = "<group>"; };
+		88535E6A210963C800997B32 /* RechargeRuleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeRuleModel.h; sourceTree = "<group>"; };
+		88535E6B210963C800997B32 /* RechargeRuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeRuleModel.m; sourceTree = "<group>"; };
+		88535E7B2109ACE900997B32 /* LoginReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginReq.h; sourceTree = "<group>"; };
+		88535E7C2109ACE900997B32 /* LoginReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginReq.m; sourceTree = "<group>"; };
 		8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderServiceApi.h; sourceTree = "<group>"; };
 		8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderServiceApi.m; sourceTree = "<group>"; };
 		8857031D20FF4318002BCDC9 /* SubjectCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCategoryModel.h; sourceTree = "<group>"; };
@@ -488,6 +504,8 @@
 		88636D2220E24A72006CE5D8 /* EvaluateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateViewController.m; sourceTree = "<group>"; };
 		88636D2520E24C1C006CE5D8 /* EvaluateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateTableViewCell.h; sourceTree = "<group>"; };
 		88636D2620E24C1C006CE5D8 /* EvaluateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateTableViewCell.m; sourceTree = "<group>"; };
+		8863E3602106D26700648841 /* OrderDetailRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailRes.h; sourceTree = "<group>"; };
+		8863E3612106D26700648841 /* OrderDetailRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailRes.m; sourceTree = "<group>"; };
 		886427A120F6FA9B006A160E /* AddressServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressServiceApi.h; sourceTree = "<group>"; };
 		886427A220F6FA9B006A160E /* AddressServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressServiceApi.m; sourceTree = "<group>"; };
 		886427A520F6FB9A006A160E /* AddressBaeReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBaeReq.h; sourceTree = "<group>"; };
@@ -816,6 +834,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8850C0F22105B24900BF8F88 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				8850C0F32105B26B00BF8F88 /* OrderListRes.h */,
+				8850C0F42105B26B00BF8F88 /* OrderListRes.m */,
+				8863E3602106D26700648841 /* OrderDetailRes.h */,
+				8863E3612106D26700648841 /* OrderDetailRes.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		885303C120F4A162009807B2 /* evaluat */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +900,24 @@
 				88484D8520EB5BDA00400D16 /* DetailGroupController.m */,
 			);
 			path = group;
+			sourceTree = "<group>";
+		};
+		88535E7321098D8400997B32 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				8871B88C20DB4B0000DAA5D6 /* NSString+MD5Addition.h */,
+				8871B88B20DB4B0000DAA5D6 /* NSString+MD5Addition.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		88535E7A2109ACD300997B32 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				88535E7B2109ACE900997B32 /* LoginReq.h */,
+				88535E7C2109ACE900997B32 /* LoginReq.m */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		8857032020FF5A82002BCDC9 /* AreaPicker */ = {
@@ -1169,6 +1216,8 @@
 				88636D1920E224CB006CE5D8 /* EditAddressCell.m */,
 				88636D1E20E2364B006CE5D8 /* DefaultAddressFootView.h */,
 				88636D1F20E2364B006CE5D8 /* DefaultAddressFootView.m */,
+				8850C0EF2105882200BF8F88 /* StoreAddressCell.h */,
+				8850C0F02105882200BF8F88 /* StoreAddressCell.m */,
 			);
 			path = Address;
 			sourceTree = "<group>";
@@ -1239,6 +1288,10 @@
 			children = (
 				8866206D210096AD00C7923D /* MineInformationReq.h */,
 				8866206E210096AD00C7923D /* MineInformationReq.m */,
+				884418AA21088F0D001FD73B /* IntegralRecord.h */,
+				884418AB21088F0D001FD73B /* IntegralRecord.m */,
+				88535E6A210963C800997B32 /* RechargeRuleModel.h */,
+				88535E6B210963C800997B32 /* RechargeRuleModel.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1337,11 +1390,10 @@
 		8871B86720DB454800DAA5D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				88535E7321098D8400997B32 /* NSString */,
 				8866206521005DA200C7923D /* Date */,
 				8871B88E20DB4B2A00DAA5D6 /* UDIDWrapper.h */,
 				8871B88F20DB4B2A00DAA5D6 /* UDIDWrapper.m */,
-				8871B88C20DB4B0000DAA5D6 /* NSString+MD5Addition.h */,
-				8871B88B20DB4B0000DAA5D6 /* NSString+MD5Addition.m */,
 				8871B86820DB456F00DAA5D6 /* UIDevice+IdentifierAddition.h */,
 				8871B86920DB456F00DAA5D6 /* UIDevice+IdentifierAddition.m */,
 				8871B86C20DB472A00DAA5D6 /* UIViewController+Loading.h */,
@@ -1802,6 +1854,8 @@
 		88D8939120D26A88007E3C41 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88535E7A2109ACD300997B32 /* Login */,
+				8850C0F22105B24900BF8F88 /* Order */,
 				8866206C2100968D00C7923D /* Mine */,
 				8868035F20F85D3900BFC1BC /* group */,
 				8868035520F83B5900BFC1BC /* coupon */,
@@ -2055,6 +2109,7 @@
 				88636D1A20E224CB006CE5D8 /* EditAddressCell.m in Sources */,
 				8871B8D520DBB34800DAA5D6 /* JFAreaDataManager.m in Sources */,
 				888D66E520EA3DED0007D471 /* TradingDetailCell.m in Sources */,
+				8863E3622106D26700648841 /* OrderDetailRes.m in Sources */,
 				888E715C20E079DD00BFBAFF /* ChooseCityHeadView.m in Sources */,
 				888D66DF20EA36540007D471 /* MineWalletCell.m in Sources */,
 				88534C1920E5C67800D6F43C /* GoodEvaluateView.m in Sources */,
@@ -2076,6 +2131,7 @@
 				886427AA20F70096006A160E /* ChangeAddressReq.m in Sources */,
 				8871B85320DB424A00DAA5D6 /* NSString+MoneyStyle.m in Sources */,
 				8871B85520DB424A00DAA5D6 /* UserCurrentLocationManager.m in Sources */,
+				8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */,
 				886A9ED220ECD52E000503D2 /* MessageViewController.m in Sources */,
 				8871B8CA20DBB29200DAA5D6 /* JFCityHeaderView.m in Sources */,
 				8871B86220DB441000DAA5D6 /* ImageUtils.m in Sources */,
@@ -2121,6 +2177,7 @@
 				885F407C20DCCD72009F04D6 /* LikeShopHeadView.m in Sources */,
 				886427A320F6FA9B006A160E /* AddressServiceApi.m in Sources */,
 				8866206821005DC500C7923D /* NSDate+Add.m in Sources */,
+				88535E7D2109ACE900997B32 /* LoginReq.m in Sources */,
 				8871B86D20DB472A00DAA5D6 /* UIViewController+Loading.m in Sources */,
 				886427A720F6FB9A006A160E /* AddressBaeReq.m in Sources */,
 				8871B88220DB484100DAA5D6 /* NSString+CLTools.m in Sources */,
@@ -2143,6 +2200,7 @@
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
 				88D8939720D26C2F007E3C41 /* PsfTabBarItem.m in Sources */,
+				8850C0F52105B26B00BF8F88 /* OrderListRes.m in Sources */,
 				88D893A220D26DD6007E3C41 /* ShoppingCartController.m in Sources */,
 				88534C3920E6401600D6F43C /* FillOrderTableViewCell.m in Sources */,
 				8860DA5920D9EB97009E53B0 /* SortCollectionViewCell.m in Sources */,
@@ -2152,11 +2210,13 @@
 				88600BD920D890FF0098CF10 /* ZSScrollButton.m in Sources */,
 				8860DA5C20D9EF2F009E53B0 /* BaseView.m in Sources */,
 				8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */,
+				884418AC21088F0D001FD73B /* IntegralRecord.m in Sources */,
 				8871B8CB20DBB29200DAA5D6 /* JFCityTableViewCell.m in Sources */,
 				88484D8C20EB5D7D00400D16 /* GroupHeadView.m in Sources */,
 				88484D8020EB4E4400400D16 /* TourDiyGooddetailView.m in Sources */,
 				88484D7420EB065D00400D16 /* RechargeHeadView.m in Sources */,
 				8860DA5320D9DF66009E53B0 /* SortBtn.m in Sources */,
+				88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */,
 				888AC7F320FC854E00587F88 /* GroupBuyView.m in Sources */,
 				8871B8B220DB702700DAA5D6 /* NSBundle+PYSearchExtension.m in Sources */,
 				88600BF820D8D16E0098CF10 /* ZJSegmentStyle.m in Sources */,

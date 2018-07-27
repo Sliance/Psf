@@ -20,5 +20,6 @@
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *finishBtn;
 @property(nonatomic,weak)id<GetCouponsViewDelegate>delegate;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end

@@ -34,5 +34,6 @@
 ///付款按钮
 @property(nonatomic,strong)UIButton *payBtn;
 ///订单状态
-@property(nonatomic,assign)ORDERSTYPE ordertype;
+@property(nonatomic,assign)NSInteger ordertype;
+@property(nonatomic,strong)CartProductModel *model;
 @end

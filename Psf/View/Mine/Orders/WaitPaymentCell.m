@@ -113,7 +113,7 @@
     self.countLabel.frame = CGRectMake(SCREENWIDTH-60,79,45, 14);
     self.weightLabel.frame = CGRectMake(101, self.nameLabel.ctBottom+10, 160, 12);
     self.payableLabel.frame = CGRectMake(15, 151, 120, 44);
-    self.statusLabel.frame = CGRectMake(SCREENWIDTH-60,self.nameLabel.ctBottom+10,45, 12);
+    self.statusLabel.frame = CGRectMake(SCREENWIDTH-85,self.nameLabel.ctBottom+10,70, 12);
     self.payBtn.frame = CGRectMake(SCREENWIDTH-105,156,90, 34);
     self.sendBtn.frame = CGRectMake(SCREENWIDTH-205,156,90, 34);
 }
@@ -179,7 +179,7 @@
         _statusLabel.textAlignment = NSTextAlignmentRight;
         _statusLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _statusLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _statusLabel.text = @"待付款";
+//        _statusLabel.text = @"待付款";
     }
     return _statusLabel;
 }
@@ -189,7 +189,7 @@
         _countLabel.textAlignment = NSTextAlignmentRight;
         _countLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _countLabel.textColor = DSColorFromHex(0x464646);
-        _countLabel.text = @"X2";
+//        _countLabel.text = @"X2";
     }
     return _countLabel;
 }
@@ -199,7 +199,7 @@
         _orderNumLabel.textAlignment = NSTextAlignmentLeft;
         _orderNumLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _orderNumLabel.textColor = DSColorFromHex(0x464646);
-        _orderNumLabel.text = @"订单编号：41235323";
+//        _orderNumLabel.text = @"订单编号：41235323";
     }
     return _orderNumLabel;
 }
@@ -209,7 +209,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _payableLabel.textColor = DSColorFromHex(0x464646);
-        _payableLabel.text = @"应付:￥39.8";
+       
     }
     return _payableLabel;
 }
@@ -242,6 +242,7 @@
         [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
         [_payBtn setTitle:@"付款 59:00" forState:UIControlStateNormal];
         [_payBtn.layer setCornerRadius:2];
+        [_payBtn addTarget:self action:@selector(pressPay) forControlEvents:UIControlEventTouchUpInside];
         [_payBtn.layer setMasksToBounds:YES];
     }
     return _payBtn;
@@ -256,8 +257,229 @@
         [_sendBtn.layer setMasksToBounds:YES];
         [_sendBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_sendBtn.layer setBorderWidth:0.5];
+        [_sendBtn addTarget:self action:@selector(pressSend) forControlEvents:UIControlEventTouchUpInside];
         [_sendBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
     }
     return _sendBtn;
+}
+-(void)pressPay{
+    switch (_model.saleOrderStatus) {
+        case 0:
+        {
+            
+            self.payBlock(_model);
+        }
+            break;
+        case 1:
+        {
+            self.remindBlock(_model);
+        }
+            break;
+        case 2:
+        {
+            self.sureBlock(_model);
+        }
+            break;
+        case 3:
+        {
+            self.evaBlock(_model);
+        }
+            break;
+        case 4:
+        {
+            self.remindBlock(_model);
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
+        case 6:
+        {
+            self.deleteBlock(_model);
+        }
+            break;
+        case 7:
+        {
+           
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)pressSend{
+    switch (_model.saleOrderStatus) {
+        case 0:
+        {
+            
+            
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            self.logisticsBlock(_model);
+        }
+            break;
+        case 3:
+        {
+            self.buyBlock(_model);
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
+        case 6:
+        {
+            
+        }
+            break;
+        case 7:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)setModel:(OrderListRes *)model{
+    _model = model;
+    _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.saleOrderId];
+    if (model.saleOrderProductList.count==1 ) {
+        _headImageTwo.hidden = YES;
+        _headImageThree.hidden = YES;
+        _nameLabel.hidden = NO;
+        _weightLabel.hidden = NO;
+        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+        self.nameLabel.text = carmodel.productName;
+        self.weightLabel.text = carmodel.productUnit;
+    }else if (model.saleOrderProductList.count ==2){
+        _headImageTwo.hidden = NO;
+        _headImageThree.hidden = YES;
+        _nameLabel.hidden = YES;
+        _weightLabel.hidden = YES;
+        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+        CartProductModel *carmodel2 = model.saleOrderProductList[1];
+        NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
+        [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
+        
+    }else if(model.saleOrderProductList.count>2){
+        _headImageTwo.hidden = NO;
+        _headImageThree.hidden = NO;
+        _nameLabel.hidden = YES;
+        _weightLabel.hidden = YES;
+        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+        CartProductModel *carmodel2 = model.saleOrderProductList[1];
+        NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
+        [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
+        CartProductModel *carmodel3 = model.saleOrderProductList[2];
+        NSString *url3 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel3.productImagePath];
+        [self.headImageThree sd_setImageWithURL:[NSURL URLWithString:url3]];
+        
+    }
+    
+    switch (model.saleOrderStatus) {
+        case 0:
+            {
+             _statusLabel.text = @"待付款";
+                 [_payBtn.layer setBorderColor:[UIColor clearColor].CGColor];
+                [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+                 [_payBtn setTitle:@"付款" forState:UIControlStateNormal];
+                _sendBtn.hidden = YES;
+                _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+                
+            }
+            break;
+        case 1:
+        {
+          _statusLabel.text = @"待发货";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 2:
+        {
+          _statusLabel.text = @"待收货";
+             [_payBtn.layer setBorderColor:[UIColor clearColor].CGColor];
+            [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+            [_payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+            _sendBtn.hidden = NO;
+            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 3:
+        {
+           _statusLabel.text = @"交易成功";
+            _sendBtn.hidden = NO;
+            [self updatePayBtn];
+            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            [_payBtn setTitle:@"评价" forState:UIControlStateNormal];
+            [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            _payableLabel.text = [NSString stringWithFormat:@"合计:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 4:
+        {
+            _statusLabel.text = @"退款/售后";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
+            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            _payableLabel.text = @"";
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 5:
+        {
+            _statusLabel.text = @"已取消";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 6:
+        {
+            _statusLabel.text = @"已完成";
+            _sendBtn.hidden = YES;
+            [self updatePayBtn];
+            [_payBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        }
+            break;
+        case 7:
+        {
+            _statusLabel.text = @"门店已收货";
+            _sendBtn.hidden = YES;
+            _payBtn.hidden = YES;
+        }
+            break;
+        default:
+            break;
+    }
+    _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
 }
 @end

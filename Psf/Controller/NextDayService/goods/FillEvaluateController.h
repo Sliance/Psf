@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "OrderListRes.h"
 
 @interface FillEvaluateController : BaseViewController
 
+@property(nonatomic,strong)OrderListRes * model;
 @end

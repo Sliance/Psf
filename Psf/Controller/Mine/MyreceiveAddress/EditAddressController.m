@@ -104,7 +104,7 @@
     self.changeReq.appId = @"993335466657415169";
     self.changeReq.timestamp = @"529675086";
     
-    self.changeReq.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    self.changeReq.token = [UserCacheBean share].userInfo.token;
     self.changeReq.platform = @"ios";
     self.changeReq.systemVersion = @"1.1.0";
     [[AddressServiceApi share]addAddressWithParam:self.changeReq response:^(id response) {

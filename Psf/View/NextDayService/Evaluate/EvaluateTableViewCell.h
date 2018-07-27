@@ -16,8 +16,11 @@
 ///名
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UILabel *dateLabel;
+@property(nonatomic, strong)UIView *cardImgsView;
 ///详情
 @property(nonatomic,strong)UILabel *contentsLabel;
 @property(nonatomic,strong)RatingView *ratingView;
--(CGFloat)getCellHeightWithData:(EvaluateListModel *)model;
++(CGFloat)getCellHeightWithData:(EvaluateListModel *)model;
+@property(nonatomic,strong)EvaluateListModel *model;
+
 @end

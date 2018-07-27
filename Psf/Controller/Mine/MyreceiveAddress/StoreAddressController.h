@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "StoreRes.h"
 
 @interface StoreAddressController : BaseViewController
+@property(nonatomic,copy)void (^storeBlock)(StoreRes*);
 
 @end

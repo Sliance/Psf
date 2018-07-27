@@ -61,7 +61,7 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.systemVersion = @"1.0.0";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;

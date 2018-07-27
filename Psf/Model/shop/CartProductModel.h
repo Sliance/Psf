@@ -16,7 +16,9 @@
 ///
 @property(nonatomic,assign)NSInteger cartProductIsActive;
 ///
-@property(nonatomic,copy)NSNumber *productId;
+@property(nonatomic,assign)NSInteger productId;
+///
+@property(nonatomic,copy)NSNumber *productImageId;
 ///
 @property(nonatomic,copy)NSString *productImagePath;
 ///
@@ -51,6 +53,7 @@
 @property(nonatomic,assign)NSInteger productIsOnSale;
 ///
 @property(nonatomic,copy)NSNumber* saleOrderProductQty;
-
+///
+@property(nonatomic,copy)NSNumber* saleOrderProductId;
 
 @end

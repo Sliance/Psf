@@ -9,5 +9,6 @@
 #import "BaseViewController.h"
 
 @interface MyIntegralController : BaseViewController
+@property(nonatomic,strong)NSMutableDictionary *dic;
 
 @end

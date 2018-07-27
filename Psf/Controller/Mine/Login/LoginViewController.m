@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "MineServiceApi.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -16,6 +17,7 @@
 @property(nonatomic,strong)UILabel *codelLine;
 @property(nonatomic,strong)UIButton *sendCodeBtn;
 @property(nonatomic,strong)UIButton *finishBtn;
+
 
 @end
 
@@ -75,10 +77,11 @@
     return _sendCodeBtn;
     
 }
+
 -(UIButton *)finishBtn{
     if (!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _finishBtn.backgroundColor = DSColorFromHex(0xDCDCDC);
+        [_finishBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
         [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -88,21 +91,32 @@
     }
     return _finishBtn;
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    [self setNavWithTitle:@"我的"];
+}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"手机验证"];
+        self.view.backgroundColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+        
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     [self.view addSubview:self.headImage];
     [self.view addSubview:self.phoneField];
     [self.view addSubview:self.codeField];
     [self.view addSubview:self.sendCodeBtn];
     [self.view addSubview:self.finishBtn];
+   
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -148,17 +162,66 @@
         make.centerX.equalTo(self.view);
     }];
 }
+-(void)sendCode{
+    if (_phoneField.text.length<1) {
+        [self showToast:@"请输入手机号码"];
+        return;
+    }
+    LoginReq *req = [[LoginReq alloc]init];
+    req.memberMobile = _phoneField.text;
+    req.token = @"";
+    req.timestamp = @"0";
+    req.version = @"1.0.0";
+    req.appId = @"993335466657415169";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]sendVerCodeWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"发送验证码成功"];
+            }
+        }
+    }];
+}
+-(void)goToLogin{
+    if (_phoneField.text.length<1) {
+        [self showToast:@"请输入手机号码"];
+        return;
+    }
+    if (_codeField.text.length<1) {
+        [self showToast:@"请输入验证码"];
+        return;
+    }
+    LoginReq *req = [[LoginReq alloc]init];
+    req.memberMobile = _phoneField.text;
+    req.smsCaptchaCode = _codeField.text;
+    req.token = @"";
+    req.timestamp = @"0";
+    req.version = @"1.0.0";
+    req.appId = @"993335466657415169";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]requestLoginWithParam:req response:^(id response) {
+        if (response) {
+            NSError *error = nil;
+            UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
+            [UserCacheBean share].userInfo = userInfoModel;
 
+             [weakself.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
    
 }
 -(void)pressCode:(UIButton*)sender{
-    
+    [self sendCode];
 }
 -(void)pressFinishBtn:(UIButton*)sender{
-    
+    [self goToLogin];
 }
+
 /*
 #pragma mark - Navigation
 

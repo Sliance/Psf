@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #import "WaitPaymentCell.h"
+#import "OrderDetailRes.h"
 
 @interface OrderDetailFootView : BaseView
 ///开具发票
@@ -42,4 +43,7 @@
 
 ///订单状态
 @property(nonatomic,assign)ORDERSTYPE ordertype;
+
+@property(nonatomic,strong)OrderDetailRes *model;
+
 @end

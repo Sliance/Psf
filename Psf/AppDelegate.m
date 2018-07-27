@@ -20,6 +20,7 @@
     _mainTabController = [[PsfTabBarController alloc] init];
     self.window.rootViewController = _mainTabController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

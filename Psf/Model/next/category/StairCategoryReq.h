@@ -32,7 +32,7 @@
 ///
 @property(nonatomic,copy)NSString *userLatitude;
 ///商品编号
-@property(nonatomic,copy)NSNumber *productId;
+@property(nonatomic,assign)NSInteger productId;
 ///
 @property(nonatomic,copy)NSString *productName;
 ///商品规格编号
@@ -60,6 +60,7 @@
 @property(nonatomic,copy)NSString *saleOrderProductList;
 ///优惠券类型（singleProduct单品，allProduct全场）
 @property(nonatomic,copy)NSString *couponType;
+@property(nonatomic,assign)NSInteger couponId;
 ///专题位置(@"1+2")
 @property(nonatomic,copy)NSString*subjectPosition;
 ///自定义专题

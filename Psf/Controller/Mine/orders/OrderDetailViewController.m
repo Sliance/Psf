@@ -13,10 +13,16 @@
 #import "OrderDetailBottomView.h"
 #import "OrderDetailFootView.h"
 #import "OrderDetailHeadView.h"
+#import "NextCollectionHeadView.h"
+#import "ShopServiceApi.h"
+#import "OrderServiceApi.h"
+#import "FillEvaluateController.h"
+
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)OrderDetailBottomView *bottomView;
-
+@property(nonatomic,strong)NSMutableArray *likeArr;
+@property(nonatomic,strong)OrderDetailRes *result;
 
 @end
 static NSString *cellId = @"OrderCollectionViewCell";
@@ -38,7 +44,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[OrderCollectionViewCell class] forCellWithReuseIdentifier:cellId];
@@ -50,21 +56,208 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
     [self.view addSubview:self.bottomView];
-   
+    __weak typeof(self)weakself = self;
+    [self.bottomView setPayBlock:^(OrderListRes *model){//付款
+        
+    }];
+    [self.bottomView setBuyBlock:^(OrderListRes *model){//再次购买
+        [weakself againOrder:model.saleOrderId];
+    }];
+    [self.bottomView setLogisticsBlock:^(OrderListRes *model){//查看物流
+        
+    }];
+    [self.bottomView setSureBlock:^(OrderListRes *model){//确认收货
+        [weakself confirmOrder:model.saleOrderId];
+    }];
+    [self.bottomView setRefundBlock:^(OrderListRes *model){//退款
+        
+    }];
+    
+    [self.bottomView setRemindBlock:^(OrderListRes *model) {//提醒发货
+        [weakself noticeOrder:model.saleOrderId];
+    }];
+    
+    [self.bottomView setEvaBlock:^(OrderListRes * model) {
+        FillEvaluateController *fillVC = [[FillEvaluateController alloc]init];
+        [fillVC setModel:model];
+        [weakself.navigationController pushViewController:fillVC animated:YES];
+    }];
+    [self.bottomView setDeleteBlock:^(OrderListRes * model) {//删除订单
+        [weakself deleteOrder:model.saleOrderId];
+    }];
+    [self.bottomView setCancleBlock:^(OrderListRes *model) {//取消订单
+        [weakself cancleOrder:model.saleOrderId];
+    }];
 }
 -(void)setOrdertype:(ORDERSTYPE)ordertype{
     _ordertype = ordertype;
 }
+-(void)setModel:(OrderListRes *)model{
+    _model = model;
+    _likeArr = [NSMutableArray array];
+    [self.bottomView setStatus:model];
+     [self requestDetail];
+}
+-(void)noticeOrder:(NSString*)saleId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = saleId;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]noticeOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"已提醒发货！"];
+            }
+        }
+    }];
+    
+}
+-(void)confirmOrder:(NSString*)orderid{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = orderid;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"确认发货成功！"];
+            }
+        }
+    }];
+    
+}
+-(void)deleteOrder:(NSString*)orderid{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = orderid;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]deleteOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"删除订单成功！"];
+            }
+        }
+    }];
+}
+-(void)cancleOrder:(NSString*)orderid{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = orderid;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]cancleOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"取消订单成功！"];
+            }
+        }
+    }];
+}
+-(void)againOrder:(NSString*)orderid{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = orderid;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
+        
+    }];
+}
+-(void)guessLikeList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.goodsCategoryId = @"";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]guessYouLikeWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.likeArr removeAllObjects];
+            [weakself.likeArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+           
+        }
+        
+    }];
+}
+-(void)requestDetail{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderStatus = @"2";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityName = @"上海市";
+    req.saleOrderId = _model.saleOrderId;
+    __weak typeof(self)weakself = self;
+    weakself.result = [[OrderDetailRes alloc]init];
+    [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
+        if (response) {
+            weakself.result = response;
+            
+            [weakself.collectionView reloadData];
+            [self guessLikeList];
+        }
+    }];
+}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 3;
+    return 2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section ==0) {
-        return 2;
-    }else if (section ==1){
-        return 2;
+        return self.result.saleOrderProductList.count;
     }
-    return 4;
+    
+    return self.likeArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -90,10 +283,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section ==2) {
+    if (indexPath.section ==1) {
         return CGSizeMake(165, 300);
     }else{
-        if (_ordertype ==ORDERSTYPEWaitPayment) {
+        if (self.result.saleOrderStatus ==0) {
             return CGSizeMake(SCREENWIDTH+1, 120);
         }
     }
@@ -103,14 +296,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section ==0) {
         return  CGSizeMake(SCREENWIDTH, 125);
-    }else if (section ==1){
-        return  CGSizeMake(SCREENWIDTH, 0);
     }
-    return CGSizeMake(SCREENWIDTH, 0);
+    return CGSizeMake(SCREENWIDTH, 50);
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==0) {
-        if (_ordertype ==ORDERSTYPEWaitPayment) {
+        if (self.result.saleOrderStatus==0) {
             return CGSizeMake(SCREENWIDTH, 343);
         }else{
          return CGSizeMake(SCREENWIDTH, 317);
@@ -131,13 +322,14 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
         if (indexPath.section ==0) {
             NSInteger height;
-            if (_ordertype ==ORDERSTYPEWaitPayment) {
+            if (self.result.saleOrderStatus ==0) {
                 height = 343;
             }else{
                 height = 317;
             }
             OrderDetailFootView*footViews = [[OrderDetailFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, height)];
             [footViews setOrdertype:_ordertype];
+            [footViews setModel:self.result];
             [footview addSubview:footViews];
         }
         return footview;
@@ -159,14 +351,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [orderView setAddressBlock:^(NSInteger index) {
             
         }];
+        [orderView setOrdermodel:self.result];
         [headerView addSubview:orderView];
     }else if (indexPath.section ==1){
-//        LoseShopHeadView* loseView = [[LoseShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
-//        [headerView addSubview:loseView];
-
-    }else if (indexPath.section ==2){
-//        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-//        [headerView addSubview:likeView];
+ NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+        [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
+        [headerView addSubview:validView];
     }
     
     return headerView;
@@ -177,12 +367,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
     OrderCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
     if (indexPath.section ==0) {
-//        [cell setGoodtype:TYPEVALID];
-        return cell;
-    }else if (indexPath.section ==1){
-//        [cell setGoodtype:TYPELOSE];
+        CartProductModel *ordermodel = self.result.saleOrderProductList[indexPath.row];
+        [cell setOrdertype:self.result.saleOrderStatus];
+        [cell setModel:ordermodel];
         return cell;
     }
+    StairCategoryListRes *model = _likeArr[indexPath.row];
+    [collectcell setModel:model];
     return collectcell;
 }
 

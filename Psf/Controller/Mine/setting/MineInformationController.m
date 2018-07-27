@@ -57,9 +57,7 @@
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityId = @"310100";
@@ -69,6 +67,7 @@
         if (response) {
             weakself.result = [[MineInformationReq alloc]init];
             weakself.result = response;
+            [weakself.tableview reloadData];
         }
     }];
 }
@@ -98,7 +97,7 @@
         if (!cell) {
             cell = [[HeadimageTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
-        
+        [cell setResult:self.result];
         return cell;
     }
     static NSString *identify = @"identify";
@@ -118,17 +117,17 @@
     switch (indexPath.row) {
         case 1:
         {
-          cell.detailTextLabel.text = @"151****3124";
+          cell.detailTextLabel.text = self.result.memberNickName;
         }
             break;
         case 2:
         {
-          cell.detailTextLabel.text = @"保密";
+          cell.detailTextLabel.text = self.result.memberGender;
         }
             break;
         case 3:
         {
-            cell.detailTextLabel.text = @"未填写";
+            cell.detailTextLabel.text = self.result.memberBirthday;
         }
             break;
             

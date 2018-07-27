@@ -24,4 +24,6 @@
 @property(nonatomic,copy)NSString *userLongitude;
 ///用户纬度
 @property(nonatomic,copy)NSString *userLatitude;
+///门店编号
+@property(nonatomic,copy)NSString *storeId;
 @end

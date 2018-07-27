@@ -58,7 +58,7 @@
             _tmpBtn = btn;
         }
         [btn addTarget:self action:@selector(pressChoose:) forControlEvents:UIControlEventTouchUpInside];
-        [btn.layer setBorderColor:DSColorFromHex(0x474747).CGColor];
+        [btn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
         [self addSubview:btn];
     }
 }

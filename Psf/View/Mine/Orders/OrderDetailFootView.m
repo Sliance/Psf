@@ -104,7 +104,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
         _payableLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _payableLabel.text = @"应付:￥39.8";
+        _payableLabel.text = @"";
     }
     return _payableLabel;
 }
@@ -288,5 +288,14 @@
         _chooseSwitch = [[UISwitch alloc]init];
     }
     return _chooseSwitch;
+}
+
+-(void)setModel:(OrderDetailRes *)model{
+    _model = model;
+    _detailOrderNumLabel.text = model.saleOrderId;
+    _detailFreightLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderExpressAmount];
+    _detailTPayLabel.text =  [NSString stringWithFormat:@"￥%@",model.saleOrderTotalAmount];
+    _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+    _detailDateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime];
 }
 @end

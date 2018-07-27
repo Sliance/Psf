@@ -29,9 +29,10 @@
 // 时间戳—>字符串时间
 + (NSString *)cStringFromTimestamp:(NSString *)timestamp {
     //时间戳转时间的方法
-    NSDate *timeData = [NSDate dateWithTimeIntervalSince1970:[timestamp intValue]];
+    NSTimeInterval interval    =[timestamp doubleValue] / 1000.0;
+    NSDate *timeData = [NSDate dateWithTimeIntervalSince1970:interval];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
+    [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
     NSString *strTime = [dateFormatter stringFromDate:timeData];
     return strTime;
 }

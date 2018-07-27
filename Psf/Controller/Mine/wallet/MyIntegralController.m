@@ -51,7 +51,7 @@
     if (!_countLabel) {
         _countLabel = [[UILabel alloc]init];
         _countLabel.font = [UIFont systemFontOfSize:24];
-        _countLabel.text = @"500积分";
+        _countLabel.text = @"";
         _countLabel.textColor = DSColorFromHex(0x323232);
     }
     return _countLabel;
@@ -97,9 +97,15 @@
     self.detailBtn.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 40);
     self.countLabel.frame = CGRectMake(15, 30, SCREENWIDTH-30, 24);
     self.detailLabel.frame = CGRectMake(15, self.countLabel.ctBottom+15, SCREENWIDTH-30, 15);
+    
+}
+-(void)setDic:(NSMutableDictionary *)dic{
+    _dic = dic;
+    _countLabel.text = [NSString stringWithFormat:@"%@积分",dic[@"memberPoint"]];
 }
 -(void)pressDetail:(UIButton*)sender{
     TradingDetailController *detailVC = [[TradingDetailController alloc]init];
+    detailVC.type =2;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

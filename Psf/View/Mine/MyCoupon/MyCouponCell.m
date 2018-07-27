@@ -124,5 +124,6 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.couponImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.couponName;
+    self.contentLabel.text = [NSString stringWithFormat:@"自领取之日起，%@天有效",model.couponValidDay];
 }
 @end

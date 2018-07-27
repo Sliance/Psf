@@ -26,7 +26,7 @@
 
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 120+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 120+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-120) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = [UIColor whiteColor];
@@ -57,15 +57,14 @@
     _singleArr = [NSMutableArray array];
     _type =0;
     [self getCouponList:@"allProduct"];
-    [self getCouponList:@"singleProduct"];
+  
     __weak typeof(self)weakself = self;
     [self.headView setTypeBlock:^(NSInteger index) {
         if (index ==0) {
-//           [weakself getCouponList:@"allProduct"];
             weakself.type =0;
             [weakself.tableview reloadData];
         }else if (index ==2){
-//            [weakself getCouponList:@"singleProduct"];
+
             weakself.type = 2;
             [weakself.tableview reloadData];
         }
@@ -76,26 +75,31 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = type;
     __weak typeof(self)weakself = self;
     [[CouponServiceApi share]requestMineCouponListWithParam:req response:^(id response) {
         if (response!= nil) {
-            [weakself.dataArr removeAllObjects];
-            [weakself.singleArr removeAllObjects];
             
+        
             if ([type isEqualToString:@"allProduct"]) {
+                [weakself.dataArr removeAllObjects];
                 [weakself.dataArr addObjectsFromArray:response];
                 weakself.headView.allTitle.text = [NSString stringWithFormat:@"%ld张",weakself.dataArr.count];
-                  [weakself getCouponList:@"singleProduct"];
+                 [weakself.tableview reloadData];
+                  
             }else if ([type isEqualToString:@"singleProduct"]){
+                 [weakself.singleArr removeAllObjects];
                 [weakself.singleArr addObjectsFromArray:response];
                  weakself.headView.singleTitle.text = [NSString stringWithFormat:@"%ld张",weakself.singleArr.count];
             }
           
-            [weakself.tableview reloadData];
+           
+        }
+        if ([type isEqualToString:@"allProduct"]) {
+             [self getCouponList:@"singleProduct"];
         }
     }];
 }
@@ -123,7 +127,7 @@
     if (!cell) {
         cell = [[MyCouponCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-    CouponListRes *model = _dataArr[indexPath.row];
+    CouponListRes *model = self.dataArr[indexPath.row];
     [cell setModel:model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

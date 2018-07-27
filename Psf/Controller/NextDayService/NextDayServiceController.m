@@ -49,6 +49,8 @@ NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableVi
 @property (nonatomic, strong)  NSMutableArray *menuList;
 @property (nonatomic, strong)  NSMutableArray *dataArr;
 @property (nonatomic, assign)  BOOL autoSwitch;
+@property(nonatomic,strong)UILabel *navTitleLabel;
+
 @end
 static NSString * const cellID = @"cellID";
 @implementation NextDayServiceController
@@ -67,7 +69,7 @@ static NSString * const cellID = @"cellID";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"我的收货地址"];
+        [self setNavWithTitle:@""];
     }
     return self;
 }
@@ -77,7 +79,7 @@ static NSString * const cellID = @"cellID";
     _dataArr = [NSMutableArray array];
      [self requestData:@""];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavWithTitle:@"11"];
+    [self.view addSubview:self.navTitleLabel];
     
     [self.view addSubview:self.locView];
     
@@ -96,9 +98,9 @@ static NSString * const cellID = @"cellID";
     
     self.magicView.itemScale = 1;
     self.magicView.headerHeight = 45;
-    self.magicView.navigationHeight = 64+60;
+    self.magicView.navigationHeight = [self navHeightWithHeight]+60;
     self.magicView.againstStatusBar = YES;
-    self.magicView.navigationInset = UIEdgeInsetsMake(64+30, 0, 0, 0);
+    self.magicView.navigationInset = UIEdgeInsetsMake([self navHeightWithHeight]+30, 0, 0, 0);
     self.magicView.headerView.backgroundColor = [UIColor whiteColor];
     self.magicView.navigationColor = [UIColor whiteColor];
     self.magicView.layoutStyle = VTLayoutStyleDefault;
@@ -139,18 +141,29 @@ static NSString * const cellID = @"cellID";
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+-(UILabel *)navTitleLabel{
+    if (!_navTitleLabel) {
+        _navTitleLabel = [[UILabel alloc]init];
+        _navTitleLabel.text = @"犁小农";
+        _navTitleLabel.textColor = DSColorFromHex(0x464646);
+        _navTitleLabel.font = [UIFont systemFontOfSize:18];
+        _navTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _navTitleLabel.frame = CGRectMake(0, [self navHeightWithHeight]-40, SCREENWIDTH, 40);
+    }
+    return _navTitleLabel;
+}
 -(NextSelectorView *)seclectorView{
     if (!_seclectorView) {
         _seclectorView = [[NextSelectorView alloc]init];
         _seclectorView.hidden = YES;
-        _seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, 130);
+        _seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, 130);
     }
     return _seclectorView;
 }
 -(HomeLocationView *)locView{
     if (!_locView) {
         _locView = [[HomeLocationView alloc]init];
-        _locView.frame = CGRectMake(0, 64, SCREENWIDTH, 45);
+        _locView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, 45);
         [_locView.searchBtn addTarget:self action:@selector(pressSearch:) forControlEvents:UIControlEventTouchUpInside];
         [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -186,8 +199,7 @@ static NSString * const cellID = @"cellID";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.productCategoryId = @"" ;
@@ -228,8 +240,7 @@ static NSString * const cellID = @"cellID";
             StairCategoryReq *req = [[StairCategoryReq alloc]init];
             req.appId = @"993335466657415169";
             req.timestamp = @"529675086";
-            req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-            req.userId = @"1009660103519952898";
+            req.token = [UserCacheBean share].userInfo.token;
             req.version = @"1.0.0";
             req.platform = @"ios";
             req.userLongitude = @"121.4737";
@@ -253,8 +264,9 @@ static NSString * const cellID = @"cellID";
 }
 ///定位
 -(void)pressHomeLocation:(UIButton*)sender {
-    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
-    [self.navigationController pushViewController:cityViewController animated:YES];
+    [self showToast:@"目前仅支持上海区域"];
+//    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+//    [self.navigationController pushViewController:cityViewController animated:YES];
 }
 #pragma mark - JFCityViewControllerDelegate
 
@@ -451,7 +463,7 @@ static NSString * const cellID = @"cellID";
 }
 
 - (void)integrateComponents {
-    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, 64+40, 50, 40)];
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, [self navHeightWithHeight]+40, 50, 40)];
     [rightButton addTarget:self action:@selector(subscribeAction) forControlEvents:UIControlEventTouchUpInside];
     [rightButton setImage:[UIImage imageNamed:@"down_icon"] forState:UIControlStateNormal];
     rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, -10, 0);
@@ -478,14 +490,12 @@ static NSString * const cellID = @"cellID";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSNumber numberWithInteger:[categoryId integerValue]];
+    req.productId = [categoryId integerValue];
     req.productCategoryParentId = categoryId;
     req.cityId = @"310100";
     __weak typeof(self)weakself = self;
@@ -498,7 +508,7 @@ static NSString * const cellID = @"cellID";
             [weakself.magicView reloadMenuTitles];
             [weakself.magicView reloadDataToPage:0];
             [weakself.seclectorView setDataArr:weakself.dataArr];
-            weakself.seclectorView.frame = CGRectMake(0, 64+45, SCREENWIDTH, (weakself.dataArr.count/4+1)*35+40);
+            weakself.seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, (weakself.dataArr.count/4+1)*35+40);
         }
     }];
 }

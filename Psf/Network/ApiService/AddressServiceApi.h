@@ -28,6 +28,8 @@
 - (void)getAddressListWithParam:(AddressBaeReq *) req response:(responseModel)responseModel;
 ///获取单条默认会员门店地址信息（填写订单界面的）
 - (void)pickUpSingleDefaultAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel;
-///获取会员门店地址列填表（填写订单界面的）
+///获取会员门店地址列表（填写订单界面的）
 - (void)pickUpAddresListWithParam:(AddressBaeReq *) req response:(responseModel) responseModel;
+///修改门店信息
+- (void)updateStoreAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel;
 @end

@@ -78,7 +78,19 @@
 }
 
 - (void)showToast:(NSString *)info {
-//    [self showInfo:info];
+    [self showInfo:info];
+}
+/**
+ 显示提示
+ */
+- (void)showInfo:(NSString *)info{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.userInteractionEnabled = NO;
+    hud.label.text = info;
+    hud.yOffset = -85;
+    [hud hide:YES afterDelay:3];
 }
 
 - (void)initData {

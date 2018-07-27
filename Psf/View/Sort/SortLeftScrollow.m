@@ -26,6 +26,7 @@
         _bgScrollow.delegate = self;
         _bgScrollow.showsHorizontalScrollIndicator = NO;
         _bgScrollow.showsVerticalScrollIndicator = NO;
+        _bgScrollow.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
         
     }
     return _bgScrollow;

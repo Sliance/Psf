@@ -101,9 +101,10 @@
         if (index ==1) {
             [weakSelf.headView setGoodtype:CLAIMGOODSTYPEVISIT];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
+             [weakSelf.headView setModel:weakSelf.leftModel];
         }else if (index ==2){
              [weakSelf.headView setGoodtype:CLAIMGOODSTYPEONESELF];
-            [weakSelf pickUpStoreData];
+            [weakSelf.headView setStoremodel:weakSelf.storemodel];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
         }
         weakSelf.tableview.tableHeaderView = weakSelf.headView;
@@ -112,12 +113,17 @@
         if (index ==1) {
             MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
             [addressVC setChooseBlock:^(ChangeAddressReq * model) {
+                weakSelf.leftModel = model;
                 [weakSelf.headView setModel:model];
             }];
             addressVC.type = ADDRESSTYPEOrder;
             [weakSelf.navigationController pushViewController:addressVC animated:YES];
         }else if (index ==2){
             StoreAddressController *addressVC = [[StoreAddressController alloc]init];
+            [addressVC setStoreBlock:^(StoreRes * model) {
+                [weakSelf.headView setStoremodel:model];
+                weakSelf.storemodel = model;
+            }];
             [weakSelf.navigationController pushViewController:addressVC animated:YES];
         }
        
@@ -146,7 +152,7 @@
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]getSingleDefaultAddresWithParam:req response:^(id response) {
@@ -158,24 +164,14 @@
         }else{
              weakself.headView.centerLabel.hidden = NO;
         }
-        weakself.calculateModel.usePointIs = YES;
-        weakself.calculateModel.productList = weakself.result.cartProductList;
-        weakself.calculateModel.useIsBalance = YES;
-        weakself.calculateModel.expressEnable = YES;
-        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
-        NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
-        NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
-        next = [NSString stringWithFormat:@"%@ 09:00:00",next];
-        weakself.calculateModel.couponId = @"";
-        weakself.calculateModel.saleOrderDistributionStartTime = next;
-        weakself.calculateModel.saleOrderDistributionEndTime = end ;
-        [weakself calculatePrice:weakself.calculateModel];
+        [weakself pickUpStoreData];
+        
     }];
 }
 -(void)calculatePrice:(CalculateReq*)req{
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYzNDUzNjA5MDc1LCJ1c2VySWQiOiIxMDE2NjExMjI4MzA0NTgwNjExIiwib2JqZWN0SWQiOiIxMDE2NjExMjI4MzA0NTgwNjEwIn0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     NSMutableArray *arr = [NSMutableArray array];
     for (CartProductModel *model in self.result.cartProductList) {
@@ -201,7 +197,7 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
@@ -209,9 +205,21 @@
     [[AddressServiceApi share]pickUpSingleDefaultAddresWithParam:req response:^(id response) {
         if (response) {
             weakself.storemodel = response;
-            [weakself.headView setStoremodel:weakself.storemodel];
+           
             
         }
+        weakself.calculateModel.usePointIs = YES;
+        weakself.calculateModel.productList = weakself.result.cartProductList;
+        weakself.calculateModel.useIsBalance = YES;
+        weakself.calculateModel.expressEnable = YES;
+        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+        NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
+        NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
+        next = [NSString stringWithFormat:@"%@ 09:00:00",next];
+        weakself.calculateModel.couponId = @"";
+        weakself.calculateModel.saleOrderDistributionStartTime = next;
+        weakself.calculateModel.saleOrderDistributionEndTime = end ;
+        [weakself calculatePrice:weakself.calculateModel];
     }];
 }
 

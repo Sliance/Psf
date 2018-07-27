@@ -46,7 +46,7 @@
 -(UILabel *)detailLabel{
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc]init];
-        _detailLabel.text = @"满30减12；满100减30；满200减60";
+        _detailLabel.text = @"";
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         _detailLabel.font = [UIFont systemFontOfSize:15];
         _detailLabel.textColor = DSColorFromHex(0x474747);

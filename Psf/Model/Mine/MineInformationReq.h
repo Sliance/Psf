@@ -19,6 +19,7 @@
 @property(nonatomic,copy)NSString*memberGender;
 ///会员昵称
 @property(nonatomic,copy)NSString*memberNickName;
+@property(nonatomic,copy)NSString*memberMobile;
 ///应用编号
 @property(nonatomic,copy)NSString*appId;
 ///

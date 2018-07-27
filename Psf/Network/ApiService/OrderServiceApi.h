@@ -7,7 +7,25 @@
 //
 
 #import "BaseApi.h"
+#import "StairCategoryReq.h"
+#import "OrderListRes.h"
+#import "OrderDetailRes.h"
 
 @interface OrderServiceApi : BaseApi
++ (instancetype)share;
+///获取订单列表
+- (void)getOrderListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///获取订单详情
+- (void)getDetailOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///提醒发货
+- (void)noticeOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///再来一单
+- (void)againOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///取消订单
+- (void)cancleOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///删除订单
+- (void)deleteOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///确认收货
+- (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 
 @end

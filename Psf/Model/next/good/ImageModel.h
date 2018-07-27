@@ -12,4 +12,5 @@
 @property(nonatomic,assign)NSInteger productImageId;
 @property(nonatomic,copy)NSString* productImagePath;
 @property(nonatomic,copy)NSString* saleOrderProductCommentImagePath;
+@property(nonatomic,assign)NSInteger saleOrderProductCommentImageId;
 @end

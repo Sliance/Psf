@@ -14,7 +14,7 @@
     if (!_remindBtn) {
         _remindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _remindBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_remindBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+        [_remindBtn addTarget:self action:@selector(pressPay) forControlEvents:UIControlEventTouchUpInside];
         [_remindBtn.layer setCornerRadius:2];
         [_remindBtn.layer setMasksToBounds:YES];
         [_remindBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
@@ -27,9 +27,8 @@
     if (!_sendBtn) {
         _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_sendBtn setTitle:@"查看物流" forState:UIControlStateNormal];
         [_sendBtn.layer setCornerRadius:2];
-//        _sendBtn.hidden = YES;
+        [_sendBtn addTarget:self action:@selector(pressSend) forControlEvents:UIControlEventTouchUpInside];
         [_sendBtn.layer setMasksToBounds:YES];
         [_sendBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_sendBtn.layer setBorderWidth:0.5];
@@ -43,7 +42,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _payableLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _payableLabel.text = @"应付:￥39.8";
+        _payableLabel.text = @"";
     }
     return _payableLabel;
 }
@@ -88,5 +87,148 @@
         make.right.equalTo(self.remindBtn.mas_left).offset(-10);
         make.centerY.equalTo(self);
     }];
+}
+
+-(void)setStatus:(OrderListRes*)status{
+    _status = status;
+    switch (status.saleOrderStatus) {
+        case 0:
+        {
+            
+            [_remindBtn.layer setBorderColor:[UIColor clearColor].CGColor];
+            [_remindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_remindBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+            [_remindBtn setTitle:@"付款" forState:UIControlStateNormal];
+            [_sendBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",status.saleOrderPayAmount];
+            
+        }
+            break;
+        case 1:
+        {
+           
+            
+            [_remindBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+            
+        }
+            break;
+        case 2:
+        {
+            
+            [_remindBtn.layer setBorderColor:[UIColor clearColor].CGColor];
+            [_remindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_remindBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+            [_remindBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+            _sendBtn.hidden = NO;
+          
+        }
+            break;
+        case 3:
+        {
+            
+            _sendBtn.hidden = YES;
+            [_remindBtn setTitle:@"评价" forState:UIControlStateNormal];
+            
+           
+        }
+            break;
+        case 4:
+        {
+           
+            
+            
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 5:
+        {
+            
+            [_remindBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 6:
+        {
+          
+            _sendBtn.hidden = YES;
+            [_remindBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        }
+            break;
+        case 7:
+        {
+            
+            _sendBtn.hidden = YES;
+            _remindBtn.hidden = YES;
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)pressPay{
+    switch (_status.saleOrderStatus) {
+        case 0:
+        {
+            
+            self.payBlock(_status);
+            
+        }
+            break;
+        case 1:
+        {
+            
+            
+            self.remindBlock(_status);
+            
+        }
+            break;
+        case 2:
+        {
+            
+            self.sureBlock(_status);
+            
+        }
+            break;
+        case 3:
+        {
+            
+            self.evaBlock(_status);
+            
+            
+        }
+            break;
+        case 4:
+        {
+    
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 5:
+        {
+            self.buyBlock(_status);
+        }
+            break;
+        case 6:
+        {
+            
+            self.deleteBlock(_status);
+        }
+            break;
+        case 7:
+        {
+            
+            _sendBtn.hidden = YES;
+            _remindBtn.hidden = YES;
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)pressSend{
+    if (_status.saleOrderStatus ==0) {
+        self.cancleBlock(_status);
+    }
 }
 @end

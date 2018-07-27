@@ -29,6 +29,8 @@
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
+    NSInteger _tourHeight;
+    NSInteger _evaHeight;
 }
 
 @property(nonatomic,strong)UIScrollView *bgscrollow;
@@ -48,6 +50,7 @@
 @property(strong,nonatomic)EvaluateListRes *evaRes;
 @property(nonatomic,strong)NSMutableArray *groupArr;
 @property(nonatomic,strong)GroupBuyView *groupBuyView;
+@property(nonatomic,strong)NSMutableArray *couponArr;
 
 
 @end
@@ -172,6 +175,7 @@
     
     [self.view addSubview:self.bgscrollow];
     _groupArr = [NSMutableArray array];
+    _couponArr = [NSMutableArray array];
     [self.bgscrollow addSubview:self.cycleScroll];
     [self.bgscrollow addSubview:self.headView];
     [self.bgscrollow addSubview:self.evaView];
@@ -241,15 +245,14 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSNumber numberWithInteger:_productID];
+    req.productId = _productID;
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -279,15 +282,14 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSNumber numberWithInteger:_productID];
+    req.productId = _productID;
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -296,7 +298,23 @@
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[CouponServiceApi share]requestCouponListLoadWithParam:req response:^(id response) {
-       
+        if (response) {
+            [weakself.couponArr removeAllObjects];
+            [weakself.couponArr addObjectsFromArray:response];
+            [weakself.couponView setDataArr:weakself.couponArr];
+            NSString *title= @"";
+            for (CouponListRes *model in response) {
+                if (title.length<1) {
+                    title = model.couponName;
+                }else{
+                    title = [NSString stringWithFormat:@"%@;%@",title,model.couponName];
+                }
+            }
+            self.couponCell.detailLabel.text = title;
+        }
+        [weakself.footView setPruductId:weakself.productID];
+         [self reloadHeight];
+
     }];
 }
 -(void)requestEvaluate{
@@ -304,15 +322,14 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.productId = _productID;
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -334,15 +351,14 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.productId = [NSString stringWithFormat:@"%ld",_productID];
+    req.productId = _productID;
     req.pageIndex = @"1";
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -361,8 +377,7 @@
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
-    req.userId = @"1009660103519952898";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponType = @"allProduct";
@@ -395,13 +410,12 @@
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.productId = [NSNumber numberWithInteger:_productID];
+    req.productId = _productID;
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]spellGroupListWithParam:req response:^(id response) {
-         [weakself.footView setPruductId:weakself.productID];
         self.footView.hidden = NO;
         if (response != nil) {
             [weakself.groupArr removeAllObjects];
@@ -417,8 +431,7 @@
     NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH,self.result.productContent];
     
     [self.webView loadHTMLString:html_str baseURL:nil];
-    NSInteger _tourHeight = 0;
-    NSInteger _evaHeight = 0;
+    
     if([self.result.productType isEqualToString:@"normal"]){//正常
        
         [self requestCoupon];
@@ -430,17 +443,30 @@
             _tourHeight = 50;
         }
          [self.view addSubview:self.groupBView];
+        [self.footView setPruductId:self.productID];
+        [self reloadHeight];
+
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         _tourHeight = 0;
          [self.view addSubview:self.preBView];
+        [self.footView setPruductId:self.productID];
+         [self reloadHeight];
+
     }else {//满减
          [self requestCoupon];
          [self.view addSubview:self.normalBView];
     }
-    if (_couponHeight ==0) {
+    [self.view addSubview:self.couponView];
+    [self.view addSubview:self.groupBuyView];
+}
+
+-(void)reloadHeight{
+    if (self.couponArr.count ==0) {
         _couponCell.hidden = YES;
+        _couponHeight = 0;
     }else{
         _couponCell.hidden = NO;
+        _couponHeight = 50;
     }
     if (_tourHeight ==0) {
         self.tourDiyView.hidden = YES;
@@ -459,8 +485,7 @@
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
-    [self.view addSubview:self.couponView];
-    [self.view addSubview:self.groupBuyView];
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -477,7 +502,24 @@
     self.couponView.hidden = YES;
 }
 -(void)getCouponViewWithIndex:(NSInteger)index{
+    CouponListRes *model = self.couponArr[index];
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponId = model.couponId;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    [[CouponServiceApi share] saveCouponWithParam:req response:^(id response) {
+       
+            [self showToast:response[@"message"]];
     
+    }];
 }
 -(void)pressShareBtn:(UIButton*)sender{
     

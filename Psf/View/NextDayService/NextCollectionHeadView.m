@@ -65,7 +65,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"presale_banner"];
+        
     }
     return _headImage;
 }
@@ -73,5 +73,10 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.subjectCategoryImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     [self.typeBtn setTitle:model.subjectCategoryName forState:UIControlStateNormal];
+}
+-(void)setProductmodel:(StairCategoryRes *)productmodel{
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,productmodel.productCategoryBannerImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    [self.typeBtn setTitle:productmodel.productCategoryName forState:UIControlStateNormal];
 }
 @end

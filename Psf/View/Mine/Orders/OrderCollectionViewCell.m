@@ -22,38 +22,65 @@
     [_payBtn.layer setBorderWidth:0.5];
     [_payBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
 }
--(void)setOrdertype:(ORDERSTYPE)ordertype{
+-(void)setOrdertype:(NSInteger)ordertype{
     _ordertype = ordertype;
     switch (ordertype) {
-        case ORDERSTYPEWaitPayment:
+        case 0:
         {
-            [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+            _payBtn.hidden = YES;
             _sendBtn.hidden = YES;
         }
             break;
-        case ORDERSTYPEWaitDeliver:
+        case 1:
         {
             [self updatePayBtn];
-            [_payBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
             _sendBtn.hidden = YES;
         }
             break;
-        case ORDERSTYPEWaitReceive:
+        case 2:
         {
             [self updatePayBtn];
-            [_payBtn setTitle:@"送达日历" forState:UIControlStateNormal];
-            _sendBtn.hidden = NO;
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
         }
             break;
-        case ORDERSTYPEWaitEvaluate:
+        case 3:
         {
             _sendBtn.hidden = NO;
             [self updatePayBtn];
             [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
             [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-            [_payBtn setTitle:@"评价" forState:UIControlStateNormal];
-            [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"评价有礼" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 4:
+        {
+//            _statusLabel.text = @"退款/售后";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 5:
+        {
+//            _statusLabel.text = @"取消";
+            [self updatePayBtn];
+            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            [_payBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
+        case 6:
+        {
+//            _statusLabel.text = @"已完成";
+        }
+            break;
+        case 7:
+        {
+//            _statusLabel.text = @"门店已收货";
         }
             break;
         default:
@@ -168,7 +195,7 @@
         _statusLabel.textAlignment = NSTextAlignmentRight;
         _statusLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _statusLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _statusLabel.text = @"待付款";
+        _statusLabel.text = @"";
     }
     return _statusLabel;
 }
@@ -248,5 +275,93 @@
         [_sendBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
     }
     return _sendBtn;
+}
+-(void)setModel:(CartProductModel *)model{
+    _model = model;
+        _headImageTwo.hidden = YES;
+        _headImageThree.hidden = YES;
+        _nameLabel.hidden = NO;
+        _weightLabel.hidden = NO;
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+        self.nameLabel.text = model.productName;
+        self.weightLabel.text = model.productUnit;
+    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+    self.weightLabel.text = model.productUnit;
+    _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderProductQty];
+    
+    switch (model.productId) {
+        case 0:
+        {
+            _statusLabel.text = @"待付款";
+            [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+            [_payBtn setTitle:@"付款" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+//            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+            
+        }
+            break;
+        case 1:
+        {
+            _statusLabel.text = @"待发货";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+//            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 2:
+        {
+            _statusLabel.text = @"待收货";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"送达日历" forState:UIControlStateNormal];
+            _sendBtn.hidden = NO;
+//            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 3:
+        {
+            _statusLabel.text = @"交易成功";
+            _sendBtn.hidden = NO;
+            [self updatePayBtn];
+            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            [_payBtn setTitle:@"评价" forState:UIControlStateNormal];
+            [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+//            _payableLabel.text = [NSString stringWithFormat:@"合计:￥%@",model.saleOrderPayAmount];
+        }
+            break;
+        case 4:
+        {
+            _statusLabel.text = @"退款/售后";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"退款/售后" forState:UIControlStateNormal];
+        }
+            break;
+        case 5:
+        {
+            _statusLabel.text = @"取消";
+            [self updatePayBtn];
+            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            [_payBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+        }
+            break;
+        case 6:
+        {
+            _statusLabel.text = @"已完成";
+        }
+            break;
+        case 7:
+        {
+            _statusLabel.text = @"门店已收货";
+        }
+            break;
+        default:
+            break;
+    }
+
 }
 @end

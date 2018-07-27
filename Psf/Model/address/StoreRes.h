@@ -12,7 +12,7 @@
 ///门店编号
 @property(nonatomic,copy)NSString *memberId;
 ///是否默认门店
-@property(nonatomic,assign)BOOL memberStoreIsDefaul;
+@property(nonatomic,assign)BOOL memberStoreIsDefault;
 ///详细地址
 @property(nonatomic,copy)NSString *storeAddress;
 ///区

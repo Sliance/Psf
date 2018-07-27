@@ -10,12 +10,16 @@
 #import "RechargeHeadView.h"
 #import "BottomView.h"
 #import "PayTypeView.h"
+#import "MineServiceApi.h"
+
 @interface RechargeViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *bgscrollow;
 @property(nonatomic,strong)RechargeHeadView *headView;
 @property(nonatomic,strong)BottomView *bottomView;
 @property(nonatomic,strong)PayTypeView *payView;
+@property(nonatomic,strong)NSMutableArray *dataArr;
+
 @end
 
 @implementation RechargeViewController
@@ -60,19 +64,40 @@
     [self.bgscrollow addSubview:self.headView];
     [self.bgscrollow addSubview:self.payView];
     [self.view addSubview:self.bottomView];
-    NSMutableArray *dataArr = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4", nil];
-    [self.headView setDataArr:dataArr];
-    self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, (dataArr.count+1)/2*105+25);
-    self.payView.frame = CGRectMake(0, self.headView.ctBottom+10, SCREENWIDTH, 45);
+   
     [self.headView setChooseBlock:^(NSInteger index) {
         
     }];
     [self.payView setChooseBlock:^(NSInteger index) {
         
     }];
-    
+    _dataArr = [NSMutableArray array];
+    [self requestData];
 }
-
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]rechargeMemberBalanceWithParam:req response:^(id response) {
+        if (response) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself reloadData];
+        }
+    }];
+}
+-(void)reloadData{
+    [self.headView setDataArr:self.dataArr];
+    self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, (self.dataArr.count+1)/2*105+25);
+    self.payView.frame = CGRectMake(0, self.headView.ctBottom+10, SCREENWIDTH, 45);
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

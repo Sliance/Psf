@@ -15,6 +15,7 @@
 @property(nonatomic,assign)NSInteger productCategoryId;
 ///图片
 @property(nonatomic,copy)NSString *productCategoryImagePath;
+@property(nonatomic,copy)NSString *productCategoryBannerImagePath;
 ///名字
 @property(nonatomic,copy)NSString *productCategoryName;
 ///

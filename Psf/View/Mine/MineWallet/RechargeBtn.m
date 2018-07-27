@@ -36,7 +36,7 @@
         _numLabel.textColor = DSColorFromHex(0x323232);
         _numLabel.font = [UIFont systemFontOfSize:15];
         _numLabel.textAlignment = NSTextAlignmentLeft;
-        _numLabel.text = @"充值 100元";
+        _numLabel.text = @"";
     }
     return _numLabel;
 }
@@ -46,7 +46,7 @@
         _detailLabel.textColor = DSColorFromHex(0x969696);
         _detailLabel.font = [UIFont systemFontOfSize:15];
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        _detailLabel.text = @"充值 100元";
+        _detailLabel.text = @"";
     }
     return _detailLabel;
 }

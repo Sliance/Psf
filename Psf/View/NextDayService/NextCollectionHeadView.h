@@ -8,6 +8,8 @@
 
 #import "BaseView.h"
 #import "SubjectCategoryModel.h"
+#import "StairCategoryRes.h"
+
 @interface NextCollectionHeadView : BaseView
 @property(nonatomic,strong)UIView *bgView;
 @property(nonatomic,strong)UIButton *typeBtn;
@@ -15,5 +17,5 @@
 @property(nonatomic,copy)void(^pressTypeBlock)(NSInteger);
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)SubjectCategoryModel *model;
-
+@property(nonatomic,strong)StairCategoryRes *productmodel;
 @end

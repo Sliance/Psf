@@ -13,9 +13,8 @@
 -(UIButton *)headbtn{
     if (!_headbtn) {
         _headbtn = [[UIButton alloc]init];
-        [_headbtn setImage:[UIImage imageNamed:@"banana_sort"] forState:UIControlStateNormal];
         [_headbtn.layer setMasksToBounds:YES];
-        [_headbtn.layer setCornerRadius:71/2];
+        [_headbtn.layer setCornerRadius:35];
         [_headbtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headbtn;
@@ -51,7 +50,7 @@
     [self.headbtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(31);
-        make.width.height.mas_equalTo(71);
+        make.width.height.mas_equalTo(70);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,5 +67,14 @@
 }
 -(void)pressBtn:(UIButton*)sender{
     self.skipBlock(sender.tag);
+}
+
+-(void)setResult:(MineInformationReq *)result{
+    _result = result;
+    UIImageView *image = [[UIImageView alloc]init];
+    [image sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
+    [self.headbtn setBackgroundImageWithURL:[NSURL URLWithString:result.memberAvatarPath] forState:UIControlStateNormal options:YYWebImageOptionAllowBackgroundTask];
+    
+    self.nameLabel.text = result.memberNickName;
 }
 @end
