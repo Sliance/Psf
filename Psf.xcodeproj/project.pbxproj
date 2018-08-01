@@ -208,6 +208,7 @@
 		88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9B20F3162D0044A527 /* StairCategoryListRes.m */; };
 		88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9F20F34A910044A527 /* GoodDetailRes.m */; };
 		88797FA320F34E570044A527 /* ImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797FA220F34E570044A527 /* ImageModel.m */; };
+		88828D9321114D6200E366D6 /* LoginServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 88828D9221114D6200E366D6 /* LoginServiceApi.m */; };
 		888AC7E720FC43BD00587F88 /* GroupGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */; };
 		888AC7EA20FC43D800587F88 /* PresaleGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E920FC43D800587F88 /* PresaleGoodBottomView.m */; };
 		888AC7ED20FC7A2700587F88 /* DetailSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7EC20FC7A2700587F88 /* DetailSortHeadView.m */; };
@@ -682,6 +683,8 @@
 		88797F9F20F34A910044A527 /* GoodDetailRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodDetailRes.m; sourceTree = "<group>"; };
 		88797FA120F34E570044A527 /* ImageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
 		88797FA220F34E570044A527 /* ImageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageModel.m; sourceTree = "<group>"; };
+		88828D9121114D6200E366D6 /* LoginServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginServiceApi.h; sourceTree = "<group>"; };
+		88828D9221114D6200E366D6 /* LoginServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginServiceApi.m; sourceTree = "<group>"; };
 		888AC7E520FC43BD00587F88 /* GroupGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupGoodBottomView.h; sourceTree = "<group>"; };
 		888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupGoodBottomView.m; sourceTree = "<group>"; };
 		888AC7E820FC43D800587F88 /* PresaleGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleGoodBottomView.h; sourceTree = "<group>"; };
@@ -1464,6 +1467,8 @@
 				8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */,
 				886620692100892D00C7923D /* MineServiceApi.h */,
 				8866206A2100892D00C7923D /* MineServiceApi.m */,
+				88828D9121114D6200E366D6 /* LoginServiceApi.h */,
+				88828D9221114D6200E366D6 /* LoginServiceApi.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -2168,6 +2173,7 @@
 				8871B8CD20DBB29200DAA5D6 /* JFCityCollectionViewCell.m in Sources */,
 				8871B8AD20DB702700DAA5D6 /* UIView+PYSearchExtension.m in Sources */,
 				88D9281821102E000001B2E3 /* ZYProGressView.m in Sources */,
+				88828D9321114D6200E366D6 /* LoginServiceApi.m in Sources */,
 				88636D1A20E224CB006CE5D8 /* EditAddressCell.m in Sources */,
 				8871B8D520DBB34800DAA5D6 /* JFAreaDataManager.m in Sources */,
 				888D66E520EA3DED0007D471 /* TradingDetailCell.m in Sources */,

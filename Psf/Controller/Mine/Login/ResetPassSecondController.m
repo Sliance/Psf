@@ -14,7 +14,7 @@
 @property(nonatomic,strong)UITextField *codeField;
 @property(nonatomic,strong)UILabel *phoneLine;
 @property(nonatomic,strong)UILabel *codelLine;
-@property(nonatomic,strong)UIButton *sendCodeBtn;
+
 @property(nonatomic,strong)UIButton *finishBtn;
 
 @end
@@ -31,22 +31,22 @@
 -(UITextField *)phoneField{
     if (!_phoneField) {
         _phoneField = [[UITextField alloc]init];
-        _phoneField.placeholder = @"请输入手机号";
+        _phoneField.placeholder = @"请输入新密码";
         _phoneField.delegate = self;
         _phoneField.font = [UIFont systemFontOfSize:12];
         _phoneField.borderStyle = UITextBorderStyleNone;
-        _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneField.keyboardType = UIKeyboardTypeDefault;
     }
     return _phoneField;
 }
 -(UITextField *)codeField{
     if (!_codeField) {
         _codeField = [[UITextField alloc]init];
-        _codeField.placeholder = @"短信验证码";
+        _codeField.placeholder = @"再次输入新密码";
         _codeField.delegate = self;
         _codeField.font = [UIFont systemFontOfSize:12];
         _codeField.borderStyle = UITextBorderStyleNone;
-        _codeField.keyboardType = UIKeyboardTypeNumberPad;
+        _codeField.keyboardType = UIKeyboardTypeDefault;
     }
     return _codeField;
 }
@@ -64,27 +64,16 @@
     }
     return _codelLine;
 }
--(UIButton *)sendCodeBtn{
-    if (!_sendCodeBtn) {
-        _sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [_sendCodeBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-        [_sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _sendCodeBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-        [_sendCodeBtn addTarget:self action:@selector(pressCode:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _sendCodeBtn;
-    
-}
+
 
 -(UIButton *)finishBtn{
     if (!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_finishBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
-        [_finishBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_finishBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_finishBtn addTarget:self action:@selector(pressFinishBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_finishBtn addTarget:self action:@selector(pressFinishBtn) forControlEvents:UIControlEventTouchUpInside];
         [_finishBtn.layer setCornerRadius:4];
         [_finishBtn.layer setMasksToBounds:YES];
     }
@@ -107,7 +96,7 @@
     [self.view addSubview:self.headImage];
     [self.view addSubview:self.phoneField];
     [self.view addSubview:self.codeField];
-    [self.view addSubview:self.sendCodeBtn];
+   
     [self.view addSubview:self.finishBtn];
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
@@ -142,12 +131,7 @@
         make.bottom.equalTo(self.codeField.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
-    [self.sendCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(64);
-        make.height.mas_equalTo(24);
-        make.bottom.equalTo(self.codeField.mas_bottom).offset(-9);
-        make.right.equalTo(self.codeField.mas_right);
-    }];
+    
     [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(39);
@@ -158,7 +142,9 @@
 }
 
 
-
+-(void)pressFinishBtn{
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

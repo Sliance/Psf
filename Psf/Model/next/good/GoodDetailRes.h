@@ -32,6 +32,8 @@
 @property(nonatomic,copy)NSString *productContent;
 ///团购编号
 @property(nonatomic,copy)NSNumber *grouponId;
+///团购数量
+@property(nonatomic,assign)NSInteger saleOrderProductQty;
 ///商品产地
 @property(nonatomic,copy)NSString *productBirthPlace;
 ///满减编号
@@ -58,7 +60,7 @@
 @property(nonatomic,copy)NSString *rewardProductType;
 ///团购生效时间
 @property(nonatomic,copy)NSString *grouponValidTime;
-///预售发货时间
+///预售到货时间
 @property(nonatomic,copy)NSString *preSaleDeliveryTime;
 ///预售编号
 @property(nonatomic,copy)NSNumber *preSaleId;
@@ -74,4 +76,6 @@
 @property(nonatomic,assign)NSInteger preSaleLimitQuantity;
 //是否截单
 @property(nonatomic,assign)BOOL preSaleIsComplete;
+
+
 @end

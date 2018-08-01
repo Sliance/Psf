@@ -106,7 +106,7 @@
 -(UILabel *)singlePrice{
     if (!_singlePrice) {
         _singlePrice = [[UILabel alloc]init];
-        _singlePrice.text = @"¥18.00";
+        
         _singlePrice.textColor = [UIColor whiteColor];
         _singlePrice.font = [UIFont systemFontOfSize:18];
         _singlePrice.textAlignment = NSTextAlignmentCenter;
@@ -116,7 +116,6 @@
 -(UILabel *)groupPrice{
     if (!_groupPrice) {
         _groupPrice = [[UILabel alloc]init];
-        _groupPrice.text = @"¥15.00";
         _groupPrice.textColor = [UIColor whiteColor];
         _groupPrice.font = [UIFont systemFontOfSize:18];
         _groupPrice.textAlignment = NSTextAlignmentCenter;
@@ -149,5 +148,10 @@
 }
 -(void)pressgroup{
     self.GroupBlock();
+}
+-(void)setModel:(GoodDetailRes *)model{
+    _model = model;
+    _groupPrice.text = [NSString stringWithFormat:@"¥%@",model.grouponPrice];
+    _singlePrice.text = [NSString stringWithFormat:@"¥%@",model.productPrice];
 }
 @end

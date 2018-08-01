@@ -25,7 +25,10 @@
 #import "GroupGoodBottomView.h"
 #import "PresaleGoodBottomView.h"
 #import "GroupBuyView.h"
-#import "SureOrderViewController.h"
+#import "PresaleBuyView.h"
+
+#import "FillOrderViewController.h"
+
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -50,6 +53,7 @@
 @property(strong,nonatomic)EvaluateListRes *evaRes;
 @property(nonatomic,strong)NSMutableArray *groupArr;
 @property(nonatomic,strong)GroupBuyView *groupBuyView;
+@property(nonatomic,strong)PresaleBuyView *presaleBuyView;
 @property(nonatomic,strong)NSMutableArray *couponArr;
 
 
@@ -132,6 +136,15 @@
         [_groupBuyView setHeight:[self tabBarHeight]];
     }
     return _groupBuyView;
+}
+-(PresaleBuyView *)presaleBuyView{
+    if (!_presaleBuyView) {
+        _presaleBuyView = [[PresaleBuyView alloc]init];
+        _presaleBuyView.hidden = YES;
+        _presaleBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        [_presaleBuyView setHeight:[self tabBarHeight]];
+    }
+    return _presaleBuyView;
 }
 -(ZSCycleScrollView *)cycleScroll{
     if (!_cycleScroll) {
@@ -235,20 +248,30 @@
     [self.groupBView setGroupBlock:^{
         _weakSelf.groupBuyView.hidden = NO;
     }];
-    [self.groupBuyView setPressAddBlock:^{
-        
-    }];
-    [self.groupBuyView setSubBlock:^{
-        
-    }];
+    
+    
     [self.groupBuyView setSubmitBlock:^(NSInteger count){
         _weakSelf.groupBuyView.hidden = YES;
-        SureOrderViewController *sureVC = [[SureOrderViewController alloc]init];
-        [sureVC setCount:count];
-        [sureVC setResult:_weakSelf.result];
+        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+        _weakSelf.result.saleOrderProductQty = count;
+        _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
+        [sureVC setGoodstype:GOOGSTYPEGroup];
+        [sureVC setGooddetail:_weakSelf.result];
         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [self.groupBuyView setTapBlock:^{
+        _weakSelf.groupBuyView.hidden = YES;
+    }];
+    [self.presaleBuyView setSubmitBlock:^(NSInteger count){
+        _weakSelf.groupBuyView.hidden = YES;
+        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+        _weakSelf.result.saleOrderProductQty = count;
+        _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
+        [sureVC setGoodstype:GOOGSTYPEPresale];
+        [sureVC setGooddetail:_weakSelf.result];
+        [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+    }];
+    [self.presaleBuyView setTapBlock:^{
         _weakSelf.groupBuyView.hidden = YES;
     }];
 }
@@ -465,12 +488,14 @@
             _tourHeight = 50;
         }
          [self.view addSubview:self.groupBView];
+        [self.groupBView setModel:self.result];
         [self.footView setPruductId:self.productID];
         [self reloadHeight];
 
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         _tourHeight = 0;
          [self.view addSubview:self.preBView];
+        [self.preBView setPreSaleIsComplete:self.result.preSaleIsComplete];
         [self.footView setPruductId:self.productID];
          [self reloadHeight];
 

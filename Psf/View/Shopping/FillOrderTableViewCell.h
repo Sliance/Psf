@@ -8,6 +8,7 @@
 
 #import "BaseTableViewCell.h"
 #import "CartProductModel.h"
+#import "GoodDetailRes.h"
 
 @interface FillOrderTableViewCell : BaseTableViewCell
 @property(nonatomic,strong)UIView *bgView;
@@ -34,4 +35,5 @@
 ///付款按钮
 @property(nonatomic,strong)UIButton *payBtn;
 @property(nonatomic,strong)CartProductModel *model;
+@property(nonatomic,strong)GoodDetailRes *res;
 @end

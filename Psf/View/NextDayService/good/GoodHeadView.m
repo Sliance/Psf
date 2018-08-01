@@ -98,9 +98,15 @@
     [self addSubview:self.shareBtn];
     [self addSubview:self.buyerLabel];
     [self addSubview:self.progress];
+    [self addSubview:self.limitLabel];
+    [self addSubview:self.arriveLabel];
+    [self addSubview:self.remainLabel];
+    [self addSubview:self.limitTitleLabel];
+    [self addSubview:self.arriveTitleLabel];
+    [self addSubview:self.remainTitleLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(self).offset(13);
+        make.top.equalTo(self).offset(10);
         make.width.mas_equalTo(SCREENWIDTH-50);
     }];
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,13 +116,43 @@
     }];
     [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(13);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
         make.width.mas_equalTo(SCREENWIDTH-30);
     }];
     [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(self.buyerLabel.mas_bottom).offset(20);
+        make.top.equalTo(self.buyerLabel.mas_bottom).offset(15);
         make.width.mas_equalTo(SCREENWIDTH-30);
+    }];
+    [self.limitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.bottom.equalTo(self).offset(-15);
+        make.width.mas_equalTo(SCREENWIDTH/3);
+    }];
+    [self.limitTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.bottom.equalTo(self.limitLabel.mas_top).offset(-5);
+        make.width.mas_equalTo(SCREENWIDTH/3);
+    }];
+    [self.arriveLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-15);
+        make.centerX.equalTo(self);
+        make.width.mas_equalTo(SCREENWIDTH/3);
+    }];
+    [self.arriveTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.arriveLabel.mas_top).offset(-5);
+        make.centerX.equalTo(self);
+        make.width.mas_equalTo(SCREENWIDTH/3);
+    }];
+    [self.remainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self);
+        make.bottom.equalTo(self).offset(-15);
+        make.width.mas_equalTo(SCREENWIDTH/3);
+    }];
+    [self.remainTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self);
+        make.bottom.equalTo(self.remainLabel.mas_top).offset(-5);
+        make.width.mas_equalTo(SCREENWIDTH/3);
     }];
 }
 -(UIButton *)shareBtn{
@@ -239,6 +275,63 @@
     }
     return _progress;
 }
+-(UILabel *)limitLabel{
+    if (!_limitLabel) {
+        _limitLabel  = [[UILabel alloc]init];
+        _limitLabel.text = @"购买上限";
+        _limitLabel.textColor = DSColorFromHex(0x979797);
+        _limitLabel.font = [UIFont systemFontOfSize:12];
+        _limitLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _limitLabel;
+}
+-(UILabel *)arriveLabel{
+    if (!_arriveLabel) {
+        _arriveLabel  = [[UILabel alloc]init];
+        _arriveLabel.text = @"到货时间";
+        _arriveLabel.textColor = DSColorFromHex(0x979797);
+        _arriveLabel.font = [UIFont systemFontOfSize:12];
+        _arriveLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _arriveLabel;
+}
+-(UILabel *)remainLabel{
+    if (!_remainLabel) {
+        _remainLabel  = [[UILabel alloc]init];
+        _remainLabel.text = @"剩余时间";
+        _remainLabel.textColor = DSColorFromHex(0x979797);
+        _remainLabel.font = [UIFont systemFontOfSize:12];
+        _remainLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _remainLabel;
+}
+-(UILabel *)limitTitleLabel{
+    if (!_limitTitleLabel) {
+        _limitTitleLabel  = [[UILabel alloc]init];
+        _limitTitleLabel.textColor = DSColorFromHex(0x474747);
+        _limitTitleLabel.font = [UIFont systemFontOfSize:15];
+        _limitTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _limitTitleLabel;
+}
+-(UILabel *)arriveTitleLabel{
+    if (!_arriveTitleLabel) {
+        _arriveTitleLabel  = [[UILabel alloc]init];
+        _arriveTitleLabel.textColor = DSColorFromHex(0x474747);
+        _arriveTitleLabel.font = [UIFont systemFontOfSize:15];
+        _arriveTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _arriveTitleLabel;
+}
+-(UILabel *)remainTitleLabel{
+    if (!_remainTitleLabel) {
+        _remainTitleLabel  = [[UILabel alloc]init];
+        _remainTitleLabel.textColor = DSColorFromHex(0x474747);
+        _remainTitleLabel.font = [UIFont systemFontOfSize:15];
+        _remainTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _remainTitleLabel;
+}
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
     
@@ -266,6 +359,19 @@
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
     _buyerLabel.text = @"已有23人购买";
     CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
+    if (model.preSaleLimitQuantity ==0) {
+        progress = 0.99;
+    }
     _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
+    self.limitTitleLabel.text = [NSString stringWithFormat:@"%ld",model.preSaleLimitQuantity];
+    self.arriveTitleLabel.text = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"MM.dd"];
+    self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    
+    [timer setFireDate:[NSDate distantPast]];
+}
+-(void)timerAction{
+    self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
 }
 @end

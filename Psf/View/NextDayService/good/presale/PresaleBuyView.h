@@ -7,7 +7,21 @@
 //
 
 #import "BaseView.h"
+#import "GoodDetailRes.h"
 
 @interface PresaleBuyView : BaseView
+@property(nonatomic,strong)UIView *yinBGview;
+@property(nonatomic,strong)UIView * BGview;
+@property(nonatomic,strong)UIButton *addBtn;
+@property(nonatomic,strong)UIButton *subBtn;
+@property(nonatomic,strong)UITextField *countField;
+@property(nonatomic,strong)UILabel *buyLabel;
+@property(nonatomic,strong)UIButton *submitBtn;
+
+@property(nonatomic,copy)void(^submitBlock)(NSInteger);
+@property(nonatomic,copy)void(^tapBlock)();
+@property(nonatomic,assign)NSInteger height;
+@property(nonatomic,assign)NSInteger count;
+@property(nonatomic,strong)GoodDetailRes *model;
 
 @end

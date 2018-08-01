@@ -19,6 +19,7 @@
 #import "PointAmountCell.h"
 #import "StoreAddressController.h"
 #import "CouponServiceApi.h"
+#import "GroupServiceApi.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -146,13 +147,22 @@
         }
     }];
 }
+-(void)setGoodstype:(GOOGSTYPE )goodstype{
+    _goodstype = goodstype;
+}
 
+-(void)setGooddetail:(GoodDetailRes *)gooddetail{
+    _gooddetail = gooddetail;
+    [_dataArr removeAllObjects];
+    [_dataArr addObject:gooddetail];
+    [_tableview reloadData];
+    [self reloadLeftAddress];
+}
 -(void)setResult:(ShoppingListRes *)result{
     _result = result;
     [_dataArr removeAllObjects];
     [_dataArr addObjectsFromArray:self.result.cartProductList];
     [_tableview reloadData];
-
     [self reloadLeftAddress];
 }
 
@@ -199,23 +209,39 @@
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
-    NSMutableArray *arr = [NSMutableArray array];
-    for (CartProductModel *model in self.result.cartProductList) {
-        if (model.productQuantity) {
-            model.saleOrderProductQty = model.productQuantity;
-            [arr addObject:model];
+    
+    if (_goodstype ==GOOGSTYPENormal) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (CartProductModel *model in self.result.cartProductList) {
+            if (model.productQuantity) {
+                model.saleOrderProductQty = model.productQuantity;
+                [arr addObject:model];
+            }
         }
+        req.productList = arr;
+        __weak typeof(self)weakself = self;
+        [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
+            if (response) {
+                weakself.resModel = [[CalculateThePriceRes alloc]init];
+                weakself.resModel = response;
+                weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+                [weakself.tableview reloadData];
+            }
+        }];
+    }else if (_goodstype ==GOOGSTYPEGroup){
+       
+        req.productList = self.dataArr;
+        __weak typeof(self)weakself = self;
+        [[GroupServiceApi share]getGroupPriceWithParam:req response:^(id response) {
+            if (response) {
+                weakself.resModel = [[CalculateThePriceRes alloc]init];
+                weakself.resModel = response;
+                weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+                [weakself.tableview reloadData];
+            }
+        }];
     }
-    req.productList = arr;
-    __weak typeof(self)weakself = self;
-    [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
-        if (response) {
-            weakself.resModel = [[CalculateThePriceRes alloc]init];
-            weakself.resModel = response;
-            weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
-            [weakself.tableview reloadData];
-        }
-    }];
+    
 }
 
 -(void)pickUpStoreData{
@@ -394,8 +420,14 @@
             cell = [[FillOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        CartProductModel *model = _dataArr[indexPath.row];
-        [cell setModel:model];
+        if (_goodstype ==GOOGSTYPENormal) {
+            CartProductModel *model = _dataArr[indexPath.row];
+            [cell setModel:model];
+        }else if (_goodstype ==GOOGSTYPEGroup){
+            GoodDetailRes *model = _dataArr[indexPath.row];
+            [cell setRes:model];
+        }
+       
         cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
     }

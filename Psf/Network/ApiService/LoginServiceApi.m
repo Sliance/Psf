@@ -1,34 +1,32 @@
 //
-//  MineServiceApi.m
+//  LoginServiceApi.m
 //  Psf
 //
-//  Created by 燕来秋mac9 on 2018/7/19.
+//  Created by 燕来秋mac9 on 2018/8/1.
 //  Copyright © 2018年 zhangshu. All rights reserved.
 //
 
-#import "MineServiceApi.h"
+#import "LoginServiceApi.h"
 
-@implementation MineServiceApi
+@implementation LoginServiceApi
 + (instancetype)share {
-    static MineServiceApi *global;
+    static LoginServiceApi *global;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (global == nil) {
-            global = [[MineServiceApi alloc] init];
+            global = [[LoginServiceApi alloc] init];
         }
     });
     return global;
 }
-
-///获取单条会员余额和积分信息
-- (void)getMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/mobile/v1/find/balance/point";
+///登录注册校验
+-(void)requestLoginWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/mobile/login/by/code";
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-               
                 if (responseModel) {
                     responseModel(dicResponse);
                 }
@@ -46,35 +44,9 @@
         
     }];
 }
-///获取单条会员信息
-- (void)getMemberInformationWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/mobile/v1/find";
-    NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
-        if ([response.content isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dicResponse = (NSDictionary *) response.content;
-            if ([dicResponse[@"code"] integerValue] == 200) {
-                MineInformationReq *result = [MineInformationReq mj_objectWithKeyValues:dicResponse[@"data"]];
-                if (responseModel) {
-                    responseModel(result);
-                }
-            }else {
-                if (responseModel) {
-                    responseModel(nil);
-                }
-            }
-        } else {
-            if (responseModel) {
-                responseModel(nil);
-            }
-        }
-    } faildCallBack:^(ZSURLResponse *response) {
-        
-    }];
-}
-///修改会员信息
-- (void)updateMemberInformationWithParam:(MineInformationReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/mobile/v1/update";
+///发送验证码
+-(void)sendVerCodeWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/mobile/login/send/code";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -98,17 +70,17 @@
         
     }];
 }
-///获取会员积分明细信息
-- (void)getMemberBalanceHistoryWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/point/record/mobile/v1/find";
+///密码登录
+-(void)passWordLoginWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/mobile/login/by/account";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [IntegralRecord mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
@@ -124,17 +96,17 @@
         
     }];
 }
-///获取会员充值规则表列表
-- (void)rechargeMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/recharge/rule/mobile/v1/list";
+///保存手机号和密码（未注册情况）
+-(void)savePassWordWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/mobile/save/account/password";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [RechargeRuleModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
@@ -150,17 +122,17 @@
         
     }];
 }
-///交易记录
-- (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/trade/record/mobile/v1/find";
+///验证码验证
+-(void)validVerCodeWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/valid/mobile";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [IntegralRecord mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
@@ -176,5 +148,30 @@
         
     }];
 }
-
+///找回密码
+-(void)retrievePasswordWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/mobile/find/password";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 @end

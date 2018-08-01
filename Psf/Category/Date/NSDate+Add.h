@@ -16,4 +16,6 @@
 // 时间戳—>字符串时间
 + (NSString *)cStringFromTimestamp:(NSString *)timestamp Formatter:(NSString*)formatter;
 
++(NSString *)getCountDownStringWithEndTime:(NSString *)endTime;
+
 @end

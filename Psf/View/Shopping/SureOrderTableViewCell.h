@@ -17,9 +17,9 @@
 @property(nonatomic,strong)UILabel *countLabel;
 @property(nonatomic,strong)UILabel *weightLabel;
 @property(nonatomic,strong)UILabel *priceLabel;
-@property(nonatomic,strong)UIButton *addBtn;
-@property(nonatomic,strong)UIButton *subBtn;
-@property(nonatomic,strong)UITextField *countField;
+//@property(nonatomic,strong)UIButton *addBtn;
+//@property(nonatomic,strong)UIButton *subBtn;
+@property(nonatomic,strong)UILabel *countField;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)GoodDetailRes *model;
 

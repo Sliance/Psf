@@ -146,5 +146,13 @@
     self.weightLabel.text = model.productUnit;
     self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)model.productQuantity];
 }
-
+-(void)setRes:(GoodDetailRes *)res{
+    _res = res;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,res.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = res.productName;
+    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.grouponPrice];
+    self.weightLabel.text = res.productUnit;
+    self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.productPrice];
+}
 @end

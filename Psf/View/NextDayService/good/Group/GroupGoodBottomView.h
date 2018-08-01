@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "GoodDetailRes.h"
 
 @interface GroupGoodBottomView : BaseView
 @property(nonatomic,strong)UIButton *serviceBtn;
@@ -21,4 +22,6 @@
 
 @property(nonatomic,copy)void(^SingleBlock)();
 @property(nonatomic,copy)void(^GroupBlock)();
+@property(nonatomic,strong)GoodDetailRes *model;
+
 @end

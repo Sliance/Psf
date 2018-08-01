@@ -57,4 +57,18 @@
 -(void)pressAdd{
     self.pressAddBlock();
 }
+-(void)setPreSaleIsComplete:(BOOL)preSaleIsComplete{
+    _preSaleIsComplete = preSaleIsComplete;
+    if (preSaleIsComplete ==1) {
+        [_addBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _addBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
+        [_addBtn setTitle:@"预售已结束" forState:UIControlStateNormal];
+        _addBtn.enabled = NO;
+    }else{
+        [_addBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
+        [_addBtn setTitle:@"马上抢购" forState:UIControlStateNormal];
+        _addBtn.enabled = YES;
+    }
+    
+}
 @end

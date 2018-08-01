@@ -80,7 +80,7 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
              CalculateThePriceRes *result = [CalculateThePriceRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {

@@ -47,7 +47,7 @@
     viewTop.layer.masksToBounds = YES;
     [viewBottom addSubview:viewTop];
     
-    _percentView =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, self.bounds.size.height)];
+    _percentView =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, self.bounds.size.height+4)];
     _percentView.backgroundColor = [UIColor redColor];
     _percentView.layer.cornerRadius = 9;
     _percentView.textAlignment = NSTextAlignmentCenter;
@@ -72,7 +72,13 @@
     __weak typeof(self)weakself = self;
     [UIView animateWithDuration:_time animations:^{
         viewTop.frame = CGRectMake(viewTop.frame.origin.x,0, viewBottom.frame.size.width*[progressValue floatValue], viewTop.frame.size.height);
-        weakself.percentView.frame = CGRectMake(viewBottom.frame.size.width*[progressValue floatValue]-45,  0, 45, weakself.bounds.size.height);
+        if ([progressValue floatValue]>1) {
+            weakself.percentView.frame = CGRectMake(viewBottom.frame.size.width-45,  0, 45, weakself.bounds.size.height+4);
+        }else if(viewBottom.frame.size.width*[progressValue floatValue]<45){
+          weakself.percentView.frame = CGRectMake(0,0, 45, weakself.bounds.size.height+4);
+        }else{
+            weakself.percentView.frame = CGRectMake(viewBottom.frame.size.width*[progressValue floatValue]-45,  0, 45, weakself.bounds.size.height+4);
+        }
     }];
 }
 

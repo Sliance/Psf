@@ -7,7 +7,7 @@
 //
 
 #import "PassWordLoginController.h"
-//#import "ResetPassFirstController.h"
+#import "ResetPassFirstController.h"
 
 @interface PassWordLoginController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -69,7 +69,7 @@
         _sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
        
         [_sendCodeBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-        [_sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_sendCodeBtn setTitleColor:DSColorFromHex(0xFF4D4D) forState:UIControlStateNormal];
         _sendCodeBtn.titleLabel.font = [UIFont systemFontOfSize:10];
         [_sendCodeBtn addTarget:self action:@selector(forgetPass) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -157,8 +157,8 @@
     
 }
 -(void)forgetPass{
-//    ResetPassFirstController *resetVC = [[ResetPassFirstController alloc]init];
-//    [self.navigationController pushViewController:resetVC animated:YES];
+    ResetPassFirstController *resetVC = [[ResetPassFirstController alloc]init];
+    [self.navigationController pushViewController:resetVC animated:YES];
 }
 -(void)pressFinishBtn:(UIButton*)sender{
    

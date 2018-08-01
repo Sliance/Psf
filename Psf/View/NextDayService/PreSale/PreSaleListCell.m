@@ -220,6 +220,9 @@
     
     self.groupLabel.text = [NSString stringWithFormat:@"已有%ld人购买",model.preSaleQuantity];
     CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
+    if (model.preSaleLimitQuantity ==0) {
+        progress = 0.99;
+    }
     _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
     _progressLabel.text = [NSString stringWithFormat:@"%.0f%%",progress*100];
 }

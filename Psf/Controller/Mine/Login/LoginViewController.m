@@ -7,8 +7,9 @@
 //
 
 #import "LoginViewController.h"
-#import "MineServiceApi.h"
+#import "LoginServiceApi.h"
 #import "PassWordLoginController.h"
+#import "SettingPassWordController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -73,7 +74,8 @@
 -(UIButton *)sendCodeBtn{
     if (!_sendCodeBtn) {
         _sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
+        
+        _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
         [_sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         [_sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _sendCodeBtn.titleLabel.font = [UIFont systemFontOfSize:10];
@@ -242,7 +244,23 @@
         make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
         make.left.equalTo(self.qqBtn.mas_right).offset(27);
     }];
+       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
 }
+- (void)dealloc{
+   
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
+//
+- (void)textFiledTextChange:(NSNotification *)noti{
+    if (_phoneField.text.length>0) {
+        [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
+    }else if (_phoneField.text.length==0) {
+        [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
+    }
+}
+
+
 -(void)sendCode{
     if (_phoneField.text.length<1) {
         [self showToast:@"请输入手机号码"];
@@ -256,7 +274,7 @@
     req.appId = @"993335466657415169";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
-    [[MineServiceApi share]sendVerCodeWithParam:req response:^(id response) {
+    [[LoginServiceApi share]sendVerCodeWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"发送验证码成功"];
@@ -282,13 +300,14 @@
     req.appId = @"993335466657415169";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
-    [[MineServiceApi share]requestLoginWithParam:req response:^(id response) {
+    [[LoginServiceApi share]requestLoginWithParam:req response:^(id response) {
         if (response) {
-            NSError *error = nil;
-            UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
-            [UserCacheBean share].userInfo = userInfoModel;
-
-             [weakself.navigationController popViewControllerAnimated:YES];
+                NSError *error = nil;
+                UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
+                [UserCacheBean share].userInfo = userInfoModel;
+                
+                [weakself.navigationController popViewControllerAnimated:YES];
+            
         }
     }];
 }

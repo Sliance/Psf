@@ -8,7 +8,18 @@
 
 #import "BaseViewController.h"
 #import "ShoppingListRes.h"
+#import "GoodDetailRes.h"
 
+typedef NS_ENUM(NSInteger, GOOGSTYPE){
+    GOOGSTYPENormal= 0 ,//正常订单
+    GOOGSTYPEGroup ,//团购
+    GOOGSTYPEPresale , //预售
+
+};
 @interface FillOrderViewController : BaseViewController
-@property(nonatomic,strong)ShoppingListRes *result;
+@property(nonatomic,strong)ShoppingListRes *result;//正常
+@property(nonatomic,strong)GoodDetailRes *gooddetail;//团购
+
+@property(nonatomic,assign)GOOGSTYPE goodstype;
+
 @end

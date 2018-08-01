@@ -38,4 +38,10 @@
 @property(nonatomic,strong)UILabel *buyerLabel;
 
 @property(nonatomic,strong)ZYProGressView *progress;
+@property(nonatomic,strong)UILabel *limitLabel;
+@property(nonatomic,strong)UILabel *limitTitleLabel;
+@property(nonatomic,strong)UILabel *arriveLabel;
+@property(nonatomic,strong)UILabel *arriveTitleLabel;
+@property(nonatomic,strong)UILabel *remainLabel;
+@property(nonatomic,strong)UILabel *remainTitleLabel;
 @end

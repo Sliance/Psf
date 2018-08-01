@@ -215,7 +215,7 @@
         [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
     }
-    _model.productQuantity = [NSNumber numberWithInteger:[_countField.text integerValue]];
+    _model.productQuantity = [_countField.text integerValue];
     self.addBlock(_model);
     
 }
@@ -234,7 +234,7 @@
             [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
         }
     }
-    _model.productQuantity = [NSNumber numberWithInteger:[_countField.text integerValue]];
+    _model.productQuantity = [_countField.text integerValue];
     self.addBlock(_model);
 }
 -(void)setGoodtype:(GOODSTYPE)goodtype{
@@ -286,7 +286,7 @@
    
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    _model.productQuantity = [NSNumber numberWithInteger:[textField.text integerValue]];
+    _model.productQuantity = [textField.text integerValue];
     self.addBlock(_model);
     return [textField resignFirstResponder];
 }

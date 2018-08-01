@@ -11,7 +11,7 @@
 #import "MineInformationReq.h"
 #import "IntegralRecord.h"
 #import "RechargeRuleModel.h"
-#import "LoginReq.h"
+
 
 @interface MineServiceApi : BaseApi
 + (instancetype)share;
@@ -27,8 +27,6 @@
 - (void)rechargeMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///交易记录
 - (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-///登录
--(void)requestLoginWithParam:(LoginReq *) req response:(responseModel) responseModel;
-///发送验证码
--(void)sendVerCodeWithParam:(LoginReq *) req response:(responseModel) responseModel;
+
+
 @end

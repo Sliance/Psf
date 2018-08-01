@@ -145,16 +145,48 @@
     }
     return _submitBtn;
 }
+-(void)setCount:(NSInteger)count{
+    _count = count;
+}
 -(void)pressAddBtn{
-    self.pressAddBlock();
+    NSInteger count = [_countField.text integerValue];
+    count = count+1;
+    _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
+    if (count>1) {
+        [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
+        [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
+    }
+    _count = [_countField.text integerValue];
+    
+    
 }
 -(void)pressSubBtn{
-    self.subBlock();
+    NSInteger count = [_countField.text integerValue];
+    
+    if (count ==1) {
+        [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
+        [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
+        
+    }else{
+        count = count-1;
+        _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
+        if (count ==1) {
+            [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
+            [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
+        }
+    }
+    _count = [_countField.text integerValue];
+    
 }
 -(void)pressSubmit{
     self.submitBlock([_countField.text integerValue]);
 }
 -(void)pressTap{
     self.tapBlock();
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    _count = [textField.text integerValue];
+    
+    return [textField resignFirstResponder];
 }
 @end

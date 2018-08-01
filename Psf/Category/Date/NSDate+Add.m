@@ -37,4 +37,39 @@
     return strTime;
 }
 
+/**
+ *  计算剩余时间
+ *
+ *  @param endTime   结束日期
+ *
+ *  @return 剩余时间
+ */
++(NSString *)getCountDownStringWithEndTime:(NSString *)endTime {
+    NSDate *nowDate = [NSDate date];
+    NSDateFormatter *dateFomatter = [[NSDateFormatter alloc] init];
+    dateFomatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.0";
+    // 截止时间字符串格式
+    NSString *expireDateStr = endTime;
+    // 当前时间字符串格式
+    NSString *nowDateStr = [dateFomatter stringFromDate:nowDate];
+    // 截止时间data格式
+    NSDate *expireDate = [dateFomatter dateFromString:expireDateStr];
+    // 当前时间data格式
+    nowDate = [dateFomatter dateFromString:nowDateStr];
+    // 当前日历
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    // 需要对比的时间数据
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth
+    | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    // 对比时间差
+    NSDateComponents *dateCom = [calendar components:unit fromDate:nowDate toDate:expireDate options:0];
+
+    NSString * timeStr = [NSString stringWithFormat:@"%ld天%02ld:%02ld:%02ld",dateCom.day,dateCom.hour,dateCom.minute,dateCom.second];
+    
+    if (dateCom.second<0) {
+        timeStr = @"已截单";
+    }
+    return timeStr;
+}
+
 @end

@@ -89,6 +89,8 @@
     _count = count;
 }
 -(void)setResult:(GoodDetailRes *)result{
+    
+    _result = result;
     [_dataArr removeAllObjects];
     [_dataArr addObject:result];
     [_tableview reloadData];
@@ -186,6 +188,8 @@
         if (!cell) {
             cell = [[SureOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
+        GoodDetailRes *model = self.dataArr[indexPath.row];
+        [cell setModel:model];
         cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
     }

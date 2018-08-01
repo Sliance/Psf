@@ -78,8 +78,6 @@
             cell = [[SureOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
         cell.priceLabel.hidden = YES;
-        cell.subBtn.hidden = YES;
-        cell.addBtn.hidden = YES;
         cell.countField.hidden = YES;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

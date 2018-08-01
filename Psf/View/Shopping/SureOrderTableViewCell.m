@@ -33,8 +33,6 @@
     [self addSubview:self.countLabel];
     [self addSubview:self.weightLabel];
     [self addSubview:self.priceLabel];
-    [self addSubview:self.addBtn];
-    [self addSubview:self.subBtn];
     [self addSubview:self.countField];
     [self addSubview:self.lineLabel];
     
@@ -61,23 +59,12 @@
         make.bottom.equalTo(self).offset(-22);
         make.left.equalTo(self.headImage.mas_right).offset(11);
     }];
-    [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-15);
-        make.bottom.equalTo(self).offset(-22);
-        make.height.mas_equalTo(26);
-        make.width.mas_equalTo(36);
-    }];
-    [self.subBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-84);
-        make.bottom.equalTo(self).offset(-22);
-        make.height.mas_equalTo(26);
-        make.width.mas_equalTo(36);
-    }];
+   
     [self.countField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-50);
-        make.bottom.equalTo(self).offset(-22);
+        make.right.equalTo(self).offset(-20);
+        make.centerY.equalTo(self);
         make.height.mas_equalTo(26);
-        make.width.mas_equalTo(35);
+        
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
@@ -91,7 +78,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -105,7 +92,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
-        _nameLabel.text = @"澳洲牛腱子";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -115,7 +102,7 @@
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _priceLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
-        _priceLabel.text = @"￥99.8";
+        _priceLabel.text = @"";
     }
     return _priceLabel;
 }
@@ -125,7 +112,7 @@
         _weightLabel.textAlignment = NSTextAlignmentLeft;
         _weightLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _weightLabel.textColor = [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
-        _weightLabel.text = @"1.2kg";
+        _weightLabel.text = @"";
     }
     return _weightLabel;
 }
@@ -135,45 +122,18 @@
         _countLabel.textAlignment = NSTextAlignmentLeft;
         _countLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _countLabel.textColor = [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
-        _countLabel.text = @"6个";
+        _countLabel.text = @"";
     }
     return _countLabel;
 }
--(UIButton *)subBtn{
-    if (!_subBtn) {
-        _subBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_subBtn setTitle:@"-" forState:UIControlStateNormal];
-        [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
-        [_subBtn.layer setCornerRadius:2];
-        [_subBtn.layer setMasksToBounds:YES];
-        [_subBtn.layer setBorderWidth:0.5];
-        [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
-        [_subBtn addTarget:self action:@selector(pressSubBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _subBtn;
-}
--(UIButton *)addBtn{
-    if (!_addBtn) {
-        _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setTitle:@"+" forState:UIControlStateNormal];
-        [_addBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
-        [_addBtn.layer setCornerRadius:2];
-        [_addBtn.layer setMasksToBounds:YES];
-        [_addBtn.layer setBorderWidth:0.5];
-        [_addBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
-        [_addBtn addTarget:self action:@selector(pressAddBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _addBtn;
-}
 
--(UITextField *)countField{
+-(UILabel *)countField{
     if (!_countField) {
-        _countField = [[UITextField alloc]init];
-        [_countField.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
-        [_countField.layer setBorderWidth:0.5];
-        _countField.font = [UIFont systemFontOfSize:12];
-        _countField.textAlignment = NSTextAlignmentCenter;
-        _countField.text = @"2";
+        _countField = [[UILabel alloc]init];
+        _countField.textColor = DSColorFromHex(0x464646);
+        _countField.font = [UIFont systemFontOfSize:15];
+        _countField.textAlignment = NSTextAlignmentRight;
+        
     }
     return _countField;
 }
@@ -185,38 +145,9 @@
     return _lineLabel;
 }
 
--(void)pressAddBtn:(UIButton*)sender{
-    NSInteger count = [_countField.text integerValue];
-    count = count+1;
-    _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
-    if (count>1) {
-        [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
-        [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
-    }
-}
--(void)pressSubBtn:(UIButton*)sender{
-    NSInteger count = [_countField.text integerValue];
-    
-    if (count ==1) {
-        [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
-        [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
-        
-    }else{
-        count = count-1;
-        _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
-        if (count ==1) {
-            [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
-            [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
-        }
-    }
-}
+
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
-    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    self.nameLabel.text = model.productName;
-//    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
-    self.weightLabel.text = model.productUnit;
-//    self.countField.text = [NSString stringWithFormat:@"X%ld",(long)model.productQuantity];
+    
 }
 @end
