@@ -68,4 +68,10 @@
 @property(nonatomic,copy)NSString *grouponActiveExpireHour;
 ///商品SKU
 @property(nonatomic,copy)NSArray *productSkuList;
+//预售已售
+@property(nonatomic,assign)NSInteger preSaleQuantity;
+//购买上限
+@property(nonatomic,assign)NSInteger preSaleLimitQuantity;
+//是否截单
+@property(nonatomic,assign)BOOL preSaleIsComplete;
 @end

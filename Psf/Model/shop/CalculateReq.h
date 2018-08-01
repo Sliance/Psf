@@ -33,6 +33,9 @@
 ///时间戳
 @property(nonatomic,copy)NSString *timestamp;
 
-
+///商品编号
+@property(nonatomic,assign)NSInteger productId;
+///购买数量
+@property(nonatomic,assign)NSInteger saleOrderProductQty;
 
 @end

@@ -144,7 +144,7 @@
     self.nameLabel.text = model.productName;
     self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
     self.weightLabel.text = model.productUnit;
-    self.countLabel.text = [NSString stringWithFormat:@"X%@",model.productQuantity];
+    self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)model.productQuantity];
 }
 
 @end

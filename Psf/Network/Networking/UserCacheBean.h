@@ -14,5 +14,7 @@
 @property (nonatomic, strong) UserBaseInfoModel *userInfo;
 
 + (instancetype)share;
+- (BOOL)isLogin;
+- (void)loginOut;
 
 @end

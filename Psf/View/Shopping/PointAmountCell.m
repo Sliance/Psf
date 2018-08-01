@@ -32,7 +32,7 @@
         [self.yuEswitch mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-15);
             make.top.equalTo(self).offset(12);
-            make.width.mas_equalTo(40);
+            make.width.mas_equalTo(20);
             make.height.mas_equalTo(20);
         }];
     }
@@ -50,15 +50,19 @@
     }
     return _nameLabel;
 }
--(UISwitch *)yuEswitch{
+-(UIButton *)yuEswitch{
     if (!_yuEswitch) {
-        _yuEswitch= [[UISwitch alloc]init];
-        [_yuEswitch addTarget:self action:@selector(pressSwitch:) forControlEvents:UIControlEventValueChanged];
+        
+        _yuEswitch = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_yuEswitch setImage:[UIImage imageNamed:@"shopping_normal"] forState:UIControlStateNormal];
+        [_yuEswitch setImage:[UIImage imageNamed:@"shopping_selected"] forState:UIControlStateSelected];
+        _yuEswitch.selected = YES;
+        [_yuEswitch addTarget:self action:@selector(pressSwitch:) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _yuEswitch;
 }
--(void)pressSwitch:(UISwitch*)sender{
+-(void)pressSwitch:(UIButton*)sender{
     self.yuEBlock(sender.tag);
 }
 @end

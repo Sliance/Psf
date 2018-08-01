@@ -31,4 +31,12 @@
 @property(nonatomic,copy)NSString *preSaleId;
 ///预售过期时间
 @property(nonatomic,copy)NSString *preSaleExpireTime;
+//已预售数量
+@property(nonatomic,assign)NSInteger preSaleQuantity;
+//预售总数量
+@property(nonatomic,assign)NSInteger preSaleLimitQuantity;
+///预售到货时间
+@property(nonatomic,copy)NSString *preSaleDeliveryTime;
+//是否已经截单（0、没有。1、已经截单）
+@property(nonatomic,assign)BOOL preSaleIsComplete;
 @end

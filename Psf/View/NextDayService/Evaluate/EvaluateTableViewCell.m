@@ -37,11 +37,7 @@
     [self.contentView addSubview:_cardImgsView];
     
     self.headImage.frame = CGRectMake(15, 15, 40, 40);
-    self.nameLabel.frame = CGRectMake(15+self.headImage.ctRight, 24, 82, 11);
-    self.dateLabel.frame = CGRectMake(self.headImage.ctRight+15, self.nameLabel.ctBottom+8, SCREENWIDTH-110, 8);
-    
-    self.ratingView.frame = CGRectMake(self.nameLabel.ctRight+10, 20, 113, 16);
-    self.contentsLabel.frame = CGRectMake(15, 69, SCREENWIDTH-60, 85);
+ 
 }
 -(UIImageView *)headImage{
     if (!_headImage) {
@@ -58,7 +54,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
         _nameLabel.textColor =DSColorFromHex(0x454545);
-        _nameLabel.text = @"139****5431";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -68,7 +64,7 @@
         _dateLabel.textAlignment = NSTextAlignmentLeft;
         _dateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:10];
         _dateLabel.textColor =DSColorFromHex(0x464646);
-        _dateLabel.text = @"2017.12.16  19 : 43";
+        _dateLabel.text = @"";
     }
     return _dateLabel;
 }
@@ -78,7 +74,7 @@
         _contentsLabel.textAlignment = NSTextAlignmentLeft;
         _contentsLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _contentsLabel.textColor = DSColorFromHex(0x464646);
-        _contentsLabel.text = @"这个进口的奇异果非常的新鲜和大，大小均匀，非常香甜的，超值，本人非常喜欢。一直买的这个来吃，发货好快，昨天买的今天就到了，这次的不用放太久，都有一点熟了，一箱有25个。";
+        _contentsLabel.text = @"";
         _contentsLabel.numberOfLines = 0;
     }
     return _contentsLabel;
@@ -90,7 +86,7 @@
         self.ratingView.maxRating = 5;
         self.ratingView.emptySelectedImage = [UIImage imageNamed:@"evalustel_empty"];
         self.ratingView.fullSelectedImage = [UIImage imageNamed:@"evalustel_full"];
-        self.ratingView.rating = 5; // 默认5星
+        // 默认5星
         self.ratingView.editable = YES;
         self.ratingView.delegate = self;
     }
@@ -100,8 +96,13 @@
     _model = model;
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]];
     self.nameLabel.text = model.memberNickName;
-    self.dateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime];
+    self.dateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
     self.contentsLabel.text = model.saleOrderProductCommentContent;
+    self.ratingView.rating = model.saleOrderProductCommentSatisfaction;
+    self.nameLabel.frame = CGRectMake(15+self.headImage.ctRight, 24, [model.memberNickName widthForFont:[UIFont systemFontOfSize:14]], 11);
+    self.dateLabel.frame = CGRectMake(self.headImage.ctRight+15, self.nameLabel.ctBottom+8, SCREENWIDTH-110, 8);
+    
+    self.ratingView.frame = CGRectMake(self.nameLabel.ctRight+10, 20, 113, 16);
      self.contentsLabel.frame = CGRectMake(15, 69, SCREENWIDTH-60, [model.saleOrderProductCommentContent heightForFont:[UIFont systemFontOfSize:15] width:SCREENWIDTH-30]);
     self.cardImgsView.frame = CGRectMake(0, self.contentsLabel.ctBottom+10, SCREENWIDTH, (model.saleOrderProductCommentImageList.count/3+1)*120);
     NSInteger  count = model.saleOrderProductCommentImageList.count;
@@ -121,28 +122,7 @@
         CGFloat height1 = [model.saleOrderProductCommentContent heightForFont:[UIFont systemFontOfSize:15] width:SCREENWIDTH-30];
         height += height1 + 5;
     }
-
-    if (model.saleOrderProductCommentImageList.count) {
-        CGFloat imgWidth = 90;
-        CGFloat imgHeight = 0;
-        int screenWidth = [UIScreen mainScreen].bounds.size.width * 2;
-        
-        for (int i = 0; i < model.saleOrderProductCommentImageList.count; i ++) {
-            ImageModel *imagemodel = model.saleOrderProductCommentImageList[i];
-            NSString *imgUrl = [NSString stringWithFormat:@"%@@%dw",imagemodel.saleOrderProductCommentImagePath,screenWidth];
-            if ([[SDImageCache sharedImageCache] diskImageDataExistsWithKey:imgUrl]) {
-                UIImage *cacheImg = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:imgUrl];
-                if (!cacheImg) {
-                    cacheImg = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgUrl];
-                }
-                imgHeight += ((imgWidth /cacheImg.size.width) * cacheImg.size.height + 10);
-            }else
-            {
-                imgHeight += 35;
-            }
-        }
-        height += (imgHeight + 10);
-    }
+    height += (model.saleOrderProductCommentImageList.count/3+1)*120-15;
     
     return height;
 }

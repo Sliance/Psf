@@ -71,14 +71,14 @@
     }];
 }
 ///团购价格计算
-- (void)getGroupPriceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+- (void)getGroupPriceWithParam:(CalculateReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/groupon/mobile/v1/cal/groupon/price";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-//                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+             CalculateThePriceRes *result = [CalculateThePriceRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
                     responseModel(dicResponse);
                 }
@@ -123,7 +123,7 @@
     }];
 }
 ///团购下单
-- (void)saveGroupWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+- (void)saveGroupWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/groupon/mobile/v1/save";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {

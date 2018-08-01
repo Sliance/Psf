@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UIButton *submitBtn;
 @property(nonatomic,copy)void(^pressAddBlock)();
 @property(nonatomic,copy)void(^subBlock)();
-@property(nonatomic,copy)void(^submitBlock)();
+@property(nonatomic,copy)void(^submitBlock)(NSInteger);
 @property(nonatomic,copy)void(^tapBlock)();
 @property(nonatomic,assign)NSInteger height;
 

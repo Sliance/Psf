@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+#import "GoodDetailRes.h"
 @interface SureOrderViewController : BaseViewController
-
+@property(nonatomic,strong)GoodDetailRes *result;
+@property(nonatomic,assign)NSInteger count;
 @end

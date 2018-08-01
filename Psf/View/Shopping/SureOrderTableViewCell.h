@@ -7,6 +7,8 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "GoodDetailRes.h"
+
 
 @interface SureOrderTableViewCell : BaseTableViewCell
 
@@ -19,4 +21,6 @@
 @property(nonatomic,strong)UIButton *subBtn;
 @property(nonatomic,strong)UITextField *countField;
 @property(nonatomic,strong)UILabel *lineLabel;
+@property(nonatomic,strong)GoodDetailRes *model;
+
 @end

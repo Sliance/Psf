@@ -104,6 +104,6 @@
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
         }
     }
-    self.contentLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime];
+    self.contentLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
 }
 @end

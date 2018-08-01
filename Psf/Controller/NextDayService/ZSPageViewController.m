@@ -17,6 +17,7 @@
 #import "GroupViewController.h"
 #import "RechargeViewController.h"
 #import "NextServiceApi.h"
+#import "PresaleController.h"
 
 @interface ZSPageViewController ()<ZSCycleScrollViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -227,9 +228,8 @@ static NSString *cellId = @"cellId";
     __weak typeof(self)weakself = self;
     [self.cycleScroll setSelectedItemBlock:^(NSInteger index) {
         if (index==0) {
-            GroupViewController *groupVC = [[GroupViewController alloc]init];
+            PresaleController *groupVC = [[PresaleController alloc]init];
             groupVC.hidesBottomBarWhenPushed = YES;
-            groupVC.goodtype = GOODTYPEPRESELL;
             [weakself.navigationController pushViewController:groupVC animated:YES];
         }else if (index ==1){
             GroupViewController *groupVC = [[GroupViewController alloc]init];

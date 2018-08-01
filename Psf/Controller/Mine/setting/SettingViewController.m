@@ -11,6 +11,7 @@
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
+@property(nonatomic,strong)UIButton *loginOutBtn;
 
 
 @end
@@ -18,7 +19,7 @@
 @implementation SettingViewController
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-49) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.tableFooterView = [[UIView alloc]init];
@@ -26,6 +27,18 @@
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return _tableview;
+}
+-(UIButton *)loginOutBtn{
+    if (!_loginOutBtn) {
+        _loginOutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_loginOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        _loginOutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        _loginOutBtn.frame = CGRectMake(0, 5, SCREENWIDTH, 45);
+        _loginOutBtn.backgroundColor =[UIColor whiteColor];
+        [_loginOutBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
+        [_loginOutBtn addTarget:self action:@selector(pressLogionOut) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _loginOutBtn;
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,6 +51,10 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     _dataArr = @[@"清除缓存",@"意见反馈",@"关于我们",@"分享应用"];
+    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+    footView.backgroundColor = DSColorFromHex(0xF0F0F0);
+    [footView addSubview:self.loginOutBtn];
+    _tableview.tableFooterView = footView;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -50,7 +67,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 15;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 50;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 45;
@@ -85,6 +104,9 @@
         [self.navigationController pushViewController:aboutVC animated:YES];
         
     }
+}
+-(void)pressLogionOut{
+    [[UserCacheBean share]loginOut];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -20,6 +20,7 @@
 #import "MineWalletViewController.h"
 #import "ChooseServiceTypeController.h"
 #import "MineServiceApi.h"
+#import "AfterSalesViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -93,7 +94,7 @@
     }];
     [self.footView setSkipMineBlock:^(NSInteger index) {
         if (index ==5) {
-            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+            AfterSalesViewController *chooseVC = [[AfterSalesViewController alloc]init];
             chooseVC.hidesBottomBarWhenPushed = YES;
             [weakSelf.navigationController pushViewController:chooseVC animated:YES];
         }else{

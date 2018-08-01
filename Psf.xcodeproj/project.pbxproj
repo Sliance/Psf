@@ -45,6 +45,8 @@
 		88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C3E20E64C8300D6F43C /* FillOrderTypeView.m */; };
 		88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E6B210963C800997B32 /* RechargeRuleModel.m */; };
 		88535E7D2109ACE900997B32 /* LoginReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E7C2109ACE900997B32 /* LoginReq.m */; };
+		8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A401210AC2D3002C1395 /* AfterSalesViewController.m */; };
+		8854A405210AD918002C1395 /* PlaceOrderReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A404210AD918002C1395 /* PlaceOrderReq.m */; };
 		8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */; };
 		8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031E20FF4318002BCDC9 /* SubjectCategoryModel.m */; };
 		8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8857032120FF5ABD002BCDC9 /* areaArray.plist */; };
@@ -98,7 +100,6 @@
 		8860DA5920D9EB97009E53B0 /* SortCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5820D9EB97009E53B0 /* SortCollectionViewCell.m */; };
 		8860DA5C20D9EF2F009E53B0 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5B20D9EF2F009E53B0 /* BaseView.m */; };
 		8860DA5F20D9EF74009E53B0 /* SortCollectHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5E20D9EF74009E53B0 /* SortCollectHeadView.m */; };
-		8860DA6320DA058F009E53B0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA6220DA058F009E53B0 /* LoginViewController.m */; };
 		8860DA6A20DA1DAD009E53B0 /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6520DA1DAD009E53B0 /* icomoon.eot */; };
 		8860DA6B20DA1DAD009E53B0 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6620DA1DAD009E53B0 /* icomoon.ttf */; };
 		8860DA6C20DA1DAD009E53B0 /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6720DA1DAD009E53B0 /* icomoon.svg */; };
@@ -255,6 +256,14 @@
 		88D8939E20D26D94007E3C41 /* NextDayServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D8939D20D26D94007E3C41 /* NextDayServiceController.m */; };
 		88D893A220D26DD6007E3C41 /* ShoppingCartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D893A120D26DD6007E3C41 /* ShoppingCartController.m */; };
 		88D893A620D26DF5007E3C41 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D893A520D26DF5007E3C41 /* MineViewController.m */; };
+		88D9281821102E000001B2E3 /* ZYProGressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9281721102E000001B2E3 /* ZYProGressView.m */; };
+		88D9281B21102E510001B2E3 /* PreSaleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9281A21102E510001B2E3 /* PreSaleListCell.m */; };
+		88D9281F211030A20001B2E3 /* PresaleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9281E211030A20001B2E3 /* PresaleController.m */; };
+		88D92840211078E70001B2E3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9283E211078E70001B2E3 /* LoginViewController.m */; };
+		88D92843211079770001B2E3 /* PassWordLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D92842211079760001B2E3 /* PassWordLoginController.m */; };
+		88D9284F21107A070001B2E3 /* ResetPassFirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9284E21107A070001B2E3 /* ResetPassFirstController.m */; };
+		88D9285221107A440001B2E3 /* ResetPassSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285021107A440001B2E3 /* ResetPassSecondController.m */; };
+		88D9285521107A680001B2E3 /* SettingPassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285421107A680001B2E3 /* SettingPassWordController.m */; };
 		F12F7D8E4C5A37613F4C2609 /* libPods-Psf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */; };
 /* End PBXBuildFile section */
 
@@ -355,6 +364,10 @@
 		88535E6B210963C800997B32 /* RechargeRuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeRuleModel.m; sourceTree = "<group>"; };
 		88535E7B2109ACE900997B32 /* LoginReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginReq.h; sourceTree = "<group>"; };
 		88535E7C2109ACE900997B32 /* LoginReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginReq.m; sourceTree = "<group>"; };
+		8854A400210AC2D3002C1395 /* AfterSalesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AfterSalesViewController.h; sourceTree = "<group>"; };
+		8854A401210AC2D3002C1395 /* AfterSalesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AfterSalesViewController.m; sourceTree = "<group>"; };
+		8854A403210AD918002C1395 /* PlaceOrderReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceOrderReq.h; sourceTree = "<group>"; };
+		8854A404210AD918002C1395 /* PlaceOrderReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceOrderReq.m; sourceTree = "<group>"; };
 		8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderServiceApi.h; sourceTree = "<group>"; };
 		8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderServiceApi.m; sourceTree = "<group>"; };
 		8857031D20FF4318002BCDC9 /* SubjectCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCategoryModel.h; sourceTree = "<group>"; };
@@ -461,8 +474,6 @@
 		8860DA5B20D9EF2F009E53B0 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		8860DA5D20D9EF74009E53B0 /* SortCollectHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortCollectHeadView.h; sourceTree = "<group>"; };
 		8860DA5E20D9EF74009E53B0 /* SortCollectHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortCollectHeadView.m; sourceTree = "<group>"; };
-		8860DA6120DA058F009E53B0 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		8860DA6220DA058F009E53B0 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8860DA6520DA1DAD009E53B0 /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
 		8860DA6620DA1DAD009E53B0 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
 		8860DA6720DA1DAD009E53B0 /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
@@ -771,6 +782,22 @@
 		88D893A420D26DF5007E3C41 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		88D893A520D26DF5007E3C41 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		88D893A720D271C9007E3C41 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		88D9281621102E000001B2E3 /* ZYProGressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYProGressView.h; sourceTree = "<group>"; };
+		88D9281721102E000001B2E3 /* ZYProGressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYProGressView.m; sourceTree = "<group>"; };
+		88D9281921102E510001B2E3 /* PreSaleListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreSaleListCell.h; sourceTree = "<group>"; };
+		88D9281A21102E510001B2E3 /* PreSaleListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreSaleListCell.m; sourceTree = "<group>"; };
+		88D9281D211030A20001B2E3 /* PresaleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleController.h; sourceTree = "<group>"; };
+		88D9281E211030A20001B2E3 /* PresaleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresaleController.m; sourceTree = "<group>"; };
+		88D9283E211078E70001B2E3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		88D9283F211078E70001B2E3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		88D92841211079760001B2E3 /* PassWordLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassWordLoginController.h; sourceTree = "<group>"; };
+		88D92842211079760001B2E3 /* PassWordLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassWordLoginController.m; sourceTree = "<group>"; };
+		88D9284D21107A070001B2E3 /* ResetPassFirstController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPassFirstController.h; sourceTree = "<group>"; };
+		88D9284E21107A070001B2E3 /* ResetPassFirstController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPassFirstController.m; sourceTree = "<group>"; };
+		88D9285021107A440001B2E3 /* ResetPassSecondController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPassSecondController.m; sourceTree = "<group>"; };
+		88D9285121107A440001B2E3 /* ResetPassSecondController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPassSecondController.h; sourceTree = "<group>"; };
+		88D9285321107A680001B2E3 /* SettingPassWordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPassWordController.h; sourceTree = "<group>"; };
+		88D9285421107A680001B2E3 /* SettingPassWordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPassWordController.m; sourceTree = "<group>"; };
 		C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F701B417A868FA3649622D /* Pods-Psf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psf/Pods-Psf.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -841,6 +868,8 @@
 				8850C0F42105B26B00BF8F88 /* OrderListRes.m */,
 				8863E3602106D26700648841 /* OrderDetailRes.h */,
 				8863E3612106D26700648841 /* OrderDetailRes.m */,
+				8854A403210AD918002C1395 /* PlaceOrderReq.h */,
+				8854A404210AD918002C1395 /* PlaceOrderReq.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -945,6 +974,8 @@
 				8857EA8820E35B7D00D7E167 /* WaitReceiveController.m */,
 				8857EA8A20E35B9100D7E167 /* WaitEvaluateController.h */,
 				8857EA8B20E35B9100D7E167 /* WaitEvaluateController.m */,
+				8854A400210AC2D3002C1395 /* AfterSalesViewController.h */,
+				8854A401210AC2D3002C1395 /* AfterSalesViewController.m */,
 				8857EA9020E3A93400D7E167 /* OrderDetailViewController.h */,
 				8857EA9120E3A93400D7E167 /* OrderDetailViewController.m */,
 			);
@@ -1125,6 +1156,7 @@
 		88600C0320D8E9270098CF10 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				88D9281521102DE10001B2E3 /* PreSale */,
 				888D66D420E9FA790007D471 /* Group */,
 				88534C1A20E5C74500D6F43C /* good */,
 				88636D2420E24C01006CE5D8 /* Evaluate */,
@@ -1158,15 +1190,6 @@
 				888AC7EC20FC7A2700587F88 /* DetailSortHeadView.m */,
 			);
 			path = Sort;
-			sourceTree = "<group>";
-		};
-		8860DA6020DA056A009E53B0 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				8860DA6120DA058F009E53B0 /* LoginViewController.h */,
-				8860DA6220DA058F009E53B0 /* LoginViewController.m */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		8860DA6420DA1D69009E53B0 /* IconFont */ = {
@@ -1869,6 +1892,7 @@
 		88D8939820D26CF0007E3C41 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				88D9281C211030790001B2E3 /* PreSale */,
 				88534C3020E63B6C00D6F43C /* group */,
 				888E719A20E0EC6600BFBAFF /* address */,
 				888E717D20E0CA8000BFBAFF /* VTMagic */,
@@ -1898,8 +1922,8 @@
 		88D893A320D26DE0007E3C41 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				88D9283D211078B10001B2E3 /* Login */,
 				886A9EC920ECBA89000503D2 /* Refund */,
-				8860DA6020DA056A009E53B0 /* Login */,
 				888D66D820EA34D60007D471 /* wallet */,
 				8857EA6A20E3386D00D7E167 /* orders */,
 				88636D0D20E21131006CE5D8 /* setting */,
@@ -1910,6 +1934,43 @@
 				88D893A520D26DF5007E3C41 /* MineViewController.m */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		88D9281521102DE10001B2E3 /* PreSale */ = {
+			isa = PBXGroup;
+			children = (
+				88D9281621102E000001B2E3 /* ZYProGressView.h */,
+				88D9281721102E000001B2E3 /* ZYProGressView.m */,
+				88D9281921102E510001B2E3 /* PreSaleListCell.h */,
+				88D9281A21102E510001B2E3 /* PreSaleListCell.m */,
+			);
+			path = PreSale;
+			sourceTree = "<group>";
+		};
+		88D9281C211030790001B2E3 /* PreSale */ = {
+			isa = PBXGroup;
+			children = (
+				88D9281D211030A20001B2E3 /* PresaleController.h */,
+				88D9281E211030A20001B2E3 /* PresaleController.m */,
+			);
+			path = PreSale;
+			sourceTree = "<group>";
+		};
+		88D9283D211078B10001B2E3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				88D9285321107A680001B2E3 /* SettingPassWordController.h */,
+				88D9285421107A680001B2E3 /* SettingPassWordController.m */,
+				88D9285121107A440001B2E3 /* ResetPassSecondController.h */,
+				88D9285021107A440001B2E3 /* ResetPassSecondController.m */,
+				88D9284D21107A070001B2E3 /* ResetPassFirstController.h */,
+				88D9284E21107A070001B2E3 /* ResetPassFirstController.m */,
+				88D92841211079760001B2E3 /* PassWordLoginController.h */,
+				88D92842211079760001B2E3 /* PassWordLoginController.m */,
+				88D9283F211078E70001B2E3 /* LoginViewController.h */,
+				88D9283E211078E70001B2E3 /* LoginViewController.m */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2106,10 +2167,12 @@
 				8857EA8920E35B7D00D7E167 /* WaitReceiveController.m in Sources */,
 				8871B8CD20DBB29200DAA5D6 /* JFCityCollectionViewCell.m in Sources */,
 				8871B8AD20DB702700DAA5D6 /* UIView+PYSearchExtension.m in Sources */,
+				88D9281821102E000001B2E3 /* ZYProGressView.m in Sources */,
 				88636D1A20E224CB006CE5D8 /* EditAddressCell.m in Sources */,
 				8871B8D520DBB34800DAA5D6 /* JFAreaDataManager.m in Sources */,
 				888D66E520EA3DED0007D471 /* TradingDetailCell.m in Sources */,
 				8863E3622106D26700648841 /* OrderDetailRes.m in Sources */,
+				88D9281B21102E510001B2E3 /* PreSaleListCell.m in Sources */,
 				888E715C20E079DD00BFBAFF /* ChooseCityHeadView.m in Sources */,
 				888D66DF20EA36540007D471 /* MineWalletCell.m in Sources */,
 				88534C1920E5C67800D6F43C /* GoodEvaluateView.m in Sources */,
@@ -2129,6 +2192,7 @@
 				886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */,
 				888E719520E0CAA300BFBAFF /* UIScrollView+VTMagic.m in Sources */,
 				886427AA20F70096006A160E /* ChangeAddressReq.m in Sources */,
+				88D9285221107A440001B2E3 /* ResetPassSecondController.m in Sources */,
 				8871B85320DB424A00DAA5D6 /* NSString+MoneyStyle.m in Sources */,
 				8871B85520DB424A00DAA5D6 /* UserCurrentLocationManager.m in Sources */,
 				8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */,
@@ -2168,6 +2232,7 @@
 				888E71A820E0F96400BFBAFF /* MessageCenterController.m in Sources */,
 				8871B89720DB639C00DAA5D6 /* BaseApi.m in Sources */,
 				88534C1D20E5C76700D6F43C /* GoodHeadView.m in Sources */,
+				8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */,
 				88534C2020E5D2E900D6F43C /* EvaluateListHeadView.m in Sources */,
 				8871B8B320DB702700DAA5D6 /* PYSearchViewController.m in Sources */,
 				8871B88320DB484100DAA5D6 /* CLNetworkingManager.m in Sources */,
@@ -2211,6 +2276,7 @@
 				8860DA5C20D9EF2F009E53B0 /* BaseView.m in Sources */,
 				8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */,
 				884418AC21088F0D001FD73B /* IntegralRecord.m in Sources */,
+				88D92840211078E70001B2E3 /* LoginViewController.m in Sources */,
 				8871B8CB20DBB29200DAA5D6 /* JFCityTableViewCell.m in Sources */,
 				88484D8C20EB5D7D00400D16 /* GroupHeadView.m in Sources */,
 				88484D8020EB4E4400400D16 /* TourDiyGooddetailView.m in Sources */,
@@ -2255,6 +2321,7 @@
 				8868035820F83B8100BFC1BC /* CouponListRes.m in Sources */,
 				88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */,
 				8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */,
+				8854A405210AD918002C1395 /* PlaceOrderReq.m in Sources */,
 				885303D120F4BF89009807B2 /* CartProductModel.m in Sources */,
 				88600BCC20D890B80098CF10 /* ZSAnimatedDotView.m in Sources */,
 				88636D2320E24A72006CE5D8 /* EvaluateViewController.m in Sources */,
@@ -2274,10 +2341,12 @@
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
 				88600BD120D890B80098CF10 /* ZSDotView.m in Sources */,
 				8871B83A20DB40B700DAA5D6 /* ZSURLResponse.m in Sources */,
+				88D9284F21107A070001B2E3 /* ResetPassFirstController.m in Sources */,
 				8871B8AF20DB702700DAA5D6 /* UIColor+PYSearchExtension.m in Sources */,
 				8871B8AE20DB702700DAA5D6 /* PYSearchSuggestionViewController.m in Sources */,
 				88747E8F20EE34D0000BC993 /* GoodBottomView.m in Sources */,
 				8871B8D220DBB33400DAA5D6 /* JFLocation.m in Sources */,
+				88D9281F211030A20001B2E3 /* PresaleController.m in Sources */,
 				88636D1320E217B2006CE5D8 /* MineInformationController.m in Sources */,
 				888E71B020E1070600BFBAFF /* MyCouponController.m in Sources */,
 				888D66D320E9ECE00007D471 /* NextCollectionHeadView.m in Sources */,
@@ -2289,6 +2358,7 @@
 				88D8939E20D26D94007E3C41 /* NextDayServiceController.m in Sources */,
 				88484D8920EB5CD300400D16 /* GroupCollectionViewCell.m in Sources */,
 				88534C3320E63B9800D6F43C /* GroupViewController.m in Sources */,
+				88D92843211079770001B2E3 /* PassWordLoginController.m in Sources */,
 				8871B8B120DB702700DAA5D6 /* PYSearchConst.m in Sources */,
 				88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */,
 				88590B8220E4F26200F51BC5 /* EvaluateListModel.m in Sources */,
@@ -2304,7 +2374,6 @@
 				8871B88420DB484100DAA5D6 /* CLImageModel.m in Sources */,
 				888AC7ED20FC7A2700587F88 /* DetailSortHeadView.m in Sources */,
 				886A9ED820ECDEDB000503D2 /* LogisticsListController.m in Sources */,
-				8860DA6320DA058F009E53B0 /* LoginViewController.m in Sources */,
 				8871B89D20DB64C400DAA5D6 /* NextServiceApi.m in Sources */,
 				88600BD020D890B80098CF10 /* ZSAbstractDotView.m in Sources */,
 				8871B84920DB419A00DAA5D6 /* NSArray+TYAFNetworking.m in Sources */,
@@ -2317,6 +2386,7 @@
 				88600BCF20D890B80098CF10 /* ZSCycleScrollView.m in Sources */,
 				88D8935B20D25C41007E3C41 /* AppDelegate.m in Sources */,
 				88635DE720FDE8610012AE77 /* TuiJianView.m in Sources */,
+				88D9285521107A680001B2E3 /* SettingPassWordController.m in Sources */,
 				8871B83720DB40A200DAA5D6 /* ZSSignatureGenerator.m in Sources */,
 				8871B88120DB484100DAA5D6 /* NSString+Cache.m in Sources */,
 			);

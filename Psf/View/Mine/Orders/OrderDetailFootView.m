@@ -296,6 +296,6 @@
     _detailFreightLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderExpressAmount];
     _detailTPayLabel.text =  [NSString stringWithFormat:@"￥%@",model.saleOrderTotalAmount];
     _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
-    _detailDateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime];
+    _detailDateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
 }
 @end

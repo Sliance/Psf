@@ -152,7 +152,7 @@
     self.subBlock();
 }
 -(void)pressSubmit{
-    self.submitBlock();
+    self.submitBlock([_countField.text integerValue]);
 }
 -(void)pressTap{
     self.tapBlock();

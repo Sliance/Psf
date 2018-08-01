@@ -12,6 +12,7 @@
 #import "StairCategoryListRes.h"
 #import "CalculateReq.h"
 #import "CalculateThePriceRes.h"
+#import "PlaceOrderReq.h"
 
 @interface ShopServiceApi : BaseApi
 + (instancetype)share;
@@ -33,4 +34,7 @@
 - (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///填写订单计算价格
 -(void)CalculateThePriceWithParam:(CalculateReq*)req response:(responseModel) responseModel;
+///下单
+-(void)placeThePriceWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel;
+
 @end

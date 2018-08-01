@@ -25,7 +25,7 @@
 ///
 @property(nonatomic,copy)NSString *cityName;
 
-///
+///(空、全部  0、待付款  1、待发货  2、待收货 3、待评价 4、退款/售后 5、已取消 6、已完成 7、门店自提已收货)
 @property(nonatomic,copy)NSString *saleOrderStatus;
 ///
 @property(nonatomic,copy)NSString *userLongitude;
@@ -38,7 +38,7 @@
 ///商品规格编号
 @property(nonatomic,copy)NSString *productSkuId;
 ///商品数量
-@property(nonatomic,copy)NSNumber *productQuantity;
+@property(nonatomic,assign)NSInteger productQuantity;
 ///
 @property(nonatomic,copy)NSString *pageIndex;
 ///
@@ -57,7 +57,7 @@
 
 @property(nonatomic,copy)NSString *goodsCategoryId;
 ///商品编号列表
-@property(nonatomic,copy)NSString *saleOrderProductList;
+@property(nonatomic,strong)NSArray *saleOrderProductList;
 ///优惠券类型（singleProduct单品，allProduct全场）
 @property(nonatomic,copy)NSString *couponType;
 @property(nonatomic,assign)NSInteger couponId;

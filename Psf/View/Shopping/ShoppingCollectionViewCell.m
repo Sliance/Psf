@@ -277,7 +277,7 @@
     self.nameLabel.text = model.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productSkuPrice];
     self.weightLabel.text = model.productUnit;
-    self.countField.text = [NSString stringWithFormat:@"%@",model.productQuantity];
+    self.countField.text = [NSString stringWithFormat:@"%ld",(long)model.productQuantity];
     if (_goodtype ==TYPELOSE) {
         self.chooseBtn.selected = NO;
     }else{

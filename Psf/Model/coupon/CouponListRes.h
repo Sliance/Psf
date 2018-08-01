@@ -12,7 +12,7 @@
 ///优惠券过期时间
 @property(nonatomic,assign)NSInteger couponExpireTime;
 ///优惠券编号
-@property(nonatomic,assign)NSInteger couponId;
+@property(nonatomic,copy)NSString* couponId;
 ///优惠券生效时间
 @property(nonatomic,assign)NSInteger couponValidTime;
 ///优惠券会员编号

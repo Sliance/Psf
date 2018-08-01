@@ -12,15 +12,18 @@
 #import "FillOrderTypeView.h"
 #import "SureOrderTableViewCell.h"
 #import "MyReceiveAddressController.h"
+#import "AddressServiceApi.h"
+#import "GroupServiceApi.h"
+
 @interface SureOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableview;
-@property(nonatomic,strong)NSArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)OrderDetailHeadView *headView;
 @property(nonatomic,strong)FillOrderBottomView *bottomView;
 @property(nonatomic,strong)FillOrderTypeView *typeView;
 @property(nonatomic,assign)NSInteger type;
-
+@property(nonatomic,strong)CalculateThePriceRes* resModel;
 @end
 
 @implementation SureOrderViewController
@@ -70,6 +73,7 @@
     self.tableview.tableHeaderView = self.headView;
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.typeView];
+    _dataArr = [NSMutableArray array];
     _type = 1;
     [self.headView setGoodtype:CLAIMGOODSTYPECOMMON];
     __weak typeof(self) weakSelf = self;
@@ -81,12 +85,71 @@
         [weakSelf.navigationController pushViewController:addressVC animated:YES];
     }];
 }
+-(void)setCount:(NSInteger)count{
+    _count = count;
+}
+-(void)setResult:(GoodDetailRes *)result{
+    [_dataArr removeAllObjects];
+    [_dataArr addObject:result];
+    [_tableview reloadData];
+    [self reloadLeftAddress];
+}
+
+-(void)reloadLeftAddress{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]getSingleDefaultAddresWithParam:req response:^(id response) {
+        if (response!=nil) {
+            
+            [weakself.headView setModel:response];
+            
+        }else{
+            weakself.headView.centerLabel.hidden = NO;
+        }
+        [weakself calculatePrice];
+        
+    }];
+}
+-(void)calculatePrice{
+    CalculateReq *req = [[CalculateReq alloc]init];
+    req.usePointIs = YES;
+    req.productId = self.result.productId;
+    req.saleOrderProductQty = self.count;
+    req.useIsBalance = YES;
+    req.expressEnable = YES;
+    NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+    NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
+    NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
+    next = [NSString stringWithFormat:@"%@ 09:00:00",next];
+    req.couponId = @"";
+    req.saleOrderDistributionStartTime = next;
+    req.saleOrderDistributionEndTime = end ;
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+  
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getGroupPriceWithParam:req response:^(id response) {
+        if (response) {
+            weakself.resModel = [[CalculateThePriceRes alloc]init];
+            weakself.resModel = response;
+            weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+            [weakself.tableview reloadData];
+        }
+    }];
+ 
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(section ==0){
-        return 2;
+        return self.dataArr.count;
     }else if (section ==1){
         return 3;
     }

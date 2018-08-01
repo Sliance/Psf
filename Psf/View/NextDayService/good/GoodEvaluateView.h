@@ -8,8 +8,10 @@
 
 #import "BaseView.h"
 #import "EvaluateListRes.h"
+#import "EvaluateListModel.h"
+#import "RatingView.h"
 
-@interface GoodEvaluateView : BaseView
+@interface GoodEvaluateView : BaseView<FloatRatingViewDelegate>
 @property(nonatomic,strong)UILabel *topLine;
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *detailLabel;
@@ -22,8 +24,14 @@
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UILabel *dateLabel;
 ///详情
-@property(nonatomic,strong)UILabel *contentLabel;
+@property(nonatomic,strong)UILabel *contentsLabel;
+@property(nonatomic, strong)UIView *cardImgsView;
+@property(nonatomic,strong)RatingView *ratingView;
+
 @property (nonatomic, copy) void(^skipBlock)(NSInteger);
-@property(nonatomic,strong)EvaluateListRes *model;
+
+@property(nonatomic,strong)EvaluateListRes *models;
+
++(CGFloat)getCellHeightWithData:(EvaluateListRes *)models;
 
 @end

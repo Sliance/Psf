@@ -92,6 +92,33 @@
     _priceLabel.textColor = [UIColor whiteColor];
     _weightLabel.textColor =  [UIColor whiteColor];
 }
+-(void)setLauoutPreSale{
+    self.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.nameLabel];
+    [self addSubview:self.shareBtn];
+    [self addSubview:self.buyerLabel];
+    [self addSubview:self.progress];
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(15);
+        make.top.equalTo(self).offset(13);
+        make.width.mas_equalTo(SCREENWIDTH-50);
+    }];
+    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
+        make.top.equalTo(self).offset(11);
+        make.width.height.mas_equalTo(21);
+    }];
+    [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(15);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(13);
+        make.width.mas_equalTo(SCREENWIDTH-30);
+    }];
+    [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(15);
+        make.top.equalTo(self.buyerLabel.mas_bottom).offset(20);
+        make.width.mas_equalTo(SCREENWIDTH-30);
+    }];
+}
 -(UIButton *)shareBtn{
     if (!_shareBtn) {
         _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -120,6 +147,16 @@
         _contentLabel.text = @"";
     }
     return _contentLabel;
+}
+-(UILabel *)buyerLabel{
+    if (!_buyerLabel) {
+        _buyerLabel = [[UILabel alloc]init];
+        _buyerLabel.textAlignment = NSTextAlignmentLeft;
+        _buyerLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+        _buyerLabel.textColor = DSColorFromHex(0x787878);
+        _buyerLabel.text = @"";
+    }
+    return _buyerLabel;
 }
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
@@ -194,6 +231,14 @@
     }
     return _lineLabel;
 }
+-(ZYProGressView *)progress{
+    if (!_progress) {
+        _progress =   [[ZYProGressView alloc]initWithFrame:CGRectMake(151 ,67.5, SCREENWIDTH-30, 14)];
+        _progress.bottomColor = DSColorFromHex(0xE6E6E6);
+        _progress.progressColor = DSColorFromHex(0xFF4C4D);
+    }
+    return _progress;
+}
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
     
@@ -209,8 +254,8 @@
         self.originLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
         _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
-         self.groupLabel.text = @"距离预售结束还剩:";
-        [self setCornerLayoutGroup];
+        
+        [self setLauoutPreSale];
       _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     }else if ([model.productType isEqualToString:@"reward"]){//满减
        [self setCornerLayoutNormal];
@@ -219,6 +264,8 @@
     _contentLabel.text = model.productTitle;
     _weightLabel.text = model.productUnit;
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
-
+    _buyerLabel.text = @"已有23人购买";
+    CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
+    _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
 }
 @end

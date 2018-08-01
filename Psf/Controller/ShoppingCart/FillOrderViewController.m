@@ -18,11 +18,13 @@
 #import "ShopServiceApi.h"
 #import "PointAmountCell.h"
 #import "StoreAddressController.h"
+#import "CouponServiceApi.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *couponArr;
 @property(nonatomic,strong)OrderDetailHeadView *headView;
 @property(nonatomic,strong)FillOrderBottomView *bottomView;
 @property(nonatomic,strong)FillOrderTypeView *typeView;
@@ -60,6 +62,7 @@
     if (!_bottomView) {
         _bottomView = [[FillOrderBottomView alloc]init];
         _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
+        [_bottomView.remindBtn addTarget:self action:@selector(pressRemind) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomView;
 }
@@ -82,6 +85,7 @@
     if (self) {
         [self setNavWithTitle:@"填写订单"];
         _dataArr = [NSMutableArray array];
+        _couponArr = [NSMutableArray array];
         _calculateModel = [[CalculateReq alloc]init];
     }
     return self;
@@ -99,10 +103,14 @@
     [self.typeView setChooseTypeBlock:^(NSInteger index) {
         weakSelf.type = index;
         if (index ==1) {
+            weakSelf.calculateModel.expressEnable = YES;
+            [weakSelf calculatePrice:weakSelf.calculateModel];
             [weakSelf.headView setGoodtype:CLAIMGOODSTYPEVISIT];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
              [weakSelf.headView setModel:weakSelf.leftModel];
         }else if (index ==2){
+            weakSelf.calculateModel.expressEnable = NO;
+            [weakSelf calculatePrice:weakSelf.calculateModel];
              [weakSelf.headView setGoodtype:CLAIMGOODSTYPEONESELF];
             [weakSelf.headView setStoremodel:weakSelf.storemodel];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
@@ -164,8 +172,26 @@
         }else{
              weakself.headView.centerLabel.hidden = NO;
         }
-        [weakself pickUpStoreData];
-        
+       
+        [self fetchCoupon];
+    }];
+}
+
+-(void)fetchCoupon{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.saleOrderProductList = self.dataArr;
+    
+    __weak typeof(self)weakself = self;
+    [[CouponServiceApi share]fillOrderCouponWithParam:req response:^(id response) {
+        if (response) {
+            [weakself.couponArr removeAllObjects];
+            [weakself.couponArr addObjectsFromArray:response];
+        }
+         [weakself pickUpStoreData];
     }];
 }
 -(void)calculatePrice:(CalculateReq*)req{
@@ -222,7 +248,101 @@
         [weakself calculatePrice:weakself.calculateModel];
     }];
 }
-
+-(void)placeOrder{
+    PlaceOrderReq *req = [[PlaceOrderReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.cityName = @"上海市";
+    req.saleOrderType = @"normal";
+    req.couponId = @"";
+    req.useIsBalance = self.calculateModel.useIsBalance;
+    req.usePointIs = self.calculateModel.usePointIs;
+    req.saleOrderPayType = @"微信";
+    req.saleOrderIsInvoice = NO;
+    req.saleOrderPlatform = @"ios";
+    req.saleOrderInvoiceUserName = @"";
+    req.saleOrderInvoiceCompanyName = @"";
+    req.saleOrderInvoiceCompanyTax = @"";
+    req.saleOrderInvoiceContent = @"";
+    req.saleOrderInvoiceEmail = @"";
+    if (self.type ==1) {
+        req.saleOrderReceiveType = @"送货上门";
+        req.saleOrderReceiveName = self.leftModel.memberAddressName;
+        req.saleOrderReceiveProvince = self.leftModel.memberAddressProvince;
+        req.saleOrderReceiveCity = self.leftModel.memberAddressCity;
+        req.saleOrderReceiveArea = self.leftModel.memberAddressArea;
+        req.saleOrderReceiveAddress = self.leftModel.memberAddressDetail;
+        req.saleOrderReceiveMobile = self.leftModel.memberAddressMobile;
+        req.merchantStoreName = @"";
+         req.merchantStoreId = @"";
+    }else if (self.type ==2){
+        req.saleOrderReceiveName = @"";
+        req.saleOrderReceiveType = @"门店自提";
+        if (self.storemodel.storeName.length<1) {
+            req.merchantStoreName = @"";
+        }else{
+            req.merchantStoreName = self.storemodel.storeName;
+        }
+        if (self.storemodel.storeProvinces.length<1) {
+            req.saleOrderReceiveProvince = @"";
+        }else{
+            req.saleOrderReceiveProvince = self.storemodel.storeProvinces;
+        }
+        if (self.storemodel.storeCity.length<1) {
+            req.saleOrderReceiveCity = @"";
+        }else{
+           req.saleOrderReceiveCity = self.storemodel.storeCity;
+        }
+        if (self.storemodel.storeArea.length<1) {
+            req.saleOrderReceiveArea = @"";
+        }else{
+            req.saleOrderReceiveArea = self.storemodel.storeArea;
+        }
+        if (self.storemodel.storeAddress.length<1) {
+            req.saleOrderReceiveAddress = @"";
+        }else{
+            req.saleOrderReceiveAddress = self.storemodel.storeAddress;
+        }
+        if (self.storemodel.storeTel.length<1) {
+            req.saleOrderReceiveMobile = @"";
+        }else{
+            req.saleOrderReceiveMobile = self.storemodel.storeTel;
+        }
+        
+        if (self.storemodel.storeId ==nil) {
+            req.merchantStoreId = @"";
+        }else{
+            req.merchantStoreId = self.storemodel.storeId;
+        }
+    }
+    NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+    NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
+    NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
+    next = [NSString stringWithFormat:@"%@ 09:00:00",next];
+    req.saleOrderDistributionStartTime = next;
+    req.saleOrderDistributionEndTime = end;
+    NSMutableArray *arr = [NSMutableArray array];
+    
+    for (CartProductModel *model in self.result.cartProductList) {
+        if (model.productQuantity) {
+            model.saleOrderProductQty = model.productQuantity;
+            req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + model.productQuantity ;
+            [arr addObject:model];
+        }
+    }
+    req.productList = arr;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]placeThePriceWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"下单成功"];
+                [weakself.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }];
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
@@ -230,7 +350,7 @@
     if(section ==0){
         return self.dataArr.count;
     }else if (section ==1){
-        return 6;
+        return 8;
     }
     return 1;
 }
@@ -244,6 +364,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1||indexPath.section ==2) {
+        if (indexPath.section ==1) {
+                if ([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]&&indexPath.row ==3) {
+                    return 0;
+                }
+                if (self.couponArr.count ==0&&indexPath.row ==1) {
+                return 0;
+              }
+        }
         return 45;
     }
     return 120;
@@ -271,7 +399,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
     }
-    if (indexPath.row ==3||indexPath.row ==4) {
+    if (indexPath.row ==5||indexPath.row ==6) {
         static NSString *identify = @"PointAmountCell";
         PointAmountCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
         if (!cell) {
@@ -279,37 +407,37 @@
         }
          cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setIndex:indexPath.row];
-        if(indexPath.row ==3) {
+        if(indexPath.row ==5) {
             if (self.resModel.saleOrderPointAmount) {
-                cell.nameLabel.text = [NSString stringWithFormat:@"积分抵扣（￥%@）",self.resModel.saleOrderPointAmount];
+                cell.nameLabel.text = [NSString stringWithFormat:@"积分抵扣￥%@",self.resModel.saleOrderPointAmount];
             }else{
-                cell.nameLabel.text = @"积分抵扣（￥0）";
+                cell.nameLabel.text = @"积分抵扣￥0";
             }
             
             
             if (self.calculateModel) {
-                cell.yuEswitch.on = self.calculateModel.usePointIs;
+                cell.yuEswitch.selected = self.calculateModel.usePointIs;
             }else{
-                cell.yuEswitch.on = YES;
+                cell.yuEswitch.selected = YES;
                 self.calculateModel.usePointIs = YES;
             }
             
-        }else if(indexPath.row ==4) {
-            cell.nameLabel.text = [NSString stringWithFormat:@"余额抵扣（￥%@）",self.resModel.useMemberBalance];
+        }else if(indexPath.row ==6) {
+            cell.nameLabel.text = [NSString stringWithFormat:@"余额抵扣￥%@",self.resModel.useMemberBalance];
             if (self.calculateModel) {
-                cell.yuEswitch.on = self.calculateModel.useIsBalance;
+                cell.yuEswitch.selected = self.calculateModel.useIsBalance;
             }else{
-                cell.yuEswitch.on = YES;
+                cell.yuEswitch.selected = YES;
                 self.calculateModel.useIsBalance = YES;
             }
             
         }
         __weak typeof(self)weakself = self;
         [cell setYuEBlock:^(NSInteger index) {
-            if (index ==4) {
+            if (index ==6) {
                 weakself.calculateModel.useIsBalance = !weakself.calculateModel.useIsBalance;
                 [weakself calculatePrice:weakself.calculateModel];
-            }else if (index ==3){
+            }else if (index ==5){
                 weakself.calculateModel.usePointIs = !weakself.calculateModel.usePointIs;
                 [weakself calculatePrice:weakself.calculateModel];
             }
@@ -330,19 +458,39 @@
     }
     if (indexPath.section ==1) {
         if (indexPath.row ==0) {
-            cell.textLabel.text = @"优惠券：暂无可用";
-            cell.detailTextLabel.text = @"0张";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }else if(indexPath.row ==2) {
-            cell.textLabel.text = @"配送费";
+            cell.textLabel.text = @"商品总价";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderTotalAmount];
+            cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
+        }else if (indexPath.row ==1) {
+            if (self.couponArr.count ==0) {
+                cell.hidden = YES;
+            }else{
+                cell.textLabel.text = @"优惠券：暂无可用";
+                cell.detailTextLabel.text = @"0张";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+        }else if(indexPath.row ==4) {
+            cell.textLabel.text = @"运费";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderExpressAmount];
-        }else if(indexPath.row ==1) {
-            cell.textLabel.text = @"开具发票（否）";
-            cell.detailTextLabel.text = @"";
+            cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
+        }else if(indexPath.row ==2) {
+            cell.textLabel.text = @"电子发票";
+            cell.detailTextLabel.text = @"不需要";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }else if(indexPath.row ==5) {
+    
+        }else if(indexPath.row ==7) {
             cell.textLabel.text = @"合计";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"¥ %@",self.resModel.saleOrderPayAmount];
+            cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
+        }else if (indexPath.row ==3){
+            if ([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]) {
+                cell.hidden = YES;
+            }else{
+                cell.textLabel.text = @"满减";
+                cell.detailTextLabel.textColor = DSColorFromHex(0xFF4C4D);
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"-¥ %@",self.resModel.saleOrderRewardAmount];
+            }
+            
         }
     }else if (indexPath.section ==2){
         cell.textLabel.text = @"微信支付";
@@ -358,7 +506,7 @@
     }
     cell.textLabel.textColor = DSColorFromHex(0x464646);
     cell.textLabel.font = [UIFont systemFontOfSize:15];
-    cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
+    
     cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -367,6 +515,10 @@
 -(void)pressWeChart:(UIButton*)sender{
     sender.selected = !sender.selected;
     
+}
+///下单
+-(void)pressRemind{
+    [self placeOrder];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {

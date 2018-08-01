@@ -11,7 +11,7 @@
 #define DPSIGNATURE @"RNKCoeffPosGEwv7FpLsWokxTozPt9ki"//加密key
 //#define DEBUG_DPHOST @"http://192.168.1.104:8088" // 开发环境
 //#define DPHOST @"http://192.168.1.157:8088" // 测试环境
-#define DPHOST @"http://192.168.1.111:8088" // 测试环境
+#define DPHOST @"http://192.168.1.126:8088" // 测试环境
 //#define DPHOST @"http://47.96.229.213:8088"// 生产环境
 #define IMAGEHOST  @"https://xcxmmeida.lxnong.com/"//图片地址
 #define APPNAME @"Psf"
@@ -26,15 +26,17 @@
 #define DSColorAlphaFromHex(rgb,a)     [UIColor colorWithRed:((float)((rgb & 0xFF0000) >> 16))/255.0 green:((float)((rgb & 0xFF00) >> 8))/255.0 blue:((float)(rgb & 0xFF))/255.0 alpha:a]
 #define DSNavi  [UIColor whiteColor] //navigation的颜色
 
-#import <Masonry.h>
+
 #import "UIView+CTExtensions.h"
-#import <YYKit.h>
-#import <MJExtension.h>
 #import <UIImageView+WebCache.h>
 #import "NSDate+Add.h"
 #import "MBProgressHUD.h"
 
 #import <SDImageCache.h>
+#import "UserCacheBean.h"
+#import <Masonry.h>
+#import <YYKit.h>
+#import <MJExtension.h>
 
 
 #endif /* ZSConfig_h */

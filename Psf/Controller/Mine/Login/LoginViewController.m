@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "MineServiceApi.h"
+#import "PassWordLoginController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -17,7 +18,11 @@
 @property(nonatomic,strong)UILabel *codelLine;
 @property(nonatomic,strong)UIButton *sendCodeBtn;
 @property(nonatomic,strong)UIButton *finishBtn;
-
+@property(nonatomic,strong)UIButton *passLoginBtn;
+@property(nonatomic,strong)UIButton *wechartBtn;
+@property(nonatomic,strong)UIButton *qqBtn;
+@property(nonatomic,strong)UIButton *weiboBtn;
+@property(nonatomic,strong)UILabel* noticeLabel;
 
 @end
 
@@ -82,7 +87,7 @@
     if (!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_finishBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
-        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_finishBtn setTitle:@"登录" forState:UIControlStateNormal];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_finishBtn addTarget:self action:@selector(pressFinishBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,7 +96,50 @@
     }
     return _finishBtn;
 }
-
+-(UIButton *)passLoginBtn{
+    if (!_passLoginBtn) {
+        _passLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_passLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+        [_passLoginBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+        _passLoginBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_passLoginBtn addTarget:self action:@selector(pressPassWord) forControlEvents:UIControlEventTouchUpInside];
+        [_passLoginBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+        [_passLoginBtn.layer setBorderWidth:0.5];
+        [_passLoginBtn.layer setCornerRadius:4];
+        [_passLoginBtn.layer setMasksToBounds:YES];
+    }
+    return _passLoginBtn;
+}
+-(UIButton *)wechartBtn{
+    if (!_wechartBtn) {
+        _wechartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_wechartBtn setImage:[UIImage imageNamed:@"wechart_login"] forState:UIControlStateNormal];
+    }
+    return _wechartBtn;
+}
+-(UIButton *)qqBtn{
+    if (!_qqBtn) {
+        _qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_qqBtn setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
+    }
+    return _qqBtn;
+}
+-(UIButton *)weiboBtn{
+    if (!_weiboBtn) {
+        _weiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_weiboBtn setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
+    }
+    return _weiboBtn;
+}
+-(UILabel*)noticeLabel{
+    if (!_noticeLabel) {
+        _noticeLabel = [[UILabel alloc]init];
+        _noticeLabel.text = @"首次登陆将自动注册";
+        _noticeLabel.textColor = DSColorFromHex(0x222425);
+        _noticeLabel.font = [UIFont systemFontOfSize:10];
+    }
+    return _noticeLabel;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
@@ -116,13 +164,17 @@
     [self.view addSubview:self.codeField];
     [self.view addSubview:self.sendCodeBtn];
     [self.view addSubview:self.finishBtn];
-   
+    [self.view addSubview:self.passLoginBtn];
+    [self.view addSubview:self.weiboBtn];
+    [self.view addSubview:self.wechartBtn];
+    [self.view addSubview:self.qqBtn];
+    [self.view addSubview:self.noticeLabel];
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(81);
-        make.height.mas_equalTo(74);
-        make.top.equalTo(self.view).offset([self navHeightWithHeight]+90);
+        make.width.mas_equalTo(90);
+        make.height.mas_equalTo(133);
+        make.top.equalTo(self.view).offset([self navHeightWithHeight]+22);
         make.centerX.equalTo(self.view);
     }];
     [self.phoneField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,11 +195,16 @@
         make.bottom.equalTo(self.phoneField.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
+    
     [self.codelLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(1);
         make.bottom.equalTo(self.codeField.mas_bottom);
         make.centerX.equalTo(self.view);
+    }];
+    [self.noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.codelLine.mas_left);
+        make.top.equalTo(self.codelLine.mas_bottom).offset(10);
     }];
     [self.sendCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(64);
@@ -160,6 +217,30 @@
         make.height.mas_equalTo(39);
         make.top.equalTo(self.codeField.mas_bottom).offset(33);
         make.centerX.equalTo(self.view);
+    }];
+    [self.passLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(240);
+        make.height.mas_equalTo(39);
+        make.top.equalTo(self.finishBtn.mas_bottom).offset(15);
+        make.centerX.equalTo(self.view);
+    }];
+    [self.qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+        make.centerX.equalTo(self.view);
+    }];
+    [self.wechartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+        make.right.equalTo(self.qqBtn.mas_left).offset(-27);
+    }];
+    [self.weiboBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+        make.left.equalTo(self.qqBtn.mas_right).offset(27);
     }];
 }
 -(void)sendCode{
@@ -221,7 +302,12 @@
 -(void)pressFinishBtn:(UIButton*)sender{
     [self goToLogin];
 }
-
+-(void)pressPassWord{
+    PassWordLoginController *passVC = [[PassWordLoginController alloc]init];
+    passVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:passVC animated:YES];
+    
+}
 /*
 #pragma mark - Navigation
 

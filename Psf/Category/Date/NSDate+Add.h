@@ -14,5 +14,6 @@
 // 字符串时间—>时间戳
 + (NSString *)cTimestampFromString:(NSString *)theTime ;
 // 时间戳—>字符串时间
-+ (NSString *)cStringFromTimestamp:(NSString *)timestamp;
++ (NSString *)cStringFromTimestamp:(NSString *)timestamp Formatter:(NSString*)formatter;
+
 @end

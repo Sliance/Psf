@@ -8,6 +8,8 @@
 
 #import "BaseView.h"
 #import "GoodDetailRes.h"
+#import "ZYProGressView.h"
+
 @interface GoodHeadView : BaseView
 ///分享按钮
 @property(nonatomic,strong)UIButton *shareBtn;
@@ -32,6 +34,8 @@
 
 @property(nonatomic,strong)UILabel *originLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
+///已经多少人购买（预售）
+@property(nonatomic,strong)UILabel *buyerLabel;
 
-
+@property(nonatomic,strong)ZYProGressView *progress;
 @end

@@ -210,5 +210,13 @@
         }
     }
 }
-
+-(void)setModel:(GoodDetailRes *)model{
+    _model = model;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = model.productName;
+//    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
+    self.weightLabel.text = model.productUnit;
+//    self.countField.text = [NSString stringWithFormat:@"X%ld",(long)model.productQuantity];
+}
 @end

@@ -184,7 +184,7 @@
     [self.bgscrollow addSubview:self.tourDiyView];
     
     [self.bgscrollow addSubview:self.webView];
-    self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
+    
    __weak typeof(self) _weakSelf = self;
     [self.evaView setSkipBlock:^(NSInteger index) {
         EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
@@ -205,8 +205,23 @@
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
     [self.normalBView setPressAddBlock:^{
-        [_weakSelf addShopCount];
-       
+        if ([UserCacheBean share].userInfo.token.length>0) {
+            [_weakSelf addShopCount];
+        }else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+            message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                _weakSelf.tabBarController.selectedIndex = 3;
+                }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [_weakSelf presentViewController:alert animated:YES completion:nil];
+        }
+        
     }];
     [self.normalBView setShopBlock:^{
         _weakSelf.tabBarController.selectedIndex = 2;
@@ -226,9 +241,11 @@
     [self.groupBuyView setSubBlock:^{
         
     }];
-    [self.groupBuyView setSubmitBlock:^{
+    [self.groupBuyView setSubmitBlock:^(NSInteger count){
         _weakSelf.groupBuyView.hidden = YES;
         SureOrderViewController *sureVC = [[SureOrderViewController alloc]init];
+        [sureVC setCount:count];
+        [sureVC setResult:_weakSelf.result];
         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [self.groupBuyView setTapBlock:^{
@@ -341,7 +358,7 @@
         
         
         weakself.evaRes = response;
-        [weakself.evaView setModel:weakself.evaRes];
+        [weakself.evaView setModels:self.evaRes];
         [weakself requestGroup];
     
     }];
@@ -367,7 +384,7 @@
     req.cityName = @"上海市";
     ProductSkuModel *model =[self.result.productSkuList firstObject];
     req.productSkuId = [NSString stringWithFormat:@"%ld",(long)model.productSkuId];
-    req.productQuantity = @1;
+    req.productQuantity = 1;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         [weakself getShopCount:1];
@@ -426,6 +443,11 @@
     
 }
 -(void)reloadData{
+    if ([self.result.productType isEqualToString:@"preSale"]) {
+        self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 179);
+    }else{
+        self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
+    }
         [self.headView setModel:self.result];
     
     NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH,self.result.productContent];
@@ -477,7 +499,7 @@
         _evaHeight =0;
         _evaView.hidden = YES;
     }else{
-        _evaHeight = 50;
+        _evaHeight = 50+[GoodEvaluateView getCellHeightWithData:self.evaRes];
         _evaView.hidden = NO;
     }
     self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, _tourHeight);

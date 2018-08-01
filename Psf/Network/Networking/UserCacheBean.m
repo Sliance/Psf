@@ -34,4 +34,27 @@
     NSDictionary *dic = [userInfo getUserInfoDictionary];
     [UserDefaultCashe casheDicWith:dic forKey:@"userinfo"];
 }
++ (void)load {
+    [[UserCacheBean share] getUserInfoByCashe];
+}
+- (void)getUserInfoByCashe {
+    NSDictionary *dic = [UserDefaultCashe fetchDicWithKey:@"userinfo"];
+    if (dic.count < 2) {
+        return;
+    }
+    UserBaseInfoModel *user = [[UserBaseInfoModel alloc] init];
+    [user configUserInfoModelWithDic:dic];
+    [[UserCacheBean share] setUserInfo:user];
+}
+- (void)loginOut {
+    UserBaseInfoModel *userInfo = [[UserBaseInfoModel alloc] init];
+    [UserCacheBean share].userInfo = userInfo;
+    [self setUserInfo:userInfo];
+}
+- (BOOL)isLogin {
+    if (self.userInfo.token.length > 0) {
+        return YES;
+    }
+    return NO;
+}
 @end

@@ -454,7 +454,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     if (indexPath.section ==0) {
         CartProductModel *model = _dataArr[indexPath.row];
         [vc setProductID:model.productId];
-    }else if (indexPath.section ==1){
+    }else if (indexPath.section ==2){
         StairCategoryListRes *model = _likeArr[indexPath.row];
          [vc setProductID:model.productId];
     }
