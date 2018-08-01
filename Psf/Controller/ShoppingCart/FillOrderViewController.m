@@ -423,7 +423,7 @@
         if (_goodstype ==GOOGSTYPENormal) {
             CartProductModel *model = _dataArr[indexPath.row];
             [cell setModel:model];
-        }else if (_goodstype ==GOOGSTYPEGroup){
+        }else if (_goodstype ==GOOGSTYPEGroup||_goodstype ==GOOGSTYPEPresale){
             GoodDetailRes *model = _dataArr[indexPath.row];
             [cell setRes:model];
         }

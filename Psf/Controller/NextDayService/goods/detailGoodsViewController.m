@@ -240,7 +240,7 @@
         _weakSelf.tabBarController.selectedIndex = 2;
     }];
     [self.preBView setPressAddBlock:^{
-        
+        _weakSelf.presaleBuyView.hidden = NO;
     }];
     [self.groupBView setSingleBlock:^{
         
@@ -263,16 +263,15 @@
         _weakSelf.groupBuyView.hidden = YES;
     }];
     [self.presaleBuyView setSubmitBlock:^(NSInteger count){
-        _weakSelf.groupBuyView.hidden = YES;
+        _weakSelf.presaleBuyView.hidden = YES;
         FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
         _weakSelf.result.saleOrderProductQty = count;
-        _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
         [sureVC setGoodstype:GOOGSTYPEPresale];
         [sureVC setGooddetail:_weakSelf.result];
         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [self.presaleBuyView setTapBlock:^{
-        _weakSelf.groupBuyView.hidden = YES;
+        _weakSelf.presaleBuyView.hidden = YES;
     }];
 }
 
@@ -491,20 +490,22 @@
         [self.groupBView setModel:self.result];
         [self.footView setPruductId:self.productID];
         [self reloadHeight];
-
+    [self.view addSubview:self.groupBuyView];
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         _tourHeight = 0;
          [self.view addSubview:self.preBView];
         [self.preBView setPreSaleIsComplete:self.result.preSaleIsComplete];
         [self.footView setPruductId:self.productID];
          [self reloadHeight];
-
+      [self.view addSubview:self.presaleBuyView];
     }else {//满减
          [self requestCoupon];
          [self.view addSubview:self.normalBView];
     }
     [self.view addSubview:self.couponView];
-    [self.view addSubview:self.groupBuyView];
+   
+    
+    
 }
 
 -(void)reloadHeight{

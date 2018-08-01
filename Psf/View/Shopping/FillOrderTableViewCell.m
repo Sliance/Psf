@@ -151,8 +151,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,res.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = res.productName;
-    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.grouponPrice];
+    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.productPrice];
     self.weightLabel.text = res.productUnit;
-    self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.productPrice];
+    self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.saleOrderProductQty];
 }
 @end
