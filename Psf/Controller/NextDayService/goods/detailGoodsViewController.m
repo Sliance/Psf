@@ -172,6 +172,7 @@
     if(!_webView){
         _webView = [[UIWebView alloc]init];
         _webView.delegate = self;
+        _webView.scrollView.scrollEnabled = NO;
     }
     return _webView;
 }
@@ -243,19 +244,26 @@
         _weakSelf.presaleBuyView.hidden = NO;
     }];
     [self.groupBView setSingleBlock:^{
-        
+        [_weakSelf.groupBuyView setType:1];
+        _weakSelf.groupBuyView.hidden = NO;
     }];
     [self.groupBView setGroupBlock:^{
+        [_weakSelf.groupBuyView setType:2];
         _weakSelf.groupBuyView.hidden = NO;
     }];
     
     
-    [self.groupBuyView setSubmitBlock:^(NSInteger count){
+    [self.groupBuyView setSubmitBlock:^(NSInteger type,NSInteger count){
         _weakSelf.groupBuyView.hidden = YES;
         FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
         _weakSelf.result.saleOrderProductQty = count;
         _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
-        [sureVC setGoodstype:GOOGSTYPEGroup];
+        if (type ==1) {
+            [sureVC setGoodstype:GOOGSTYPESingle];
+        }else if (type ==2){
+            [sureVC setGoodstype:GOOGSTYPEGroup];
+        }
+        
         [sureVC setGooddetail:_weakSelf.result];
         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
@@ -472,7 +480,7 @@
     }
         [self.headView setModel:self.result];
     
-    NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH,self.result.productContent];
+    NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.productContent];
     
     [self.webView loadHTMLString:html_str baseURL:nil];
     

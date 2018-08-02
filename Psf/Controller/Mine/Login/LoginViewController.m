@@ -217,7 +217,7 @@
     [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(39);
-        make.top.equalTo(self.codeField.mas_bottom).offset(33);
+        make.top.equalTo(self.codeField.mas_bottom).offset(40);
         make.centerX.equalTo(self.view);
     }];
     [self.passLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {

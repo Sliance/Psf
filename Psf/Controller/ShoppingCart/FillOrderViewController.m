@@ -20,6 +20,7 @@
 #import "StoreAddressController.h"
 #import "CouponServiceApi.h"
 #import "GroupServiceApi.h"
+#import "DetailGroupController.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -153,6 +154,8 @@
 
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
     _gooddetail = gooddetail;
+    ProductSkuModel *model= [self.gooddetail.productSkuList firstObject];
+    gooddetail.productSkuId = model.productSkuId;
     [_dataArr removeAllObjects];
     [_dataArr addObject:gooddetail];
     [_tableview reloadData];
@@ -219,8 +222,13 @@
             }
         }
         req.productList = arr;
+        [self calculateNormal:req];
+    }else if (_goodstype ==GOOGSTYPEGroup){
+        req.productId = self.gooddetail.productId;
+        req.saleOrderProductQty = self.gooddetail.saleOrderProductQty;
+        req.productList = self.dataArr;
         __weak typeof(self)weakself = self;
-        [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
+        [[GroupServiceApi share]getGroupPriceWithParam:req response:^(id response) {
             if (response) {
                 weakself.resModel = [[CalculateThePriceRes alloc]init];
                 weakself.resModel = response;
@@ -228,11 +236,18 @@
                 [weakself.tableview reloadData];
             }
         }];
-    }else if (_goodstype ==GOOGSTYPEGroup){
-       
+    }else if (_goodstype ==GOOGSTYPESingle){
+        req.productId = self.gooddetail.productId;
+        req.saleOrderProductQty = self.gooddetail.saleOrderProductQty;
+        req.productList = self.dataArr;
+        [self calculateNormal:req];
+    }else if (_goodstype ==GOOGSTYPEPresale){
+        req.productId = self.gooddetail.productId;
+        req.saleOrderProductQty = self.gooddetail.saleOrderProductQty;
+        req.productSkuId = self.gooddetail.productSkuId;
         req.productList = self.dataArr;
         __weak typeof(self)weakself = self;
-        [[GroupServiceApi share]getGroupPriceWithParam:req response:^(id response) {
+        [[GroupServiceApi share]getPresalePriceWithParam:req response:^(id response) {
             if (response) {
                 weakself.resModel = [[CalculateThePriceRes alloc]init];
                 weakself.resModel = response;
@@ -244,6 +259,17 @@
     
 }
 
+-(void)calculateNormal:(CalculateReq*)req{
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
+        if (response) {
+            weakself.resModel = [[CalculateThePriceRes alloc]init];
+            weakself.resModel = response;
+            weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+            [weakself.tableview reloadData];
+        }
+    }];
+}
 -(void)pickUpStoreData{
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
@@ -281,10 +307,11 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     req.cityName = @"上海市";
-    req.saleOrderType = @"normal";
+    
     req.couponId = @"";
     req.useIsBalance = self.calculateModel.useIsBalance;
     req.usePointIs = self.calculateModel.usePointIs;
+    req.saleOrderPointAmount = self.resModel.saleOrderPointAmount;
     req.saleOrderPayType = @"微信";
     req.saleOrderIsInvoice = NO;
     req.saleOrderPlatform = @"ios";
@@ -351,16 +378,62 @@
     req.saleOrderDistributionEndTime = end;
     NSMutableArray *arr = [NSMutableArray array];
     
-    for (CartProductModel *model in self.result.cartProductList) {
-        if (model.productQuantity) {
-            model.saleOrderProductQty = model.productQuantity;
-            req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + model.productQuantity ;
-            [arr addObject:model];
+    
+    if (_goodstype == GOOGSTYPENormal) {
+        for (CartProductModel *model in self.result.cartProductList) {
+            if (model.productQuantity) {
+                model.saleOrderProductQty = model.productQuantity;
+                req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + model.productQuantity ;
+                [arr addObject:model];
+            }
         }
+        req.productList = arr;
+        [self placeNormalOrder:req];
+    }else if (_goodstype == GOOGSTYPESingle){
+        req.saleOrderType = @"normal";
+        req.productList = self.dataArr;
+        [self placeNormalOrder:req];
+    }else if (_goodstype == GOOGSTYPEGroup){
+        req.saleOrderType = @"group";
+        req.grouponActiveType = 0;
+        req.grouponActivityId = @"";
+        req.grouponId = self.gooddetail.grouponId;
+        req.productList = self.dataArr;
+        [self placeGroupOrder:req];
+    }else if (_goodstype ==GOOGSTYPEPresale){
+        req.saleOrderType = @"presale";
+        [self placePresaleOrder:req];
     }
-    req.productList = arr;
+}
+///正常下单
+-(void)placeNormalOrder:(PlaceOrderReq*)req{
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]placeThePriceWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"下单成功"];
+                [weakself.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }];
+}
+///团购下单
+-(void)placeGroupOrder:(PlaceOrderReq*)req{
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]saveGroupWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] == 200) {
+                [weakself showToast:@"下单成功"];
+                DetailGroupController *detailVC = [[DetailGroupController alloc]init];
+                [weakself.navigationController pushViewController:detailVC animated:YES];
+            }
+        }
+    }];
+}
+///预售下单
+-(void)placePresaleOrder:(PlaceOrderReq*)req{
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]savePresaleWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"下单成功"];
@@ -391,7 +464,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1||indexPath.section ==2) {
         if (indexPath.section ==1) {
-                if ([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]&&indexPath.row ==3) {
+                if (([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]||self.resModel.saleOrderRewardAmount.length ==0)&&indexPath.row ==3) {
                     return 0;
                 }
                 if (self.couponArr.count ==0&&indexPath.row ==1) {
@@ -503,7 +576,9 @@
             }
         }else if(indexPath.row ==4) {
             cell.textLabel.text = @"运费";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderExpressAmount];
+            if (self.resModel.saleOrderExpressAmount.length>0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderExpressAmount];
+            }
             cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
         }else if(indexPath.row ==2) {
             cell.textLabel.text = @"电子发票";
@@ -512,15 +587,19 @@
     
         }else if(indexPath.row ==7) {
             cell.textLabel.text = @"合计";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥ %@",self.resModel.saleOrderPayAmount];
+            if (self.resModel.saleOrderPayAmount.length>0) {
+               cell.detailTextLabel.text = [NSString stringWithFormat:@"¥ %@",self.resModel.saleOrderPayAmount];
+            }
             cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
         }else if (indexPath.row ==3){
-            if ([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]) {
+            if ([self.resModel.saleOrderRewardAmount isEqualToString:@"0"]||self.resModel.saleOrderRewardAmount.length ==0) {
                 cell.hidden = YES;
             }else{
                 cell.textLabel.text = @"满减";
                 cell.detailTextLabel.textColor = DSColorFromHex(0xFF4C4D);
+                 if (self.resModel.saleOrderRewardAmount.length>0) {
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"-¥ %@",self.resModel.saleOrderRewardAmount];
+                 }
             }
             
         }

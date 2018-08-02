@@ -12,7 +12,8 @@
 
 typedef NS_ENUM(NSInteger, GOOGSTYPE){
     GOOGSTYPENormal= 0 ,//正常订单
-    GOOGSTYPEGroup ,//团购
+    GOOGSTYPEGroup ,//团购购买
+    GOOGSTYPESingle,//团购单独购买
     GOOGSTYPEPresale , //预售
 
 };

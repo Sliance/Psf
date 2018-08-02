@@ -17,6 +17,7 @@ PODS:
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
+  - HappyDNS (0.3.14)
   - Mantle (2.1.0):
     - Mantle/extobjc (= 2.1.0)
   - Mantle/extobjc (2.1.0)
@@ -24,6 +25,8 @@ PODS:
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.15)
   - MJRefresh (3.1.15.3)
+  - Qiniu (7.2.4):
+    - HappyDNS (~> 0.3)
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
@@ -39,6 +42,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - MJExtension (~> 3.0.11)
   - MJRefresh
+  - Qiniu (~> 7.1)
   - SDWebImage
   - YYKit
 
@@ -46,25 +50,29 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - FMDB
+    - HappyDNS
     - Mantle
     - Masonry
     - MBProgressHUD
     - MJExtension
     - MJRefresh
+    - Qiniu
     - SDWebImage
     - YYKit
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 058145c0dbf964f3725a741eaf68aee6dc292756
+PODFILE CHECKSUM: 00fd47eb2402ec3a227684ba079400f2788918a4
 
 COCOAPODS: 1.5.3

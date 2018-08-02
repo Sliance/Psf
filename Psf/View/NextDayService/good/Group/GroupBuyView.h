@@ -18,10 +18,10 @@
 @property(nonatomic,strong)UILabel *buyLabel;
 @property(nonatomic,strong)UIButton *submitBtn;
 
-@property(nonatomic,copy)void(^submitBlock)(NSInteger);
+@property(nonatomic,copy)void(^submitBlock)(NSInteger,NSInteger);
 @property(nonatomic,copy)void(^tapBlock)();
 @property(nonatomic,assign)NSInteger height;
 @property(nonatomic,assign)NSInteger count;
 
-
+@property(nonatomic,assign)NSInteger type;
 @end

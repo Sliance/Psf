@@ -14,13 +14,13 @@
 ///城市名字
 @property(nonatomic,copy)NSString *cityName;
 ///团购编号
-@property(nonatomic,copy)NSString *grouponId;
+@property(nonatomic,assign)NSInteger grouponId;
 ///订单类型
 @property(nonatomic,copy)NSString *saleOrderType;
 ///商品总数
 @property(nonatomic,assign)NSInteger saleOrderTotalQuantity;
 ///拼团类型(0 代表开团， 1代表参团)
-@property(nonatomic,copy)NSString *grouponActiveType;
+@property(nonatomic,assign)NSInteger grouponActiveType;
 
 ///拼团活动的编号
 @property(nonatomic,copy)NSString *grouponActivityId;
@@ -91,5 +91,6 @@
 
 ///会员优惠券
 @property(nonatomic,copy)NSString *couponId;
-
+///
+@property(nonatomic, assign)NSInteger productSkuId;
 @end

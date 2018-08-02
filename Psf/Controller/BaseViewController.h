@@ -10,6 +10,8 @@
 #import "ZSConfig.h"
 #import "AppDelegate.h"
 #import "NavgationView.h"
+#import "UIViewController+Loading.h"
+
 typedef void (^LoginComplited) ();
 typedef void(^refreshListBlock)();
 typedef void(^scrollToTopBlcok)();
@@ -56,4 +58,5 @@ typedef void(^scrollToTopBlcok)();
 
 -(CGFloat)navHeightWithHeight;
 -(CGFloat)tabBarHeight;
+
 @end

@@ -192,4 +192,5 @@
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
 }
+
 @end

@@ -23,7 +23,7 @@
 + (instancetype)share;
 
 // 获取七牛上传token
-- (void)getQiniuUploadToken:(void (^)(NSDictionary * uploadDic))success failure:(void (^)())failure;
+- (void)getQiniuUploadWithImages:(UIImage *)imageArray Token:(void (^)(NSDictionary *))success failure:(void (^)())failure;
 
 /**
  上传图片 可以取消

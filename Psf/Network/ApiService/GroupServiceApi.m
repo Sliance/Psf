@@ -200,4 +200,56 @@
         
     }];
 }
+///预售价格计算
+- (void)getPresalePriceWithParam:(CalculateReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/pre/sale/mobile/v1/cal/pre/price";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                CalculateThePriceRes *result = [CalculateThePriceRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///预售下单
+- (void)savePresaleWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/pre/sale/mobile/v1/save";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                //                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 @end

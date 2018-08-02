@@ -179,7 +179,7 @@
     
 }
 -(void)pressSubmit{
-    self.submitBlock([_countField.text integerValue]);
+    self.submitBlock(_type,[_countField.text integerValue]);
 }
 -(void)pressTap{
     self.tapBlock();
@@ -188,5 +188,8 @@
     _count = [textField.text integerValue];
     
     return [textField resignFirstResponder];
+}
+-(void)setType:(NSInteger)type{
+    _type = type;
 }
 @end

@@ -24,4 +24,5 @@
 @property(nonatomic,assign)NSInteger count;
 @property(nonatomic,strong)GoodDetailRes *model;
 
+
 @end

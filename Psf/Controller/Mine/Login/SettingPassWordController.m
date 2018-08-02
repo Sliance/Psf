@@ -31,7 +31,7 @@
 -(UITextField *)phoneField{
     if (!_phoneField) {
         _phoneField = [[UITextField alloc]init];
-        _phoneField.placeholder = @"请设置登录密码";
+        _phoneField.placeholder = @"请输入新密码";
         _phoneField.delegate = self;
         _phoneField.font = [UIFont systemFontOfSize:12];
         _phoneField.borderStyle = UITextBorderStyleNone;
@@ -42,7 +42,7 @@
 -(UITextField *)codeField{
     if (!_codeField) {
         _codeField = [[UITextField alloc]init];
-        _codeField.placeholder = @"请再次输入密码";
+        _codeField.placeholder = @"再次输入新密码";
         _codeField.delegate = self;
         _codeField.font = [UIFont systemFontOfSize:12];
         _codeField.borderStyle = UITextBorderStyleNone;

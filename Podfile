@@ -12,6 +12,6 @@ platform :ios, '9.0'
   pod 'Mantle'
   pod 'FMDB', '~> 2.7.2'
   pod 'MJExtension','~>3.0.11'
-#  pod "Qiniu", "~> 7.1"
+  pod "Qiniu", "~> 7.1"
 
 end

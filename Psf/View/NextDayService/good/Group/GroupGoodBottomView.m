@@ -78,7 +78,7 @@
 -(UIButton *)shopBtn{
     if (!_shopBtn) {
         _shopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-         [_addBtn addTarget:self action:@selector(pressSingle) forControlEvents:UIControlEventTouchUpInside];
+         [_shopBtn addTarget:self action:@selector(pressSingle) forControlEvents:UIControlEventTouchUpInside];
     }
     return _shopBtn;
 }

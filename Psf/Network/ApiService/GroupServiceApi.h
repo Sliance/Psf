@@ -31,5 +31,8 @@
 - (void)getPresaleListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///获取预售、团购banner
 - (void)getPreAndGroupBannerWithParam:(GroupModelReq *) req response:(responseModel) responseModel;
-
+///预售价格计算
+- (void)getPresalePriceWithParam:(CalculateReq *) req response:(responseModel) responseModel;
+///预售下单
+- (void)savePresaleWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel;
 @end

@@ -47,6 +47,36 @@
 		88535E7D2109ACE900997B32 /* LoginReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E7C2109ACE900997B32 /* LoginReq.m */; };
 		8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A401210AC2D3002C1395 /* AfterSalesViewController.m */; };
 		8854A405210AD918002C1395 /* PlaceOrderReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A404210AD918002C1395 /* PlaceOrderReq.m */; };
+		88566DFF2112954600B6C38D /* AccountBindController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566DFE2112954600B6C38D /* AccountBindController.m */; };
+		88566E022112994600B6C38D /* ChangePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E012112994600B6C38D /* ChangePasswordController.m */; };
+		88566E0B2112A8A200B6C38D /* NSObject+AddKeyValueToObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E092112A8A200B6C38D /* NSObject+AddKeyValueToObject.m */; };
+		88566E152112A8FB00B6C38D /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E102112A8FB00B6C38D /* UIImage+RoundedCorner.m */; };
+		88566E162112A8FB00B6C38D /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E122112A8FB00B6C38D /* UIImage+Resize.m */; };
+		88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E132112A8FB00B6C38D /* UIImage+Alpha.m */; };
+		88566E182112A8FB00B6C38D /* UIImage+RTStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E142112A8FB00B6C38D /* UIImage+RTStyle.m */; };
+		88566E1B2112AD6600B6C38D /* NSString+RTStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E1A2112AD6500B6C38D /* NSString+RTStyle.m */; };
+		88566E1E2112AEF900B6C38D /* AgentImageBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E1C2112AEF800B6C38D /* AgentImageBaseModel.m */; };
+		88566E222112C31E00B6C38D /* TYUploadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E202112C31E00B6C38D /* TYUploadImageView.m */; };
+		88566E422112C35400B6C38D /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E242112C35100B6C38D /* TZPhotoPreviewCell.m */; };
+		88566E432112C35400B6C38D /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E252112C35100B6C38D /* TZPhotoPickerController.m */; };
+		88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88566E2A2112C35200B6C38D /* TZImagePickerController.bundle */; };
+		88566E462112C35400B6C38D /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E2C2112C35200B6C38D /* TZVideoPlayerController.m */; };
+		88566E472112C35400B6C38D /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E2E2112C35200B6C38D /* TZImageCropManager.m */; };
+		88566E482112C35400B6C38D /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E2F2112C35200B6C38D /* TZAssetModel.m */; };
+		88566E492112C35400B6C38D /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E322112C35200B6C38D /* TZPhotoPreviewController.m */; };
+		88566E4A2112C35400B6C38D /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E342112C35300B6C38D /* TZGifPhotoPreviewController.m */; };
+		88566E4B2112C35400B6C38D /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E362112C35300B6C38D /* TZTestCell.m */; };
+		88566E4C2112C35400B6C38D /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E3A2112C35300B6C38D /* TZImagePickerController.m */; };
+		88566E4D2112C35400B6C38D /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E3C2112C35300B6C38D /* TZProgressView.m */; };
+		88566E4E2112C35400B6C38D /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E3D2112C35300B6C38D /* NSBundle+TZImagePicker.m */; };
+		88566E4F2112C35400B6C38D /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E3E2112C35400B6C38D /* TZImageManager.m */; };
+		88566E502112C35400B6C38D /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E3F2112C35400B6C38D /* UIView+Layout.m */; };
+		88566E512112C35400B6C38D /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E412112C35400B6C38D /* TZAssetCell.m */; };
+		88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E5C2112C51F00B6C38D /* TYImageAssetModel.m */; };
+		88566E602112C52000B6C38D /* TYimageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E5E2112C51F00B6C38D /* TYimageModel.m */; };
+		88566E642112C78A00B6C38D /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E622112C78A00B6C38D /* UIViewController+Loading.m */; };
+		88566E682112CFEE00B6C38D /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */; };
+		88566E6B2112D09900B6C38D /* UploadImageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E6A2112D09900B6C38D /* UploadImageTool.m */; };
 		8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */; };
 		8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031E20FF4318002BCDC9 /* SubjectCategoryModel.m */; };
 		8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8857032120FF5ABD002BCDC9 /* areaArray.plist */; };
@@ -369,6 +399,65 @@
 		8854A401210AC2D3002C1395 /* AfterSalesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AfterSalesViewController.m; sourceTree = "<group>"; };
 		8854A403210AD918002C1395 /* PlaceOrderReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceOrderReq.h; sourceTree = "<group>"; };
 		8854A404210AD918002C1395 /* PlaceOrderReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceOrderReq.m; sourceTree = "<group>"; };
+		88566DFD2112954600B6C38D /* AccountBindController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountBindController.h; sourceTree = "<group>"; };
+		88566DFE2112954600B6C38D /* AccountBindController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountBindController.m; sourceTree = "<group>"; };
+		88566E002112994600B6C38D /* ChangePasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordController.h; sourceTree = "<group>"; };
+		88566E012112994600B6C38D /* ChangePasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordController.m; sourceTree = "<group>"; };
+		88566E082112A8A200B6C38D /* NSObject+AddKeyValueToObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+AddKeyValueToObject.h"; path = "Psf/Category/NSObject+AddKeyValueToObject.h"; sourceTree = SOURCE_ROOT; };
+		88566E092112A8A200B6C38D /* NSObject+AddKeyValueToObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+AddKeyValueToObject.m"; path = "Psf/Category/NSObject+AddKeyValueToObject.m"; sourceTree = SOURCE_ROOT; };
+		88566E0D2112A8FA00B6C38D /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		88566E0E2112A8FB00B6C38D /* UIImage+RTStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RTStyle.h"; sourceTree = "<group>"; };
+		88566E0F2112A8FB00B6C38D /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		88566E102112A8FB00B6C38D /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		88566E112112A8FB00B6C38D /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		88566E122112A8FB00B6C38D /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		88566E132112A8FB00B6C38D /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		88566E142112A8FB00B6C38D /* UIImage+RTStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RTStyle.m"; sourceTree = "<group>"; };
+		88566E192112AD6500B6C38D /* NSString+RTStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RTStyle.h"; sourceTree = "<group>"; };
+		88566E1A2112AD6500B6C38D /* NSString+RTStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RTStyle.m"; sourceTree = "<group>"; };
+		88566E1C2112AEF800B6C38D /* AgentImageBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgentImageBaseModel.m; sourceTree = "<group>"; };
+		88566E1D2112AEF900B6C38D /* AgentImageBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgentImageBaseModel.h; sourceTree = "<group>"; };
+		88566E202112C31E00B6C38D /* TYUploadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYUploadImageView.m; sourceTree = "<group>"; };
+		88566E212112C31E00B6C38D /* TYUploadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYUploadImageView.h; sourceTree = "<group>"; };
+		88566E242112C35100B6C38D /* TZPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewCell.m; sourceTree = "<group>"; };
+		88566E252112C35100B6C38D /* TZPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPickerController.m; sourceTree = "<group>"; };
+		88566E262112C35200B6C38D /* TZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImagePickerController.h; sourceTree = "<group>"; };
+		88566E272112C35200B6C38D /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
+		88566E282112C35200B6C38D /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
+		88566E292112C35200B6C38D /* TZGifPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZGifPhotoPreviewController.h; sourceTree = "<group>"; };
+		88566E2A2112C35200B6C38D /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
+		88566E2C2112C35200B6C38D /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
+		88566E2D2112C35200B6C38D /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
+		88566E2E2112C35200B6C38D /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
+		88566E2F2112C35200B6C38D /* TZAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetModel.m; sourceTree = "<group>"; };
+		88566E302112C35200B6C38D /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
+		88566E312112C35200B6C38D /* TZVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZVideoPlayerController.h; sourceTree = "<group>"; };
+		88566E322112C35200B6C38D /* TZPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewController.m; sourceTree = "<group>"; };
+		88566E332112C35300B6C38D /* TZAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetModel.h; sourceTree = "<group>"; };
+		88566E342112C35300B6C38D /* TZGifPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZGifPhotoPreviewController.m; sourceTree = "<group>"; };
+		88566E352112C35300B6C38D /* TZImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageManager.h; sourceTree = "<group>"; };
+		88566E362112C35300B6C38D /* TZTestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTestCell.m; sourceTree = "<group>"; };
+		88566E372112C35300B6C38D /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
+		88566E382112C35300B6C38D /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
+		88566E392112C35300B6C38D /* TZTestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZTestCell.h; sourceTree = "<group>"; };
+		88566E3A2112C35300B6C38D /* TZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImagePickerController.m; sourceTree = "<group>"; };
+		88566E3B2112C35300B6C38D /* TZImageCropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageCropManager.h; sourceTree = "<group>"; };
+		88566E3C2112C35300B6C38D /* TZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZProgressView.m; sourceTree = "<group>"; };
+		88566E3D2112C35300B6C38D /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
+		88566E3E2112C35400B6C38D /* TZImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageManager.m; sourceTree = "<group>"; };
+		88566E3F2112C35400B6C38D /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		88566E402112C35400B6C38D /* TZPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewController.h; sourceTree = "<group>"; };
+		88566E412112C35400B6C38D /* TZAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetCell.m; sourceTree = "<group>"; };
+		88566E5B2112C51F00B6C38D /* TYImageAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TYImageAssetModel.h; path = Psf/Tool/TZImagePickerController/TYimagePickerModel/TYImageAssetModel.h; sourceTree = SOURCE_ROOT; };
+		88566E5C2112C51F00B6C38D /* TYImageAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TYImageAssetModel.m; path = Psf/Tool/TZImagePickerController/TYimagePickerModel/TYImageAssetModel.m; sourceTree = SOURCE_ROOT; };
+		88566E5D2112C51F00B6C38D /* TYimageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TYimageModel.h; path = Psf/Tool/TZImagePickerController/TYimagePickerModel/TYimageModel.h; sourceTree = SOURCE_ROOT; };
+		88566E5E2112C51F00B6C38D /* TYimageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TYimageModel.m; path = Psf/Tool/TZImagePickerController/TYimagePickerModel/TYimageModel.m; sourceTree = SOURCE_ROOT; };
+		88566E622112C78A00B6C38D /* UIViewController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Loading.m"; sourceTree = "<group>"; };
+		88566E632112C78A00B6C38D /* UIViewController+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Loading.h"; sourceTree = "<group>"; };
+		88566E662112CFEE00B6C38D /* QiniuUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUploadHelper.h; sourceTree = "<group>"; };
+		88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUploadHelper.m; sourceTree = "<group>"; };
+		88566E692112D09800B6C38D /* UploadImageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageTool.h; sourceTree = "<group>"; };
+		88566E6A2112D09900B6C38D /* UploadImageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageTool.m; sourceTree = "<group>"; };
 		8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderServiceApi.h; sourceTree = "<group>"; };
 		8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderServiceApi.m; sourceTree = "<group>"; };
 		8857031D20FF4318002BCDC9 /* SubjectCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCategoryModel.h; sourceTree = "<group>"; };
@@ -937,6 +1026,8 @@
 		88535E7321098D8400997B32 /* NSString */ = {
 			isa = PBXGroup;
 			children = (
+				88566E192112AD6500B6C38D /* NSString+RTStyle.h */,
+				88566E1A2112AD6500B6C38D /* NSString+RTStyle.m */,
 				8871B88C20DB4B0000DAA5D6 /* NSString+MD5Addition.h */,
 				8871B88B20DB4B0000DAA5D6 /* NSString+MD5Addition.m */,
 			);
@@ -950,6 +1041,110 @@
 				88535E7C2109ACE900997B32 /* LoginReq.m */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		88566E062112A88900B6C38D /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				88566E082112A8A200B6C38D /* NSObject+AddKeyValueToObject.h */,
+				88566E092112A8A200B6C38D /* NSObject+AddKeyValueToObject.m */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		88566E0C2112A8E000B6C38D /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				88566E0F2112A8FB00B6C38D /* UIImage+Alpha.h */,
+				88566E132112A8FB00B6C38D /* UIImage+Alpha.m */,
+				88566E0D2112A8FA00B6C38D /* UIImage+Resize.h */,
+				88566E122112A8FB00B6C38D /* UIImage+Resize.m */,
+				88566E112112A8FB00B6C38D /* UIImage+RoundedCorner.h */,
+				88566E102112A8FB00B6C38D /* UIImage+RoundedCorner.m */,
+				88566E0E2112A8FB00B6C38D /* UIImage+RTStyle.h */,
+				88566E142112A8FB00B6C38D /* UIImage+RTStyle.m */,
+				88566E1D2112AEF900B6C38D /* AgentImageBaseModel.h */,
+				88566E1C2112AEF800B6C38D /* AgentImageBaseModel.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		88566E1F2112C2ED00B6C38D /* TYUploadImageSubView */ = {
+			isa = PBXGroup;
+			children = (
+				88566E212112C31E00B6C38D /* TYUploadImageView.h */,
+				88566E202112C31E00B6C38D /* TYUploadImageView.m */,
+			);
+			path = TYUploadImageSubView;
+			sourceTree = "<group>";
+		};
+		88566E232112C32C00B6C38D /* TZImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				88566E542112C4B800B6C38D /* TYimagePickerModel */,
+				88566E282112C35200B6C38D /* NSBundle+TZImagePicker.h */,
+				88566E3D2112C35300B6C38D /* NSBundle+TZImagePicker.m */,
+				88566E372112C35300B6C38D /* TZAssetCell.h */,
+				88566E412112C35400B6C38D /* TZAssetCell.m */,
+				88566E332112C35300B6C38D /* TZAssetModel.h */,
+				88566E2F2112C35200B6C38D /* TZAssetModel.m */,
+				88566E292112C35200B6C38D /* TZGifPhotoPreviewController.h */,
+				88566E342112C35300B6C38D /* TZGifPhotoPreviewController.m */,
+				88566E3B2112C35300B6C38D /* TZImageCropManager.h */,
+				88566E2E2112C35200B6C38D /* TZImageCropManager.m */,
+				88566E352112C35300B6C38D /* TZImageManager.h */,
+				88566E3E2112C35400B6C38D /* TZImageManager.m */,
+				88566E2A2112C35200B6C38D /* TZImagePickerController.bundle */,
+				88566E262112C35200B6C38D /* TZImagePickerController.h */,
+				88566E3A2112C35300B6C38D /* TZImagePickerController.m */,
+				88566E382112C35300B6C38D /* TZPhotoPickerController.h */,
+				88566E252112C35100B6C38D /* TZPhotoPickerController.m */,
+				88566E272112C35200B6C38D /* TZPhotoPreviewCell.h */,
+				88566E242112C35100B6C38D /* TZPhotoPreviewCell.m */,
+				88566E402112C35400B6C38D /* TZPhotoPreviewController.h */,
+				88566E322112C35200B6C38D /* TZPhotoPreviewController.m */,
+				88566E302112C35200B6C38D /* TZProgressView.h */,
+				88566E3C2112C35300B6C38D /* TZProgressView.m */,
+				88566E392112C35300B6C38D /* TZTestCell.h */,
+				88566E362112C35300B6C38D /* TZTestCell.m */,
+				88566E312112C35200B6C38D /* TZVideoPlayerController.h */,
+				88566E2C2112C35200B6C38D /* TZVideoPlayerController.m */,
+				88566E2D2112C35200B6C38D /* UIView+Layout.h */,
+				88566E3F2112C35400B6C38D /* UIView+Layout.m */,
+			);
+			path = TZImagePickerController;
+			sourceTree = "<group>";
+		};
+		88566E542112C4B800B6C38D /* TYimagePickerModel */ = {
+			isa = PBXGroup;
+			children = (
+				88566E5B2112C51F00B6C38D /* TYImageAssetModel.h */,
+				88566E5C2112C51F00B6C38D /* TYImageAssetModel.m */,
+				88566E5D2112C51F00B6C38D /* TYimageModel.h */,
+				88566E5E2112C51F00B6C38D /* TYimageModel.m */,
+			);
+			name = TYimagePickerModel;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		88566E612112C77000B6C38D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88566E632112C78A00B6C38D /* UIViewController+Loading.h */,
+				88566E622112C78A00B6C38D /* UIViewController+Loading.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		88566E652112CFCF00B6C38D /* UploadImage */ = {
+			isa = PBXGroup;
+			children = (
+				88566E692112D09800B6C38D /* UploadImageTool.h */,
+				88566E6A2112D09900B6C38D /* UploadImageTool.m */,
+				88566E662112CFEE00B6C38D /* QiniuUploadHelper.h */,
+				88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */,
+			);
+			path = UploadImage;
 			sourceTree = "<group>";
 		};
 		8857032020FF5A82002BCDC9 /* AreaPicker */ = {
@@ -1257,6 +1452,8 @@
 				88636D1220E217B2006CE5D8 /* MineInformationController.m */,
 				88484D8D20EB81FA00400D16 /* AboutViewController.h */,
 				88484D8E20EB81FA00400D16 /* AboutViewController.m */,
+				88566DFD2112954600B6C38D /* AccountBindController.h */,
+				88566DFE2112954600B6C38D /* AccountBindController.m */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -1416,6 +1613,9 @@
 		8871B86720DB454800DAA5D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				88566E612112C77000B6C38D /* ViewController */,
+				88566E0C2112A8E000B6C38D /* UIImage */,
+				88566E062112A88900B6C38D /* NSObject */,
 				88535E7321098D8400997B32 /* NSString */,
 				8866206521005DA200C7923D /* Date */,
 				8871B88E20DB4B2A00DAA5D6 /* UDIDWrapper.h */,
@@ -1567,6 +1767,9 @@
 		887B412920D38B8D00D51233 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				88566E652112CFCF00B6C38D /* UploadImage */,
+				88566E232112C32C00B6C38D /* TZImagePickerController */,
+				88566E1F2112C2ED00B6C38D /* TYUploadImageSubView */,
 				8871B89E20DB6FDB00DAA5D6 /* secrch */,
 				8860DA6420DA1D69009E53B0 /* IconFont */,
 			);
@@ -1966,6 +2169,8 @@
 			children = (
 				88D9285321107A680001B2E3 /* SettingPassWordController.h */,
 				88D9285421107A680001B2E3 /* SettingPassWordController.m */,
+				88566E002112994600B6C38D /* ChangePasswordController.h */,
+				88566E012112994600B6C38D /* ChangePasswordController.m */,
 				88D9285121107A440001B2E3 /* ResetPassSecondController.h */,
 				88D9285021107A440001B2E3 /* ResetPassSecondController.m */,
 				88D9284D21107A070001B2E3 /* ResetPassFirstController.h */,
@@ -2092,6 +2297,7 @@
 				8860DA6C20DA1DAD009E53B0 /* icomoon.svg in Resources */,
 				88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */,
 				88D8936320D25C42007E3C41 /* Assets.xcassets in Resources */,
+				88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */,
 				8871B8B020DB702700DAA5D6 /* PYSearch.bundle in Resources */,
 				88D8936120D25C41007E3C41 /* Main.storyboard in Resources */,
 			);
@@ -2170,6 +2376,7 @@
 				8871B8C620DBB29200DAA5D6 /* JFCityViewController.m in Sources */,
 				8857EA8620E35B6A00D7E167 /* WaitDeliverController.m in Sources */,
 				8857EA8920E35B7D00D7E167 /* WaitReceiveController.m in Sources */,
+				88566E4F2112C35400B6C38D /* TZImageManager.m in Sources */,
 				8871B8CD20DBB29200DAA5D6 /* JFCityCollectionViewCell.m in Sources */,
 				8871B8AD20DB702700DAA5D6 /* UIView+PYSearchExtension.m in Sources */,
 				88D9281821102E000001B2E3 /* ZYProGressView.m in Sources */,
@@ -2192,9 +2399,11 @@
 				88797FA320F34E570044A527 /* ImageModel.m in Sources */,
 				888AC7F620FC856B00587F88 /* PresaleBuyView.m in Sources */,
 				8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */,
+				88566DFF2112954600B6C38D /* AccountBindController.m in Sources */,
 				8857EA7720E3597500D7E167 /* WaitPaymentCell.m in Sources */,
 				88636D0920E1FD73006CE5D8 /* BaseTableViewCell.m in Sources */,
 				886A9ECC20ECBAAF000503D2 /* ChooseServiceTypeController.m in Sources */,
+				88566E512112C35400B6C38D /* TZAssetCell.m in Sources */,
 				886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */,
 				888E719520E0CAA300BFBAFF /* UIScrollView+VTMagic.m in Sources */,
 				886427AA20F70096006A160E /* ChangeAddressReq.m in Sources */,
@@ -2208,6 +2417,7 @@
 				88590B7920E4D79400F51BC5 /* DetailSortController.m in Sources */,
 				888E719D20E0EC8E00BFBAFF /* ChooseAddressViewController.m in Sources */,
 				8871B86120DB441000DAA5D6 /* FilePathManager.m in Sources */,
+				88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
 				885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */,
 				886A9EC820EC9DE8000503D2 /* SureOrderTableViewCell.m in Sources */,
@@ -2220,6 +2430,7 @@
 				886A9ECF20ECBAC5000503D2 /* RefundViewController.m in Sources */,
 				88747E8220EDA812000BC993 /* UseCouponController.m in Sources */,
 				88484D8320EB546500400D16 /* TourDiyGooddetailCell.m in Sources */,
+				88566E4B2112C35400B6C38D /* TZTestCell.m in Sources */,
 				888E719320E0CAA300BFBAFF /* VTMagicView.m in Sources */,
 				8871B86020DB441000DAA5D6 /* DeviceModel.m in Sources */,
 				88636D0120E1C977006CE5D8 /* ZSPageViewController.m in Sources */,
@@ -2235,9 +2446,11 @@
 				8871B88D20DB4B0000DAA5D6 /* NSString+MD5Addition.m in Sources */,
 				888E71AC20E0F9B700BFBAFF /* MessageTableViewCell.m in Sources */,
 				88534C2F20E61B6500D6F43C /* GetCouponsCellView.m in Sources */,
+				88566E182112A8FB00B6C38D /* UIImage+RTStyle.m in Sources */,
 				888E71A820E0F96400BFBAFF /* MessageCenterController.m in Sources */,
 				8871B89720DB639C00DAA5D6 /* BaseApi.m in Sources */,
 				88534C1D20E5C76700D6F43C /* GoodHeadView.m in Sources */,
+				88566E472112C35400B6C38D /* TZImageCropManager.m in Sources */,
 				8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */,
 				88534C2020E5D2E900D6F43C /* EvaluateListHeadView.m in Sources */,
 				8871B8B320DB702700DAA5D6 /* PYSearchViewController.m in Sources */,
@@ -2250,11 +2463,14 @@
 				8866206821005DC500C7923D /* NSDate+Add.m in Sources */,
 				88535E7D2109ACE900997B32 /* LoginReq.m in Sources */,
 				8871B86D20DB472A00DAA5D6 /* UIViewController+Loading.m in Sources */,
+				88566E482112C35400B6C38D /* TZAssetModel.m in Sources */,
 				886427A720F6FB9A006A160E /* AddressBaeReq.m in Sources */,
+				88566E602112C52000B6C38D /* TYimageModel.m in Sources */,
 				8871B88220DB484100DAA5D6 /* NSString+CLTools.m in Sources */,
 				8868036B20F8C3C800BFC1BC /* GroupBannerModel.m in Sources */,
 				888E71A420E0F35800BFBAFF /* BottomView.m in Sources */,
 				8860DA5F20D9EF74009E53B0 /* SortCollectHeadView.m in Sources */,
+				88566E1E2112AEF900B6C38D /* AgentImageBaseModel.m in Sources */,
 				885F408620DCFCBA009F04D6 /* NavgationView.m in Sources */,
 				88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */,
 				888E719420E0CAA300BFBAFF /* UIColor+VTMagic.m in Sources */,
@@ -2270,9 +2486,13 @@
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
+				88566E022112994600B6C38D /* ChangePasswordController.m in Sources */,
+				88566E432112C35400B6C38D /* TZPhotoPickerController.m in Sources */,
 				88D8939720D26C2F007E3C41 /* PsfTabBarItem.m in Sources */,
+				88566E4E2112C35400B6C38D /* NSBundle+TZImagePicker.m in Sources */,
 				8850C0F52105B26B00BF8F88 /* OrderListRes.m in Sources */,
 				88D893A220D26DD6007E3C41 /* ShoppingCartController.m in Sources */,
+				88566E1B2112AD6600B6C38D /* NSString+RTStyle.m in Sources */,
 				88534C3920E6401600D6F43C /* FillOrderTableViewCell.m in Sources */,
 				8860DA5920D9EB97009E53B0 /* SortCollectionViewCell.m in Sources */,
 				8868036820F87AB000BFC1BC /* GroupModelReq.m in Sources */,
@@ -2283,15 +2503,19 @@
 				8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */,
 				884418AC21088F0D001FD73B /* IntegralRecord.m in Sources */,
 				88D92840211078E70001B2E3 /* LoginViewController.m in Sources */,
+				88566E462112C35400B6C38D /* TZVideoPlayerController.m in Sources */,
 				8871B8CB20DBB29200DAA5D6 /* JFCityTableViewCell.m in Sources */,
 				88484D8C20EB5D7D00400D16 /* GroupHeadView.m in Sources */,
 				88484D8020EB4E4400400D16 /* TourDiyGooddetailView.m in Sources */,
+				88566E4A2112C35400B6C38D /* TZGifPhotoPreviewController.m in Sources */,
 				88484D7420EB065D00400D16 /* RechargeHeadView.m in Sources */,
 				8860DA5320D9DF66009E53B0 /* SortBtn.m in Sources */,
 				88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */,
 				888AC7F320FC854E00587F88 /* GroupBuyView.m in Sources */,
 				8871B8B220DB702700DAA5D6 /* NSBundle+PYSearchExtension.m in Sources */,
+				88566E222112C31E00B6C38D /* TYUploadImageView.m in Sources */,
 				88600BF820D8D16E0098CF10 /* ZJSegmentStyle.m in Sources */,
+				88566E422112C35400B6C38D /* TZPhotoPreviewCell.m in Sources */,
 				8868036520F85D9400BFC1BC /* GroupListRes.m in Sources */,
 				88484D8620EB5BDA00400D16 /* DetailGroupController.m in Sources */,
 				88D8939B20D26D3D007E3C41 /* BaseViewController.m in Sources */,
@@ -2299,6 +2523,7 @@
 				88534C2920E609BD00D6F43C /* GoodCollectionViewCell.m in Sources */,
 				88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */,
 				8857EA7020E3410E00D7E167 /* BaseOrdersController.m in Sources */,
+				88566E152112A8FB00B6C38D /* UIImage+RoundedCorner.m in Sources */,
 				886A9EDB20ECDEF4000503D2 /* LogisticsTableViewCell.m in Sources */,
 				88636D1020E21185006CE5D8 /* SettingViewController.m in Sources */,
 				884400E620F5AB05001F85EA /* ProductSkuModel.m in Sources */,
@@ -2311,6 +2536,7 @@
 				8871B86620DB44BB00DAA5D6 /* DSBaseModel.m in Sources */,
 				88534C2620E5FAD500D6F43C /* GoodFootView.m in Sources */,
 				88636D2720E24C1C006CE5D8 /* EvaluateTableViewCell.m in Sources */,
+				88566E0B2112A8A200B6C38D /* NSObject+AddKeyValueToObject.m in Sources */,
 				8871B86A20DB456F00DAA5D6 /* UIDevice+IdentifierAddition.m in Sources */,
 				88590B7F20E4DFB600F51BC5 /* MyCouponHeadView.m in Sources */,
 				88590B6F20E4702500F51BC5 /* OrderDetailFootView.m in Sources */,
@@ -2324,6 +2550,7 @@
 				8871B84820DB419A00DAA5D6 /* NSURLRequest+TYAFNetworking.m in Sources */,
 				88600BF920D8D16E0098CF10 /* ZJTitleView.m in Sources */,
 				8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */,
+				88566E6B2112D09900B6C38D /* UploadImageTool.m in Sources */,
 				8868035820F83B8100BFC1BC /* CouponListRes.m in Sources */,
 				88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */,
 				8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */,
@@ -2333,6 +2560,7 @@
 				88636D2320E24A72006CE5D8 /* EvaluateViewController.m in Sources */,
 				88534C2320E5F5DA00D6F43C /* RatingView.m in Sources */,
 				8852A22820EF1100002C2D12 /* NextReceiveDateView.m in Sources */,
+				88566E642112C78A00B6C38D /* UIViewController+Loading.m in Sources */,
 				88590B7220E4705D00F51BC5 /* OrderDetailHeadView.m in Sources */,
 				888D66DB20EA34FE0007D471 /* MineWalletViewController.m in Sources */,
 				8871B8CE20DBB29200DAA5D6 /* JFButton.m in Sources */,
@@ -2344,12 +2572,16 @@
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
 				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
+				88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
+				88566E4C2112C35400B6C38D /* TZImagePickerController.m in Sources */,
 				88600BD120D890B80098CF10 /* ZSDotView.m in Sources */,
 				8871B83A20DB40B700DAA5D6 /* ZSURLResponse.m in Sources */,
 				88D9284F21107A070001B2E3 /* ResetPassFirstController.m in Sources */,
 				8871B8AF20DB702700DAA5D6 /* UIColor+PYSearchExtension.m in Sources */,
 				8871B8AE20DB702700DAA5D6 /* PYSearchSuggestionViewController.m in Sources */,
+				88566E492112C35400B6C38D /* TZPhotoPreviewController.m in Sources */,
+				88566E4D2112C35400B6C38D /* TZProgressView.m in Sources */,
 				88747E8F20EE34D0000BC993 /* GoodBottomView.m in Sources */,
 				8871B8D220DBB33400DAA5D6 /* JFLocation.m in Sources */,
 				88D9281F211030A20001B2E3 /* PresaleController.m in Sources */,
@@ -2371,6 +2603,7 @@
 				88D8939420D26AE0007E3C41 /* PsfTabBarController.m in Sources */,
 				8871B89020DB4B2A00DAA5D6 /* UDIDWrapper.m in Sources */,
 				88D8936920D25C42007E3C41 /* main.m in Sources */,
+				88566E682112CFEE00B6C38D /* QiniuUploadHelper.m in Sources */,
 				886A9ED520ECD5F7000503D2 /* DetailMessageCell.m in Sources */,
 				8857EA8C20E35B9100D7E167 /* WaitEvaluateController.m in Sources */,
 				88A2B43820F731A5007F338A /* ZHMapAroundInfoViewController.m in Sources */,
@@ -2385,10 +2618,12 @@
 				8871B84920DB419A00DAA5D6 /* NSArray+TYAFNetworking.m in Sources */,
 				8860DA7B20DA562A009E53B0 /* MineTypeBtn.m in Sources */,
 				88636D0520E1E2AD006CE5D8 /* ChooseAddressTableViewCell.m in Sources */,
+				88566E502112C35400B6C38D /* UIView+Layout.m in Sources */,
 				88636D1720E21958006CE5D8 /* HeadimageTableViewCell.m in Sources */,
 				8866206B2100892D00C7923D /* MineServiceApi.m in Sources */,
 				888D66D020E9C7EA0007D471 /* NextSelectorView.m in Sources */,
 				8866206F210096AD00C7923D /* MineInformationReq.m in Sources */,
+				88566E162112A8FB00B6C38D /* UIImage+Resize.m in Sources */,
 				88600BCF20D890B80098CF10 /* ZSCycleScrollView.m in Sources */,
 				88D8935B20D25C41007E3C41 /* AppDelegate.m in Sources */,
 				88635DE720FDE8610012AE77 /* TuiJianView.m in Sources */,

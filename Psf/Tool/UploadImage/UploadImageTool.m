@@ -70,7 +70,7 @@
     self.mapRequestList [requestNumber] = opt;
     
     BOOL isHttps = TRUE;
-    QNZone * httpsZone = [[QNAutoZone alloc] initWithHttps:isHttps dns:nil];
+    QNZone * httpsZone = [[QNAutoZone alloc] initWithDns:nil];
     QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
         builder.zone = httpsZone;
     }];
@@ -196,24 +196,38 @@
 }
 
 //获取七牛的token
-- (void)getQiniuUploadToken:(void (^)(NSDictionary *))success failure:(void (^)())failure {
+- (void)getQiniuUploadWithImages:(UIImage *)imageArray Token:(void (^)(NSDictionary *))success failure:(void (^)())failure {
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    
+    NSInteger requestID = arc4random() % 99999;
+    NSMutableArray *fileArr = [NSMutableArray array];
+//    for (UIImage *image in imageArray) {
+        NSData *data = UIImageJPEGRepresentation(imageArray, 1.0);
+        if (!data) {
+            if (failure) {
+                failure();
+            }
+        }
+    NSString *dataStr = [data base64EncodedStringWithOptions:0];
+    NSString * fileName = [NSString stringWithFormat:@"data:image/jpg;base64,%@",dataStr];
+        [fileArr addObject:fileName];
+//    }
     
     //网络请求七牛token
-    NSString *url = @"/upload/get-token";
-    [[DSAPIProxy shareProxy] callGETWithUrl:url Params:@{@"token":[UserCacheBean share].userInfo.token} isShowLoading:NO successCallBack:^(DSURLResponse *response) {
+    NSString *url = @"/file/file/mobile/app/v1/qiniu/image/base64/upload";
+    NSDictionary *dic = @{@"token":[UserCacheBean share].userInfo.token,@"appId":@"993335466657415169",@"base64String":fileName,@"timestamp":@"0",@"platform":@"ios"};
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
-            if ([dicResponse[@"code"] integerValue] == 0) {
-                NSMutableDictionary * mutDic = [NSMutableDictionary dictionary];
-                [mutDic addEntriesFromDictionary:response.content[@"result"]];
-                [[NSUserDefaults standardUserDefaults] setObject:mutDic forKey:UPLOADIMAGETOKENDIC];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                success(mutDic);
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                success(dicResponse);
             }
         } else {
             failure();
         }
-    } faildCallBack:^(DSURLResponse *response) {
+    } faildCallBack:^(ZSURLResponse *response) {
         failure();
     }];
 }

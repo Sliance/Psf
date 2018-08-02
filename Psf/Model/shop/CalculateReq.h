@@ -37,5 +37,5 @@
 @property(nonatomic,assign)NSInteger productId;
 ///购买数量
 @property(nonatomic,assign)NSInteger saleOrderProductQty;
-
+@property(nonatomic,assign)NSInteger productSkuId ;
 @end

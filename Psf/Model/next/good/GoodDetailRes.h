@@ -31,7 +31,7 @@
 ///商品信息
 @property(nonatomic,copy)NSString *productContent;
 ///团购编号
-@property(nonatomic,copy)NSNumber *grouponId;
+@property(nonatomic,assign)NSInteger grouponId;
 ///团购数量
 @property(nonatomic,assign)NSInteger saleOrderProductQty;
 ///商品产地
@@ -43,7 +43,7 @@
 ///满减名称
 @property(nonatomic,copy)NSString *rewardName;
 ///商品规格编号
-@property(nonatomic,copy)NSNumber *productSkuId;
+@property(nonatomic,assign)NSInteger productSkuId;
 ///满减生效时间
 @property(nonatomic,copy)NSString *rewardValidTime;
 ///团购价格

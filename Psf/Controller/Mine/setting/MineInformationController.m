@@ -10,12 +10,14 @@
 #import "HeadimageTableViewCell.h"
 #import "BottomView.h"
 #import "MineServiceApi.h"
-
-@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource>
+#import "UploadImageTool.h"
+#import "UIImage+Resize.h"
+@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
 @property(nonatomic,strong)BottomView *bottomView;
 @property(nonatomic,strong)MineInformationReq *result;
+@property(nonatomic,strong)NSString *headerIconUrl;
 @end
 
 @implementation MineInformationController
@@ -136,8 +138,63 @@
     }
     return cell;
 }
+#pragma mark - HTTPRequest
+- (NSInteger)sendImageRequest:(UIImage *)image
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[UploadImageTool share] getQiniuUploadWithImages:image Token:^(NSDictionary *uploadDic) {
+       
+    } failure:^{
+        [self showToast:@"头像上传失败"];
+    }];
+   
+    return 0;
+}
+//手机拍照
+-(void)takePhotoWithTag
+{
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.allowsEditing = NO;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+// 获取图库
+-(void)localPhotoWithTag
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.allowsEditing = NO;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.row == 0) {
+        UIActionSheet *leftAction = [[UIActionSheet alloc] initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄照片", @"选择手机中的照片", nil];
+        leftAction.tag = 101;
+        [leftAction showInView:self.view];
+    }
+}
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex  {
+    if (buttonIndex == 0) {
+        [self takePhotoWithTag];
+    }  else if(buttonIndex == 1) {
+        [self localPhotoWithTag];
+    }
+}
+
+//处理图片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationMedium];
+    //
+    [self sendImageRequest:image];
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 -(void)pressSubmit{
     MineInformationReq *req = [[MineInformationReq alloc]init];
