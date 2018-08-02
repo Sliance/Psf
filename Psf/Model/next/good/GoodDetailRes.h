@@ -63,7 +63,7 @@
 ///预售到货时间
 @property(nonatomic,copy)NSString *preSaleDeliveryTime;
 ///预售编号
-@property(nonatomic,copy)NSNumber *preSaleId;
+@property(nonatomic,assign)NSInteger preSaleId;
 ///团购过期时间
 @property(nonatomic,copy)NSString *grouponExpireTime;
 ///团购活动失效小时

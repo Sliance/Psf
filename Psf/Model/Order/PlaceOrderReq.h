@@ -93,4 +93,6 @@
 @property(nonatomic,copy)NSString *couponId;
 ///
 @property(nonatomic, assign)NSInteger productSkuId;
+
+@property(nonatomic, assign)NSInteger preSaleId;
 @end

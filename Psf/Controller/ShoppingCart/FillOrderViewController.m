@@ -402,6 +402,8 @@
         [self placeGroupOrder:req];
     }else if (_goodstype ==GOOGSTYPEPresale){
         req.saleOrderType = @"presale";
+        req.preSaleId = self.gooddetail.preSaleId;
+        req.productList = self.dataArr;
         [self placePresaleOrder:req];
     }
 }
