@@ -25,6 +25,14 @@
     _dataArr = [NSMutableArray array];
     
 }
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setNavWithTitle:@"全部拼团"];
+        
+    }
+    return self;
+}
+
 -(void)setProductID:(NSInteger)productID{
     _productID = productID;
     [self requestGroup];
@@ -50,10 +58,11 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 5, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight] -5) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 5, SCREENWIDTH, SCREENHEIGHT-5) style:UITableViewStylePlain];
+        _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.scrollEnabled = NO;
+        _tableview.tableFooterView = [[UIView alloc]init];
     }
     return _tableview;
 }

@@ -45,7 +45,7 @@
 -(UIButton *)allBtn{
     if (!_allBtn) {
         _allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _allBtn.frame = CGRectMake(SCREENWIDTH-100, 50, 85, 30);
+        _allBtn.frame = CGRectMake(SCREENWIDTH-80, 50, 65, 30);
         [_allBtn setTitle:@"查看全部>" forState:UIControlStateNormal];
         _allBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_allBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
