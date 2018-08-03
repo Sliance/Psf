@@ -9,5 +9,6 @@
 #import "BaseViewController.h"
 
 @interface SpellGroupListController : BaseViewController
+@property(nonatomic,assign)NSInteger productID;
 
 @end

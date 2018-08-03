@@ -13,7 +13,9 @@
 @property(nonatomic,strong)UILabel *headLabel;
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,copy)void (^pressGoBlock)(NSInteger);
-
+@property(nonatomic,copy)void (^pressAllBlock)(NSInteger);
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)UIButton *allBtn;
+@property(nonatomic,strong)UILabel *allLabel;
 
 @end

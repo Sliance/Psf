@@ -28,6 +28,7 @@
 #import "PresaleBuyView.h"
 
 #import "FillOrderViewController.h"
+#import "SpellGroupListController.h"
 
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
@@ -200,6 +201,11 @@
     [self.bgscrollow addSubview:self.webView];
     
    __weak typeof(self) _weakSelf = self;
+    [self.tourDiyView setPressAllBlock:^(NSInteger index) {
+        SpellGroupListController *spellVC = [[SpellGroupListController alloc]init];
+        [spellVC setProductID:_weakSelf.productID];
+        [_weakSelf.navigationController pushViewController:spellVC animated:YES];
+    }];
     [self.evaView setSkipBlock:^(NSInteger index) {
         EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
         [evaVC setProductId:_weakSelf.productID];
@@ -493,9 +499,9 @@
             _tourHeight = 0;
         }else{
             if (self.groupArr.count<4) {
-                _tourHeight = 45+self.groupArr.count*71;
+                _tourHeight = 80+self.groupArr.count*71;
             }else{
-                _tourHeight = 45+3*71;
+                _tourHeight = 80+3*71;
             }
             [self.tourDiyView setDataArr:self.groupArr];
         }
