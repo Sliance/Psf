@@ -1,34 +1,26 @@
 //
-//  TourDiyGooddetailView.m
+//  SpellGroupListController.m
 //  Psf
 //
-//  Created by 燕来秋mac9 on 2018/7/3.
+//  Created by 燕来秋mac9 on 2018/8/3.
 //  Copyright © 2018年 zhangshu. All rights reserved.
 //
 
-#import "TourDiyGooddetailView.h"
+#import "SpellGroupListController.h"
 #import "TourDiyGooddetailCell.h"
 
-@implementation TourDiyGooddetailView
--(instancetype)init{
-    self = [super init];
-    if (self) {
-       
-        [self addSubview:self.tableview];
-        self.tableview.tableHeaderView = self.headLabel;
-    }
-    return self;
-}
--(UILabel *)headLabel{
-    if (!_headLabel) {
-        _headLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 45)];
-        _headLabel.backgroundColor = DSColorFromHex(0xFFEDC5);
-        _headLabel.textColor = DSColorFromHex(0xF9AD34);
-        _headLabel.font = [UIFont systemFontOfSize:12];
-        
-        
-    }
-    return _headLabel;
+@interface SpellGroupListController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)NSMutableArray *dataArr;
+
+@end
+
+@implementation SpellGroupListController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view addSubview:self.tableview];
 }
 -(UITableView *)tableview{
     if (!_tableview) {
@@ -69,7 +61,19 @@
     cell.goBtn.tag = indexPath.row;
     return cell;
 }
--(void)pressAddBtn:(UIButton*)sender{
-    self.pressGoBlock(sender.tag);
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
 @end

@@ -9,12 +9,9 @@
 #import "ZYProGressView.h"
 
 @interface ZYProGressView()
-{
-    UIView *viewTop;
-    UIView *viewBottom;
-    
-}
 
+@property(nonatomic,strong)UIView *viewTop;
+@property(nonatomic,strong)UIView *viewBottom;
 @end
 @implementation ZYProGressView
 
@@ -30,31 +27,42 @@
     }
     return self;
 }
-
+-(UIView *)viewBottom{
+    if (!_viewBottom) {
+        _viewBottom = [[UIView alloc]initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height/4, self.bounds.size.width, self.bounds.size.height/2)];
+        _viewBottom.backgroundColor = [UIColor grayColor];
+        _viewBottom.layer.cornerRadius = 3;
+        _viewBottom.layer.masksToBounds = YES;
+    }
+    return _viewBottom;
+}
+-(UIView *)viewTop{
+    if (!_viewTop) {
+        _viewTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, self.viewBottom.frame.size.height)];
+        _viewTop.backgroundColor = [UIColor redColor];
+        _viewTop.layer.cornerRadius = 3;
+        _viewTop.layer.masksToBounds = YES;
+    }
+    return _viewTop;
+}
+-(UILabel *)percentView{
+    if (!_percentView) {
+        _percentView =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 45, 18)];
+        _percentView.backgroundColor = [UIColor redColor];
+        _percentView.layer.cornerRadius = 9;
+        _percentView.textAlignment = NSTextAlignmentCenter;
+        _percentView.textColor = [UIColor whiteColor];
+        _percentView.font = [UIFont systemFontOfSize:12];
+        _percentView.layer.masksToBounds = YES;
+    }
+    return _percentView;
+}
 - (void)buildUI
 {
     
-    viewBottom = [[UIView alloc]initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height/4, self.bounds.size.width, self.bounds.size.height/2)];
-    viewBottom.backgroundColor = [UIColor grayColor];
-    viewBottom.layer.cornerRadius = 3;
-    viewBottom.layer.masksToBounds = YES;
-    [self addSubview:viewBottom];
-    
-    
-    viewTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, viewBottom.frame.size.height)];
-    viewTop.backgroundColor = [UIColor redColor];
-    viewTop.layer.cornerRadius = 3;
-    viewTop.layer.masksToBounds = YES;
-    [viewBottom addSubview:viewTop];
-    
-    _percentView =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, self.bounds.size.height+4)];
-    _percentView.backgroundColor = [UIColor redColor];
-    _percentView.layer.cornerRadius = 9;
-    _percentView.textAlignment = NSTextAlignmentCenter;
-    _percentView.textColor = [UIColor whiteColor];
-    _percentView.font = [UIFont systemFontOfSize:12];
-    _percentView.layer.masksToBounds = YES;
-    [self addSubview:_percentView];
+    [self addSubview:self.viewBottom];
+    [self.viewBottom addSubview:self.viewTop];
+    [self addSubview:self.percentView];
 }
 
 
@@ -71,13 +79,13 @@
     self.percentView.text = [NSString stringWithFormat:@"%.0f%%",progressValue.floatValue*100];
     __weak typeof(self)weakself = self;
     [UIView animateWithDuration:_time animations:^{
-        viewTop.frame = CGRectMake(viewTop.frame.origin.x,0, viewBottom.frame.size.width*[progressValue floatValue], viewTop.frame.size.height);
+        self.viewTop.frame = CGRectMake(self.viewTop.frame.origin.x,0, self.viewBottom.frame.size.width*[progressValue floatValue], self.viewTop.frame.size.height);
         if ([progressValue floatValue]>1) {
-            weakself.percentView.frame = CGRectMake(viewBottom.frame.size.width-45,  0, 45, weakself.bounds.size.height+4);
-        }else if(viewBottom.frame.size.width*[progressValue floatValue]<45){
-          weakself.percentView.frame = CGRectMake(0,0, 45, weakself.bounds.size.height+4);
+            weakself.percentView.frame = CGRectMake(self.viewBottom.frame.size.width-45,  0, 45, 18);
+        }else if(self.viewBottom.frame.size.width*[progressValue floatValue]<45){
+          weakself.percentView.frame = CGRectMake(0,0, 45, 18);
         }else{
-            weakself.percentView.frame = CGRectMake(viewBottom.frame.size.width*[progressValue floatValue]-45,  0, 45, weakself.bounds.size.height+4);
+            weakself.percentView.frame = CGRectMake(self.viewBottom.frame.size.width*[progressValue floatValue]-45,  0, 45, 18);
         }
     }];
 }
@@ -86,13 +94,13 @@
 -(void)setBottomColor:(UIColor *)bottomColor
 {
     _bottomColor = bottomColor;
-    viewBottom.backgroundColor = bottomColor;
+    self.viewBottom.backgroundColor = bottomColor;
 }
 
 -(void)setProgressColor:(UIColor *)progressColor
 {
     _progressColor = progressColor;
-    viewTop.backgroundColor = progressColor;
+    self.viewTop.backgroundColor = progressColor;
     _percentView.backgroundColor = progressColor;
 }
 

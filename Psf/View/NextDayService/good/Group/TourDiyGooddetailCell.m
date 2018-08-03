@@ -63,7 +63,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"mei_icon"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setCornerRadius:20];
         [_headImage.layer setMasksToBounds:YES];
     }
@@ -72,7 +72,7 @@
 -(UILabel *)groupName{
     if (!_groupName) {
         _groupName = [[UILabel alloc]init];
-        _groupName.text = @"x***yo的团";
+       
         _groupName.font = [UIFont systemFontOfSize:12];
         _groupName.textColor = DSColorFromHex(0x464646);
     }
@@ -81,7 +81,7 @@
 -(UILabel *)shortlabel{
     if (!_shortlabel) {
         _shortlabel = [[UILabel alloc]init];
-        _shortlabel.text = @"还差1人成团";
+        
         _shortlabel.textAlignment = NSTextAlignmentRight;
         _shortlabel.font = [UIFont systemFontOfSize:12];
         _shortlabel.textColor = DSColorFromHex(0x646464);
@@ -91,7 +91,6 @@
 -(UILabel *)dateLabel{
     if (!_dateLabel) {
         _dateLabel = [[UILabel alloc]init];
-        _dateLabel.text = @"还剩05:17:53";
         _dateLabel.textAlignment = NSTextAlignmentRight;
         _dateLabel.font = [UIFont systemFontOfSize:12];
         _dateLabel.textColor = DSColorFromHex(0xB4B4B4);
@@ -111,5 +110,23 @@
     }
     return _goBtn;
 }
+-(void)setModel:(SpellGroupModel *)model{
+    _model = model;
+  
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]];
+     _groupName.text = [NSString stringWithFormat:@"%@的团",model.memberNickName];
+    NSUInteger chacount = model.grouponActivityMemberLimit -model.grouponActivityMemberCount;
+    _shortlabel.text = [NSString stringWithFormat:@"还差%ld人成团",chacount];
 
+   NSString *date = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponActivityExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    self.dateLabel.text = [NSString stringWithFormat:@"还剩 %@",date];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    
+    [timer setFireDate:[NSDate distantPast]];
+}
+-(void)timerAction{
+    NSString *date = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponActivityExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    self.dateLabel.text = [NSString stringWithFormat:@"还剩 %@",date];
+}
 @end

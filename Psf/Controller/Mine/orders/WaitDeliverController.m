@@ -10,7 +10,7 @@
 #import "OrderDetailViewController.h"
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
-
+#import "DetailGroupController.h"
 @interface WaitDeliverController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -209,6 +209,11 @@
     }];
     [cell setDeleteBlock:^(OrderListRes * model) {//删除订单
         [weakself deleteOrder:model.saleOrderId];
+    }];
+    [cell setGroupBlock:^(OrderListRes *model) {//团购详情
+        DetailGroupController *detailVC = [[DetailGroupController alloc]init];
+        [detailVC setOrderid:model.saleOrderId];
+        [weakself.navigationController pushViewController:detailVC animated:YES];
     }];
     return cell;
     

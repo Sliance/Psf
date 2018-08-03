@@ -209,7 +209,7 @@
         _weakSelf.couponView.hidden = NO;
     }];
     [self.tourDiyView setPressGoBlock:^(NSInteger index) {
-        DetailGroupController *detailVC = [[DetailGroupController alloc]init];
+        FillOrderViewController *detailVC = [[FillOrderViewController alloc]init];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
    
@@ -492,7 +492,12 @@
         if (self.groupArr.count ==0) {
             _tourHeight = 0;
         }else{
-            _tourHeight = 50;
+            if (self.groupArr.count<4) {
+                _tourHeight = 45+self.groupArr.count*71;
+            }else{
+                _tourHeight = 45+3*71;
+            }
+            [self.tourDiyView setDataArr:self.groupArr];
         }
          [self.view addSubview:self.groupBView];
         [self.groupBView setModel:self.result];
@@ -539,6 +544,7 @@
     self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, _tourHeight);
     self.couponCell.frame = CGRectMake(0, self.tourDiyView.ctBottom, SCREENWIDTH, _couponHeight);
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
+    
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
     

@@ -12,12 +12,16 @@
 #import "MineServiceApi.h"
 #import "UploadImageTool.h"
 #import "UIImage+Resize.h"
-@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate>
+#import "SexPickerTool.h"
+#import "DatePickerTool.h"
+
+@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
 @property(nonatomic,strong)BottomView *bottomView;
 @property(nonatomic,strong)MineInformationReq *result;
-@property(nonatomic,strong)NSString *headerIconUrl;
+@property(nonatomic,strong)NSMutableArray *imageArr;
+
 @end
 
 @implementation MineInformationController
@@ -53,6 +57,7 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.bottomView];
     _dataArr = @[@"头像",@"昵称",@"性别",@"生日"];
+    _imageArr = [NSMutableArray array];
     [self requestData];
 }
 -(void)requestData{
@@ -124,12 +129,20 @@
             break;
         case 2:
         {
-          cell.detailTextLabel.text = self.result.memberGender;
+            if (self.result.memberGender.length==0) {
+                cell.detailTextLabel.text =@"未选择";
+            }else{
+               cell.detailTextLabel.text = self.result.memberGender;
+            }
         }
             break;
         case 3:
         {
-            cell.detailTextLabel.text = self.result.memberBirthday;
+            if (self.result.memberBirthday.length ==0) {
+                cell.detailTextLabel.text =@"未填写";
+            }else{
+               cell.detailTextLabel.text = self.result.memberBirthday;
+            }
         }
             break;
             
@@ -141,10 +154,25 @@
 #pragma mark - HTTPRequest
 - (NSInteger)sendImageRequest:(UIImage *)image
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[UploadImageTool share] getQiniuUploadWithImages:image Token:^(NSDictionary *uploadDic) {
-       
+    [_imageArr removeAllObjects];
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    NSString *dataStr = [data base64EncodedStringWithOptions:0];
+    NSString * fileName = [NSString stringWithFormat:@"data:image/jpg;base64,%@",dataStr];
+    [_imageArr addObject:fileName];
+   
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    __weak typeof(self)weakself = self;
+    [[UploadImageTool share] getQiniuUploadWithImages:self.imageArr Token:^(NSArray *uploadDic) {
+        if (uploadDic) {
+            
+            ImageModel *model = [uploadDic firstObject];
+            weakself.result.memberAvatarPath = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.fileOriginalPath];
+            weakself.result.memberAvatarId = model.fileId;
+            [weakself.tableview reloadData];
+        }
+        [hud setHidden:YES];
     } failure:^{
+        [hud setHidden:YES];
         [self showToast:@"头像上传失败"];
     }];
    
@@ -171,10 +199,38 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    __weak typeof(self)weakself = self;
     if (indexPath.row == 0) {
         UIActionSheet *leftAction = [[UIActionSheet alloc] initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄照片", @"选择手机中的照片", nil];
         leftAction.tag = 101;
         [leftAction showInView:self.view];
+    }else if (indexPath.row ==2){
+        SexPickerTool *sexPick = [[SexPickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
+        __block SexPickerTool *blockPicker = sexPick;
+        sexPick.callBlock = ^(NSString *pickDate) {
+            
+            if (pickDate) {
+                weakself.result.memberGender = pickDate;
+                [weakself.tableview reloadData];
+            }
+            
+            [blockPicker removeFromSuperview];
+        };
+        [self.view addSubview:sexPick];
+    }else if (indexPath.row ==3){
+        DatePickerTool *datePicker = [[DatePickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
+        __block DatePickerTool *blockPick = datePicker;
+        datePicker.callBlock = ^(NSString *pickDate) {
+            
+            if (pickDate) {
+                weakself.result.memberBirthday = pickDate;
+                [weakself.tableview reloadData];
+            }
+            
+            [blockPick removeFromSuperview];
+        };
+        
+        [self.view addSubview:datePicker];
     }
 }
 #pragma mark - UIActionSheetDelegate
@@ -197,9 +253,14 @@
     }];
 }
 -(void)pressSubmit{
-    MineInformationReq *req = [[MineInformationReq alloc]init];
-    [[MineServiceApi share]updateMemberInformationWithParam:req response:^(id response) {
-        
+    self.result.appId = @"993335466657415169";
+    self.result.timestamp = @"529675086";
+    self.result.token = [UserCacheBean share].userInfo.token;
+    self.result.platform = @"ios";
+    [[MineServiceApi share]updateMemberInformationWithParam:self.result response:^(id response) {
+        if (response) {
+            [self showToast:response[@"message"]];
+        }
     }];
 }
 - (void)didReceiveMemoryWarning {

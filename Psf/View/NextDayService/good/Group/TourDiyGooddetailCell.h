@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "SpellGroupModel.h"
 
 @interface TourDiyGooddetailCell : BaseTableViewCell
 @property(nonatomic,strong)UIImageView *headImage;
@@ -14,4 +15,6 @@
 @property(nonatomic,strong)UILabel *shortlabel;
 @property(nonatomic,strong)UILabel *dateLabel;
 @property(nonatomic,strong)UIButton *goBtn;
+@property(nonatomic,strong)SpellGroupModel *model;
+
 @end

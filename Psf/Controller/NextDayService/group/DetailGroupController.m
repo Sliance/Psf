@@ -11,6 +11,8 @@
 #import "detailGoodsViewController.h"
 #import "GroupHeadView.h"
 #import "SureOrderViewController.h"
+#import "GroupServiceApi.h"
+
 @interface DetailGroupController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 
@@ -34,7 +36,22 @@ static NSString *cellId = @"cellId";
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
 }
-
+-(void)setOrderid:(NSString*)orderid{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderId = orderid;
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getDetailGroupWithParam:req response:^(id response) {
+        
+    }];
+}
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }

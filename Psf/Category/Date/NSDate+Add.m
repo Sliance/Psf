@@ -64,8 +64,12 @@
     // 对比时间差
     NSDateComponents *dateCom = [calendar components:unit fromDate:nowDate toDate:expireDate options:0];
 
-    NSString * timeStr = [NSString stringWithFormat:@"%ld天%02ld:%02ld:%02ld",dateCom.day,dateCom.hour,dateCom.minute,dateCom.second];
-    
+    NSString * timeStr;
+    if (dateCom.day==0) {
+         timeStr = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",dateCom.hour,dateCom.minute,dateCom.second];
+    }else{
+        timeStr = [NSString stringWithFormat:@"%ld天%02ld:%02ld:%02ld",dateCom.day,dateCom.hour,dateCom.minute,dateCom.second];
+    }
     if (dateCom.second<0) {
         timeStr = @"已截单";
     }

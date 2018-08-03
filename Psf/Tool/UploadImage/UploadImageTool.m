@@ -196,33 +196,17 @@
 }
 
 //获取七牛的token
-- (void)getQiniuUploadWithImages:(UIImage *)imageArray Token:(void (^)(NSDictionary *))success failure:(void (^)())failure {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+- (void)getQiniuUploadWithImages:(NSArray *)imageArray Token:(void (^)(NSArray *))success failure:(void (^)())failure {
+   
     
-    NSInteger requestID = arc4random() % 99999;
-    NSMutableArray *fileArr = [NSMutableArray array];
-//    for (UIImage *image in imageArray) {
-        NSData *data = UIImageJPEGRepresentation(imageArray, 1.0);
-        if (!data) {
-            if (failure) {
-                failure();
-            }
-        }
-    NSString *dataStr = [data base64EncodedStringWithOptions:0];
-    NSString * fileName = [NSString stringWithFormat:@"data:image/jpg;base64,%@",dataStr];
-        [fileArr addObject:fileName];
-//    }
-    
-    //网络请求七牛token
     NSString *url = @"/file/file/mobile/app/v1/qiniu/image/base64/upload";
-    NSDictionary *dic = @{@"token":[UserCacheBean share].userInfo.token,@"appId":@"993335466657415169",@"base64String":fileName,@"timestamp":@"0",@"platform":@"ios"};
+    NSDictionary *dic = @{@"token":[UserCacheBean share].userInfo.token,@"appId":@"993335466657415169",@"base64String":imageArray,@"timestamp":@"0",@"platform":@"ios"};
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                
-                success(dicResponse);
+                NSArray *result = [ImageModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                success(result);
             }
         } else {
             failure();

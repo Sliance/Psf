@@ -319,7 +319,9 @@
             break;
         case 1:
         {
-            
+            if ([_model.saleOrderType isEqualToString:@"groupon"]) {
+                self.groupBlock(_model);
+            }
         }
             break;
         case 2:
@@ -406,6 +408,8 @@
                 [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
                  [_payBtn setTitle:@"付款" forState:UIControlStateNormal];
+                
+                
                 _sendBtn.hidden = YES;
                 _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
                 
@@ -416,7 +420,12 @@
           _statusLabel.text = @"待发货";
             [self updatePayBtn];
             [_payBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
-            _sendBtn.hidden = YES;
+            if ([model.saleOrderType isEqualToString:@"groupon"]) {
+                _sendBtn.hidden = NO;
+                [_sendBtn setTitle:@"拼团详情" forState:UIControlStateNormal];
+            }else{
+                _sendBtn.hidden = YES;
+            }
             _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
         }
             break;

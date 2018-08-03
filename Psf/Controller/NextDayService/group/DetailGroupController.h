@@ -9,5 +9,6 @@
 #import "BaseViewController.h"
 
 @interface DetailGroupController : BaseViewController
+@property(nonatomic,strong)NSString* orderid;
 
 @end

@@ -10,7 +10,7 @@
 
 @interface MineInformationReq : NSObject
 ///会员头像ID
-@property(nonatomic,copy)NSString* memberAvatarId;
+@property(nonatomic,assign)NSInteger memberAvatarId;
 ///会员头像路径
 @property(nonatomic,copy)NSString*memberAvatarPath;
 ///会员生日

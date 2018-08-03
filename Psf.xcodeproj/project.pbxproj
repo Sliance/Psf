@@ -77,6 +77,12 @@
 		88566E642112C78A00B6C38D /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E622112C78A00B6C38D /* UIViewController+Loading.m */; };
 		88566E682112CFEE00B6C38D /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */; };
 		88566E6B2112D09900B6C38D /* UploadImageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E6A2112D09900B6C38D /* UploadImageTool.m */; };
+		88566E832114035600B6C38D /* SexPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E7E2114035600B6C38D /* SexPickerTool.m */; };
+		88566E842114035600B6C38D /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88566E7F2114035600B6C38D /* SexPickerTool.xib */; };
+		88566E852114035600B6C38D /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88566E802114035600B6C38D /* DatePickerTool.xib */; };
+		88566E862114035600B6C38D /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E812114035600B6C38D /* DatePickerTool.m */; };
+		88566E892114389A00B6C38D /* SpellGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E882114389A00B6C38D /* SpellGroupModel.m */; };
+		88566E8F211460C400B6C38D /* SpellGroupListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566E8E211460C400B6C38D /* SpellGroupListController.m */; };
 		8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */; };
 		8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857031E20FF4318002BCDC9 /* SubjectCategoryModel.m */; };
 		8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8857032120FF5ABD002BCDC9 /* areaArray.plist */; };
@@ -458,6 +464,16 @@
 		88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUploadHelper.m; sourceTree = "<group>"; };
 		88566E692112D09800B6C38D /* UploadImageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageTool.h; sourceTree = "<group>"; };
 		88566E6A2112D09900B6C38D /* UploadImageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageTool.m; sourceTree = "<group>"; };
+		88566E7D2114035600B6C38D /* SexPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexPickerTool.h; sourceTree = "<group>"; };
+		88566E7E2114035600B6C38D /* SexPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexPickerTool.m; sourceTree = "<group>"; };
+		88566E7F2114035600B6C38D /* SexPickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexPickerTool.xib; sourceTree = "<group>"; };
+		88566E802114035600B6C38D /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTool.xib; sourceTree = "<group>"; };
+		88566E812114035600B6C38D /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerTool.m; sourceTree = "<group>"; };
+		88566E822114035600B6C38D /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerTool.h; sourceTree = "<group>"; };
+		88566E872114389A00B6C38D /* SpellGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpellGroupModel.h; sourceTree = "<group>"; };
+		88566E882114389A00B6C38D /* SpellGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpellGroupModel.m; sourceTree = "<group>"; };
+		88566E8D211460C400B6C38D /* SpellGroupListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpellGroupListController.h; sourceTree = "<group>"; };
+		88566E8E211460C400B6C38D /* SpellGroupListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpellGroupListController.m; sourceTree = "<group>"; };
 		8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderServiceApi.h; sourceTree = "<group>"; };
 		8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderServiceApi.m; sourceTree = "<group>"; };
 		8857031D20FF4318002BCDC9 /* SubjectCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCategoryModel.h; sourceTree = "<group>"; };
@@ -1019,6 +1035,8 @@
 				88534C3220E63B9800D6F43C /* GroupViewController.m */,
 				88484D8420EB5BDA00400D16 /* DetailGroupController.h */,
 				88484D8520EB5BDA00400D16 /* DetailGroupController.m */,
+				88566E8D211460C400B6C38D /* SpellGroupListController.h */,
+				88566E8E211460C400B6C38D /* SpellGroupListController.m */,
 			);
 			path = group;
 			sourceTree = "<group>";
@@ -1145,6 +1163,19 @@
 				88566E672112CFEE00B6C38D /* QiniuUploadHelper.m */,
 			);
 			path = UploadImage;
+			sourceTree = "<group>";
+		};
+		88566E7C211402BD00B6C38D /* Pickerview */ = {
+			isa = PBXGroup;
+			children = (
+				88566E822114035600B6C38D /* DatePickerTool.h */,
+				88566E812114035600B6C38D /* DatePickerTool.m */,
+				88566E802114035600B6C38D /* DatePickerTool.xib */,
+				88566E7D2114035600B6C38D /* SexPickerTool.h */,
+				88566E7E2114035600B6C38D /* SexPickerTool.m */,
+				88566E7F2114035600B6C38D /* SexPickerTool.xib */,
+			);
+			path = Pickerview;
 			sourceTree = "<group>";
 		};
 		8857032020FF5A82002BCDC9 /* AreaPicker */ = {
@@ -1461,6 +1492,7 @@
 		88636D1420E2192C006CE5D8 /* setting */ = {
 			isa = PBXGroup;
 			children = (
+				88566E7C211402BD00B6C38D /* Pickerview */,
 				88636D1520E21958006CE5D8 /* HeadimageTableViewCell.h */,
 				88636D1620E21958006CE5D8 /* HeadimageTableViewCell.m */,
 			);
@@ -1537,6 +1569,8 @@
 				8868036720F87AB000BFC1BC /* GroupModelReq.m */,
 				8868036920F8C3C800BFC1BC /* GroupBannerModel.h */,
 				8868036A20F8C3C800BFC1BC /* GroupBannerModel.m */,
+				88566E872114389A00B6C38D /* SpellGroupModel.h */,
+				88566E882114389A00B6C38D /* SpellGroupModel.m */,
 			);
 			path = group;
 			sourceTree = "<group>";
@@ -2293,10 +2327,12 @@
 				88D8936620D25C42007E3C41 /* LaunchScreen.storyboard in Resources */,
 				8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */,
 				8860DA6A20DA1DAD009E53B0 /* icomoon.eot in Resources */,
+				88566E852114035600B6C38D /* DatePickerTool.xib in Resources */,
 				8860DA6D20DA1DAD009E53B0 /* icomoon.woff in Resources */,
 				8860DA6C20DA1DAD009E53B0 /* icomoon.svg in Resources */,
 				88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */,
 				88D8936320D25C42007E3C41 /* Assets.xcassets in Resources */,
+				88566E842114035600B6C38D /* SexPickerTool.xib in Resources */,
 				88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */,
 				8871B8B020DB702700DAA5D6 /* PYSearch.bundle in Resources */,
 				88D8936120D25C41007E3C41 /* Main.storyboard in Resources */,
@@ -2477,6 +2513,7 @@
 				888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */,
 				8871B88720DB489600DAA5D6 /* UserBaseInfoModel.m in Sources */,
 				888E717B20E0C49200BFBAFF /* DataManager.m in Sources */,
+				88566E832114035600B6C38D /* SexPickerTool.m in Sources */,
 				88600BDE20D893DF0098CF10 /* SortViewController.m in Sources */,
 				88534C2C20E614ED00D6F43C /* GetCouponsView.m in Sources */,
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
@@ -2500,6 +2537,7 @@
 				88600BD220D890B80098CF10 /* ZSScrollViewCell.m in Sources */,
 				88600BD920D890FF0098CF10 /* ZSScrollButton.m in Sources */,
 				8860DA5C20D9EF2F009E53B0 /* BaseView.m in Sources */,
+				88566E892114389A00B6C38D /* SpellGroupModel.m in Sources */,
 				8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */,
 				884418AC21088F0D001FD73B /* IntegralRecord.m in Sources */,
 				88D92840211078E70001B2E3 /* LoginViewController.m in Sources */,
@@ -2564,6 +2602,7 @@
 				88590B7220E4705D00F51BC5 /* OrderDetailHeadView.m in Sources */,
 				888D66DB20EA34FE0007D471 /* MineWalletViewController.m in Sources */,
 				8871B8CE20DBB29200DAA5D6 /* JFButton.m in Sources */,
+				88566E862114035600B6C38D /* DatePickerTool.m in Sources */,
 				888E719020E0CAA300BFBAFF /* VTMenuBar.m in Sources */,
 				88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */,
 				88600BDA20D890FF0098CF10 /* ZSSortSelectorView.m in Sources */,
@@ -2619,6 +2658,7 @@
 				8860DA7B20DA562A009E53B0 /* MineTypeBtn.m in Sources */,
 				88636D0520E1E2AD006CE5D8 /* ChooseAddressTableViewCell.m in Sources */,
 				88566E502112C35400B6C38D /* UIView+Layout.m in Sources */,
+				88566E8F211460C400B6C38D /* SpellGroupListController.m in Sources */,
 				88636D1720E21958006CE5D8 /* HeadimageTableViewCell.m in Sources */,
 				8866206B2100892D00C7923D /* MineServiceApi.m in Sources */,
 				888D66D020E9C7EA0007D471 /* NextSelectorView.m in Sources */,

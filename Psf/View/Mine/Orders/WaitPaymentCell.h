@@ -63,4 +63,6 @@ typedef NS_ENUM(NSInteger, ORDERSTYPE){
 @property(nonatomic,copy)void (^refundBlock)(OrderListRes*);
 //删除订单
 @property(nonatomic,copy)void (^deleteBlock)(OrderListRes*);
+//拼团详情
+@property(nonatomic,copy)void (^groupBlock)(OrderListRes*);
 @end

@@ -94,7 +94,7 @@
     __block NSMutableArray * imageMutArr = [[NSMutableArray alloc] initWithArray:imageArr];
     [self showLoadingwithtitle:@"" andActivity:YES];
     
-    [[UploadImageTool share] getQiniuUploadWithImages:imageArr Token:^(NSDictionary *uploadDic) {
+    [[UploadImageTool share] getQiniuUploadWithImages:imageArr Token:^(NSArray *uploadDic) {
         for (int index = 0; index < [imageMutArr count]; index ++ ) {
             AgentImageBaseModel *dicImage = imageMutArr[index];
             if ([self checkImagewithArr:imageMutArr]) {

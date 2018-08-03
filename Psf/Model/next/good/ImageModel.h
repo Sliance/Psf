@@ -13,4 +13,7 @@
 @property(nonatomic,copy)NSString* productImagePath;
 @property(nonatomic,copy)NSString* saleOrderProductCommentImagePath;
 @property(nonatomic,assign)NSInteger saleOrderProductCommentImageId;
+///上传图片返回
+@property(nonatomic,assign)NSInteger fileId;
+@property(nonatomic,copy)NSString* fileOriginalPath;
 @end

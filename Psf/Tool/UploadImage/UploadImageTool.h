@@ -10,6 +10,7 @@
 #import "QiniuSDK.h"
 #import <UIKit/UIKit.h>
 #import "BaseApi.h"
+#import "ImageModel.h"
 
 @interface UploadImageTool : BaseApi
 
@@ -23,7 +24,7 @@
 + (instancetype)share;
 
 // 获取七牛上传token
-- (void)getQiniuUploadWithImages:(UIImage *)imageArray Token:(void (^)(NSDictionary *))success failure:(void (^)())failure;
+- (void)getQiniuUploadWithImages:(NSArray *)imageArray Token:(void (^)(NSArray *))success failure:(void (^)())failure;
 
 /**
  上传图片 可以取消

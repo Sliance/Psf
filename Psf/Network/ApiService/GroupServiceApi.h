@@ -14,6 +14,7 @@
 #import "CalculateReq.h"
 #import "CalculateThePriceRes.h"
 #import "PlaceOrderReq.h"
+#import "SpellGroupModel.h"
 
 @interface GroupServiceApi : BaseApi
 + (instancetype)share;

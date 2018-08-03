@@ -52,7 +52,7 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                NSArray *result = [SpellGroupModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
                 if (responseModel) {
                     responseModel(result);
                 }
@@ -234,13 +234,13 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                //                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+               
                 if (responseModel) {
                     responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {

@@ -440,6 +440,8 @@
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"下单成功"];
                 [weakself.navigationController popViewControllerAnimated:YES];
+            }else{
+                [weakself showToast:response[@"message"]];
             }
         }
     }];
