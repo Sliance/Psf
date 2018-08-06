@@ -179,10 +179,12 @@
     req.appId = @"993335466657415169";
     req.platform = @"ios";
     req.smsCaptchaCode = _codeField.text;
+    req.memberMobile = _phoneField.text;
     __weak typeof(self)weakself = self;
     [[LoginServiceApi share]validVerCodeWithParam:req response:^(id response) {
         if ([response[@"code"] integerValue] == 200) {
             ResetPassSecondController *resetVC = [[ResetPassSecondController alloc]init];
+            [resetVC setMobile:weakself.phoneField.text];
             [self.navigationController pushViewController:resetVC animated:YES];
         }else{
             [weakself showToast:response[@"message"]];

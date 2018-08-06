@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *token;
 @property (nonatomic, strong) NSString *memberNickName;
 @property(nonatomic,strong)NSString *memberAvatarPath;
+@property(nonatomic,strong)NSString *memberMobile;
 
 
 - (NSDictionary *)getUserInfoDictionary;

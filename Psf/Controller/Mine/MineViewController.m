@@ -122,6 +122,7 @@
     [[MineServiceApi share]getMemberInformationWithParam:req response:^(id response) {
         if (response) {
             self.result = response;
+            [UserCacheBean share].userInfo.memberMobile = self.result.memberMobile;
             [weakself.headView setResult:self.result];
         }
     }];

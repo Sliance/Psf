@@ -34,7 +34,7 @@
         _headView.font = [UIFont systemFontOfSize:18];
         _headView.textColor = DSColorFromHex(0x474747);
         _headView.backgroundColor = [UIColor whiteColor];
-        _headView.text = @"   137****5312";
+        _headView.text = [NSString stringWithFormat:@"   %@",[UserCacheBean share].userInfo.memberMobile];
         UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(15, 64, SCREENWIDTH-15, 0.5)];
         line.backgroundColor = DSColorFromHex(0xF0F0F0);
         [_headView addSubview:line];

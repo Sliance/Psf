@@ -23,6 +23,7 @@
              @"token"   : @"token",
              @"memberNickName"    : @"memberNickName",
              @"memberAvatarPath" : @"memberAvatarPath"
+            , @"memberMobile" : @"memberMobile"
              };
 }
 
@@ -34,7 +35,7 @@
 
                           @"token" : self.token == nil?@"":self.token,
                           @"memberNickName" : self.memberNickName == nil?@"":self.memberNickName,@"memberAvatarPath" : self.memberAvatarPath == nil?@"":self.memberAvatarPath,
-
+                         @"memberMobile" : self.memberMobile == nil?@"":self.memberMobile,
                           };
     return dic;
 }
@@ -44,6 +45,7 @@
     self.token = dic[@"token"];
     self.memberNickName = dic[@"memberNickName"];
     self.memberAvatarPath = dic[@"memberAvatarPath"];
+    self.memberMobile = dic[@"memberMobile"];
 
 }
 
@@ -52,6 +54,7 @@
     self.token = dic[@"token"] ;
     self.memberNickName = dic[@"memberNickName"] ;
     self.memberAvatarPath = dic[@"memberAvatarPath"] ;
+    self.memberMobile = dic[@"memberMobile"];
 }
 
 @end

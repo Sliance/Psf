@@ -10,7 +10,8 @@
 #import "GroupCollectionViewCell.h"
 #import "detailGoodsViewController.h"
 #import "GroupHeadView.h"
-#import "SureOrderViewController.h"
+#import "FillOrderViewController.h"
+
 #import "GroupServiceApi.h"
 
 @interface DetailGroupController ()<UICollectionViewDelegate, UICollectionViewDataSource>
@@ -107,7 +108,7 @@ static NSString *cellId = @"cellId";
     GroupHeadView* validView = [[GroupHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 412)];
     __weak typeof(self)weakSelf = self;
     [validView setSubnitBtn:^(NSInteger index) {
-        SureOrderViewController *sureVC = [[SureOrderViewController alloc]init];
+        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
         [weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [headerView addSubview:validView];

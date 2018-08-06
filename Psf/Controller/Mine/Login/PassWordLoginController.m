@@ -185,7 +185,7 @@
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
             
-            [weakself.navigationController popViewControllerAnimated:YES];
+            [weakself dismissViewControllerAnimated:YES completion:nil];
             
         }
     }];

@@ -173,7 +173,6 @@
 		8868036520F85D9400BFC1BC /* GroupListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868036420F85D9400BFC1BC /* GroupListRes.m */; };
 		8868036820F87AB000BFC1BC /* GroupModelReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868036720F87AB000BFC1BC /* GroupModelReq.m */; };
 		8868036B20F8C3C800BFC1BC /* GroupBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868036A20F8C3C800BFC1BC /* GroupBannerModel.m */; };
-		886A9EC520EC9D6B000503D2 /* SureOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9EC420EC9D6B000503D2 /* SureOrderViewController.m */; };
 		886A9EC820EC9DE8000503D2 /* SureOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9EC720EC9DE8000503D2 /* SureOrderTableViewCell.m */; };
 		886A9ECC20ECBAAF000503D2 /* ChooseServiceTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9ECB20ECBAAF000503D2 /* ChooseServiceTypeController.m */; };
 		886A9ECF20ECBAC5000503D2 /* RefundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886A9ECE20ECBAC5000503D2 /* RefundViewController.m */; };
@@ -259,6 +258,7 @@
 		8881BF802118619300F6A0CD /* libUMSocialLog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8881BF7F2118619300F6A0CD /* libUMSocialLog.a */; };
 		8881BF832118619B00F6A0CD /* UShareUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8881BF812118619B00F6A0CD /* UShareUI.framework */; };
 		8881BF842118619B00F6A0CD /* UMSocialSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8881BF822118619B00F6A0CD /* UMSocialSDKResources.bundle */; };
+		8881BF8721186E3800F6A0CD /* InvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF8621186E3800F6A0CD /* InvoiceViewController.m */; };
 		88828D9321114D6200E366D6 /* LoginServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 88828D9221114D6200E366D6 /* LoginServiceApi.m */; };
 		888AC7E720FC43BD00587F88 /* GroupGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */; };
 		888AC7EA20FC43D800587F88 /* PresaleGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E920FC43D800587F88 /* PresaleGoodBottomView.m */; };
@@ -664,8 +664,6 @@
 		8868036720F87AB000BFC1BC /* GroupModelReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupModelReq.m; sourceTree = "<group>"; };
 		8868036920F8C3C800BFC1BC /* GroupBannerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupBannerModel.h; sourceTree = "<group>"; };
 		8868036A20F8C3C800BFC1BC /* GroupBannerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupBannerModel.m; sourceTree = "<group>"; };
-		886A9EC320EC9D6B000503D2 /* SureOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SureOrderViewController.h; sourceTree = "<group>"; };
-		886A9EC420EC9D6B000503D2 /* SureOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SureOrderViewController.m; sourceTree = "<group>"; };
 		886A9EC620EC9DE8000503D2 /* SureOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SureOrderTableViewCell.h; sourceTree = "<group>"; };
 		886A9EC720EC9DE8000503D2 /* SureOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SureOrderTableViewCell.m; sourceTree = "<group>"; };
 		886A9ECA20ECBAAF000503D2 /* ChooseServiceTypeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseServiceTypeController.h; sourceTree = "<group>"; };
@@ -827,6 +825,8 @@
 		8881BF7F2118619300F6A0CD /* libUMSocialLog.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocialLog.a; sourceTree = "<group>"; };
 		8881BF812118619B00F6A0CD /* UShareUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UShareUI.framework; sourceTree = "<group>"; };
 		8881BF822118619B00F6A0CD /* UMSocialSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResources.bundle; sourceTree = "<group>"; };
+		8881BF8521186E3800F6A0CD /* InvoiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceViewController.h; sourceTree = "<group>"; };
+		8881BF8621186E3800F6A0CD /* InvoiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceViewController.m; sourceTree = "<group>"; };
 		88828D9121114D6200E366D6 /* LoginServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginServiceApi.h; sourceTree = "<group>"; };
 		88828D9221114D6200E366D6 /* LoginServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginServiceApi.m; sourceTree = "<group>"; };
 		888AC7E520FC43BD00587F88 /* GroupGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupGoodBottomView.h; sourceTree = "<group>"; };
@@ -2289,8 +2289,8 @@
 				88D893A120D26DD6007E3C41 /* ShoppingCartController.m */,
 				88534C3420E63BD600D6F43C /* FillOrderViewController.h */,
 				88534C3520E63BD600D6F43C /* FillOrderViewController.m */,
-				886A9EC320EC9D6B000503D2 /* SureOrderViewController.h */,
-				886A9EC420EC9D6B000503D2 /* SureOrderViewController.m */,
+				8881BF8521186E3800F6A0CD /* InvoiceViewController.h */,
+				8881BF8621186E3800F6A0CD /* InvoiceViewController.m */,
 			);
 			path = ShoppingCart;
 			sourceTree = "<group>";
@@ -2660,7 +2660,6 @@
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
 				88484D7A20EB179B00400D16 /* PayTypeView.m in Sources */,
 				886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */,
-				886A9EC520EC9D6B000503D2 /* SureOrderViewController.m in Sources */,
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
@@ -2734,6 +2733,7 @@
 				88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */,
 				8857031F20FF4318002BCDC9 /* SubjectCategoryModel.m in Sources */,
 				8854A405210AD918002C1395 /* PlaceOrderReq.m in Sources */,
+				8881BF8721186E3800F6A0CD /* InvoiceViewController.m in Sources */,
 				885303D120F4BF89009807B2 /* CartProductModel.m in Sources */,
 				88600BCC20D890B80098CF10 /* ZSAnimatedDotView.m in Sources */,
 				88636D2320E24A72006CE5D8 /* EvaluateViewController.m in Sources */,

@@ -10,4 +10,5 @@
 ///重置密码第二步
 @interface ResetPassSecondController : BaseViewController
 
+@property(nonatomic,strong)NSString *mobile;
 @end

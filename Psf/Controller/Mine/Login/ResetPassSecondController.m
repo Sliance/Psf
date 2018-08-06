@@ -143,7 +143,9 @@
     
 }
 
-
+-(void)setMobile:(NSString *)mobile{
+    _mobile = mobile;
+}
 -(void)pressFinishBtn{
     if (_codeField.text != _phoneField.text) {
         [self showInfo:@"两次输入密码不一致"];
@@ -156,7 +158,7 @@
     req.appId = @"993335466657415169";
     req.platform = @"ios";
     req.memberPassword = _codeField.text;
-    req.memberMobile = _phoneField.text;
+    req.memberMobile = _mobile;
     __weak typeof(self)weakself = self;
     [[LoginServiceApi share]retrievePasswordWithParam:req response:^(id response) {
         if ([response[@"code"] integerValue] == 200) {
