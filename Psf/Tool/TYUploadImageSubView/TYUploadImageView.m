@@ -91,7 +91,7 @@
     _selectedAssets = [NSMutableArray array];
     [self configCollectionView];
     switch (self.uploadImageType) {
-        case 0: // 合同及其他资料
+        case UPLOADIMAGETYPECONTRACT: // 合同及其他资料
              placeholder_Image_Name = @"upload_image";
             break;
         case 1://动检证照片
@@ -115,7 +115,7 @@
     float liftSpacing = 0.0f;
     float width = 0.0f;
     UIColor * borderColor = [UIColor clearColor];
-    _itemWH = (self.tz_width - _margin * 5) / 5 - 25;
+    _itemWH = (self.tz_width - _margin * 5) / 4 - 15;
     if (self.maxImagesCount == 1) {
        layout.itemSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
         Spacing = 0.0f;
@@ -124,7 +124,7 @@
         borderColor = [UIColor whiteColor];
     }else{
         layout.itemSize = CGSizeMake(_itemWH, _itemWH);
-        layout.minimumInteritemSpacing = 25;
+        layout.minimumInteritemSpacing = 10;
         layout.minimumLineSpacing = 10;
         Spacing = 2.0f;
         liftSpacing = 10.0f;
@@ -453,13 +453,13 @@
     }
     NSInteger rowNumber ;
     if (arrayImage.count == _maxImagesCount) {
-        if (arrayImage.count % 5 == 0) {
-            rowNumber = arrayImage.count/5;
+        if (arrayImage.count % 4 == 0) {
+            rowNumber = arrayImage.count/4;
         }else{
-            rowNumber = arrayImage.count/5 + 1;
+            rowNumber = arrayImage.count/4 + 1;
         }
     }else{
-        rowNumber = arrayImage.count/5 + 1;
+        rowNumber = arrayImage.count/4 + 1;
     }
     [_collectionView reloadData];
 //    NSLog(@">>>>>>%f>>>>>%ld>>>>>>>>%f",_itemWH,(long)rowNumber,(_itemWH + 4) * rowNumber);

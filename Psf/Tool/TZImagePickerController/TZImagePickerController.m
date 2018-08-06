@@ -241,7 +241,7 @@
 
 - (void)configDefaultImageName {
     self.takePictureImageName = @"takePicture.png";
-    self.photoSelImageName = @"photo_sel_photoPickerVc.png";
+    self.photoSelImageName = @"shopping_selected.png";
     self.photoDefImageName = @"photo_def_photoPickerVc.png";
     self.photoNumberIconImageName = @"photo_number_icon.png";
     self.photoPreviewOriginDefImageName = @"preview_original_def.png";

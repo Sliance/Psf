@@ -7,6 +7,8 @@
 //
 
 #import "ResetPassSecondController.h"
+#import "LoginServiceApi.h"
+#import "PassWordLoginController.h"
 
 @interface ResetPassSecondController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -143,7 +145,30 @@
 
 
 -(void)pressFinishBtn{
-    
+    if (_codeField.text != _phoneField.text) {
+        [self showInfo:@"两次输入密码不一致"];
+        return;
+    }
+    LoginReq *req = [[LoginReq alloc]init];
+    req.token = @"";
+    req.timestamp = @"0";
+    req.version = @"1.0.0";
+    req.appId = @"993335466657415169";
+    req.platform = @"ios";
+    req.memberPassword = _codeField.text;
+    req.memberMobile = _phoneField.text;
+    __weak typeof(self)weakself = self;
+    [[LoginServiceApi share]retrievePasswordWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] == 200) {
+            for (UIViewController *viewcontroller in self.navigationController.viewControllers) {
+                if ([viewcontroller isKindOfClass:[PassWordLoginController class]]) {
+                    [self.navigationController popToViewController:viewcontroller animated:YES];
+                }
+            }
+        }else{
+            [weakself showToast:response[@"message"]];
+        }
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

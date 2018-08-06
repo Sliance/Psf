@@ -20,5 +20,5 @@
 @property (nonatomic, strong) NSData   * imageData; //本地缓存的图片原数据
 @property (nonatomic, strong) id asset;              // 图片的本地数据
 @property (nonatomic, strong) NSNumber * imageRequestId; // 网络请求的ID
-
+@property(nonatomic,strong)NSString *base64String;//base64
 @end

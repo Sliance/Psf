@@ -172,8 +172,23 @@
     }
 }
 -(void)pressNext{
-    ResetPassSecondController *resetVC = [[ResetPassSecondController alloc]init];
-    [self.navigationController pushViewController:resetVC animated:YES];
+    LoginReq *req = [[LoginReq alloc]init];
+    req.token = @"";
+    req.timestamp = @"0";
+    req.version = @"1.0.0";
+    req.appId = @"993335466657415169";
+    req.platform = @"ios";
+    req.smsCaptchaCode = _codeField.text;
+    __weak typeof(self)weakself = self;
+    [[LoginServiceApi share]validVerCodeWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] == 200) {
+            ResetPassSecondController *resetVC = [[ResetPassSecondController alloc]init];
+            [self.navigationController pushViewController:resetVC animated:YES];
+        }else{
+            [weakself showToast:response[@"message"]];
+        }
+    }];
+    
 }
 -(void)pressCode:(UIButton*)sender{
     [self sendCode];

@@ -8,6 +8,7 @@
 
 #import "PassWordLoginController.h"
 #import "ResetPassFirstController.h"
+#import "LoginServiceApi.h"
 
 @interface PassWordLoginController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -161,7 +162,33 @@
     [self.navigationController pushViewController:resetVC animated:YES];
 }
 -(void)pressFinishBtn:(UIButton*)sender{
-   
+    if (_phoneField.text.length<1) {
+        [self showInfo:@"请输入手机号"];
+        return;
+    }
+    if (_codeField.text.length<1) {
+        [self showInfo:@"请输入密码"];
+        return;
+    }
+    LoginReq *req = [[LoginReq alloc]init];
+    req.token = @"";
+    req.timestamp = @"0";
+    req.version = @"1.0.0";
+    req.appId = @"993335466657415169";
+    req.platform = @"ios";
+    req.memberPassword = _codeField.text;
+    req.memberMobile = _phoneField.text;
+    __weak typeof(self)weakself = self;
+    [[LoginServiceApi share]passWordLoginWithParam:req response:^(id response) {
+        if (response) {
+            NSError *error = nil;
+            UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
+            [UserCacheBean share].userInfo = userInfoModel;
+            
+            [weakself.navigationController popViewControllerAnimated:YES];
+            
+        }
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

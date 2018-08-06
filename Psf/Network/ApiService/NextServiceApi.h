@@ -13,6 +13,8 @@
 #import "EvaluateListRes.h"
 #import "SubjectCategoryModel.h"
 #import "SubjectModel.h"
+#import "FillEvaluateReq.h"
+
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
 ///商品分类列表,包含一二级分类
@@ -36,4 +38,8 @@
 - (void)SearchHintListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///搜索商品列表
 - (void)SearchDataListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///新增销售订单商品评论信息
+- (void)fillEvaluatetWithParam:(FillEvaluateReq *) req response:(responseModel) responseModel;
+
+
 @end

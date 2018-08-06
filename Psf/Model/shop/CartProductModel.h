@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface CartProductModel : NSObject
 ///
 @property(nonatomic,copy)NSString *appId;
@@ -56,4 +56,7 @@
 ///
 @property(nonatomic,copy)NSNumber* saleOrderProductId;
 
+@property(nonatomic,assign)CGFloat cellH;
+
+@property(nonatomic,assign)NSInteger index;
 @end

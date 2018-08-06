@@ -8,6 +8,7 @@
 
 #import "BaseView.h"
 #import "RatingView.h"
+#import "UIPlaceHolderTextView.h"
 @interface FillEvaluateHwadView : BaseView<FloatRatingViewDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UILabel *nameLabel;
@@ -17,4 +18,7 @@
 @property(nonatomic,strong)UILabel *pingLabel;
 @property(nonatomic,strong)UILabel *gradeLabel;
 @property(nonatomic,strong)RatingView *ratingView;
+@property(nonatomic,strong)UILabel *lineLabel;
+@property(nonatomic,strong)UIPlaceHolderTextView *contentTXT;
+
 @end

@@ -21,6 +21,9 @@
         [self addSubview:self.pingLabel];
         [self addSubview:self.ratingView];
         [self addSubview:self.gradeLabel];
+        [self addSubview:self.lineLabel];
+        [self addSubview:self.contentTXT];
+        
         [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.mas_equalTo(75);
             make.top.equalTo(self).offset(17);
@@ -52,6 +55,18 @@
         [self.gradeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headImage.mas_bottom).offset(17);
             make.left.equalTo(self.ratingView.mas_right).offset(10);
+        }];
+        [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(15);
+            make.right.equalTo(self);
+            make.bottom.equalTo(self).offset(-50);
+            make.height.mas_equalTo(0.5);
+        }];
+        [self.contentTXT mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self.pingLabel.mas_bottom).offset(20);
+            make.width.mas_equalTo(SCREENWIDTH-30);
+            make.height.mas_equalTo(92);
         }];
     }
     return self;
@@ -130,5 +145,22 @@
         _gradeLabel.text = @"满意";
     }
     return _gradeLabel;
+}
+-(UILabel *)lineLabel{
+    if (!_lineLabel) {
+        _lineLabel = [[UILabel alloc]init];
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
+    }
+    return _lineLabel;
+}
+-(UIPlaceHolderTextView *)contentTXT{
+    if (!_contentTXT) {
+        _contentTXT = [[UIPlaceHolderTextView alloc]init];
+        _contentTXT.placeholder = @"您对本商品还有什么建议，可以告诉我们哦";
+        _contentTXT.placeHolderLabel.font = [UIFont systemFontOfSize:15];
+        _contentTXT.placeholderColor = DSColorFromHex(0xDDDDDD);
+        _contentTXT.font =  [UIFont systemFontOfSize:15];
+    }
+    return _contentTXT;
 }
 @end

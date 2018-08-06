@@ -15,58 +15,47 @@
 #import "UIImageView+WebCache.h"
 #import "TZImageManager.h"
 #import "UploadImageTool.h"
+#import "FillEvaluateCell.h"
+#import "CartProductModel.h"
+#import "NextServiceApi.h"
 
+@interface FillEvaluateController ()<UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@interface FillEvaluateController ()<UIScrollViewDelegate>
-@property(nonatomic,strong)UIScrollView *bgscrollow;
-@property(nonatomic,strong)FillEvaluateHwadView *headView;
-@property (nonatomic, strong) TYUploadImageView * viewPhotoBgIDCard;
 @property(nonatomic,strong)NSMutableArray <AgentImageBaseModel*>*imageArr;
-@property (nonatomic, assign) BOOL upCancel;
-@property (nonatomic, assign) NSInteger requestid;
-@property (nonatomic, strong) NSOperationQueue *queue;
+@property(nonatomic,strong)NSMutableArray *imageurlArr;
+@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)UIButton *sumitBtn;
+@property(nonatomic,strong)UITableView *tableview;
 
 @end
 
 @implementation FillEvaluateController
 
--(TYUploadImageView *)viewPhotoBgIDCard{
-    if (_viewPhotoBgIDCard == nil) {
-        _viewPhotoBgIDCard = [[TYUploadImageView alloc] initWithFrame:CGRectMake(15, self.headView.ctBottom, 75, 75) withPlaceholderName:@"upload_image"];
-        _viewPhotoBgIDCard.superViewController = self;
-        [_viewPhotoBgIDCard returnimages:^(NSArray *images, NSArray *photoArr) {
-            [self.imageArr removeAllObjects];
-            for (int index = 0; index < images.count; index ++) {
-                TYImageAssetModel  * assetModel = [images objectAtIndex:index];
-                AgentImageBaseModel * agentModel = [[AgentImageBaseModel alloc] init];
-                if (assetModel.imageUrl) {
-                    agentModel.url = assetModel.imageUrl;
-                }else{
-                    agentModel.asset =assetModel.asset;
-                }
-                [self.imageArr addObject:agentModel];
-            }
-//            [self uploadImagewithImageArr:self.imageArr];
-        }];
+
+-(UIButton *)sumitBtn{
+    if (!_sumitBtn) {
+        _sumitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_sumitBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [_sumitBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_sumitBtn.layer setBorderWidth:0.5];
+        [_sumitBtn setTitleColor:DSColorFromHex(0x454545) forState:UIControlStateNormal];
+        _sumitBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_sumitBtn.layer setCornerRadius:2];
+        [_sumitBtn.layer setMasksToBounds:YES];
+        _sumitBtn.frame = CGRectMake(SCREENWIDTH-105, 6, 90, 34);
+        [_sumitBtn addTarget:self action:@selector(pressSubmit) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _viewPhotoBgIDCard;
+    return _sumitBtn;
 }
--(UIScrollView *)bgscrollow{
-    if (!_bgscrollow) {
-        _bgscrollow = [[UIScrollView alloc]init];
-        _bgscrollow.delegate = self;
-        _bgscrollow.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
-        _bgscrollow.backgroundColor = DSColorFromHex(0xF0F0F0);
+
+-(UITableView *)tableview{
+    if (!_tableview) {
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) style:UITableViewStylePlain];
+        _tableview.separatorColor = [UIColor clearColor];
+        _tableview.delegate = self;
+        _tableview.dataSource = self;
     }
-    return _bgscrollow;
-}
--(FillEvaluateHwadView *)headView{
-    if (!_headView) {
-        _headView = [[FillEvaluateHwadView alloc]initWithFrame:CGRectMake(0, 5, SCREENWIDTH, 260)];
-        
-    }
-    return _headView;
-    
+    return _tableview;
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -77,111 +66,45 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.bgscrollow];
-    [self.bgscrollow addSubview:self.headView];
-    [self.bgscrollow addSubview:self.viewPhotoBgIDCard];
-    [self.viewPhotoBgIDCard configViewWithData:self.imageArr];
+    self.imageArr = [NSMutableArray array];
+    self.imageurlArr = [NSMutableArray array];
+    [self.view addSubview:self.tableview];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 46)];
+    [headView addSubview:self.sumitBtn];
+    self.tableview.tableFooterView = headView;
     
 }
+
 -(void)setModel:(OrderListRes *)model{
     _model = model;
+    _dataArr = [NSMutableArray array];
+    [_dataArr addObjectsFromArray:model.saleOrderProductList];
+    [self.tableview reloadData];
 }
 -(void)uploadImagewithImageArr:(NSMutableArray <AgentImageBaseModel *>*) imageArr{
     if (imageArr.count <1) {
         return;
     }
-    _upCancel = NO;
-    __block NSMutableArray * imageMutArr = [[NSMutableArray alloc] initWithArray:imageArr];
-    [self showLoadingwithtitle:@"" andActivity:YES];
     
-    [[UploadImageTool share] getQiniuUploadWithImages:imageArr Token:^(NSArray *uploadDic) {
-        for (int index = 0; index < [imageMutArr count]; index ++ ) {
-            AgentImageBaseModel *dicImage = imageMutArr[index];
-            if ([self checkImagewithArr:imageMutArr]) {
-                [self hideLoadWithAnimated:YES];
-                return ;
-            }else{
-                if ([dicImage.url length] < 7 ) {
-                    [self preuploadImage:dicImage andIndex:index andImageArr:imageMutArr];
-                }
-            }
+    
+     NSMutableArray * imageMutArr = [NSMutableArray array];
+    for (AgentImageBaseModel *model in imageArr) {
+        if (model.base64String) {
+            [imageMutArr addObject:model.base64String];
         }
-        if ([imageMutArr count] == 0 ) {
-            dispatch_sync(dispatch_get_main_queue(), ^(){
-                [self hideLoadWithAnimated:YES];
-            });
-        }
+    }
+    [self showLoadingwithtitle:@"" andActivity:YES];
+    __weak typeof(self)weakself = self;
+    [[UploadImageTool share]getQiniuUploadWithImages:imageMutArr Token:^(NSArray *imageArr) {
+        [weakself.imageurlArr removeAllObjects];
+        [weakself.imageurlArr addObjectsFromArray:imageArr];
+                [weakself hideLoadWithAnimated:YES];
     } failure:^{
         
     }];
 }
 
-- (void)preuploadImage:(AgentImageBaseModel *)imageModel andIndex:(NSInteger) index andImageArr:(NSMutableArray *)mutArr{
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    dispatch_queue_t queue= dispatch_queue_create("test.queue", DISPATCH_QUEUE_CONCURRENT);
-    AgentImageBaseModel *dicImage = imageModel;
-    dispatch_sync(queue, ^{
-        NSInteger requestid = 0;
-        if (dicImage.asset != nil) {
-            requestid = [self sendImageRequest:dicImage.asset andIndex:index andImageArr:mutArr];
-            if (requestid == -1) {
-                return ;
-            }
-            dispatch_semaphore_signal(semaphore);
-        } else if (dicImage.url.length > 7){
-            requestid = [dicImage.id integerValue];
-            dispatch_semaphore_signal(semaphore);
-        }
-    });
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-}
-- (NSInteger)sendImageRequest:(PHAsset *)asset andIndex:(NSInteger)index andImageArr:(NSMutableArray *)mutArr
-{
-    if (_upCancel) {
-        return -1;
-    }
-    if ([asset isKindOfClass:[NSString class]]) {
-        return -1;
-    }
-    __block UIImage * image = [self readImagewithPHAsset:asset];
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        self.requestid = [[UploadImageTool share] uploadImage:image progress:^(NSString *key, float percent) {
-            NSLog(@">>>>>>>>>>>>>>>>>>>>>>%f",percent);
-        } cancleRequest:^BOOL{
-            return _upCancel;
-        } success:^(NSString *url,NSInteger requestID) {
-            image = nil;
-            AgentImageBaseModel *dicImage = mutArr[index];
-            dicImage.url = url;
-            [mutArr replaceObjectAtIndex:index withObject:dicImage];
-            
-            NSInteger isReqeustOver = 0;
-            for (NSInteger i = 0; i < mutArr.count; i ++) {
-                AgentImageBaseModel * imageModel = mutArr[i];
-                if (imageModel.url.length > 7) {
-                    isReqeustOver ++;
-                }
-            }
-            if (isReqeustOver == mutArr.count) {
-                [self hideLoadWithAnimated:YES];
-                if ([self checkImagewithArr:mutArr]) {
-                    return ;
-                }
-            }
-        } failure:^{
-            image = nil;
-            [self hideLoadWithAnimated:YES];
-            if (!_upCancel) {
-                [self showInfoDetail:@"有图片上传失败，点击下一步重新上传"];
-            }else{
-            }
-            return ;
-        }];
-    }];
-    [_queue addOperation:operation];
-    return self.requestid;
-}
+
 
 - (BOOL)checkImagewithArr:(NSArray *)imageArr {
     NSMutableArray * allImageMutArr = [[NSMutableArray alloc] init];
@@ -223,7 +146,44 @@
         return nil;
     }
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CartProductModel *model = self.dataArr[indexPath.row];
+    if (model.cellH>0) {
+        return model.cellH;
+    }
+    return 350;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.model.saleOrderProductList.count;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identify = @"FillEvaluateCell";
+    FillEvaluateCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (!cell) {
+        cell = [[FillEvaluateCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+    }
+    __weak typeof(self)weakself = self;
+    [cell setPhotoBlock:^(CartProductModel *model) {
+        [weakself.dataArr replaceObjectAtIndex:model.index withObject:model];
+        [weakself.tableview reloadData];
+    }];
+    CartProductModel *model = self.model.saleOrderProductList[indexPath.row];
+    model.index = indexPath.row;
+    [cell setModel:model];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.viewPhotoBgIDCard.superViewController = self;
+    return cell;
+}
 
+-(void)pressSubmit{
+    FillEvaluateReq *req = [[FillEvaluateReq alloc]init];
+    [[NextServiceApi share]fillEvaluatetWithParam:req response:^(id response) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

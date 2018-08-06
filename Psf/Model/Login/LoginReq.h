@@ -23,4 +23,6 @@
 @property(nonatomic,copy)NSString *smsCaptchaCode;
 ///手机号
 @property(nonatomic,copy)NSString *memberMobile;
+///密码
+@property(nonatomic,copy)NSString *memberPassword;
 @end
