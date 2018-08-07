@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "PlaceOrderReq.h"
 
 @interface InvoiceViewController : BaseViewController
-
+@property(nonatomic,copy)void(^submintBlock)(PlaceOrderReq *);
+@property(nonatomic,strong)PlaceOrderReq *placemodel;
 @end

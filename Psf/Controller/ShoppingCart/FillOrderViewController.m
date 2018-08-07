@@ -36,6 +36,7 @@
 @property(nonatomic,strong)CalculateThePriceRes* resModel;
 @property(nonatomic,strong)StoreRes *storemodel;
 @property(nonatomic,strong)ChangeAddressReq *leftModel;
+@property(nonatomic,strong)PlaceOrderReq *placemodel;
 
 @property(nonatomic,assign)NSInteger type;
 @end
@@ -644,6 +645,11 @@
         }
         if (indexPath.row ==2) {
             InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];
+            [invoiceVC setPlacemodel:self.placemodel];
+            __weak typeof(self)weakself = self;
+            [invoiceVC setSubmintBlock:^(PlaceOrderReq *model) {
+                weakself.placemodel = model;
+            }];
             [self.navigationController pushViewController:invoiceVC animated:YES];
         }
     }

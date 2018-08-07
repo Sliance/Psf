@@ -103,6 +103,7 @@
 		88590B7C20E4D84300F51BC5 /* BaseDetailSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B7B20E4D84300F51BC5 /* BaseDetailSortController.m */; };
 		88590B7F20E4DFB600F51BC5 /* MyCouponHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B7E20E4DFB600F51BC5 /* MyCouponHeadView.m */; };
 		88590B8220E4F26200F51BC5 /* EvaluateListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B8120E4F26200F51BC5 /* EvaluateListModel.m */; };
+		885B654F2119A84400BD9054 /* InvoiceRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 885B654E2119A84400BD9054 /* InvoiceRuleView.m */; };
 		885F406F20DC82EB009F04D6 /* detailGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F406E20DC82EB009F04D6 /* detailGoodsViewController.m */; };
 		885F407320DC940D009F04D6 /* ShoppingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F407220DC940D009F04D6 /* ShoppingCollectionViewCell.m */; };
 		885F407620DCCD0C009F04D6 /* ValidShopHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 885F407520DCCD0C009F04D6 /* ValidShopHeadView.m */; };
@@ -528,6 +529,8 @@
 		88590B7E20E4DFB600F51BC5 /* MyCouponHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponHeadView.m; sourceTree = "<group>"; };
 		88590B8020E4F26200F51BC5 /* EvaluateListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateListModel.h; sourceTree = "<group>"; };
 		88590B8120E4F26200F51BC5 /* EvaluateListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateListModel.m; sourceTree = "<group>"; };
+		885B654D2119A84400BD9054 /* InvoiceRuleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceRuleView.h; sourceTree = "<group>"; };
+		885B654E2119A84400BD9054 /* InvoiceRuleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceRuleView.m; sourceTree = "<group>"; };
 		885F406D20DC82EB009F04D6 /* detailGoodsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detailGoodsViewController.h; sourceTree = "<group>"; };
 		885F406E20DC82EB009F04D6 /* detailGoodsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = detailGoodsViewController.m; sourceTree = "<group>"; };
 		885F407120DC940D009F04D6 /* ShoppingCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1323,6 +1326,8 @@
 				885303C620F4B455009807B2 /* EmptyShoppingHeadView.m */,
 				886AC4082101D79000B6F32F /* PointAmountCell.h */,
 				886AC4092101D79000B6F32F /* PointAmountCell.m */,
+				885B654D2119A84400BD9054 /* InvoiceRuleView.h */,
+				885B654E2119A84400BD9054 /* InvoiceRuleView.m */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -2699,6 +2704,7 @@
 				88D8939B20D26D3D007E3C41 /* BaseViewController.m in Sources */,
 				88600BFA20D8D16E0098CF10 /* ZJCollectionView.m in Sources */,
 				88534C2920E609BD00D6F43C /* GoodCollectionViewCell.m in Sources */,
+				885B654F2119A84400BD9054 /* InvoiceRuleView.m in Sources */,
 				88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */,
 				8857EA7020E3410E00D7E167 /* BaseOrdersController.m in Sources */,
 				88566E152112A8FB00B6C38D /* UIImage+RoundedCorner.m in Sources */,

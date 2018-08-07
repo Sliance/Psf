@@ -7,6 +7,8 @@
 //
 
 #import "InvoiceViewController.h"
+#import "InvoiceRuleView.h"
+#import "BottomView.h"
 
 @interface InvoiceViewController ()<UIScrollViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong)UIScrollView *bgscrollow;
@@ -24,6 +26,8 @@
 @property(nonatomic,strong)UILabel *line1Label;
 @property(nonatomic,strong)UILabel *line2Label;
 @property(nonatomic,strong)UILabel *line3Label;
+@property(nonatomic,strong)InvoiceRuleView *ruleView;
+@property(nonatomic,strong)BottomView *bottomView;
 @end
 
 @implementation InvoiceViewController
@@ -35,6 +39,21 @@
         _bgscrollow.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return _bgscrollow;
+}
+-(InvoiceRuleView *)ruleView{
+    if (!_ruleView) {
+        _ruleView = [[InvoiceRuleView alloc]init];
+    }
+    return _ruleView;
+}
+-(BottomView *)bottomView{
+    if (!_bottomView) {
+        _bottomView = [[BottomView alloc]init];
+        _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
+        [_bottomView.bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_bottomView.bottomBtn addTarget:self action:@selector(pressBottom) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomView;
 }
 -(UIView *)bgview{
     if (!_bgview) {
@@ -76,7 +95,7 @@
         [_singeleBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
         [_singeleBtn.layer setBorderWidth:0.5];
         [_singeleBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-        _singeleBtn.frame = CGRectMake(100, 55, 40, 20);
+        _singeleBtn.frame = CGRectMake(100, 51, 60, 30);
         _singeleBtn.selected = YES;
         _singeleBtn.hidden = YES;
         _singeleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -94,7 +113,7 @@
         [_unitBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
         [_unitBtn.layer setBorderWidth:0.5];
         [_unitBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-        _unitBtn.frame = CGRectMake(155, 55, 40, 20);
+        _unitBtn.frame = CGRectMake(175, 51, 60, 30);
         _unitBtn.hidden = YES;
         _unitBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
@@ -133,7 +152,7 @@
     if (!_line1Label) {
         _line1Label = [[UILabel alloc]init];
         _line1Label.backgroundColor = DSColorFromHex(0xF0F0F0);
-        _line1Label.frame = CGRectMake(15, 44, SCREENWIDTH-15, 0.5);
+        _line1Label.frame = CGRectMake(15, 44, SCREENWIDTH-15, 1);
         _line1Label.hidden = YES;
     }
     return _line1Label;
@@ -142,7 +161,7 @@
     if (!_line2Label) {
         _line2Label = [[UILabel alloc]init];
         _line2Label.backgroundColor = DSColorFromHex(0xF0F0F0);
-        _line2Label.frame = CGRectMake(15, 88, SCREENWIDTH-15, 0.5);
+        _line2Label.frame = CGRectMake(15, 88, SCREENWIDTH-15, 1);
         _line2Label.hidden = YES;
     }
     return _line2Label;
@@ -151,7 +170,7 @@
     if (!_line3Label) {
         _line3Label = [[UILabel alloc]init];
         _line3Label.backgroundColor = DSColorFromHex(0xF0F0F0);
-        _line3Label.frame = CGRectMake(15, 88, SCREENWIDTH-15, 0.5);
+        _line3Label.frame = CGRectMake(15, 132, SCREENWIDTH-15, 1);
         _line3Label.hidden = YES;
     }
     return _line3Label;
@@ -178,6 +197,27 @@
     [self.bgview addSubview:self.line3Label];
     [self.bgview addSubview:self.line2Label];
     [self.bgview addSubview:self.line1Label];
+    [self.bgscrollow addSubview:self.ruleView];
+    [self reloadView];
+    [self.view addSubview:self.bottomView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
+//
+- (void)textFiledTextChange:(NSNotification *)noti{
+    if (_iskai==YES&&_type ==0){
+        _placemodel.saleOrderInvoiceUserName = _singleField.text;
+    }else if (_iskai==YES&&_type ==1){
+        _placemodel.saleOrderInvoiceCompanyName = _singleField.text;
+        _placemodel.saleOrderInvoiceCompanyTax = _taxpayersField.text;
+    }
+}
+
+-(void)setPlacemodel:(PlaceOrderReq *)placemodel{
+    _placemodel = placemodel;
 }
 -(void)reloadView{
     if (_iskai==YES&&_type ==0){
@@ -213,9 +253,11 @@
         self.line2Label.hidden = YES;
         self.line3Label.hidden = YES;
     }
+    self.ruleView.frame = CGRectMake(0, self.bgview.ctBottom, SCREENWIDTH, 200);
 }
 -(void)pressSwitch:(UISwitch*)sender{
     _iskai = !_iskai;
+    _placemodel.saleOrderIsInvoice = _iskai;
     [self reloadView];
 }
 
@@ -244,9 +286,14 @@
         _type = 1;
         
     }
+    _singleField.text = @"";
+    _placemodel.saleOrderInvoiceType = _type;
     [self reloadView];
 }
-
+-(void)pressBottom{
+    self.submintBlock(_placemodel);
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
