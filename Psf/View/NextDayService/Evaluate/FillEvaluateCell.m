@@ -263,12 +263,22 @@
             [imageMutArr addObject:model.base64String];
         }
     }
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    
     __weak typeof(self)weakself = self;
     [[UploadImageTool share]getQiniuUploadWithImages:imageMutArr Token:^(NSArray *imageArr) {
         [weakself.imageurlArr removeAllObjects];
-        [weakself.imageurlArr addObjectsFromArray:imageArr];
-        hud.hidden = YES;
+       
+        for (ImageModel *model in imageArr) {
+            if (model.fileId) {
+                ImageModel *imagemodel = [[ImageModel alloc]init];
+                imagemodel.saleOrderProductCommentImageId = model.fileId;
+                imagemodel.saleOrderProductCommentImagePath = model.fileOriginalPath;
+                [weakself.imageurlArr addObject:imagemodel];
+            }
+        }
+        weakself.evamodel.saleOrderProductCommentImageList = weakself.imageurlArr;
+        weakself.contentBlock(weakself.evamodel);
+       
     } failure:^{
         
     }];
@@ -286,5 +296,27 @@
     }else if (rating ==1){
         _gradeLabel.text = @"非常差";
     }
+    _evamodel.saleOrderProductCommentSatisfaction = rating ;
+    self.contentBlock(_evamodel);
 }
+
+-(void)setEvamodel:(EvaluateListModel *)evamodel{
+    _evamodel = evamodel;
+    _evamodel.productId = _model.productId;
+    _evamodel.productSkuId = _model.productSkuId;
+    _evamodel.saleOrderProductCommentSatisfaction = 5;
+    _evamodel.saleOrderProductId = _model.saleOrderProductId;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textviewChange:) name:UITextViewTextDidChangeNotification object:nil];
+}
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
+}
+-(void)textviewChange:(NSNotification *)noti{
+    _evamodel.saleOrderProductCommentContent = _contentTXT.text;
+    self.contentBlock(_evamodel);
+}
+
 @end

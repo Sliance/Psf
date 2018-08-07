@@ -21,6 +21,7 @@
 #import "CouponServiceApi.h"
 #import "GroupServiceApi.h"
 #import "DetailGroupController.h"
+#import "InvoiceViewController.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -640,6 +641,10 @@
         if (indexPath.row ==0) {
             UseCouponController *useVC = [[UseCouponController alloc]init];
             [self.navigationController pushViewController:useVC animated:YES];
+        }
+        if (indexPath.row ==2) {
+            InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];
+            [self.navigationController pushViewController:invoiceVC animated:YES];
         }
     }
 }

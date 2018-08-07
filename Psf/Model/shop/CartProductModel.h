@@ -28,7 +28,7 @@
 ///
 @property(nonatomic,assign)NSInteger productQuantity;
 ///
-@property(nonatomic,copy)NSString *productSkuId;
+@property(nonatomic,assign)NSInteger productSkuId;
 ///
 @property(nonatomic,copy)NSString *productSkuPrice;
 ///
@@ -54,7 +54,9 @@
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductQty;
 ///
-@property(nonatomic,copy)NSNumber* saleOrderProductId;
+@property(nonatomic,assign)NSInteger saleOrderProductId;
+///
+@property(nonatomic,assign)NSInteger saleOrderId;
 
 @property(nonatomic,assign)CGFloat cellH;
 

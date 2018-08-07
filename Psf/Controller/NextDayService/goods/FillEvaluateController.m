@@ -18,12 +18,13 @@
 #import "FillEvaluateCell.h"
 #import "CartProductModel.h"
 #import "NextServiceApi.h"
-
+#import "EvaluateListModel.h"
 @interface FillEvaluateController ()<UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray <AgentImageBaseModel*>*imageArr;
 @property(nonatomic,strong)NSMutableArray *imageurlArr;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *reqArr;
 @property(nonatomic,strong)UIButton *sumitBtn;
 @property(nonatomic,strong)UITableView *tableview;
 
@@ -78,7 +79,15 @@
 -(void)setModel:(OrderListRes *)model{
     _model = model;
     _dataArr = [NSMutableArray array];
+    _reqArr = [NSMutableArray array];
+    EvaluateListModel *evamodel = [[EvaluateListModel alloc]init];
     [_dataArr addObjectsFromArray:model.saleOrderProductList];
+    for (CartProductModel *models in _dataArr) {
+        if (models.productId) {
+            evamodel.saleOrderId = [_model.saleOrderId integerValue];
+            [_reqArr addObject:evamodel];
+        }
+    }
     [self.tableview reloadData];
 }
 -(void)uploadImagewithImageArr:(NSMutableArray <AgentImageBaseModel *>*) imageArr{
@@ -170,9 +179,15 @@
         [weakself.dataArr replaceObjectAtIndex:model.index withObject:model];
         [weakself.tableview reloadData];
     }];
+    [cell setContentBlock:^(EvaluateListModel *model) {
+        [weakself.reqArr replaceObjectAtIndex:model.index withObject:model];
+    }];
     CartProductModel *model = self.model.saleOrderProductList[indexPath.row];
     model.index = indexPath.row;
     [cell setModel:model];
+    EvaluateListModel *evamodel = self.reqArr[indexPath.row];
+    evamodel.index = indexPath.row;
+    [cell setEvamodel:evamodel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.viewPhotoBgIDCard.superViewController = self;
     return cell;
@@ -180,8 +195,16 @@
 
 -(void)pressSubmit{
     FillEvaluateReq *req = [[FillEvaluateReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.commentList = self.reqArr;
     [[NextServiceApi share]fillEvaluatetWithParam:req response:^(id response) {
-        
+        if ([response[@"code"] integerValue] ==200) {
+            [self showToast:@"评论成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
 }
 - (void)didReceiveMemoryWarning {

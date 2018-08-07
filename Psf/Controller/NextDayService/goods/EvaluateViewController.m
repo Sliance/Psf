@@ -100,7 +100,7 @@
     for (EvaluateListModel *model in self.evaRes.saleOrderProductCommentList) {
         if (model.saleOrderProductCommentImageList.count>0) {
             [self.imageDataArr addObject:model];
-        }else{
+        }else if(model.saleOrderProductCommentImageList.count==0&&model.saleOrderProductCommentContent.length>0&&![model.saleOrderProductCommentContent isEqualToString:@"此用户没有填写评价。"]){
             [self.contentDataArr addObject:model];
         }
         

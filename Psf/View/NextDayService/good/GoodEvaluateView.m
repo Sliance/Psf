@@ -163,7 +163,15 @@
     
     self.ratingView.frame = CGRectMake(self.nameLabel.ctRight+10, 20+self.lineLabel.ctBottom, 113, 16);
     self.contentsLabel.frame = CGRectMake(15, 69+self.lineLabel.ctBottom, SCREENWIDTH-60, [model.saleOrderProductCommentContent heightForFont:[UIFont systemFontOfSize:15] width:SCREENWIDTH-30]);
-    self.cardImgsView.frame = CGRectMake(0, self.contentsLabel.ctBottom+10, SCREENWIDTH, (model.saleOrderProductCommentImageList.count/3+1)*120);
+    NSInteger rowNumber;
+    
+    if (model.saleOrderProductCommentImageList.count % 3 == 0) {
+        rowNumber = model.saleOrderProductCommentImageList.count/3;
+    }else{
+        rowNumber = model.saleOrderProductCommentImageList.count/3 + 1;
+    }
+    
+    self.cardImgsView.frame = CGRectMake(0, self.contentsLabel.ctBottom+10, SCREENWIDTH, rowNumber*105+15);
     NSInteger  count = model.saleOrderProductCommentImageList.count;
     for (int i =0; i<count; i++) {
         ImageModel *imagemodel = model.saleOrderProductCommentImageList[i];
@@ -184,8 +192,15 @@
         height += height1 + 5;
     }
     
-
-     height += (model.saleOrderProductCommentImageList.count/3+1)*120-15;
+    NSInteger rowNumber;
+    
+    if (model.saleOrderProductCommentImageList.count % 3 == 0) {
+        rowNumber = model.saleOrderProductCommentImageList.count/3;
+    }else{
+        rowNumber = model.saleOrderProductCommentImageList.count/3 + 1;
+    }
+    
+     height += rowNumber*105+15;
     return height;
 }
 @end

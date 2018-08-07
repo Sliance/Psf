@@ -18,8 +18,9 @@
 #import "TZImageManager.h"
 #import "UploadImageTool.h"
 #import "CartProductModel.h"
+#import "EvaluateListModel.h"
 
-@interface FillEvaluateCell : UITableViewCell<FloatRatingViewDelegate,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface FillEvaluateCell : UITableViewCell<FloatRatingViewDelegate,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate>
 @property(nonatomic,strong)UIView *BGview;
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UILabel *nameLabel;
@@ -37,6 +38,6 @@
 @property (nonatomic, assign) BOOL upCancel;
 @property(nonatomic,copy)void(^photoBlock)(CartProductModel*);
 @property(nonatomic,strong)CartProductModel *model;
-
-
+@property(nonatomic,strong)EvaluateListModel *evamodel;
+@property(nonatomic,copy)void (^contentBlock)(EvaluateListModel*);
 @end

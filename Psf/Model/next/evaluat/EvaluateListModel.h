@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ImageModel.h"
-
+#import <UIKit/UIKit.h>
 @interface EvaluateListModel : NSObject
 ///
 @property(nonatomic,copy)NSString *memberAvatarPath;
@@ -22,16 +22,21 @@
 @property(nonatomic,assign)NSInteger productSkuId;
 ///
 @property(nonatomic,assign)NSInteger saleOrderId;
-///
+///评论内容
 @property(nonatomic,copy)NSString *saleOrderProductCommentContent;
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductCommentId;
 ///
 @property(nonatomic,strong)NSArray *saleOrderProductCommentImageList;
-///
-@property(nonatomic,assign)NSInteger saleOrderProductCommentSatisfaction;
+///满意度（1-5）
+@property(nonatomic,assign)CGFloat saleOrderProductCommentSatisfaction;
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductId;
 ///
 @property(nonatomic,copy)NSString* systemCreateTime;
+///是否匿名
+@property(nonatomic,assign)BOOL saleOrderProductCommentIsAnonymous ;
+@property(nonatomic,assign)NSInteger index;
+
+
 @end

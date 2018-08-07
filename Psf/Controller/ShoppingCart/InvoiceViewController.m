@@ -8,15 +8,34 @@
 
 #import "InvoiceViewController.h"
 
-@interface InvoiceViewController ()
+@interface InvoiceViewController ()<UIScrollViewDelegate>
+@property(nonatomic,strong)UIScrollView *bgscrollow;
+@property(nonatomic,strong)UIView *bgview;
+@property(nonatomic,assign)NSInteger type;
 
 @end
 
 @implementation InvoiceViewController
-
+-(UIScrollView *)bgscrollow{
+    if (!_bgscrollow) {
+        _bgscrollow = [[UIScrollView alloc]init];
+        _bgscrollow.delegate =self;
+        _bgscrollow.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+    }
+    return _bgscrollow;
+}
+-(UIView *)bgview{
+    if (!_bgview) {
+        _bgview = [[UIView alloc]init];
+        _bgview.frame = CGRectMake(0, 0, SCREENWIDTH, 132);
+    }
+    return _bgview;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.view addSubview:self.bgscrollow];
+    [self.bgscrollow addSubview:self.bgview];
+   
 }
 
 - (void)didReceiveMemoryWarning {
