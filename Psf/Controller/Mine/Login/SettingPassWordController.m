@@ -140,6 +140,13 @@
         make.centerX.equalTo(self.view);
     }];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
+    [tap addTarget:self action:@selector(pressTap)];
+    [self.view addGestureRecognizer:tap];
+}
+-(void)pressTap{
+    [_phoneField resignFirstResponder];
+    [_codeField resignFirstResponder];
 }
 
 -(void)pressNext{

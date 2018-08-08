@@ -29,7 +29,9 @@
 
 #import "FillOrderViewController.h"
 #import "SpellGroupListController.h"
-
+#import "NextDayServiceController.h"
+#import "SortViewController.h"
+#import "ShoppingCartController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -244,7 +246,20 @@
         
     }];
     [self.normalBView setShopBlock:^{
-        _weakSelf.tabBarController.selectedIndex = 2;
+        for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[ShoppingCartController class]]) {
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+            }else if ([controller isKindOfClass:[NextDayServiceController class]]){
+                _weakSelf.tabBarController.selectedIndex = 2;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }else if ([controller isKindOfClass:[SortViewController class]]){
+                _weakSelf.tabBarController.selectedIndex = 2;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }
+        }
+        
     }];
     [self.preBView setPressAddBlock:^{
         _weakSelf.presaleBuyView.hidden = NO;
@@ -578,7 +593,7 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.couponId = model.couponId;
+    req.couponId = [model.couponId integerValue];
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productCategoryParentId = @"";

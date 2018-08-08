@@ -45,7 +45,7 @@
 }
 -(TYUploadImageView *)viewPhotoBgIDCard{
     if (!_viewPhotoBgIDCard) {
-        _viewPhotoBgIDCard = [[TYUploadImageView alloc] initWithFrame:CGRectMake(0, 45, SCREENWIDTH, SCREENHEIGHT) withType:UPLOADIMAGETYPECONTRACT withMaxImagesCount:9];
+        _viewPhotoBgIDCard = [[TYUploadImageView alloc] initWithFrame:CGRectMake(0, 45, SCREENWIDTH, SCREENHEIGHT) withType:UPLOADIMAGETYPECONTRACT withMaxImagesCount:6];
         //        _viewPhotoBgIDCard.superViewController = self;
         __weak typeof(self)weakself = self;
         [_viewPhotoBgIDCard returnimages:^(NSArray *images, NSArray *photoArr){
