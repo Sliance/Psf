@@ -10,7 +10,7 @@
 
 @interface SexPickerTool ()<UIPickerViewDelegate,UIPickerViewDataSource>
 
-@property (nonatomic,strong)NSMutableArray *dataSource;
+
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
@@ -21,13 +21,7 @@
 
 @implementation SexPickerTool
 
-- (NSMutableArray *)dataSource
-{
-    if (_dataSource == nil) {
-        _dataSource = [NSMutableArray arrayWithObjects:@"男",@"女", nil];
-    }
-    return _dataSource;
-}
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -37,7 +31,11 @@
     self.frame = frame;
     return self;
 }
-
+-(void)setDataSource:(NSMutableArray *)dataSource{
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray arrayWithObjects:@"男",@"女", nil];
+    }
+}
 - (void)awakeFromNib
 {
     [super awakeFromNib];

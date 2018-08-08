@@ -39,6 +39,12 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
 }
+-(void)setCarmodel:(CartProductModel *)carmodel{
+    _carmodel = carmodel;
+}
+-(void)setModel:(OrderListRes *)model{
+    _model = model;
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
@@ -79,6 +85,7 @@
         }
         cell.priceLabel.hidden = YES;
         cell.countField.hidden = YES;
+        [cell setCarmodel:_carmodel];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -106,8 +113,10 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==1) {
+    if (indexPath.section ==1||indexPath.section ==2) {
         RefundViewController *refundVC = [[RefundViewController alloc]init];
+        [refundVC setType:indexPath.section-1];
+        [refundVC setCarmodel:_carmodel];
         [self.navigationController pushViewController:refundVC animated:YES];
     }
 }

@@ -96,6 +96,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.placemodel = [[PlaceOrderReq alloc]init];
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     [self.view addSubview:self.bottomView];
@@ -315,11 +316,21 @@
     req.usePointIs = self.calculateModel.usePointIs;
     req.saleOrderPointAmount = self.resModel.saleOrderPointAmount;
     req.saleOrderPayType = @"微信";
-    req.saleOrderIsInvoice = NO;
+    req.saleOrderIsInvoice = self.placemodel.saleOrderIsInvoice;
+    req.saleOrderInvoiceType = self.placemodel.saleOrderInvoiceType;
     req.saleOrderPlatform = @"ios";
-    req.saleOrderInvoiceUserName = @"";
-    req.saleOrderInvoiceCompanyName = @"";
-    req.saleOrderInvoiceCompanyTax = @"";
+    if (req.saleOrderInvoiceType==0&&req.saleOrderIsInvoice ==YES) {
+        req.saleOrderInvoiceUserName = self.placemodel.saleOrderInvoiceUserName;
+    }else{
+       req.saleOrderInvoiceUserName = @"";
+    }
+    if (req.saleOrderInvoiceType==1&&req.saleOrderIsInvoice ==YES) {
+        req.saleOrderInvoiceCompanyName = self.placemodel.saleOrderInvoiceCompanyName;
+        req.saleOrderInvoiceCompanyTax = self.placemodel.saleOrderInvoiceCompanyTax;
+    }else{
+       req.saleOrderInvoiceCompanyName = @"";
+       req.saleOrderInvoiceCompanyTax = @"";
+    }
     req.saleOrderInvoiceContent = @"";
     req.saleOrderInvoiceEmail = @"";
     if (self.type ==1) {
@@ -390,6 +401,7 @@
             }
         }
         req.productList = arr;
+        req.saleOrderType = @"normal";
         [self placeNormalOrder:req];
     }else if (_goodstype == GOOGSTYPESingle){
         req.saleOrderType = @"normal";
@@ -588,7 +600,16 @@
             cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
         }else if(indexPath.row ==2) {
             cell.textLabel.text = @"电子发票";
-            cell.detailTextLabel.text = @"不需要";
+            if (self.placemodel.saleOrderIsInvoice ==NO) {
+                 cell.detailTextLabel.text = @"不需要";
+            }else{
+                if (self.placemodel.saleOrderInvoiceType==0) {
+                    cell.detailTextLabel.text = @"个人";
+                }else if (self.placemodel.saleOrderInvoiceType==1){
+                    cell.detailTextLabel.text = @"单位";
+                }
+            }
+           
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
         }else if(indexPath.row ==7) {
@@ -645,10 +666,12 @@
         }
         if (indexPath.row ==2) {
             InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];
+            
             [invoiceVC setPlacemodel:self.placemodel];
             __weak typeof(self)weakself = self;
             [invoiceVC setSubmintBlock:^(PlaceOrderReq *model) {
                 weakself.placemodel = model;
+                [weakself.tableview reloadData];
             }];
             [self.navigationController pushViewController:invoiceVC animated:YES];
         }

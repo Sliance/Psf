@@ -206,6 +206,7 @@
         [leftAction showInView:self.view];
     }else if (indexPath.row ==2){
         SexPickerTool *sexPick = [[SexPickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
+        [sexPick setDataSource:nil];
         __block SexPickerTool *blockPicker = sexPick;
         sexPick.callBlock = ^(NSString *pickDate) {
             

@@ -244,7 +244,10 @@
         make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
         make.left.equalTo(self.qqBtn.mas_right).offset(27);
     }];
+    
+    
        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    
 }
 - (void)dealloc{
    

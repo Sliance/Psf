@@ -36,4 +36,10 @@
 ///订单状态
 @property(nonatomic,assign)NSInteger ordertype;
 @property(nonatomic,strong)CartProductModel *model;
+//再次购买
+@property(nonatomic,copy)void (^buyBlock)(CartProductModel*);
+//付款
+@property(nonatomic,copy)void (^payBlock)(CartProductModel*);
+//退款
+@property(nonatomic,copy)void (^refundBlock)(CartProductModel*);
 @end

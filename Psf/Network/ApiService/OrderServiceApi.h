@@ -10,7 +10,7 @@
 #import "StairCategoryReq.h"
 #import "OrderListRes.h"
 #import "OrderDetailRes.h"
-
+#import "RefundOrderReq.h"
 @interface OrderServiceApi : BaseApi
 + (instancetype)share;
 ///获取订单列表
@@ -27,5 +27,6 @@
 - (void)deleteOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///确认收货
 - (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///退款
+- (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 @end

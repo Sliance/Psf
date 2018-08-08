@@ -150,4 +150,15 @@
     _model = model;
     
 }
+-(void)setResmodel:(OrderListRes *)resmodel{
+    _resmodel = resmodel;
+    
+}
+-(void)setCarmodel:(CartProductModel *)carmodel{
+    _carmodel = carmodel;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = carmodel.productName;
+    self.weightLabel.text = carmodel.productUnit;
+}
 @end

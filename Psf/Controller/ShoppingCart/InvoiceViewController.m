@@ -218,8 +218,19 @@
 
 -(void)setPlacemodel:(PlaceOrderReq *)placemodel{
     _placemodel = placemodel;
+    _iskai = _placemodel.saleOrderIsInvoice;
+    _type = _placemodel.saleOrderInvoiceType;
+    [self reloadView];
+    if (_type==0) {
+        _singleField.text = _placemodel.saleOrderInvoiceUserName;
+    }else if (_type ==1){
+        _singleField.text = _placemodel.saleOrderInvoiceCompanyName;
+        _taxpayersField.text = _placemodel.saleOrderInvoiceCompanyTax;
+    }
+    [self reloadView];
 }
 -(void)reloadView{
+    self.kaiswitch.on = _iskai;
     if (_iskai==YES&&_type ==0){
         self.bgview.frame = CGRectMake(0, 0, SCREENWIDTH, 132);
         self.singleField.placeholder = @"请输入个人姓名";
@@ -231,6 +242,7 @@
         self.line1Label.hidden = NO;
         self.line2Label.hidden = NO;
         self.line3Label.hidden = YES;
+        _tmpBtn =_singeleBtn;
     }else if (_iskai==YES&&_type ==1){
         self.bgview.frame = CGRectMake(0, 0, SCREENWIDTH, 176);
         self.singleField.placeholder = @"请输入单位名称";
@@ -242,6 +254,7 @@
         self.line1Label.hidden = NO;
         self.line2Label.hidden = NO;
         self.line3Label.hidden = NO;
+        _tmpBtn = _unitBtn;
     }else{
          self.bgview.frame = CGRectMake(0, 0, SCREENWIDTH, 44);
         self.invoiceLabel.hidden = YES;
@@ -256,7 +269,8 @@
     self.ruleView.frame = CGRectMake(0, self.bgview.ctBottom, SCREENWIDTH, 200);
 }
 -(void)pressSwitch:(UISwitch*)sender{
-    _iskai = !_iskai;
+    sender.on = !sender.on;
+    _iskai = sender.on;
     _placemodel.saleOrderIsInvoice = _iskai;
     [self reloadView];
 }
@@ -291,6 +305,21 @@
     [self reloadView];
 }
 -(void)pressBottom{
+    if (_type ==0) {
+        if (_singleField.text.length<1) {
+            [self showInfo:@"请输入个人姓名"];
+            return;
+        }
+    }else if (_type ==1){
+        if (_singleField.text.length<1) {
+            [self showInfo:@"请输入单位名称"];
+            return;
+        }
+        if (_taxpayersField.text.length<1) {
+            [self showInfo:@"请输入税号"];
+            return;
+        }
+    }
     self.submintBlock(_placemodel);
     [self.navigationController popViewControllerAnimated:YES];
 }

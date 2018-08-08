@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "CartProductModel.h"
 
 @interface RefundViewController : BaseViewController
+@property(nonatomic,strong)CartProductModel *carmodel;
+@property(nonatomic,assign)NSInteger type;
 
 @end

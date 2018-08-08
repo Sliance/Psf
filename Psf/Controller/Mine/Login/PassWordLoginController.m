@@ -9,6 +9,7 @@
 #import "PassWordLoginController.h"
 #import "ResetPassFirstController.h"
 #import "LoginServiceApi.h"
+#import "MineViewController.h"
 
 @interface PassWordLoginController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -185,7 +186,11 @@
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
             
-            [weakself dismissViewControllerAnimated:YES completion:nil];
+            for (UIViewController *viewcontroller in self.navigationController.viewControllers) {
+                if ([viewcontroller isKindOfClass:[MineViewController class]]) {
+                    [weakself.navigationController popToViewController:viewcontroller animated:YES];
+                }
+            }
             
         }
     }];

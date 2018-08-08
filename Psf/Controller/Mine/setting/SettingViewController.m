@@ -136,6 +136,7 @@
 }
 -(void)pressLogionOut{
     [[UserCacheBean share]loginOut];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

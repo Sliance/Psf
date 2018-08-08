@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "OrderListRes.h"
+#import "CartProductModel.h"
 
 @interface ChooseServiceTypeController : BaseViewController
-
+@property(nonatomic,strong)OrderListRes *model;
+@property(nonatomic,strong)CartProductModel *carmodel;
 @end

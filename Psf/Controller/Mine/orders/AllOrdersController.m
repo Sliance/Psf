@@ -11,6 +11,7 @@
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
 #import "DetailGroupController.h"
+#import "ChooseServiceTypeController.h"
 
 @interface AllOrdersController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -197,7 +198,9 @@
         [weakself confirmOrder:model.saleOrderId];
     }];
     [cell setRefundBlock:^(OrderListRes *model){//退款
-        
+        ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+        [chooseVC setModel:model];
+        [weakself.navigationController pushViewController:chooseVC animated:YES];
     }];
    
     [cell setRemindBlock:^(OrderListRes *model) {//提醒发货

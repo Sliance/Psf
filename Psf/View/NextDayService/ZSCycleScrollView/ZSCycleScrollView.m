@@ -556,7 +556,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 120) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.scrollsToTop = NO;
+        _collectionView.scrollEnabled = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView registerClass:[SortCollectionViewCell class] forCellWithReuseIdentifier:cellId];

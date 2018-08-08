@@ -51,7 +51,7 @@
             [self updatePayBtn];
             [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
             [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-            [_payBtn setTitle:@"评价有礼" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
             _sendBtn.hidden = YES;
         }
             break;
@@ -59,7 +59,7 @@
         {
 //            _statusLabel.text = @"退款/售后";
             [self updatePayBtn];
-            [_payBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
             _sendBtn.hidden = YES;
         }
             break;
@@ -76,11 +76,17 @@
         case 6:
         {
 //            _statusLabel.text = @"已完成";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
         }
             break;
         case 7:
         {
 //            _statusLabel.text = @"门店已收货";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
         }
             break;
         default:
@@ -257,6 +263,7 @@
         [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
         [_payBtn setTitle:@"付款 59:00" forState:UIControlStateNormal];
+        [_payBtn addTarget:self action:@selector(pressPay) forControlEvents:UIControlEventTouchUpInside];
         [_payBtn.layer setCornerRadius:2];
         [_payBtn.layer setMasksToBounds:YES];
     }
@@ -289,9 +296,9 @@
         self.weightLabel.text = model.productUnit;
     self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     self.weightLabel.text = model.productUnit;
-    _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderProductQty];
+    _countLabel.text = [NSString stringWithFormat:@"X%ld",model.saleOrderProductQty];
     
-    switch (model.productId) {
+    switch (model.systemStatus) {
         case 0:
         {
             _statusLabel.text = @"待付款";
@@ -307,7 +314,7 @@
         {
             _statusLabel.text = @"待发货";
             [self updatePayBtn];
-            [_payBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
             _sendBtn.hidden = YES;
 //            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
         }
@@ -316,7 +323,7 @@
         {
             _statusLabel.text = @"待收货";
             [self updatePayBtn];
-            [_payBtn setTitle:@"送达日历" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
             _sendBtn.hidden = NO;
 //            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
         }
@@ -328,8 +335,8 @@
             [self updatePayBtn];
             [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
             [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-            [_payBtn setTitle:@"评价" forState:UIControlStateNormal];
-            [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+//            [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
 //            _payableLabel.text = [NSString stringWithFormat:@"合计:￥%@",model.saleOrderPayAmount];
         }
             break;
@@ -337,7 +344,7 @@
         {
             _statusLabel.text = @"退款/售后";
             [self updatePayBtn];
-            [_payBtn setTitle:@"退款/售后" forState:UIControlStateNormal];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
         }
             break;
         case 5:
@@ -352,16 +359,67 @@
         case 6:
         {
             _statusLabel.text = @"已完成";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
         }
             break;
         case 7:
         {
             _statusLabel.text = @"门店已收货";
+            [self updatePayBtn];
+            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
         }
             break;
         default:
             break;
     }
 
+}
+-(void)pressPay{
+    switch (_model.systemStatus) {
+        case 0:
+        {
+            self.payBlock(_model);
+            
+        }
+            break;
+        case 1:
+        {
+            self.refundBlock(_model);
+        }
+            break;
+        case 2:
+        {
+            self.refundBlock(_model);
+        }
+            break;
+        case 3:
+        {
+            self.refundBlock(_model);
+        }
+            break;
+        case 4:
+        {
+            self.refundBlock(_model);
+        }
+            break;
+        case 5:
+        {
+           self.buyBlock(_model);
+        }
+            break;
+        case 6:
+        {
+            self.refundBlock(_model);
+        }
+            break;
+        case 7:
+        {
+          self.refundBlock(_model);
+        }
+            break;
+        default:
+            break;
+    }
 }
 @end

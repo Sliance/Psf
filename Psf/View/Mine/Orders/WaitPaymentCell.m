@@ -399,7 +399,7 @@
         [self.headImageThree sd_setImageWithURL:[NSURL URLWithString:url3]];
         
     }
-    
+    _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
     switch (model.saleOrderStatus) {
         case 0:
             {
@@ -411,8 +411,7 @@
                 
                 
                 _sendBtn.hidden = YES;
-                _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
-                
+                _payBtn.hidden = NO;
             }
             break;
         case 1:
@@ -426,7 +425,8 @@
             }else{
                 _sendBtn.hidden = YES;
             }
-            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+            _payBtn.hidden = NO;
+            
         }
             break;
         case 2:
@@ -437,7 +437,8 @@
             [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
             [_payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
             _sendBtn.hidden = NO;
-            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+            _payBtn.hidden = NO;
+            
         }
             break;
         case 3:
@@ -449,18 +450,16 @@
             [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
             [_payBtn setTitle:@"评价" forState:UIControlStateNormal];
             [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
-            _payableLabel.text = [NSString stringWithFormat:@"合计:￥%@",model.saleOrderPayAmount];
+            _payBtn.hidden = NO;
+            
         }
             break;
         case 4:
         {
             _statusLabel.text = @"退款/售后";
-            [self updatePayBtn];
-            [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
-            [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
-            [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-            _payableLabel.text = @"";
+            
             _sendBtn.hidden = YES;
+            _payBtn.hidden = YES;
         }
             break;
         case 5:
@@ -469,6 +468,7 @@
             [self updatePayBtn];
             [_payBtn setTitle:@"再次购买" forState:UIControlStateNormal];
             _sendBtn.hidden = YES;
+            _payBtn.hidden = NO;
         }
             break;
         case 6:
@@ -477,6 +477,7 @@
             _sendBtn.hidden = YES;
             [self updatePayBtn];
             [_payBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+            _payBtn.hidden = NO;
         }
             break;
         case 7:

@@ -17,6 +17,7 @@
 #import "ShopServiceApi.h"
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
+#import "ChooseServiceTypeController.h"
 
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -55,7 +56,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
-    [self.view addSubview:self.bottomView];
+    
+    
     __weak typeof(self)weakself = self;
     [self.bottomView setPayBlock:^(OrderListRes *model){//付款
         
@@ -95,6 +97,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)setModel:(OrderListRes *)model{
     _model = model;
     _likeArr = [NSMutableArray array];
+    
     [self.bottomView setStatus:model];
      [self requestDetail];
 }
@@ -243,7 +246,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
         if (response) {
             weakself.result = response;
-            
+            if (self.result.saleOrderStatus ==4) {
+                self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]);
+            }else{
+                [self.view addSubview:self.bottomView];
+            }
             [weakself.collectionView reloadData];
             [self guessLikeList];
         }
@@ -368,10 +375,17 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     if (indexPath.section ==0) {
         CartProductModel *ordermodel = self.result.saleOrderProductList[indexPath.row];
-        [cell setOrdertype:self.result.saleOrderStatus];
+        ordermodel.systemStatus = self.result.saleOrderStatus;
         [cell setModel:ordermodel];
+        __weak typeof(self)weakself = self;
+        [cell setRefundBlock:^(CartProductModel *model){//退款
+            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+            [chooseVC setCarmodel:model];
+            [weakself.navigationController pushViewController:chooseVC animated:YES];
+        }];
         return cell;
     }
+    
     StairCategoryListRes *model = _likeArr[indexPath.row];
     [collectcell setModel:model];
     return collectcell;

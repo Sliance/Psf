@@ -10,7 +10,7 @@
 #import "OrderDetailViewController.h"
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
-
+#import "ChooseServiceTypeController.h"
 @interface WaitPaymentController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -195,7 +195,9 @@
         [weakself confirmOrder:model.saleOrderId];
     }];
     [cell setRefundBlock:^(OrderListRes *model){//退款
-        
+        ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+        [chooseVC setModel:model];
+        [weakself.navigationController pushViewController:chooseVC animated:YES];
     }];
     
     [cell setRemindBlock:^(OrderListRes *model) {//提醒发货

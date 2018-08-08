@@ -8,7 +8,8 @@
 
 #import "BaseTableViewCell.h"
 #import "GoodDetailRes.h"
-
+#import "OrderListRes.h"
+#import "CartProductModel.h"
 
 @interface SureOrderTableViewCell : BaseTableViewCell
 
@@ -22,5 +23,7 @@
 @property(nonatomic,strong)UILabel *countField;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)GoodDetailRes *model;
+@property(nonatomic,strong)OrderListRes *resmodel;
+@property(nonatomic,strong)CartProductModel *carmodel;
 
 @end

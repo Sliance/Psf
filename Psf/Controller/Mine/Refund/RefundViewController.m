@@ -8,11 +8,21 @@
 
 #import "RefundViewController.h"
 #import "SureOrderTableViewCell.h"
+#import "SexPickerTool.h"
+#import "RefundfootView.h"
+#import "BottomView.h"
+#import "RefundOrderReq.h"
+#import "OrderServiceApi.h"
+#import "AllOrdersController.h"
+
 @interface RefundViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)UIButton *submitBtn;
-
+@property(nonatomic,strong)RefundfootView *footView;
+@property(nonatomic,strong)BottomView *bottomView;
+@property(nonatomic,strong)RefundOrderReq *orderReq;
+@property(nonatomic,strong)UITextField *reasonField;
 @end
 
 @implementation RefundViewController
@@ -28,15 +38,23 @@
     }
     return _tableview;
 }
--(UIButton *)submitBtn{
-    if (!_submitBtn) {
-        _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_submitBtn setTitle:@"提交" forState:UIControlStateNormal];
-        _submitBtn.backgroundColor = DSColorFromHex(0xFF4C4D);
-        [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _submitBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+-(BottomView *)bottomView{
+    if (!_bottomView) {
+        _bottomView = [[BottomView alloc]init];
+        _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
+        [_bottomView.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [_bottomView.bottomBtn addTarget:self action:@selector(pressBottom) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _submitBtn;
+    return _bottomView;
+}
+
+-(RefundfootView *)footView{
+    if (!_footView) {
+        _footView = [[RefundfootView alloc]init];
+        _footView.viewPhotoBgIDCard.superViewController = self;
+        _footView.frame = CGRectMake(0, 5, SCREENWIDTH, 135);
+    }
+    return _footView;
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,13 +67,29 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.submitBtn];
+    self.tableview.tableFooterView = self.footView;
+    [self.view addSubview:self.bottomView];
+    self.orderReq = [[RefundOrderReq alloc]init];
+    __weak typeof(self)weakself = self;
+    [self.footView setPhotoBlock:^(NSMutableArray * arr) {
+        weakself.orderReq.saleOrderRefundImageList = arr;
+    }];
+}-(void)setType:(NSInteger)type{
+    _type = type;
+}
+-(void)setCarmodel:(CartProductModel *)carmodel{
+    _carmodel = carmodel;
+    self.orderReq.saleOrderId = carmodel.saleOrderId;
+    self.orderReq.saleOrderProductId = carmodel.saleOrderProductId;
+    self.orderReq.saleOrderRefundType = _type;
+    self.orderReq.saleOrderRefundAmount = carmodel.productPrice;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section ==1) {
-        return 2;
+        return 1;
     }
     return 1;
 }
@@ -68,12 +102,19 @@
     }
     return 0;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section ==2) {
+        return 145;
+    }
+    return 0;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1||indexPath.section ==2) {
         return 45;
+    }else if (indexPath.section ==0){
+        return 120;
     }
-    return 120;
+    return 0;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headView;
@@ -83,13 +124,17 @@
         headView.backgroundColor = DSColorFromHex(0xF0F0F0);
     }else if (section ==2){
         UILabel *label = [[UILabel alloc]init];
-        label.text = @"   最多 ¥ 56.0，含发货邮费¥ 0.0";
+//        label.text = @"   最多 ¥ 56.0，含发货邮费¥ 0.0";
         label.frame = CGRectMake(15, 0, SCREENWIDTH-30, 30);
         label.font = [UIFont systemFontOfSize:12];
         label.textColor = DSColorFromHex(0x959595);
         return label;
     }
     return headView;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return self.footView;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -99,6 +144,7 @@
         if (!cell) {
             cell = [[SureOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
         }
+        [cell setCarmodel:_carmodel];
         cell.priceLabel.hidden = YES;
         cell.countField.hidden = YES;
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -110,20 +156,12 @@
     
     
     if (indexPath.section ==1) {
-        if (indexPath.row ==0) {
-            if (!cell) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
-            }
-            cell.textLabel.text = @"退款原因";
-            cell.detailTextLabel.text = @"请选择";
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
-            cell.detailTextLabel.textColor = DSColorFromHex(0x969696);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else {
+       
+        if (indexPath.row ==0){
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
             }
-            cell.textLabel.text = @"退款金额：¥56.0";
+            cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",_carmodel.productPrice];
             cell.detailTextLabel.textColor = DSColorFromHex(0xFF4C4D);
             cell.accessoryType = UITableViewCellAccessoryNone;
             
@@ -139,6 +177,7 @@
         field.placeholder = @"选填";
         field.font = [UIFont systemFontOfSize:15];
         field.frame = CGRectMake(92, 0, SCREENWIDTH-107, 45);
+        _reasonField = field;
         [cell addSubview:field];
     }
     
@@ -149,7 +188,26 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+}
+-(void)pressBottom{
+    self.orderReq.appId = @"993335466657415169";
+    self.orderReq.timestamp = @"529675086";
     
+    self.orderReq.token = [UserCacheBean share].userInfo.token;
+    self.orderReq.platform = @"ios";
+    self.orderReq.saleOrderRefundReason = self.reasonField.text;
+    [[OrderServiceApi share]refundOrderWithParam:self.orderReq response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                for (UIViewController *controller in self.navigationController.viewControllers) {
+                    if ([controller isKindOfClass:[AllOrdersController class]]) {
+                        [self.navigationController popToViewController:controller animated:YES];
+                    }
+                }
+            }
+        }
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
