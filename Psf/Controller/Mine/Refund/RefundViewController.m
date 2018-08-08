@@ -14,6 +14,9 @@
 #import "RefundOrderReq.h"
 #import "OrderServiceApi.h"
 #import "AllOrdersController.h"
+#import "WaitDeliverController.h"
+#import "WaitReceiveController.h"
+#import "WaitEvaluateController.h"
 
 @interface RefundViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -203,6 +206,19 @@
                 for (UIViewController *controller in self.navigationController.viewControllers) {
                     if ([controller isKindOfClass:[AllOrdersController class]]) {
                         [self.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                    if ([controller isKindOfClass:[WaitDeliverController class]]) {
+                        [self.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                    if ([controller isKindOfClass:[WaitReceiveController class]]) {
+                        [self.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                    if ([controller isKindOfClass:[WaitEvaluateController class]]) {
+                        [self.navigationController popToViewController:controller animated:YES];
+                        return ;
                     }
                 }
             }

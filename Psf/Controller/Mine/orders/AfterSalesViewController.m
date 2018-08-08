@@ -200,7 +200,9 @@
     }];
     
     [cell setRemindBlock:^(OrderListRes *model) {//提醒发货
-        [weakself noticeOrder:model.saleOrderId];
+        OrderDetailViewController *detailVC = [[OrderDetailViewController alloc]init];
+        [detailVC setModel:model];
+        [self.navigationController pushViewController:detailVC animated:YES];
     }];
     
     [cell setEvaBlock:^(OrderListRes * model) {
