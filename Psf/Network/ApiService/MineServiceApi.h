@@ -11,6 +11,7 @@
 #import "MineInformationReq.h"
 #import "IntegralRecord.h"
 #import "RechargeRuleModel.h"
+#import "FeetbackReq.h"
 
 
 @interface MineServiceApi : BaseApi
@@ -27,6 +28,7 @@
 - (void)rechargeMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///交易记录
 - (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///意见反馈
+- (void)feedBackWithParam:(FeetbackReq *) req response:(responseModel) responseModel;
 
 @end

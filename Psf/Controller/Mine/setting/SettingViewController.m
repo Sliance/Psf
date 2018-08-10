@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "AboutViewController.h"
 #import "AccountBindController.h"
+#import "FeedbackController.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -132,6 +133,9 @@
     }else if (indexPath.section ==0){
         AccountBindController *bindVC = [[AccountBindController alloc]init];
         [self.navigationController pushViewController:bindVC animated:YES];
+    }else if (indexPath.row ==1&&indexPath.section ==1){
+        FeedbackController *feedvc = [[FeedbackController alloc]init];
+        [self.navigationController pushViewController:feedvc animated:YES];
     }
 }
 -(void)pressLogionOut{

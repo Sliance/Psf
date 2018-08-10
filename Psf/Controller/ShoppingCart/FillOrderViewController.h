@@ -22,5 +22,6 @@ typedef NS_ENUM(NSInteger, GOOGSTYPE){
 @property(nonatomic,strong)GoodDetailRes *gooddetail;//团购
 
 @property(nonatomic,assign)GOOGSTYPE goodstype;
+@property(nonatomic,strong)ProductSkuModel *skumodel;
 
 @end

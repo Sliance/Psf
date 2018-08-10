@@ -52,6 +52,7 @@
 @property(nonatomic,strong)PresaleGoodBottomView *preBView;
 @property(nonatomic,strong)GroupGoodBottomView *groupBView;
 @property(nonatomic,strong)GoodDetailRes *result;
+@property(nonatomic,strong)GoodDetailRes *resmodel;
 @property (strong, nonatomic) UIWebView *webView;
 @property(strong,nonatomic)EvaluateListRes *evaRes;
 @property(nonatomic,strong)NSMutableArray *groupArr;
@@ -144,7 +145,7 @@
     if (!_presaleBuyView) {
         _presaleBuyView = [[PresaleBuyView alloc]init];
         _presaleBuyView.hidden = YES;
-        _presaleBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        _presaleBuyView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         [_presaleBuyView setHeight:[self tabBarHeight]];
     }
     return _presaleBuyView;
@@ -228,7 +229,14 @@
     }];
     [self.normalBView setPressAddBlock:^{
         if ([UserCacheBean share].userInfo.token.length>0) {
-            [_weakSelf addShopCount];
+            
+            if (_weakSelf.result.productSkuList.count>1) {
+                _weakSelf.presaleBuyView.hidden = NO;
+            }else{
+                ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
+                [_weakSelf addShopCount:model];
+            }
+            
         }else{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
             message:@"" preferredStyle:UIAlertControllerStyleAlert];
@@ -291,13 +299,23 @@
     [self.groupBuyView setTapBlock:^{
         _weakSelf.groupBuyView.hidden = YES;
     }];
-    [self.presaleBuyView setSubmitBlock:^(NSInteger count){
+   
+    [self.presaleBuyView setSubmitBlock:^(NSInteger count,NSInteger index,NSInteger _type){
+        
+        ProductSkuModel *skumodel = _weakSelf.resmodel.productSkuList[index];
+       
+      
         _weakSelf.presaleBuyView.hidden = YES;
-        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
-        _weakSelf.result.saleOrderProductQty = count;
-        [sureVC setGoodstype:GOOGSTYPEPresale];
-        [sureVC setGooddetail:_weakSelf.result];
-        [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+        if(_type ==0){
+          FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+         _weakSelf.result.saleOrderProductQty = count;
+         [sureVC setGoodstype:GOOGSTYPEPresale];
+         [sureVC setSkumodel:skumodel];
+         [sureVC setGooddetail:_weakSelf.resmodel];
+         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+        }else if (_type ==1){
+            [_weakSelf addShopCount:skumodel];
+        }
     }];
     [self.presaleBuyView setTapBlock:^{
         _weakSelf.presaleBuyView.hidden = YES;
@@ -331,12 +349,14 @@
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if(response != nil){
             weakself.result = response;
+            weakself.resmodel = response;
             NSMutableArray *arr  = [NSMutableArray array];
             for (ImageModel *model in self.result.productImageList) {
                 if (model.productImagePath) {
                     [arr addObject:model.productImagePath];
                 }
             }
+            
             weakself.cycleScroll.imageUrlGroups = arr;
             [weakself requestEvaluate];
         }
@@ -414,11 +434,10 @@
     
     }];
 }
--(void)addShopCount{
+-(void)addShopCount:(ProductSkuModel *)model{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
@@ -433,7 +452,6 @@
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    ProductSkuModel *model =[self.result.productSkuList firstObject];
     req.productSkuId = [NSString stringWithFormat:@"%ld",(long)model.productSkuId];
     req.productQuantity = 1;
     __weak typeof(self)weakself = self;
@@ -509,6 +527,11 @@
        
         [self requestCoupon];
          [self.view addSubview:self.normalBView];
+        if (self.result.productSkuList.count>1) {
+            [self.presaleBuyView setType:1];
+            [self.presaleBuyView setModel:self.result];
+            [self.view addSubview:self.presaleBuyView];
+        }
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
         if (self.groupArr.count ==0) {
             _tourHeight = 0;
@@ -528,6 +551,8 @@
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         _tourHeight = 0;
          [self.view addSubview:self.preBView];
+        [self.presaleBuyView setType:0];
+        [self.presaleBuyView setModel:self.result];
         [self.preBView setPreSaleIsComplete:self.result.preSaleIsComplete];
         [self.footView setPruductId:self.productID];
          [self reloadHeight];
@@ -535,6 +560,11 @@
     }else {//满减
          [self requestCoupon];
          [self.view addSubview:self.normalBView];
+        if (self.result.productSkuList.count>1) {
+            [self.presaleBuyView setType:1];
+            [self.presaleBuyView setModel:self.result];
+            [self.view addSubview:self.presaleBuyView];
+        }
     }
     [self.view addSubview:self.couponView];
    

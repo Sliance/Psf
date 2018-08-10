@@ -329,7 +329,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section ==2) {
-       return CGSizeMake(165, 298);
+       return CGSizeMake(165, 260);
     }
     
      return CGSizeMake(SCREENWIDTH+1, 121);

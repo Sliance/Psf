@@ -342,7 +342,7 @@
             break;
         case 4:
         {
-            _statusLabel.text = @"退款/售后";
+            _statusLabel.text = @"售后中";
             [self updatePayBtn];
             [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
         }

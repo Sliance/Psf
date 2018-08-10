@@ -47,7 +47,10 @@
         make.height.mas_equalTo(100);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
     }];
-    NSArray *imageArr= @[@"\U0000e902",@"\U0000e901",@"\U0000e904",@"\U0000e903",@"\U0000e913"];
+    
+}
+-(void)setArr:(NSArray *)arr{
+    NSArray *imageArr= @[@"\U0000e901",@"\U0000e900",@"\U0000e903",@"\U0000e902",@"\U0000e904"];
     NSArray *dataArr = @[@"待付款",@"待发货",@"待收货",@"待评价",@"退换/售后"];
     for (int i = 0; i<imageArr.count; i++) {
         MineTypeBtn *btn = [[MineTypeBtn alloc]initWithFrame:CGRectMake(SCREENWIDTH/5*i, 17, SCREENWIDTH/5, 53)]
@@ -57,6 +60,12 @@
         btn.typeLabel.textColor = DSColorFromHex(0x464646);
         btn.imageLabel.text = imageArr[i];
         btn.typeLabel.text = dataArr[i];
+        btn.countLabel.text = arr[i];
+        if ([arr[i] integerValue] ==0) {
+            btn.countLabel.hidden = YES;
+        }else{
+            btn.countLabel.hidden = NO;
+        }
         btn.tag = i+1;
         
         [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];

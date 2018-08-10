@@ -21,6 +21,7 @@
 #import "ChooseServiceTypeController.h"
 #import "MineServiceApi.h"
 #import "AfterSalesViewController.h"
+#import "OrderServiceApi.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -81,7 +82,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _listArr = @[@"\U0000e906",@"\U0000e915",@"\U0000e915",@"\U0000e92c",@"\U0000e90c",@"\U0000e910"];
+    _listArr = @[@"\U0000e907",@"\U0000e905",@"\U0000e90b",@"\U0000e906",@"\U0000e909",@"\U0000e908"];
     _dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"我的客服",@"设置"];
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
@@ -124,6 +125,50 @@
             self.result = response;
             [UserCacheBean share].userInfo.memberMobile = self.result.memberMobile;
             [weakself.headView setResult:self.result];
+            [weakself requestorderData];
+        }
+    }];
+}
+-(void)requestorderData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderStatus = @"";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]getOrderListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            NSMutableArray *payArr = [NSMutableArray array];
+            NSMutableArray *deliverArr = [NSMutableArray array];
+            NSMutableArray *receliveArr = [NSMutableArray array];
+            NSMutableArray *evaArr = [NSMutableArray array];
+            NSMutableArray *afterArr = [NSMutableArray array];
+            for (OrderListRes *model in response) {
+                if (model.saleOrderStatus ==0) {
+                    [payArr addObject:model];
+                }else if (model.saleOrderStatus ==1){
+                    [deliverArr addObject:model];
+                }else if (model.saleOrderStatus ==2){
+                    [receliveArr addObject:model];
+                }else if (model.saleOrderStatus ==3){
+                    [evaArr addObject:model];
+                }else if (model.saleOrderStatus ==4){
+                    [afterArr addObject:model];
+                }
+            }
+            
+            NSArray *countArr = @[[NSString stringWithFormat:@"%ld",payArr.count],[NSString stringWithFormat:@"%ld",deliverArr.count],[NSString stringWithFormat:@"%ld",receliveArr.count],[NSString stringWithFormat:@"%ld",evaArr.count],[NSString stringWithFormat:@"%ld",afterArr.count]];
+            
+            [self.footView setArr:countArr];
+           
         }
     }];
 }

@@ -139,11 +139,6 @@
 		8860DA5920D9EB97009E53B0 /* SortCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5820D9EB97009E53B0 /* SortCollectionViewCell.m */; };
 		8860DA5C20D9EF2F009E53B0 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5B20D9EF2F009E53B0 /* BaseView.m */; };
 		8860DA5F20D9EF74009E53B0 /* SortCollectHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA5E20D9EF74009E53B0 /* SortCollectHeadView.m */; };
-		8860DA6A20DA1DAD009E53B0 /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6520DA1DAD009E53B0 /* icomoon.eot */; };
-		8860DA6B20DA1DAD009E53B0 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6620DA1DAD009E53B0 /* icomoon.ttf */; };
-		8860DA6C20DA1DAD009E53B0 /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6720DA1DAD009E53B0 /* icomoon.svg */; };
-		8860DA6D20DA1DAD009E53B0 /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6820DA1DAD009E53B0 /* icomoon.woff */; };
-		8860DA6E20DA1DAD009E53B0 /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 8860DA6920DA1DAD009E53B0 /* demo.html */; };
 		8860DA7220DA24A7009E53B0 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA7120DA24A7009E53B0 /* MineTableViewCell.m */; };
 		8860DA7520DA444C009E53B0 /* MineHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA7420DA444C009E53B0 /* MineHeadView.m */; };
 		8860DA7820DA5070009E53B0 /* MineFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860DA7720DA5070009E53B0 /* MineFootView.m */; };
@@ -239,6 +234,14 @@
 		8871B8E020DBB92D00DAA5D6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8DF20DBB92D00DAA5D6 /* SystemConfiguration.framework */; };
 		8871B8E220DBB93E00DAA5D6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8E120DBB93E00DAA5D6 /* libsqlite3.0.tbd */; };
 		8871B8E420DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8E320DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd */; };
+		8872DC68211D252700555FEA /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC67211D252700555FEA /* demo.html */; };
+		8872DC6D211D253200555FEA /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC69211D253100555FEA /* icomoon.woff */; };
+		8872DC6E211D253200555FEA /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6A211D253100555FEA /* icomoon.eot */; };
+		8872DC6F211D253200555FEA /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6B211D253200555FEA /* icomoon.svg */; };
+		8872DC70211D253200555FEA /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6C211D253200555FEA /* icomoon.ttf */; };
+		8872DC73211D2EAA00555FEA /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC72211D2EAA00555FEA /* FeedbackController.m */; };
+		8872DC76211D3F4C00555FEA /* FeedbackTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC75211D3F4C00555FEA /* FeedbackTypeView.m */; };
+		8872DC79211D64DE00555FEA /* FeetbackReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC78211D64DE00555FEA /* FeetbackReq.m */; };
 		88747E8220EDA812000BC993 /* UseCouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8120EDA812000BC993 /* UseCouponController.m */; };
 		88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8420EDFA7C000BC993 /* FillEvaluateController.m */; };
 		88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8720EDFB97000BC993 /* FillEvaluateHwadView.m */; };
@@ -604,11 +607,6 @@
 		8860DA5B20D9EF2F009E53B0 /* BaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		8860DA5D20D9EF74009E53B0 /* SortCollectHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortCollectHeadView.h; sourceTree = "<group>"; };
 		8860DA5E20D9EF74009E53B0 /* SortCollectHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortCollectHeadView.m; sourceTree = "<group>"; };
-		8860DA6520DA1DAD009E53B0 /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
-		8860DA6620DA1DAD009E53B0 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
-		8860DA6720DA1DAD009E53B0 /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
-		8860DA6820DA1DAD009E53B0 /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
-		8860DA6920DA1DAD009E53B0 /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
 		8860DA7020DA24A7009E53B0 /* MineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTableViewCell.h; sourceTree = "<group>"; };
 		8860DA7120DA24A7009E53B0 /* MineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTableViewCell.m; sourceTree = "<group>"; };
 		8860DA7320DA444C009E53B0 /* MineHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeadView.h; sourceTree = "<group>"; };
@@ -796,6 +794,17 @@
 		8871B8DF20DBB92D00DAA5D6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8871B8E120DBB93E00DAA5D6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		8871B8E320DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		8872DC67211D252700555FEA /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
+		8872DC69211D253100555FEA /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
+		8872DC6A211D253100555FEA /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
+		8872DC6B211D253200555FEA /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
+		8872DC6C211D253200555FEA /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		8872DC71211D2EAA00555FEA /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
+		8872DC72211D2EAA00555FEA /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
+		8872DC74211D3F4C00555FEA /* FeedbackTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackTypeView.h; sourceTree = "<group>"; };
+		8872DC75211D3F4C00555FEA /* FeedbackTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackTypeView.m; sourceTree = "<group>"; };
+		8872DC77211D64DE00555FEA /* FeetbackReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeetbackReq.h; sourceTree = "<group>"; };
+		8872DC78211D64DE00555FEA /* FeetbackReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeetbackReq.m; sourceTree = "<group>"; };
 		88747E8020EDA812000BC993 /* UseCouponController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UseCouponController.h; sourceTree = "<group>"; };
 		88747E8120EDA812000BC993 /* UseCouponController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UseCouponController.m; sourceTree = "<group>"; };
 		88747E8320EDFA7C000BC993 /* FillEvaluateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FillEvaluateController.h; sourceTree = "<group>"; };
@@ -1477,11 +1486,11 @@
 		8860DA6420DA1D69009E53B0 /* IconFont */ = {
 			isa = PBXGroup;
 			children = (
-				8860DA6920DA1DAD009E53B0 /* demo.html */,
-				8860DA6520DA1DAD009E53B0 /* icomoon.eot */,
-				8860DA6720DA1DAD009E53B0 /* icomoon.svg */,
-				8860DA6620DA1DAD009E53B0 /* icomoon.ttf */,
-				8860DA6820DA1DAD009E53B0 /* icomoon.woff */,
+				8872DC67211D252700555FEA /* demo.html */,
+				8872DC6A211D253100555FEA /* icomoon.eot */,
+				8872DC6B211D253200555FEA /* icomoon.svg */,
+				8872DC6C211D253200555FEA /* icomoon.ttf */,
+				8872DC69211D253100555FEA /* icomoon.woff */,
 			);
 			path = IconFont;
 			sourceTree = "<group>";
@@ -1540,6 +1549,8 @@
 				88484D8E20EB81FA00400D16 /* AboutViewController.m */,
 				88566DFD2112954600B6C38D /* AccountBindController.h */,
 				88566DFE2112954600B6C38D /* AccountBindController.m */,
+				8872DC71211D2EAA00555FEA /* FeedbackController.h */,
+				8872DC72211D2EAA00555FEA /* FeedbackController.m */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -1550,6 +1561,8 @@
 				88566E7C211402BD00B6C38D /* Pickerview */,
 				88636D1520E21958006CE5D8 /* HeadimageTableViewCell.h */,
 				88636D1620E21958006CE5D8 /* HeadimageTableViewCell.m */,
+				8872DC74211D3F4C00555FEA /* FeedbackTypeView.h */,
+				8872DC75211D3F4C00555FEA /* FeedbackTypeView.m */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -1604,6 +1617,8 @@
 				884418AB21088F0D001FD73B /* IntegralRecord.m */,
 				88535E6A210963C800997B32 /* RechargeRuleModel.h */,
 				88535E6B210963C800997B32 /* RechargeRuleModel.m */,
+				8872DC77211D64DE00555FEA /* FeetbackReq.h */,
+				8872DC78211D64DE00555FEA /* FeetbackReq.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2471,24 +2486,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8860DA6B20DA1DAD009E53B0 /* icomoon.ttf in Resources */,
-				8860DA6E20DA1DAD009E53B0 /* demo.html in Resources */,
 				88D8936620D25C42007E3C41 /* LaunchScreen.storyboard in Resources */,
 				8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */,
 				8881BF702118613700F6A0CD /* README.txt in Resources */,
-				8860DA6A20DA1DAD009E53B0 /* icomoon.eot in Resources */,
+				8872DC70211D253200555FEA /* icomoon.ttf in Resources */,
 				8881BF712118613700F6A0CD /* read_me.txt in Resources */,
 				88566E852114035600B6C38D /* DatePickerTool.xib in Resources */,
-				8860DA6D20DA1DAD009E53B0 /* icomoon.woff in Resources */,
-				8860DA6C20DA1DAD009E53B0 /* icomoon.svg in Resources */,
+				8872DC6E211D253200555FEA /* icomoon.eot in Resources */,
+				8872DC68211D252700555FEA /* demo.html in Resources */,
 				88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */,
 				88D8936320D25C42007E3C41 /* Assets.xcassets in Resources */,
+				8872DC6F211D253200555FEA /* icomoon.svg in Resources */,
 				88566E842114035600B6C38D /* SexPickerTool.xib in Resources */,
 				88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */,
 				8871B8B020DB702700DAA5D6 /* PYSearch.bundle in Resources */,
 				88D8936120D25C41007E3C41 /* Main.storyboard in Resources */,
 				8881BF7C2118618500F6A0CD /* UMSocialSDKPromptResources.bundle in Resources */,
 				8881BF842118619B00F6A0CD /* UMSocialSDKResources.bundle in Resources */,
+				8872DC6D211D253200555FEA /* icomoon.woff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2676,6 +2691,8 @@
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
 				88484D7A20EB179B00400D16 /* PayTypeView.m in Sources */,
 				886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */,
+				8872DC73211D2EAA00555FEA /* FeedbackController.m in Sources */,
+				8872DC79211D64DE00555FEA /* FeetbackReq.m in Sources */,
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
@@ -2716,6 +2733,7 @@
 				88600BFA20D8D16E0098CF10 /* ZJCollectionView.m in Sources */,
 				88534C2920E609BD00D6F43C /* GoodCollectionViewCell.m in Sources */,
 				885B654F2119A84400BD9054 /* InvoiceRuleView.m in Sources */,
+				8872DC76211D3F4C00555FEA /* FeedbackTypeView.m in Sources */,
 				88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */,
 				8857EA7020E3410E00D7E167 /* BaseOrdersController.m in Sources */,
 				88566E152112A8FB00B6C38D /* UIImage+RoundedCorner.m in Sources */,

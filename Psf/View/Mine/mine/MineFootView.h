@@ -16,4 +16,5 @@
 
 @property (nonatomic, copy) void(^skipMineBlock)(NSInteger);
 
+@property(nonatomic,strong)NSArray *arr;
 @end

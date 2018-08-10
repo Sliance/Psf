@@ -69,7 +69,7 @@
 ///团购活动失效小时
 @property(nonatomic,copy)NSString *grouponActiveExpireHour;
 ///商品SKU
-@property(nonatomic,copy)NSArray *productSkuList;
+@property(nonatomic,strong)NSArray *productSkuList;
 //预售已售
 @property(nonatomic,assign)NSInteger preSaleQuantity;
 //购买上限

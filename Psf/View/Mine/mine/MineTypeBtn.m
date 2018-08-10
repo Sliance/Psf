@@ -13,7 +13,7 @@
 -(UILabel *)imageLabel{
     if (!_imageLabel) {
         _imageLabel = [[UILabel alloc]init];
-        _imageLabel.font = [UIFont fontWithName:@"icomoon"size:20];
+        _imageLabel.font = [UIFont fontWithName:@"icomoon"size:32];
         
     }
     return _imageLabel;
@@ -33,6 +33,7 @@
         _countLabel.font = [UIFont systemFontOfSize:12];
         [_countLabel.layer setMasksToBounds:YES];
         [_countLabel.layer setCornerRadius:8];
+        _countLabel.textAlignment = NSTextAlignmentCenter;
         _countLabel.hidden = YES;
     }
     return _countLabel;
@@ -51,16 +52,16 @@
     [self.imageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.centerX.equalTo(self);
-        make.width.height.mas_equalTo(20);
+        make.width.height.mas_equalTo(32);
     }];
     [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageLabel.mas_bottom).offset(8);
+        make.top.equalTo(self.imageLabel.mas_bottom).offset(3);
         make.left.right.equalTo(self);
     }];
     [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(16);
-        make.left.equalTo(self.imageLabel.mas_right).offset(-8);
-        make.top.equalTo(self.imageLabel.mas_top).offset(-3);
+        make.left.equalTo(self.imageLabel.mas_right).offset(-13);
+        make.top.equalTo(self.imageLabel.mas_top).offset(-1);
     }];
 }
 @end

@@ -157,12 +157,20 @@
 
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
     _gooddetail = gooddetail;
-    ProductSkuModel *model= [self.gooddetail.productSkuList firstObject];
+    ProductSkuModel *model;
+    if (_goodstype ==GOOGSTYPENormal&&self.gooddetail.productSkuList.count>1) {
+        model = _skumodel;
+    }else{
+      model = [self.gooddetail.productSkuList firstObject];
+    }
     gooddetail.productSkuId = model.productSkuId;
     [_dataArr removeAllObjects];
     [_dataArr addObject:gooddetail];
     [_tableview reloadData];
     [self reloadLeftAddress];
+}
+-(void)setSkumodel:(ProductSkuModel *)skumodel{
+    _skumodel = skumodel;
 }
 -(void)setResult:(ShoppingListRes *)result{
     _result = result;
