@@ -259,6 +259,7 @@
 		88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9B20F3162D0044A527 /* StairCategoryListRes.m */; };
 		88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797F9F20F34A910044A527 /* GoodDetailRes.m */; };
 		88797FA320F34E570044A527 /* ImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88797FA220F34E570044A527 /* ImageModel.m */; };
+		8880AF4B21253E9F008B6298 /* UnifiedOrderReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8880AF4A21253E9F008B6298 /* UnifiedOrderReq.m */; };
 		8881BF352118242100F6A0CD /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF332118242100F6A0CD /* UIPlaceHolderTextView.m */; };
 		8881BF3821182A5A00F6A0CD /* FillEvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF3721182A5A00F6A0CD /* FillEvaluateCell.m */; };
 		8881BF3B21184ADB00F6A0CD /* FillEvaluateReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF3A21184ADB00F6A0CD /* FillEvaluateReq.m */; };
@@ -853,6 +854,8 @@
 		88797F9F20F34A910044A527 /* GoodDetailRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodDetailRes.m; sourceTree = "<group>"; };
 		88797FA120F34E570044A527 /* ImageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
 		88797FA220F34E570044A527 /* ImageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageModel.m; sourceTree = "<group>"; };
+		8880AF4921253E9F008B6298 /* UnifiedOrderReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnifiedOrderReq.h; sourceTree = "<group>"; };
+		8880AF4A21253E9F008B6298 /* UnifiedOrderReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnifiedOrderReq.m; sourceTree = "<group>"; };
 		8881BF332118242100F6A0CD /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		8881BF342118242100F6A0CD /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		8881BF3621182A5A00F6A0CD /* FillEvaluateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FillEvaluateCell.h; sourceTree = "<group>"; };
@@ -1118,6 +1121,8 @@
 				8854A404210AD918002C1395 /* PlaceOrderReq.m */,
 				882F52E6211AE3840030A949 /* RefundOrderReq.h */,
 				882F52E7211AE3840030A949 /* RefundOrderReq.m */,
+				8880AF4921253E9F008B6298 /* UnifiedOrderReq.h */,
+				8880AF4A21253E9F008B6298 /* UnifiedOrderReq.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -2980,6 +2985,7 @@
 				88566E4D2112C35400B6C38D /* TZProgressView.m in Sources */,
 				88747E8F20EE34D0000BC993 /* GoodBottomView.m in Sources */,
 				8871B8D220DBB33400DAA5D6 /* JFLocation.m in Sources */,
+				8880AF4B21253E9F008B6298 /* UnifiedOrderReq.m in Sources */,
 				88D9281F211030A20001B2E3 /* PresaleController.m in Sources */,
 				88636D1320E217B2006CE5D8 /* MineInformationController.m in Sources */,
 				888E71B020E1070600BFBAFF /* MyCouponController.m in Sources */,

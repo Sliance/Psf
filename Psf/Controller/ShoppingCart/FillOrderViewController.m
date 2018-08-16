@@ -26,6 +26,7 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "PaySuccessController.h"
+#import "OrderServiceApi.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -453,8 +454,8 @@
                     PaySuccessController *successVC = [[PaySuccessController alloc]init];
                     [self.navigationController pushViewController:successVC animated:YES];
                 }else{
-                   [self gotoAlipayOrWX:orderid payType:req.saleOrderPayType];
-                   [weakself.navigationController popViewControllerAnimated:YES];
+                   [self gotoAlipayOrWX:orderid Amount:response[@"data"][@"saleOrderPayAmount"] payType:req.saleOrderPayType];
+                  
                 }
             }
         }
@@ -488,25 +489,37 @@
     }];
 }
 
--(void)gotoAlipayOrWX:(NSString *)orderstr payType:(NSString*)type{
+-(void)gotoAlipayOrWX:(NSString *)orderstr Amount:(NSString*)amount payType:(NSString*)type{
+    UnifiedOrderReq *req =[[UnifiedOrderReq alloc]init];
+   
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
     
-    
+    req.platform = @"ios";
+    req.tradeType = @"JSAPI";
+    req.outTradeNo = orderstr;
+    req.openId = @"";
+    req.totalFee = amount;
+    req.body = @"";
+    [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
+        if (response) {
+            
+        }
+    }];
     
     if ([type isEqualToString:@"微信"]) {
-        PayReq *request = [[PayReq alloc] init];
-        
-        //    request.partnerId = [wxpayInfo objectForKey:@"partnerid"];
-            request.prepayId= orderstr;
-            request.package = @"Sign=WXPay";
-        
-            request.nonceStr= @"409238940230";
-        
-            request.timeStamp = 1132423423;
-        
-//            request.sign= [wxpayInfo objectForKey:@"sign"];
-        
-        [WXApi sendReq:request];
-        NSLog(@"微信支付");
+//        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+//
+//        //调起微信支付
+//        PayReq* req             = [[PayReq alloc] init];
+//        req.partnerId           = [dict objectForKey:@"partnerid"];
+//        req.prepayId            = [dict objectForKey:@"prepayid"];
+//        req.nonceStr            = [dict objectForKey:@"noncestr"];
+//        req.timeStamp           = stamp.intValue;
+//        req.package             = [dict objectForKey:@"package"];
+//        req.sign                = [dict objectForKey:@"sign"];
+//        [WXApi sendReq:req];
     }else{
         //将商品信息拼接成字符串
         

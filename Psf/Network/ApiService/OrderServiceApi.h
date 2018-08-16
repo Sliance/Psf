@@ -11,6 +11,8 @@
 #import "OrderListRes.h"
 #import "OrderDetailRes.h"
 #import "RefundOrderReq.h"
+#import "UnifiedOrderReq.h"
+
 @interface OrderServiceApi : BaseApi
 + (instancetype)share;
 ///获取订单列表
@@ -29,4 +31,7 @@
 - (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///退款
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
+///统一下单(支付时用)
+- (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
+
 @end

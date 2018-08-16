@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *memberNickName;
 @property(nonatomic,strong)NSString *memberAvatarPath;
 @property(nonatomic,strong)NSString *memberMobile;
-
+@property(nonatomic,strong)NSString *openid;
 
 - (NSDictionary *)getUserInfoDictionary;
 - (void)configUserInfoModelWithDic:(NSDictionary *) dic;

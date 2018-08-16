@@ -11,6 +11,11 @@
 #import "detailGoodsViewController.h"
 #import "ShopServiceApi.h"
 #import "PaySuccessHeadView.h"
+#import "PresaleHomeController.h"
+#import "ShoppingCartController.h"
+#import "MineViewController.h"
+#import "BaseOrdersController.h"
+
 
 @interface PaySuccessController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -44,6 +49,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     _likeArr = [NSMutableArray array];
     [self guessLikeList];
+  
 }
 -(void)guessLikeList{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -133,15 +139,50 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     
    
-        //        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-        //        [headerView addSubview:likeView];
+    
         PaySuccessHeadView* validView = [[PaySuccessHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 190)];
-//        validView.headImage.hidden = YES;
-//        [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
-//        __weak typeof(self)weakSelf = self;
-//        [validView setPressTypeBlock:^(NSInteger index) {
-//
-//        }];
+
+        __weak typeof(self)weakSelf = self;
+         [validView setHomeBlock:^{
+             for (UIViewController *controller in self.navigationController.viewControllers) {
+                 if ([controller isKindOfClass:[ShoppingCartController class]]) {
+                     self.tabBarController.selectedIndex =0;
+                     [self.navigationController popToViewController:controller animated:YES];
+                     
+                 }else if ([controller isKindOfClass:[PresaleHomeController class]]){
+                     [self.navigationController popToViewController:controller animated:YES];
+                 }else if ([controller isKindOfClass:[MineViewController class]]){
+                     self.tabBarController.selectedIndex =0;
+                     [self.navigationController popToViewController:controller animated:YES];
+                     
+                 }
+             }
+             
+         }];
+        [validView setOrderBlock:^{
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[ShoppingCartController class]]) {
+//                    self.tabBarController.selectedIndex =3;
+                   
+                    [self.navigationController popToViewController:controller animated:YES];
+                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
+                    allVC.selectedIndex =0;
+                    [self.navigationController pushViewController:allVC animated:YES];
+                   
+                }else if ([controller isKindOfClass:[PresaleHomeController class]]){
+                    self.tabBarController.selectedIndex =3;
+                    [self.navigationController popToViewController:controller animated:YES];
+                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
+                    [self.navigationController pushViewController:allVC animated:YES];
+                }else if ([controller isKindOfClass:[MineViewController class]]){
+                    [self.navigationController popToViewController:controller animated:YES];
+                    
+                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
+                    [self.navigationController pushViewController:allVC animated:YES];
+                }
+            }
+        }];
+    
         [headerView addSubview:validView];
    
     return headerView;

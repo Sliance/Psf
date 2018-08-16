@@ -24,7 +24,7 @@
              @"memberNickName"    : @"memberNickName",
              @"memberAvatarPath" : @"memberAvatarPath"
             , @"memberMobile" : @"memberMobile"
-             };
+             ,@"openid":@"openid"};
 }
 
 - (NSDictionary *)getUserInfoDictionary {
@@ -36,7 +36,7 @@
                           @"token" : self.token == nil?@"":self.token,
                           @"memberNickName" : self.memberNickName == nil?@"":self.memberNickName,@"memberAvatarPath" : self.memberAvatarPath == nil?@"":self.memberAvatarPath,
                          @"memberMobile" : self.memberMobile == nil?@"":self.memberMobile,
-                          };
+                          @"openid" : self.openid == nil?@"":self.openid,};
     return dic;
 }
 
@@ -46,7 +46,7 @@
     self.memberNickName = dic[@"memberNickName"];
     self.memberAvatarPath = dic[@"memberAvatarPath"];
     self.memberMobile = dic[@"memberMobile"];
-
+    self.openid = dic[@"opeid"];
 }
 
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic {
@@ -55,6 +55,7 @@
     self.memberNickName = dic[@"memberNickName"] ;
     self.memberAvatarPath = dic[@"memberAvatarPath"] ;
     self.memberMobile = dic[@"memberMobile"];
+    self.openid = dic[@"openid"];
 }
 
 @end
