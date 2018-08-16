@@ -228,7 +228,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.productCategoryParentId = @"";
@@ -480,6 +480,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)pressSubmitBtn:(UIButton*)sender{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
     fillVC.hidesBottomBarWhenPushed = YES;
+    NSMutableArray *Arr = [NSMutableArray array];
+    for (CartProductModel *model in self.result.cartProductList) {
+        if (model.cartProductIsActive ==1) {
+            [Arr addObject:model];
+        }
+    }
+    [fillVC setProductArr:Arr];
     [fillVC setResult:self.result];
     [self.navigationController pushViewController:fillVC animated:YES];
 }

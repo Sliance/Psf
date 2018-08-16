@@ -23,5 +23,6 @@ typedef NS_ENUM(NSInteger, GOOGSTYPE){
 
 @property(nonatomic,assign)GOOGSTYPE goodstype;
 @property(nonatomic,strong)ProductSkuModel *skumodel;
+@property(nonatomic,strong)NSArray *productArr;
 
 @end

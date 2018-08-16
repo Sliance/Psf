@@ -22,7 +22,7 @@
 ///删除会员地址信息
 - (void)deleteAddressWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/delete";
-    req.erpStoreId = @"181";
+    req.erpStoreId = @"";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -30,11 +30,11 @@
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
                 if (responseModel) {
-                    responseModel(dicResponse[@"data"]);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {

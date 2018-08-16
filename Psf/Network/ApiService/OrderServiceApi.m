@@ -236,7 +236,7 @@
 }
 ///统一下单(支付时用)
 - (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/wechat/wechat/pay/mobile/v2/unified/order";
+    NSString *url = @"/lxn/pay/mobile/v1/app/wxpay";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

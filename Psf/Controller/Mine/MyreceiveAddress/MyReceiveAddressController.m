@@ -82,20 +82,24 @@
     [self.navigationController pushViewController:editVC animated:YES];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+     return _dataArr.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return _dataArr.count;
+    return 1;
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 15;
+    return 5;
 }
-
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 5)];
+    label.backgroundColor = DSColorFromHex(0xF0F0F0);
+    return label;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 80;
+    return 75;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -109,7 +113,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = DSColorFromHex(0x464646);
     cell.textLabel.font = [UIFont systemFontOfSize:14];
-    ChangeAddressReq *model = _dataArr[indexPath.row];
+    ChangeAddressReq *model = _dataArr[indexPath.section];
     [cell setIndex:indexPath.row];
     [cell setModel:model];
     return cell;
@@ -128,6 +132,59 @@
     [editVC setChangeReq:model];
     [editVC setType:1];
     [self.navigationController pushViewController:editVC animated:YES];
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    return YES;
+}
+
+// 定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+// 进入编辑模式，按下出现的编辑按钮后,进行删除操作
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"确定要删除该地址吗？"
+                                                                       message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        __weak typeof(self)weakself = self;
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+            ChangeAddressReq *model = weakself.dataArr[indexPath.section];
+            [weakself deleteAddress:model.memberAddressId];
+        }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+            
+            
+        }];
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+-(void)deleteAddress:(NSString*)addressid{
+    
+    AddressBaeReq*req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.memberAddressId = addressid;
+    req.token = [UserCacheBean share].userInfo.token;
+    req.systemVersion = @"1.0.0";
+    req.platform = @"ios";
+    req.systemVersion = @"1.0.0";
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]deleteAddressWithParam:req response:^(id response) {
+        if (response) {
+            [weakself showToast:response[@"message"]];
+            [weakself requestAddressList];
+        }
+    }];
+}
+// 修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

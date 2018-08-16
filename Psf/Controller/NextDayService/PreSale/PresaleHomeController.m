@@ -13,6 +13,7 @@
 #import "HomeLocationView.h"
 #import "NextServiceApi.h"
 #import "PYSearchViewController.h"
+#import "ChooseAddressViewController.h"
 
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -230,9 +231,10 @@
 }
 ///定位
 -(void)pressHomeLocation:(UIButton*)sender {
-    [self showToast:@"目前仅支持上海区域"];
-    //    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
-    //    [self.navigationController pushViewController:cityViewController animated:YES];
+//    [self showToast:@"目前仅支持上海区域"];
+        ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+    cityViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:cityViewController animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

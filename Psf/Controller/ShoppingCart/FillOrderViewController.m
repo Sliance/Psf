@@ -180,12 +180,16 @@
 -(void)setSkumodel:(ProductSkuModel *)skumodel{
     _skumodel = skumodel;
 }
--(void)setResult:(ShoppingListRes *)result{
-    _result = result;
+-(void)setProductArr:(NSArray *)productArr{
+    _productArr = productArr;
     [_dataArr removeAllObjects];
-    [_dataArr addObjectsFromArray:self.result.cartProductList];
+    [_dataArr addObjectsFromArray:productArr];
     [_tableview reloadData];
     [self reloadLeftAddress];
+}
+-(void)setResult:(ShoppingListRes *)result{
+    _result = result;
+    
 }
 
 -(void)reloadLeftAddress{
@@ -234,7 +238,7 @@
     
     if (_goodstype ==GOOGSTYPENormal) {
         NSMutableArray *arr = [NSMutableArray array];
-        for (CartProductModel *model in self.result.cartProductList) {
+        for (CartProductModel *model in _productArr) {
             if (model.productQuantity) {
                 model.saleOrderProductQty = model.productQuantity;
                 [arr addObject:model];
@@ -306,7 +310,7 @@
             
         }
         weakself.calculateModel.usePointIs = YES;
-        weakself.calculateModel.productList = weakself.result.cartProductList;
+        weakself.calculateModel.productList = weakself.productArr;
         weakself.calculateModel.useIsBalance = YES;
         weakself.calculateModel.expressEnable = YES;
         NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
@@ -414,7 +418,7 @@
     
     
     if (_goodstype == GOOGSTYPENormal) {
-        for (CartProductModel *model in self.result.cartProductList) {
+        for (CartProductModel *model in self.productArr) {
             if (model.productQuantity) {
                 model.saleOrderProductQty = model.productQuantity;
                 req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + model.productQuantity ;
@@ -497,11 +501,11 @@
     req.token = [UserCacheBean share].userInfo.token;
     
     req.platform = @"ios";
-    req.tradeType = @"JSAPI";
-    req.outTradeNo = orderstr;
-    req.openId = @"";
-    req.totalFee = amount;
-    req.body = @"";
+//    req.tradeType = @"JSAPI";
+    req.saleOrderId = orderstr;
+//    req.openId = @"";
+//    req.totalFee = amount;
+//    req.body = @"";
     [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
         if (response) {
             
@@ -666,7 +670,10 @@
     if (indexPath.section ==1) {
         if (indexPath.row ==0) {
             cell.textLabel.text = @"商品总价";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderTotalAmount];
+            
+            if (self.resModel.saleOrderTotalAmount.length>0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.resModel.saleOrderTotalAmount];
+            }
             cell.detailTextLabel.textColor = DSColorFromHex(0x464646);
         }else if (indexPath.row ==1) {
             if (self.couponArr.count ==0) {

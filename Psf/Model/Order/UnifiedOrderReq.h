@@ -22,7 +22,7 @@
 ///
 @property(nonatomic,copy)NSString *body   ;
 ///订单号
-@property(nonatomic,copy)NSString *outTradeNo   ;
+@property(nonatomic,copy)NSString *saleOrderId   ;
 ///
 @property(nonatomic,copy)NSString *openId   ;
 ///金额

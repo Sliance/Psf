@@ -35,7 +35,7 @@
     [self addSubview:self.phoneLabel];
     [self addSubview:self.morenLabel];
     [self addSubview:self.lineImage];
-    [self addSubview:self.lineLabel];
+
     [self addSubview:self.editBtn];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
@@ -56,13 +56,10 @@
         make.left.equalTo(self.titleLabel.mas_right).offset(16);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
     }];
-    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(6);
-    }];
+
     [self.lineImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self).offset(-5);
+        make.bottom.equalTo(self);
         make.height.mas_equalTo(5);
     }];
     [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {

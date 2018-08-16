@@ -24,6 +24,7 @@
 - (void)addAddressWithParam:(ChangeAddressReq *) req response:(responseModel) responseModel;
 ///修改会员地址信息
 - (void)updateAddressWithParam:(ChangeAddressReq *) req response:(responseModel) responseModel;
+
 ///获取会员地址信息列表
 - (void)getAddressListWithParam:(AddressBaeReq *) req response:(responseModel)responseModel;
 ///获取单条默认会员门店地址信息（填写订单界面的）

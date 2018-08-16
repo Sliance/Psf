@@ -220,7 +220,7 @@
         }];
         [self.navigationController pushViewController:mapVC animated:YES];
     }else if (indexPath.row ==0){
-      BLAreaPickerView*  pickView = [[BLAreaPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+      BLAreaPickerView*  pickView = [[BLAreaPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         pickView.pickViewDelegate = self;
         [pickView bl_show];
     }
@@ -251,6 +251,7 @@
     [_numfield resignFirstResponder];
     [_addressfield resignFirstResponder];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

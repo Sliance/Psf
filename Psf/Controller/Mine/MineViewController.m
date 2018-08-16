@@ -273,6 +273,7 @@
     }
    
 }
+
 -(void)pressMinefootBtnWithIndex:(NSInteger)index{
     
 }
