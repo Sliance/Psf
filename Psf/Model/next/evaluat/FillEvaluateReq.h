@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface FillEvaluateReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 @property(nonatomic,strong)NSMutableArray *commentList;
 ///应用编号
 @property(nonatomic,copy)NSString *appId;

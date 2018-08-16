@@ -22,4 +22,6 @@
 -(void)validVerCodeWithParam:(LoginReq *) req response:(responseModel) responseModel;
 ///找回密码
 -(void)retrievePasswordWithParam:(LoginReq *) req response:(responseModel) responseModel;
+///微信登录
+-(void)weChartLoginWithParam:(LoginReq *) req response:(responseModel) responseModel;
 @end

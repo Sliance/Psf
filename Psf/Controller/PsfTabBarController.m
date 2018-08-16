@@ -14,6 +14,7 @@
 #import "MineViewController.h"
 #import "SortViewController.h"
 #import "PrefixHeader.pch"
+#import "PresaleHomeController.h"
 
 @interface PsfTabBarController ()<UITabBarControllerDelegate>
 
@@ -46,7 +47,7 @@
     [[PsfTabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:10], NSFontAttributeName, nil] forState:UIControlStateNormal];
     self.tabBar.tintColor = [UIColor redColor];
     
-    nextItem = [[PsfTabBarItem alloc] initWithTitle:@"次日达" image:[UIImage imageNamed:@"next_icon_selected"] selectedImage:[UIImage imageNamed:@"next_icon_selected"]];
+    nextItem = [[PsfTabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"next_icon_selected"] selectedImage:[UIImage imageNamed:@"next_icon_selected"]];
     nextItem.image = [[UIImage imageNamed:@"next_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nextItem.selectedImage = [UIImage imageNamed:@"next_icon_selected"];
     
@@ -61,7 +62,8 @@
     mineItem.selectedImage = [UIImage imageNamed:@"mine_icon_selected"];
     
     //次日达
-    NextDayServiceController *nextController = [[NextDayServiceController alloc] init];
+//    NextDayServiceController *nextController = [[NextDayServiceController alloc] init];
+    PresaleHomeController *nextController = [[PresaleHomeController alloc]init];
     UINavigationController *nextNavController = [[UINavigationController alloc] initWithRootViewController:nextController];
     nextController.navigationController.navigationBar.translucent = YES;
     nextNavController.tabBarItem = nextItem;

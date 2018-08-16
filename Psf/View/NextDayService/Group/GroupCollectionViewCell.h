@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
+#import "GroupListRes.h"
 
 @interface GroupCollectionViewCell : UICollectionViewCell
 ///图片
@@ -21,5 +22,5 @@
 ///
 @property(nonatomic,strong)UILabel *weightLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
-
+@property(nonatomic,strong)GroupListRes *model;
 @end

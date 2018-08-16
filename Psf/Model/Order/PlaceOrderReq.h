@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface PlaceOrderReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///订单商品信息
 @property(nonatomic,strong)NSArray *productList;
 ///城市名字

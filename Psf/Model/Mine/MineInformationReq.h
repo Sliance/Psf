@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MineInformationReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///会员头像ID
 @property(nonatomic,assign)NSInteger memberAvatarId;
 ///会员头像路径

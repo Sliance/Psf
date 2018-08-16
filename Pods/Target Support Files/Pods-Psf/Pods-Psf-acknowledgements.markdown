@@ -244,6 +244,11 @@ THE SOFTWARE.
 
 
 
+## WechatOpenSDK
+
+Copyright 2018 tencent.com. All rights reserved.
+
+
 ## YYKit
 
 The MIT License (MIT)

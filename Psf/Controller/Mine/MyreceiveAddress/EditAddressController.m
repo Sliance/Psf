@@ -90,8 +90,11 @@
         weakself.changeReq.memberAddressIsDefault = selected;
     }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard:)];
-    [self.view addGestureRecognizer:tap];
+//    [self.view addGestureRecognizer:tap];
     
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
 }
 -(void)pressBottom{
     if (_type ==0) {
@@ -111,6 +114,8 @@
         if ([response[@"code"] integerValue] == 200) {
             [self showToast:response[@"message"]];
             [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self showToast:response[@"message"]];
         }
     }];
 }
@@ -125,6 +130,8 @@
             [self showToast:response[@"message"]];
             [self.navigationController popViewControllerAnimated:YES];
             
+        }else{
+            [self showToast:response[@"message"]];
         }
     }];
 }
@@ -163,10 +170,13 @@
                 cell.textLabel.text = [NSString stringWithFormat:@"%@   %@   %@",self.changeReq.memberAddressProvince,self.changeReq.memberAddressCity,self.changeReq.memberAddressArea];
                 }
         }else if (indexPath.row ==1){
-            if (self.changeReq.memberAddressDetail.length<1) {
+            if (self.changeReq.memberAddressPositionDetail.length<1) {
                 cell.textLabel.text = @"请选择相关位置";
+            }else{
+                
+             cell.textLabel.text =self.changeReq.memberAddressPositionDetail;
+            
             }
-            cell.textLabel.text =self.changeReq.memberAddressPositionDetail;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -200,7 +210,8 @@
         ZHMapAroundInfoViewController *mapVC = [[ZHMapAroundInfoViewController alloc]initWithNibName:@"ZHMapAroundInfoViewController" bundle:[NSBundle mainBundle]];
         __weak typeof(self)weakself = self;
         [mapVC setGetAddressBlock:^(ZHPlaceInfoModel * model) {
-            weakself.changeReq = [[ChangeAddressReq alloc]init];
+//            weakself.changeReq = [[ChangeAddressReq alloc]init];
+//            weakself.changeReq = weakself.changeReq;
             weakself.changeReq.memberAddressPositionDetail = model.thoroughfare;
             weakself.changeReq.memberAddressLatitude = [NSString stringWithFormat:@"%f",model.coordinate.latitude];
             weakself.changeReq.memberAddressLongitude = [NSString stringWithFormat:@"%f",model.coordinate.longitude];
@@ -232,7 +243,7 @@
     return [textField resignFirstResponder];
 }
 
--(void)hideKeyBoard:(UITapGestureRecognizer*)sender{
+-(void)hideKeyBoard{
     self.changeReq.memberAddressName = _namefield.text;
     self.changeReq.memberAddressMobile = _numfield.text;
     self.changeReq.memberAddressDetail = _addressfield.text;

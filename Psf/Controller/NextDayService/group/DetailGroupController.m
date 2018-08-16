@@ -16,7 +16,8 @@
 
 @interface DetailGroupController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
-
+@property (nonatomic, strong)SpellGroupModel *result;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 @end
 static NSString *cellId = @"cellId";
 @implementation DetailGroupController
@@ -36,6 +37,8 @@ static NSString *cellId = @"cellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
+    self.result = [[SpellGroupModel alloc]init];
+    self.dataArr = [NSMutableArray array];
 }
 -(void)setOrderid:(NSString*)orderid{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -50,14 +53,39 @@ static NSString *cellId = @"cellId";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]getDetailGroupWithParam:req response:^(id response) {
-        
+        weakself.result = response;
+        [weakself getGroupList];
+        [weakself.collectionView reloadData];
+    }];
+}
+-(void)getGroupList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getGroupListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return self.dataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -87,7 +115,8 @@ static NSString *cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     GroupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    GroupListRes *model = self.dataArr[indexPath.row];
+    [cell setModel:model];
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -106,10 +135,11 @@ static NSString *cellId = @"cellId";
         }
     }
     GroupHeadView* validView = [[GroupHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 412)];
+    [validView setModel:self.result];
     __weak typeof(self)weakSelf = self;
     [validView setSubnitBtn:^(NSInteger index) {
-        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
-        [weakSelf.navigationController pushViewController:sureVC animated:YES];
+//        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+//        [weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [headerView addSubview:validView];
     return headerView;
@@ -117,8 +147,8 @@ static NSString *cellId = @"cellId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    //    [self showViewController:nav sender:nil];
+    GroupListRes *model = self.dataArr[indexPath.row];
+    [vc setProductID:model.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

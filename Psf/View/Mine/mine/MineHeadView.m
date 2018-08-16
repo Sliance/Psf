@@ -16,6 +16,7 @@
         [_headbtn.layer setMasksToBounds:YES];
         [_headbtn.layer setCornerRadius:35];
         [_headbtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_headbtn setBackgroundImage:[UIImage imageNamed:@"mine_avater_75"] forState:UIControlStateNormal];
     }
     return _headbtn;
 }
@@ -25,7 +26,7 @@
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:18];
         _nameLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
-        _nameLabel.text = @"香蕉";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -72,8 +73,13 @@
 -(void)setResult:(MineInformationReq *)result{
     _result = result;
     UIImageView *image = [[UIImageView alloc]init];
+    if (result.memberAvatarPath.length>0) {
+        [self.headbtn setBackgroundImageWithURL:[NSURL URLWithString:result.memberAvatarPath] forState:UIControlStateNormal options:YYWebImageOptionAllowBackgroundTask];
+    }else{
+         [_headbtn setBackgroundImage:[UIImage imageNamed:@"mine_avater_70"] forState:UIControlStateNormal];
+    }
     [image sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
-    [self.headbtn setBackgroundImageWithURL:[NSURL URLWithString:result.memberAvatarPath] forState:UIControlStateNormal options:YYWebImageOptionAllowBackgroundTask];
+    
     
     self.nameLabel.text = result.memberNickName;
 }

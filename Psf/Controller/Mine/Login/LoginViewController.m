@@ -10,6 +10,9 @@
 #import "LoginServiceApi.h"
 #import "PassWordLoginController.h"
 #import "SettingPassWordController.h"
+#import <UMShare/UMShare.h>
+
+#import "WXApi.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -116,6 +119,7 @@
     if (!_wechartBtn) {
         _wechartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_wechartBtn setImage:[UIImage imageNamed:@"wechart_login"] forState:UIControlStateNormal];
+        [_wechartBtn addTarget:self action:@selector(getAuthWithUserInfoFromWechat) forControlEvents:UIControlEventTouchUpInside];
     }
     return _wechartBtn;
 }
@@ -123,6 +127,7 @@
     if (!_qqBtn) {
         _qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_qqBtn setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
+        [_qqBtn addTarget:self action:@selector(getAuthWithUserInfoFromQQ) forControlEvents:UIControlEventTouchUpInside];
     }
     return _qqBtn;
 }
@@ -130,6 +135,7 @@
     if (!_weiboBtn) {
         _weiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_weiboBtn setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
+        [_weiboBtn addTarget:self action:@selector(getAuthWithUserInfoFromSina) forControlEvents:UIControlEventTouchUpInside];
     }
     return _weiboBtn;
 }
@@ -167,9 +173,9 @@
     [self.view addSubview:self.sendCodeBtn];
     [self.view addSubview:self.finishBtn];
     [self.view addSubview:self.passLoginBtn];
-    [self.view addSubview:self.weiboBtn];
+//    [self.view addSubview:self.weiboBtn];
     [self.view addSubview:self.wechartBtn];
-    [self.view addSubview:self.qqBtn];
+//    [self.view addSubview:self.qqBtn];
     [self.view addSubview:self.noticeLabel];
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
@@ -226,30 +232,41 @@
         make.top.equalTo(self.finishBtn.mas_bottom).offset(15);
         make.centerX.equalTo(self.view);
     }];
-    [self.qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(40);
-        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
-        make.centerX.equalTo(self.view);
-    }];
+//    [self.qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(40);
+//        make.height.mas_equalTo(40);
+//        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+//        make.centerX.equalTo(self.view);
+//    }];
     [self.wechartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(40);
         make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
-        make.right.equalTo(self.qqBtn.mas_left).offset(-27);
+        make.centerX.equalTo(self.passLoginBtn);
     }];
-    [self.weiboBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(40);
-        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
-        make.left.equalTo(self.qqBtn.mas_right).offset(27);
-    }];
-    
+//    [self.weiboBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(40);
+//        make.height.mas_equalTo(40);
+//        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+//        make.left.equalTo(self.qqBtn.mas_right).offset(27);
+//    }];
+//
     
        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
     [tap addTarget:self action:@selector(pressTap)];
     [self.view addGestureRecognizer:tap];
+    //创建通知中心对象
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    //注册、接收通知
+  
+    [center addObserver:self selector:@selector(weChartLgin:)name:@"wechartlogin" object:nil];
+}
+
+-(void)weChartLgin:(NSNotification *)noti{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)pressTap{
     [_phoneField resignFirstResponder];
@@ -336,6 +353,42 @@
     [self.navigationController pushViewController:passVC animated:YES];
     
 }
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:nil completion:^(id result, NSError *error) {
+        UMSocialUserInfoResponse *resp = result;
+        // 第三方登录数据(为空表示平台未提供)
+        // 授权数据
+        NSLog(@" uid: %@", resp.uid);
+        NSLog(@" openid: %@", resp.openid);
+        NSLog(@" accessToken: %@", resp.accessToken);
+        NSLog(@" refreshToken: %@", resp.refreshToken);
+        NSLog(@" expiration: %@", resp.expiration);
+        // 用户数据
+        NSLog(@" name: %@", resp.name);
+        NSLog(@" iconurl: %@", resp.iconurl);
+        NSLog(@" gender: %@", resp.unionGender);
+        // 第三方平台SDK原始数据
+        NSLog(@" originalResponse: %@", resp.originalResponse);
+    }];
+}
+- (void)getAuthWithUserInfoFromWechat
+{
+//    [[WXApiManager sharedManager] sendAuthRequestWithController:self
+//                                                       delegate:self];
+     [self sendAuthRequest];
+}
+
+-(void)sendAuthRequest
+{
+    //构造SendAuthReq结构体
+    SendAuthReq* req =[[SendAuthReq alloc]init];
+    req.scope = @"snsapi_userinfo";
+    req.state = @"Lxn";
+    //第三方向微信终端发送一个SendAuthReq消息结构
+    [WXApi sendReq:req];
+}
+
 /*
 #pragma mark - Navigation
 

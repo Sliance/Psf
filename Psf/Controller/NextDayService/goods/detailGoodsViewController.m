@@ -32,6 +32,8 @@
 #import "NextDayServiceController.h"
 #import "SortViewController.h"
 #import "ShoppingCartController.h"
+#import "WXApiObject.h"
+#import "WXApi.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -83,7 +85,7 @@
 -(GoodHeadView *)headView{
     if (!_headView) {
         _headView = [[GoodHeadView alloc]init];
-        
+        [_headView.shareBtn addTarget:self action:@selector(pressShare:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headView;
 }
@@ -160,6 +162,7 @@
         _cycleScroll.supportBtn.hidden = YES;
         _cycleScroll.returnBtn.hidden = YES;
         _cycleScroll.sendBtn.hidden = YES;
+        [_cycleScroll setIndex:1];
     }
     return _cycleScroll;
 }
@@ -502,7 +505,7 @@
     req.productId = _productID;
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]spellGroupListWithParam:req response:^(id response) {
-        self.footView.hidden = NO;
+        
         if (response != nil) {
             [weakself.groupArr removeAllObjects];
             [weakself.groupArr addObjectsFromArray:response];
@@ -571,7 +574,10 @@
     
     
 }
-
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, self.webView.scrollView.contentSize.height);
+    _bgscrollow.contentSize = CGSizeMake(0, self.webView.ctBottom+100);
+}
 -(void)reloadHeight{
     if (self.couponArr.count ==0) {
         _couponCell.hidden = YES;
@@ -597,8 +603,12 @@
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
     
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
-    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, SCREENHEIGHT*3);
-    
+    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, self.webView.scrollView.contentSize.height);
+    if (self.result.productContent.length<1) {
+        self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, 50);
+    }
+    self.footView.hidden = NO;
+     _bgscrollow.contentSize = CGSizeMake(0, self.webView.ctBottom+100);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -635,8 +645,27 @@
     
     }];
 }
--(void)pressShareBtn:(UIButton*)sender{
+-(void)pressShare:(UIButton*)sender{
+    UIImageView *bgimageview = [[UIImageView alloc]init];
+    ImageModel *model = [self.result.productImageList firstObject];
+    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+    WXMiniProgramObject *wxMiniobject = [WXMiniProgramObject object];
+    wxMiniobject.webpageUrl = @"https://www.baidu.com";
+    wxMiniobject.userName = @"gh_8cc4d494480f";
+    wxMiniobject.path = [NSString stringWithFormat:@"/pages/shopDetail/shopDetail?goodsId=%ld",self.result.productId];
+    wxMiniobject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"犁小农";
+    message.description = @"邀您一起";
     
+    [message setThumbImage:bgimageview.image];
+    message.mediaObject = wxMiniobject;
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    
+    [WXApi sendReq:req];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

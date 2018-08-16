@@ -18,7 +18,9 @@
 #import "RechargeViewController.h"
 #import "NextServiceApi.h"
 #import "PresaleController.h"
-
+#import "GroupServiceApi.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
 @interface ZSPageViewController ()<ZSCycleScrollViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
@@ -39,7 +41,7 @@ static NSString *cellId = @"cellId";
 }
 -(ZSCycleScrollView *)cycleScroll{
     if (!_cycleScroll) {
-        _cycleScroll = [[ZSCycleScrollView alloc] init];
+        _cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectZero];
         _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
         _cycleScroll.delegate =self;
         [_cycleScroll setIndex:0];
@@ -72,6 +74,34 @@ static NSString *cellId = @"cellId";
     _dataArr = [NSMutableArray array];
     [self requestData:[NSString stringWithFormat:@"%ld",(long)_model.productCategoryId]];
   
+}
+-(void)getGroupList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
+    req.pageIndex = @"1";
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getGroupListWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+             CGFloat collecHeight = 0;
+            collecHeight = weakself.dataArr.count*260+40;
+            weakself.collectionView.frame = CGRectMake(0, weakself.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
+            weakself.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+weakself.height);
+            [self requestBanner];
+        }
+    }];
 }
 -(void)requestData:(NSString*)categoryId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -114,7 +144,7 @@ static NSString *cellId = @"cellId";
         if (weakself.selectedIndex ==0) {
             [self reloadTuiJian];
         }else if (weakself.selectedIndex ==1){
-            
+            [self getGroupList];
         }else{
             StairCategoryRes *model = [headArr firstObject];
             [weakself getCollectiomData:model];
@@ -147,7 +177,7 @@ static NSString *cellId = @"cellId";
                 collecHeight += model.subjectCategoryProductList.count*155+300;
             }
         }
-        collecHeight += weakself.dataArr.count*150;
+        collecHeight += weakself.dataArr.count*150+40;
         weakself.collectionView.frame = CGRectMake(0, weakself.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
         weakself.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+weakself.height);
          [weakself requestBanner];
@@ -180,12 +210,12 @@ static NSString *cellId = @"cellId";
         CGFloat collecHeight = 0;
         for (StairCategoryRes *model in weakSelf.dataArr) {
             if (model.productList.count%2==0) {
-                collecHeight += model.productList.count*155;
+                collecHeight += model.productList.count*140;
             }else{
-                collecHeight += model.productList.count*155+300;
+                collecHeight += model.productList.count*140+300;
             }
         }
-        collecHeight += weakSelf.dataArr.count*150;
+        collecHeight += weakSelf.dataArr.count*150+40;
         weakSelf.collectionView.frame = CGRectMake(0, weakSelf.cycleScroll.ctBottom, SCREENWIDTH, collecHeight);
         weakSelf.bgScrollow.contentSize = CGSizeMake(0,collecHeight+220+weakSelf.height);
         [weakSelf requestBanner];
@@ -211,6 +241,7 @@ static NSString *cellId = @"cellId";
                     [arr addObject:model.subjectTopImagePath];
                 }
             }
+            
             [self.cycleScroll setImageUrlGroups:arr];
         }
     }];
@@ -227,6 +258,8 @@ static NSString *cellId = @"cellId";
     self.view.backgroundColor = [UIColor whiteColor];
     __weak typeof(self)weakself = self;
     [self.cycleScroll setSelectedItemBlock:^(NSInteger index) {
+    if (self.selectedIndex ==0) {
+
         if (index==0) {
             PresaleController *groupVC = [[PresaleController alloc]init];
             groupVC.hidesBottomBarWhenPushed = YES;
@@ -240,13 +273,38 @@ static NSString *cellId = @"cellId";
             RechargeViewController *rechargeVC = [[RechargeViewController alloc]init];
             rechargeVC.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:rechargeVC animated:YES];
+        }else if (index ==3){
+            
+            WXMediaMessage *message = [WXMediaMessage message];
+            message.title = @"犁小农";
+            message.description = @"邀您一起";
+            [message setThumbImage:[UIImage imageNamed: @"icon_about"]];
+            WXWebpageObject *webobject = [WXWebpageObject object];
+            webobject.webpageUrl = @"https://www.baidu.com";
+            message.mediaObject = webobject;
+            SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+            req.bText = NO;
+            req.message = message;
+            req.scene = WXSceneSession;
+
+            [WXApi sendReq:req];
         }
+    }else{
+        DetailSortController *vc = [DetailSortController new];
+        [vc setSelectedIndex:index];
+        [vc setDataArr:weakself.dataArr];
+        vc.hidesBottomBarWhenPushed = YES;
+        [weakself.navigationController showViewController:vc sender:nil];
+    }
     }];
      [self.cycleScroll setDataArr:nil];
 }
 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    if (self.selectedIndex ==1) {
+        return 1;
+    }
     return self.dataArr.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -254,7 +312,7 @@ static NSString *cellId = @"cellId";
         SubjectCategoryModel *model = self.dataArr[section];
         return model.subjectCategoryProductList.count;
     }else if (self.selectedIndex ==1){
-        
+        return self.dataArr.count;
     }
     StairCategoryRes *model = self.dataArr[section];
     return model.productList.count;
@@ -291,6 +349,9 @@ static NSString *cellId = @"cellId";
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
         [cell setModel:res];
+    }else if (self.selectedIndex ==1){
+        GroupListRes *model = self.dataArr[indexPath.row];
+        [cell setGroupmodel:model];
     }else{
         StairCategoryRes *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.productList[indexPath.row];
@@ -300,7 +361,9 @@ static NSString *cellId = @"cellId";
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    
+    if (self.selectedIndex ==1) {
+        return CGSizeMake(SCREENWIDTH, 40);
+    }
     return CGSizeMake(SCREENWIDTH, 150);
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -318,6 +381,9 @@ static NSString *cellId = @"cellId";
     if (self.selectedIndex ==0) {
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
         [validView setModel:model];
+    }else if (self.selectedIndex ==1){
+        validView.frame = CGRectMake(0, 0, SCREENWIDTH, 40);
+        [validView.typeBtn setTitle:@"团购" forState:UIControlStateNormal];
     }else{
         StairCategoryRes *model = self.dataArr[indexPath.section];
         [validView setProductmodel:model];

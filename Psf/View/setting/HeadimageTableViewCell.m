@@ -53,6 +53,7 @@
         _headImage = [[UIImageView alloc]init];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:55/2];
+        [_headImage setImage:[UIImage imageNamed:@"mine_avater_55"]];
     }
     return _headImage;
 }
@@ -60,7 +61,7 @@
 -(void)setResult:(MineInformationReq *)result{
     _result = result;
     
-    [_headImage sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
     
 }
 @end

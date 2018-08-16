@@ -20,6 +20,7 @@
     return global;
 }
 -(void)requestShopListModelListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -46,6 +47,7 @@
 }
 ///选中单条购物车信息
 - (void)requestShopCartSelectedSingleWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/active";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -72,6 +74,7 @@
 }
 ///全选或者反选购物车信息
 - (void)requestShopCartSelectedAllWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/active/all";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -98,6 +101,7 @@
 }
 ///清空购物车失效商品
 - (void)clearLoseProductWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/clear/is/not/open";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -125,6 +129,7 @@
 
 ///获取购物车数量
 - (void)getShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/count";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -152,6 +157,7 @@
 
 ///新增购物车信息
 - (void)addShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/save";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -179,6 +185,7 @@
 }
 ///修改购物车信息
 - (void)changeShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/cart/mobile/v1/update";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -207,6 +214,7 @@
 ///猜你喜欢
 - (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/product/mobile/v1/guest/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -219,7 +227,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -234,6 +242,7 @@
 ///填写订单计算价格
 -(void)CalculateThePriceWithParam:(CalculateReq*)req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/cal/amount";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -260,6 +269,7 @@
 ///下单
 -(void)placeThePriceWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/save";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

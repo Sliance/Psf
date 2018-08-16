@@ -176,8 +176,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    FillEvaluateController *fillVC = [[FillEvaluateController alloc]init];
-    [self.navigationController pushViewController:fillVC animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {

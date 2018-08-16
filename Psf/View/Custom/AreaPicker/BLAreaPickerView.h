@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "ZSConfig.h"
+
 @class BLAreaPickerView;
 @protocol BLPickerViewDelegate <NSObject>
 

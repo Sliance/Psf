@@ -22,6 +22,10 @@
 #import "GroupServiceApi.h"
 #import "DetailGroupController.h"
 #import "InvoiceViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApiObject.h"
+#import "WXApi.h"
+#import "PaySuccessController.h"
 
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -144,10 +148,13 @@
     [self.headView setDateBlock:^(NSInteger index) {
         weakSelf.dateView.hidden = NO;
     }];
-    [self.dateView setCancleBlock:^(NSString* date) {
+    [self.dateView setCancleBlock:^(NSString* date,NSString *start,NSString* end) {
         weakSelf.dateView.hidden = YES;
         if (date.length>0) {
             weakSelf.headView.dateLabel.text = date;
+            weakSelf.calculateModel.saleOrderDistributionStartTime = start;
+            weakSelf.calculateModel.saleOrderDistributionEndTime = end ;
+            [weakSelf calculatePrice:weakSelf.calculateModel];
         }
     }];
 }
@@ -158,7 +165,7 @@
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
     _gooddetail = gooddetail;
     ProductSkuModel *model;
-    if (_goodstype ==GOOGSTYPENormal&&self.gooddetail.productSkuList.count>1) {
+    if (self.gooddetail.productSkuList.count>1) {
         model = _skumodel;
     }else{
       model = [self.gooddetail.productSkuList firstObject];
@@ -351,6 +358,10 @@
         req.saleOrderReceiveMobile = self.leftModel.memberAddressMobile;
         req.merchantStoreName = @"";
          req.merchantStoreId = @"";
+        if (self.leftModel.memberAddressName.length<1) {
+            [self showInfo:@"请填写收货地址"];
+            return;
+        }
     }else if (self.type ==2){
         req.saleOrderReceiveName = @"";
         req.saleOrderReceiveType = @"门店自提";
@@ -390,13 +401,14 @@
         }else{
             req.merchantStoreId = self.storemodel.storeId;
         }
+        if (req.merchantStoreId.length<1) {
+            [self showInfo:@"请选择自提门店"];
+            return;
+        }
     }
-    NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
-    NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
-    NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
-    next = [NSString stringWithFormat:@"%@ 09:00:00",next];
-    req.saleOrderDistributionStartTime = next;
-    req.saleOrderDistributionEndTime = end;
+    
+    req.saleOrderDistributionStartTime = self.calculateModel.saleOrderDistributionStartTime;
+    req.saleOrderDistributionEndTime = self.calculateModel.saleOrderDistributionEndTime;
     NSMutableArray *arr = [NSMutableArray array];
     
     
@@ -435,8 +447,15 @@
     [[ShopServiceApi share]placeThePriceWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"下单成功"];
-                [weakself.navigationController popViewControllerAnimated:YES];
+//                [weakself showToast:@"下单成功"];
+                NSString *orderid = response[@"data"][@"saleOrderId"];
+                if ([response[@"data"][@"saleOrderPayAmount"] isEqualToString:@"0"]) {
+                    PaySuccessController *successVC = [[PaySuccessController alloc]init];
+                    [self.navigationController pushViewController:successVC animated:YES];
+                }else{
+                   [self gotoAlipayOrWX:orderid payType:req.saleOrderPayType];
+                   [weakself.navigationController popViewControllerAnimated:YES];
+                }
             }
         }
     }];
@@ -448,8 +467,8 @@
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"下单成功"];
-                DetailGroupController *detailVC = [[DetailGroupController alloc]init];
-                [weakself.navigationController pushViewController:detailVC animated:YES];
+               
+                [weakself.navigationController popViewControllerAnimated:YES];
             }
         }
     }];
@@ -467,6 +486,50 @@
             }
         }
     }];
+}
+
+-(void)gotoAlipayOrWX:(NSString *)orderstr payType:(NSString*)type{
+    
+    
+    
+    if ([type isEqualToString:@"微信"]) {
+        PayReq *request = [[PayReq alloc] init];
+        
+        //    request.partnerId = [wxpayInfo objectForKey:@"partnerid"];
+            request.prepayId= orderstr;
+            request.package = @"Sign=WXPay";
+        
+            request.nonceStr= @"409238940230";
+        
+            request.timeStamp = 1132423423;
+        
+//            request.sign= [wxpayInfo objectForKey:@"sign"];
+        
+        [WXApi sendReq:request];
+        NSLog(@"微信支付");
+    }else{
+        //将商品信息拼接成字符串
+        
+        
+        // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
+        //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
+        
+        
+        // NOTE: 如果加签成功，则继续执行支付
+        
+        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+        NSString *appScheme = @"犁小农";
+        
+        // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
+        
+        
+        // NOTE: 调用支付结果开始支付
+        [[AlipaySDK defaultService] payOrder:orderstr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            NSLog(@"reslut = %@",resultDic);
+        }];
+    }
+    
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;

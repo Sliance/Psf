@@ -7,8 +7,9 @@
 //
 
 #import "BaseView.h"
+#import "SpellGroupModel.h"
 
-@interface GroupHeadView : BaseView
+@interface GroupHeadView : BaseView<UIScrollViewDelegate>
 ///图片
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UIView *bgView;
@@ -22,10 +23,11 @@
 @property(nonatomic,strong)UILabel  *priceLabel;
 @property(nonatomic,strong)UILabel  *lineLabel;
 @property(nonatomic,strong)UILabel  *dateLabel;
-@property(nonatomic,strong)UIImageView *tuanImage;
-@property(nonatomic,strong)UIImageView *canImage;
+
 @property(nonatomic,strong)UIButton *submitBtn;
 @property(nonatomic,strong)UILabel *nextLabel;
 @property(nonatomic,strong)UILabel *tuanLabel;
 @property(nonatomic,copy)void (^subnitBtn)(NSInteger);
+@property(nonatomic,strong)SpellGroupModel *model;
+@property(nonatomic,strong)UIScrollView *bgscrollow;
 @end

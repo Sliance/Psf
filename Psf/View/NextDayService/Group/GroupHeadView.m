@@ -13,7 +13,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"mei_icon"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setCornerRadius:20];
         [_headImage.layer setMasksToBounds:YES];
     }
@@ -50,7 +50,7 @@
     if(!_nameLabel){
         _nameLabel = [[UILabel alloc]init];
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        _nameLabel.text = @"猪猪侠";
+        
         _nameLabel.font = [UIFont systemFontOfSize:14];
         _nameLabel.textColor = DSColorFromHex(0x646464);
     }
@@ -60,7 +60,7 @@
     if(!_shortLabel){
         _shortLabel = [[UILabel alloc]init];
         _shortLabel.textAlignment = NSTextAlignmentLeft;
-        _shortLabel.text = @"发起了2人团";
+        
         _shortLabel.font = [UIFont systemFontOfSize:11];
         _shortLabel.textColor = DSColorFromHex(0xB5B5B5);
         _shortLabel.backgroundColor = [UIColor whiteColor];
@@ -71,7 +71,7 @@
     if(!_pinLabel){
         _pinLabel = [[UILabel alloc]init];
         _pinLabel.textAlignment = NSTextAlignmentLeft;
-        _pinLabel.text = @"2人拼购价   ¥9.90";
+        
         _pinLabel.font = [UIFont systemFontOfSize:12];
         _pinLabel.textColor = DSColorFromHex(0x646464);
     }
@@ -92,7 +92,7 @@
     if(!_priceLabel){
         _priceLabel = [[UILabel alloc]init];
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        _priceLabel.text = @"¥19.90";
+        
         _priceLabel.font = [UIFont systemFontOfSize:12];
         _priceLabel.textColor = DSColorFromHex(0xB5B5B5);
         _priceLabel.backgroundColor = [UIColor whiteColor];
@@ -102,8 +102,7 @@
 -(UILabel *)dateLabel{
     if(!_dateLabel){
         _dateLabel = [[UILabel alloc]init];
-        _dateLabel.textAlignment = NSTextAlignmentLeft;
-        _dateLabel.text = @"还差2人拼团成功，剩余时间";
+        _dateLabel.textAlignment = NSTextAlignmentCenter;
         _dateLabel.font = [UIFont systemFontOfSize:12];
         _dateLabel.textColor = DSColorFromHex(0x646464);
     }
@@ -120,7 +119,7 @@
     if(!_goodLabel){
         _goodLabel = [[UILabel alloc]init];
         _goodLabel.textAlignment = NSTextAlignmentLeft;
-        _goodLabel.text = @"华圣陕西优质红富士6个原箱200g以 上/个";
+        
         _goodLabel.font = [UIFont systemFontOfSize:14];
         _goodLabel.textColor = DSColorFromHex(0x646464);
         _goodLabel.numberOfLines = 2;
@@ -130,7 +129,7 @@
 -(UIImageView *)goodImage{
     if (!_goodImage) {
         _goodImage = [[UIImageView alloc]init];
-        _goodImage.image = [UIImage imageNamed:@"mei_icon"];
+        _goodImage.image = [UIImage imageNamed:@""];
     }
     return _goodImage;
 }
@@ -141,7 +140,7 @@
         [_submitBtn.layer setMasksToBounds:YES];
         _submitBtn.backgroundColor = DSColorFromHex(0xFF4C4D);
         [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_submitBtn setTitle:@"我要参团" forState:UIControlStateNormal];
+        [_submitBtn setTitle:@"邀请好友" forState:UIControlStateNormal];
         [_submitBtn addTarget:self action:@selector(pressSubmit:) forControlEvents:UIControlEventTouchUpInside];
         _submitBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     }
@@ -160,26 +159,16 @@
     }
     return _tuanLabel;
 }
--(UIImageView *)tuanImage{
-    if (!_tuanImage) {
-        _tuanImage = [[UIImageView alloc]init];
-        _tuanImage.image = [UIImage imageNamed:@"mei_icon"];
-        [_tuanImage.layer setCornerRadius:21];
-        [_tuanImage.layer setMasksToBounds:YES];
-        [_tuanImage.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-        [_tuanImage.layer setBorderWidth:2];
+-(UIScrollView *)bgscrollow{
+    if (!_bgscrollow) {
+        _bgscrollow = [[UIScrollView alloc]init];
+        _bgscrollow.delegate = self;
+        _bgscrollow.frame = CGRectMake(0, 223, SCREENWIDTH, 50);
+        _bgscrollow.showsVerticalScrollIndicator = NO;
+        _bgscrollow.showsHorizontalScrollIndicator = NO;
+        _bgscrollow.bounces = NO;
     }
-    return _tuanImage;
-}
--(UIImageView *)canImage{
-    if (!_canImage) {
-        _canImage = [[UIImageView alloc]init];
-        _canImage.image = [UIImage imageNamed:@"mei_icon"];
-        [_canImage.layer setCornerRadius:20];
-        [_canImage.layer setMasksToBounds:YES];
-        
-    }
-    return _canImage;
+   return  _bgscrollow;
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -191,6 +180,7 @@
 }
 -(void)setcortentLayout{
     [self addSubview:self.bgView];
+    [self.bgView addSubview:self.bgscrollow];
     [self.bgView addSubview:self.headView];
     [self addSubview:self.nextLabel];
     [self.bgView addSubview:self.headImage];
@@ -203,8 +193,7 @@
     [self.headView addSubview:self.danLabel];
     [self.headView addSubview:self.lineLabel];
     [self.bgView addSubview:self.dateLabel];
-    [self.bgView addSubview:self.tuanImage];
-    [self.bgView addSubview:self.canImage];
+
     [self.bgView addSubview:self.submitBtn];
     [self.bgView addSubview:self.tuanLabel];
     [self.nextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -215,6 +204,7 @@
         make.top.left.right.equalTo(self);
         make.bottom.equalTo(self.nextLabel.mas_top).offset(-5);
     }];
+    
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bgView).offset(15);
         make.right.equalTo(self.bgView).offset(-15);
@@ -271,24 +261,66 @@
         make.bottom.equalTo(self.bgView.mas_bottom).offset(-20);
         make.height.mas_equalTo(36);
     }];
-    [self.tuanImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(42);
-        make.bottom.equalTo(self.submitBtn.mas_top).offset(-30);
-        make.centerX.equalTo(self.bgView).offset(-26);
-    }];
-    [self.canImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(40);
-        make.bottom.equalTo(self.submitBtn.mas_top).offset(-30);
-        make.centerX.equalTo(self.bgView).offset(25);
-    }];
-    [self.tuanLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(27);
-        make.height.mas_equalTo(13);
-        make.centerX.equalTo(self.tuanImage);
-        make.bottom.equalTo(self.tuanImage.mas_bottom).offset(5);
-    }];
+
+    
 }
 -(void)pressSubmit:(UIButton*)sender{
     self.subnitBtn(sender.tag);
+}
+-(void)setModel:(SpellGroupModel *)model{
+    _model = model;
+    SpellGroupModel *spellmodel = [model.grouponActivityMemberList firstObject];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:spellmodel.memberAvatarPath]];
+    _shortLabel.text = [NSString stringWithFormat:@"发起了%ld人团",model.grouponActivityMemberLimit];
+    _nameLabel.text = spellmodel.memberNickName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+    [self.goodImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    _goodLabel.text = model.productName;
+    _pinLabel.text = [NSString stringWithFormat:@"%ld人拼购价   ¥%@",model.grouponActivityMemberLimit,model.grouponActivityPrice];
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@",model.productPrice];
+    NSInteger count = model.grouponActivityMemberLimit-1;
+    NSString *date = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponActivityExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    self.dateLabel.text = [NSString stringWithFormat:@"还差%ld人拼团成功，剩余时间%@",count,date];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    [timer setFireDate:[NSDate distantPast]];
+    NSInteger limit =model.grouponActivityMemberLimit;
+    
+    for (int i = 0; i<limit; i++) {
+      UIImageView*  tuanImage = [[UIImageView alloc]init];
+        [self.bgscrollow addSubview:tuanImage];
+        [tuanImage.layer setCornerRadius:20];
+        [tuanImage.layer setMasksToBounds:YES];
+        if (limit<8) {
+            tuanImage.frame = CGRectMake((SCREENWIDTH/2-25*limit+5)+i*50, 0, 40, 40);
+        }else{
+            tuanImage.frame = CGRectMake(15+i*50, 0, 40, 40);
+        }
+        
+        if (i<model.grouponActivityMemberList.count) {
+            if (i ==0) {
+                [tuanImage.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+                [tuanImage.layer setBorderWidth:2];
+                 [tuanImage  sd_setImageWithURL:[NSURL URLWithString:spellmodel.memberAvatarPath]];
+                self.tuanLabel.frame = CGRectMake(tuanImage.ctLeft+5, tuanImage.ctBottom-10, 27, 13);
+                [_bgscrollow addSubview:self.tuanLabel];
+            }else{
+                SpellGroupModel *canmodel = model.grouponActivityMemberList[i];
+                [tuanImage  sd_setImageWithURL:[NSURL URLWithString:canmodel.memberAvatarPath]];
+
+            }
+            
+            
+        }else{
+            tuanImage.image = [UIImage imageNamed:@"can_group"];
+        }
+        
+    }
+    self.bgscrollow.contentSize = CGSizeMake(50*model.grouponActivityMemberLimit+150, 50);
+}
+-(void)timerAction{
+    NSInteger count = _model.grouponActivityMemberLimit-1;
+    NSString *date = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponActivityExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    self.dateLabel.text = [NSString stringWithFormat:@"还差%ld人拼团成功，剩余时间%@",count,date];
 }
 @end

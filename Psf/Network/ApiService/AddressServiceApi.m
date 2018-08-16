@@ -22,6 +22,7 @@
 ///删除会员地址信息
 - (void)deleteAddressWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/delete";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -48,6 +49,7 @@
 ///获取单条会员地址信息
 - (void)getSingleAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/find";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -74,6 +76,7 @@
 }
 ///获取单条默认会员地址信息
 - (void)getSingleDefaultAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/member/address/mobile/v1/find/default";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -102,6 +105,7 @@
 ///新增会员收货地址信息
 - (void)addAddressWithParam:(ChangeAddressReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/save";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -113,7 +117,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -128,6 +132,7 @@
 ///修改会员地址信息
 - (void)updateAddressWithParam:(ChangeAddressReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/update";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -139,7 +144,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -154,6 +159,7 @@
 ///获取会员地址信息列表
 - (void)getAddressListWithParam:(AddressBaeReq *) req response:(responseModel)responseModel{
     NSString *url = @"/lxn/member/address/mobile/v1/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -180,6 +186,7 @@
 }
 ///获取单条默认会员门店地址信息（填写订单界面的）
 - (void)pickUpSingleDefaultAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/member/store/mobile/v1/find";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -208,6 +215,7 @@
 ///获取会员门店地址列填表（填写订单界面的）
 - (void)pickUpAddresListWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/merchantStore/mobile/v1/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -235,6 +243,7 @@
 ///修改门店信息
 - (void)updateStoreAddresWithParam:(AddressBaeReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/merchantStore/mobile/v1/update";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

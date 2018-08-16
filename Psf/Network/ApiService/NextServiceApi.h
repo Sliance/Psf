@@ -41,5 +41,6 @@
 ///新增销售订单商品评论信息
 - (void)fillEvaluatetWithParam:(FillEvaluateReq *) req response:(responseModel) responseModel;
 
-
+///根据分类编号查询商品列表
+- (void)getCategoryListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

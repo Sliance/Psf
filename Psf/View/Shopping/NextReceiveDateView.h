@@ -7,6 +7,7 @@
 //
 
 #import "BaseView.h"
+#import "NSDate+Add.h"
 
 @interface NextReceiveDateView : BaseView
 @property(nonatomic,strong)UILabel *titleLabel;
@@ -23,6 +24,6 @@
 @property(nonatomic,strong)UIButton *tmpBtn;
 @property(nonatomic,strong)UIButton *leftBtn;
 @property(nonatomic,strong)UIButton *cancleBtn;
-@property(nonatomic,copy)void(^cancleBlock)(NSString*);
+@property(nonatomic,copy)void(^cancleBlock)(NSString*,NSString*,NSString*);
 @property(nonatomic,strong)NSArray *datearr;
 @end

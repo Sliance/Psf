@@ -9,5 +9,10 @@
 #import "SpellGroupModel.h"
 
 @implementation SpellGroupModel
-
++ (NSDictionary *)mj_objectClassInArray {
+    
+    return @{
+             @"grouponActivityMemberList":@"SpellGroupModel"
+             };
+}
 @end

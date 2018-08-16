@@ -50,7 +50,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-49) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ShoppingCollectionViewCell class] forCellWithReuseIdentifier:cellId];
@@ -183,7 +183,6 @@ static NSString *cellIds = @"NextCollectionViewCell";
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
@@ -193,6 +192,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";
+    req.productCategoryId = @"";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
@@ -430,7 +430,24 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [cell setModel:model];
         __weak typeof(self)weakself = self;
         [cell setAddBlock:^(CartProductModel* req) {
-            [weakself changeShopCount:req];
+            
+            if (req.productQuantity ==0 ) {
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"确定删除该商品"
+                                                                               message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                    [weakself changeShopCount:req];
+                }];
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                    
+                    
+                }];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [weakself presentViewController:alert animated:YES completion:nil];
+            }else{
+                [weakself changeShopCount:req];
+            }
+            
         }];
         [cell setChooseBlock:^(CartProductModel *req) {
             [weakself selectedSingle:req];

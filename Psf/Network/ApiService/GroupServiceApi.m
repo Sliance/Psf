@@ -21,6 +21,7 @@
 }
 -(void)getGroupListWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     NSString *url = @"/lxn/groupon/mobile/v1/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -47,6 +48,7 @@
 ///获取正在拼团信息列表
 - (void)spellGroupListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/groupon/activity/mobile/v1/list/activing";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -73,6 +75,7 @@
 ///团购价格计算
 - (void)getGroupPriceWithParam:(CalculateReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/groupon/mobile/v1/cal/groupon/price";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -99,14 +102,15 @@
 ///团购详情
 - (void)getDetailGroupWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/groupon/mobile/v1/find/groupon/activity/detail";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-//                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                SpellGroupModel *result = [SpellGroupModel mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {
@@ -125,6 +129,7 @@
 ///团购下单
 - (void)saveGroupWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/groupon/mobile/v1/save";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -151,6 +156,7 @@
 ///获取预售信息列表
 - (void)getPresaleListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/pre/sale/mobile/v1/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -176,6 +182,7 @@
 }
 ///获取预售、团购banner
 - (void)getPreAndGroupBannerWithParam:(GroupModelReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = @"181";
     NSString *url = @"/lxn/product/banner/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -203,6 +210,7 @@
 ///预售价格计算
 - (void)getPresalePriceWithParam:(CalculateReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/pre/sale/mobile/v1/cal/pre/price";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -229,6 +237,7 @@
 ///预售下单
 - (void)savePresaleWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/pre/sale/mobile/v1/save";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

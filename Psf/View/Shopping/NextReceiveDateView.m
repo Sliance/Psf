@@ -141,7 +141,7 @@
         [_nowBtn setBackgroundColor:[UIColor whiteColor]];
         _nowBtn.selected = YES;
         _leftBtn = _nowBtn;
-        [_nowBtn setTitle:@"3月11日|周五" forState:UIControlStateNormal];
+        [_nowBtn setTitle:@"" forState:UIControlStateNormal];
         [_nowBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
         _nowBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_nowBtn addTarget:self action:@selector(pressLeft:) forControlEvents:UIControlEventTouchUpInside];
@@ -168,10 +168,10 @@
     return _cancleBtn;
 }
 -(void)pressTap{
-     self.cancleBlock(@"");
+     self.cancleBlock(@"",@"",@"");
 }
 -(void)pressCancle:(UIButton*)sender{
-    self.cancleBlock(@"");
+    self.cancleBlock(@"",@"",@"");
 }
 -(void)pressLeft:(UIButton*)sender{
     sender.selected = !sender.selected;
@@ -190,6 +190,25 @@
         [sender setBackgroundColor:[UIColor whiteColor]];
         _leftBtn = sender;
     }
+    
+    NSString *date = [NSString stringWithFormat:@"%@ %@",_leftBtn.titleLabel.text,_tmpBtn.titleLabel.text];
+    NSDate *now;
+    NSString *start;
+    NSString *end;
+    NSArray *all = [_tmpBtn.titleLabel.text componentsSeparatedByString:@"-"];
+    if (_leftBtn ==_nowBtn) {
+        now = [[[NSDate alloc]init]dateByAddingDays:1];
+        start = [now stringWithFormat:@"yyyy-MM-dd"];
+        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+    }
+    if (_leftBtn ==_nextBtn) {
+        now = [[[NSDate alloc]init]dateByAddingDays:2];
+        start = [now stringWithFormat:@"yyyy-MM-dd"];
+        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+    }
+    self.cancleBlock(date,start,end);
 }
 -(void)pressBtn:(UIButton*)sender{
     sender.selected = !sender.selected;
@@ -210,6 +229,22 @@
         _tmpBtn = sender;
     }
     NSString *date = [NSString stringWithFormat:@"%@ %@",_leftBtn.titleLabel.text,_datearr[sender.tag]];
-    self.cancleBlock(date);
+    NSDate *now;
+    NSString *start;
+    NSString *end;
+    NSArray *all = [_tmpBtn.titleLabel.text componentsSeparatedByString:@"-"];
+    if (_leftBtn ==_nowBtn) {
+        now = [[[NSDate alloc]init]dateByAddingDays:1];
+        start = [now stringWithFormat:@"yyyy-MM-dd"];
+        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+    }
+    if (_leftBtn ==_nextBtn) {
+        now = [[[NSDate alloc]init]dateByAddingDays:2];
+        start = [now stringWithFormat:@"yyyy-MM-dd"];
+        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+    }
+    self.cancleBlock(date,start,end);
 }
 @end

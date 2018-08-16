@@ -103,7 +103,7 @@ typedef enum : NSUInteger {
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _cancelButton.frame = CGRectMake(0, 0, buttonWidth, topViewHeight);
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
         [_cancelButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_cancelButton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -115,7 +115,7 @@ typedef enum : NSUInteger {
         _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _sureButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, topViewHeight);
         [_sureButton setTitle:@"确定" forState:UIControlStateNormal];
-        [_sureButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_sureButton setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
         [_sureButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_sureButton addTarget:self action:@selector(sureButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }

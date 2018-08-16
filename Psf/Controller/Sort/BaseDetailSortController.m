@@ -49,21 +49,18 @@ static NSString *cellId = @"cellId";
     req.userLatitude = @"31.23037";
     req.productId = model.productCategoryId;
         req.pageIndex = @"1";
-        req.pageSize = @"4";
-    req.productCategoryParentId = model.productCategoryParentId;
+        req.pageSize = @"10";
+    req.productCategoryId = [NSString stringWithFormat:@"%ld",model.productCategoryId] ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
+    req.erpStoreId = @"181";
     self.dateArr = [[NSMutableArray alloc]init];
     __weak typeof(self) weakSelf = self;
-    [[NextServiceApi share]requestSortListLoadWithParam:req response:^(id response) {
+    [[NextServiceApi share]getCategoryListWithParam:req response:^(id response) {
         if(response!=nil){
-            for (StairCategoryRes *res in response) {
-                if (model.productCategoryId == res.productCategoryId) {
-                    [weakSelf.dateArr removeAllObjects];
-                    [weakSelf.dateArr addObjectsFromArray:res.productList];
-                    [weakSelf.collectionView reloadData];
-                }
-            }
+            [weakSelf.dateArr removeAllObjects];
+            [weakSelf.dateArr addObjectsFromArray:response];
+            [weakSelf.collectionView reloadData];
         }
     }];
 }

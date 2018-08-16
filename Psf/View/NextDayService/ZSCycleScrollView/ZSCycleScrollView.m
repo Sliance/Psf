@@ -78,7 +78,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         [self addSubview:self.supportBtn];
         [self addSubview:self.returnBtn];
         [self addSubview:self.sendBtn];
-        [self.scrollView addSubview:self.collectionView];
+        [self addSubview:self.collectionView];
         self.userInteractionEnabled = YES;
        
     }
@@ -154,11 +154,11 @@ static NSString *cellId = @"SortCollectionViewCell";
  *  设置自动滚动的时间间隔
  */
 -(void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval{
-    _autoScrollTimeInterval = autoScrollTimeInterval;
+//    _autoScrollTimeInterval = autoScrollTimeInterval;
     //每次设定的时候需要先终止之前的timer
-    [_timer invalidate];
-    _timer = nil;
-    [self setUpTimer];
+//    [_timer invalidate];
+//    _timer = nil;
+//    [self setUpTimer];
 }
 
 /**
@@ -189,11 +189,11 @@ static NSString *cellId = @"SortCollectionViewCell";
  */
 - (void)setImagesGroup:(NSMutableArray *)imagesGroup{
     _imagesGroup = imagesGroup;
-    //    if (imagesGroup.count !=1) {
-    ////        [self setUpTimer];
-    //    }else{
-    //        self.scrollView.scrollEnabled = NO;
-    //    }
+        if (imagesGroup.count !=1) {
+//            [self setUpTimer];
+        }else{
+            self.scrollView.scrollEnabled = NO;
+        }
     [self setUpScrollViewContent];
 }
 /**
@@ -217,6 +217,11 @@ static NSString *cellId = @"SortCollectionViewCell";
         [images addObject:image];
     }
     self.imagesGroup = images;
+    if (self.imagesGroup.count !=1) {
+//        [self setUpTimer];
+    }else{
+        self.scrollView.scrollEnabled = NO;
+    }
     [self loadImageWithUrlGroups:imageUrlGroups];
 }
 
@@ -357,7 +362,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         [self.scrollView removeFromSuperview];//避免重复加载
     }
     [self addSubview:self.scrollView];
-    [self.scrollView addSubview:self.collectionView];
+    [self  addSubview:self.collectionView];
     [self setUpPageControll];
 }
 -(void)setImageSize:(CGSize )imageSize{
@@ -433,9 +438,9 @@ static NSString *cellId = @"SortCollectionViewCell";
 //    [self addGestureRecognizer:singleTap];
     
     //每一次setup之后要重新开始计时
-    [_timer invalidate];
-    _timer = nil;
-    [self setUpTimer];
+//    [_timer invalidate];
+//    _timer = nil;
+//    [self setUpTimer];
 }
 
 
@@ -546,7 +551,7 @@ static NSString *cellId = @"SortCollectionViewCell";
     }
     NSLog(@"self.pageControl.currentPage===%ld",(long)self.pageControl.currentPage);
     //重新开始计时器
-    [self setUpTimer];
+//    [self setUpTimer];
 }
 -(UICollectionView *)collectionView{
     if (!_collectionView) {

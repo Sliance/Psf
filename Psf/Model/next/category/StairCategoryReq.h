@@ -11,11 +11,13 @@
 @interface StairCategoryReq : NSObject
 ///品父类编号
 @property(nonatomic,copy)NSString *productCategoryParentId;
-@property(nonatomic,copy)NSString *productCategoryId;
+@property(nonatomic,copy)NSString* productCategoryId;
 ///应用编号
 @property(nonatomic,copy)NSString *appId;
 ///
 @property(nonatomic,copy)NSString *token;
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///客户端
 @property(nonatomic,strong)NSString *platform;
 ///时间戳

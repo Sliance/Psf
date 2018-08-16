@@ -154,5 +154,13 @@
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     self.weightLabel.text = model.productUnit;
 }
-
+-(void)setGroupmodel:(GroupListRes *)groupmodel{
+    _groupmodel = groupmodel;
+    self.nameLabel.text = groupmodel.productName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,groupmodel.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.contentLabel.text = groupmodel.productTitle;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.grouponPrice];
+    self.weightLabel.text = groupmodel.productUnit;
+}
 @end

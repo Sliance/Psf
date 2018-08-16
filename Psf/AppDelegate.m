@@ -7,8 +7,13 @@
 //
 
 #import "AppDelegate.h"
+#import <UMShare/UMShare.h>
+#import "UMSocialWechatHandler.h"
+#import "WXApi.h"
+#import "LoginServiceApi.h"
 
-@interface AppDelegate ()
+#import <AlipaySDK/AlipaySDK.h>
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -20,11 +25,216 @@
     _mainTabController = [[PsfTabBarController alloc] init];
     self.window.rootViewController = _mainTabController;
     [self.window makeKeyAndVisible];
+    // UMConfigure 通用设置，请参考SDKs集成做统一初始化。
+    /* 设置友盟appkey */
     
+    // U-Share 平台设置
+    [self configUSharePlatforms];
+    [self confitUShareSettings];
+    [WXApi registerApp:@"wx16b93fcfc9faba3c"];
     return YES;
+}
+- (void)confitUShareSettings
+{
+    /*
+     * 打开图片水印
+     */
+    //[UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+    /*
+     * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
+     <key>NSAppTransportSecurity</key>
+     <dict>
+     <key>NSAllowsArbitraryLoads</key>
+     <true/>
+     </dict>
+     */
+    //[UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+}
+- (void)configUSharePlatforms
+{
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx16b93fcfc9faba3c" appSecret:@"3e55d10c0ef98d2c32515293ee3cd2f5" redirectURL:@"http://mobile.umeng.com/social"];
+    /*
+     * 移除相应平台的分享，如微信收藏
+     */
+    //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+    /* 设置分享到QQ互联的appID
+     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105821097"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    /* 设置新浪的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    /* 支付宝的appKey */
+    [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_AlipaySession appKey:@"2015111700822536" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+
+
+}
+#pragma MARK - aliPay
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (result) {
+        return YES;
+    }
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+
+        }];
+
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+
+    }
+    return YES;
+}
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//            [HYNotification postAliPayResultNotification:resultDic];
+        }];
+        
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
+    if ([url.host isEqualToString:@"pay"]) {//微信支付
+        [WXApi handleOpenURL:url delegate:self];
+    }
+    if (![url.host isEqualToString:@"pay"]) {//微信支付
+        [WXApi handleOpenURL:url delegate:self];
+    }
+    return YES;
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+//    if (!result) {
+//        // 其他如支付等SDK的回调
+//    }
+//    return result;
+    return [WXApi handleOpenURL:url delegate:self];
+}
+//微信代理方法
+- (void)onResp:(BaseResp *)resp
+{
+    
+    SendAuthResp *aresp = (SendAuthResp *)resp;
+    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
+    {
+        NSString *code = aresp.code;
+        [self getWeiXinOpenId:code];
+    }
 }
 
 
+//通过code获取access_token，openid，unionid
+- (void)getWeiXinOpenId:(NSString *)code{
+    NSString *AppId = @"wx16b93fcfc9faba3c";
+    NSString *AppSerect = @"3e55d10c0ef98d2c32515293ee3cd2f5";
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",AppId,AppSerect,code];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *zoneUrl = [NSURL URLWithString:url];
+        NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [zoneStr dataUsingEncoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data){ 
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSString *openID = dic[@"openid"];
+                NSString *token = dic[@"access_token"];
+
+                [self getWeiXintoken:token OpenId:openID];
+            }
+        });
+    });
+    
+}
+
+- (void)getWeiXintoken:(NSString *)token OpenId:(NSString*)openid{
+    
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",token,openid];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *zoneUrl = [NSURL URLWithString:url];
+        NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [zoneStr dataUsingEncoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data){
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"%@",dic);
+                LoginReq *req = [[LoginReq alloc]init];
+                req.memberArea = dic[@"city"];
+                req.nickname = dic[@"nickname"];
+                req.avatar = dic[@"headimgurl"];
+                req.memberGender = dic[@"sex"];
+                req.appOpenId = dic[@"openid"];
+                req.wechatUnionId = dic[@"unionid"];
+                req.appId = @"993335466657415169";
+                req.timestamp = @"529675086";
+                req.token = @"";
+                req.platform = @"ios";
+                req.openId = @"";
+                req.memberEmail = @"";
+                req.memberMobile = @"";
+                req.memberBirthday = @"";
+                req.memberPassword = @"";
+                req.memberAvatarId = @"";
+                req.memberAccount = @"";
+                [self weChartLogin:req];
+            }
+        });
+    });
+}
+
+-(void)weChartLogin:(LoginReq*)req{
+    [[LoginServiceApi share]weChartLoginWithParam:req response:^(id response) {
+        if (response) {
+            NSError *error = nil;
+            UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
+            [UserCacheBean share].userInfo = userInfoModel;
+            NSNotification *notification = [NSNotification notificationWithName:@"wechartlogin"object:nil userInfo:@{@"key":@"接收到了通知"}];
+            
+            [[NSNotificationCenter defaultCenter]postNotification:notification];
+            
+        }
+    }];
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

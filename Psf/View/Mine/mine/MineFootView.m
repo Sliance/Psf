@@ -50,6 +50,11 @@
     
 }
 -(void)setArr:(NSArray *)arr{
+    for (UIView*view  in self.subviews) {
+        if ([view isKindOfClass:[MineTypeBtn class]]) {
+            [view removeFromSuperview];
+        }
+    }
     NSArray *imageArr= @[@"\U0000e901",@"\U0000e900",@"\U0000e903",@"\U0000e902",@"\U0000e904"];
     NSArray *dataArr = @[@"待付款",@"待发货",@"待收货",@"待评价",@"退换/售后"];
     for (int i = 0; i<imageArr.count; i++) {

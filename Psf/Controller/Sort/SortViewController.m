@@ -31,6 +31,8 @@ static NSString *cellId = @"SortCollectionViewCell";
         _locView = [[HomeLocationView alloc]init];
           [_locView.searchBtn addTarget:self action:@selector(pressSearch) forControlEvents:UIControlEventTouchUpInside];
         _locView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, 45);
+        [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
+        [_locView.locBtn setTitle:@"上海市" forState:UIControlStateNormal];
     }
     return _locView;
 }
@@ -266,7 +268,12 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 
 
-
+///定位
+-(void)pressHomeLocation:(UIButton*)sender {
+    [self showToast:@"目前仅支持上海区域"];
+    //    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+    //    [self.navigationController pushViewController:cityViewController animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

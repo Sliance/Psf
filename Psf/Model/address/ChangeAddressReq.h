@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ChangeAddressReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///接收人姓名
 @property(nonatomic,strong)NSString *memberAddressName;
 ///手机号码

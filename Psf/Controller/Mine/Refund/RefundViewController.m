@@ -225,6 +225,14 @@
         }
     }];
 }
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
+}
+-(void)hideKeyBoard{
+    self.orderReq.saleOrderRefundReason = self.reasonField.text;
+    [_reasonField resignFirstResponder];
+   
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

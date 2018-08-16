@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface AddressBaeReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///应用编号
 @property(nonatomic,copy)NSString *appId;
 ///

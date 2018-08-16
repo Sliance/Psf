@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StairCategoryListRes.h"
 #import "ZSConfig.h"
+#import "GroupListRes.h"
 
 @interface NextCollectionViewCell : UICollectionViewCell
 ///图片
@@ -26,4 +27,6 @@
 ///爆款
 @property(nonatomic,strong)UILabel *quickLabel;
 @property(nonatomic,strong)StairCategoryListRes *model;
+@property(nonatomic,strong)GroupListRes *groupmodel;
+
 @end

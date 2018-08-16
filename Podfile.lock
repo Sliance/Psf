@@ -30,6 +30,7 @@ PODS:
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
+  - WechatOpenSDK (1.8.2)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - MJRefresh
   - Qiniu (~> 7.1)
   - SDWebImage
+  - WechatOpenSDK
   - YYKit
 
 SPEC REPOS:
@@ -58,6 +60,7 @@ SPEC REPOS:
     - MJRefresh
     - Qiniu
     - SDWebImage
+    - WechatOpenSDK
     - YYKit
 
 SPEC CHECKSUMS:
@@ -71,8 +74,9 @@ SPEC CHECKSUMS:
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 00fd47eb2402ec3a227684ba079400f2788918a4
+PODFILE CHECKSUM: 191da0359532bf4aea1e393840566a3136c9c33c
 
 COCOAPODS: 1.5.3

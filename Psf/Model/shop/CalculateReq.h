@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface CalculateReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///是否使用积分
 @property(nonatomic,assign)BOOL usePointIs;
 ///商品列表

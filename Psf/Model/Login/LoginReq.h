@@ -25,4 +25,30 @@
 @property(nonatomic,copy)NSString *memberMobile;
 ///密码
 @property(nonatomic,copy)NSString *memberPassword;
+/*
+ 微信登录
+ */
+///openid
+@property(nonatomic,copy)NSString *appOpenId;
+///
+@property(nonatomic,copy)NSString *memberAccount;
+///地区
+@property(nonatomic,copy)NSString *memberArea;
+///小程序传的openid
+@property(nonatomic,copy)NSString *openId;
+///头像
+@property(nonatomic,copy)NSString *avatar;
+///昵称
+@property(nonatomic,copy)NSString *nickname;
+//UnionId
+@property(nonatomic,copy)NSString *wechatUnionId;
+///邮箱
+@property(nonatomic,copy)NSString *memberEmail;
+///
+@property(nonatomic,copy)NSString *memberAvatarId;
+///性别
+@property(nonatomic,copy)NSString *memberGender;
+///生日
+@property(nonatomic,copy)NSString *memberBirthday;
+
 @end

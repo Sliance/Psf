@@ -112,7 +112,8 @@
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"确认发货成功！"];
+                [weakself showToast:@"确认收货成功！"];
+                [self requestData];
             }
         }
     }];

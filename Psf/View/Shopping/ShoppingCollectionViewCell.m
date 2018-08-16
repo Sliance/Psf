@@ -97,7 +97,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -111,7 +111,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
-        _nameLabel.text = @"澳洲牛腱子";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -121,7 +121,7 @@
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _priceLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
-        _priceLabel.text = @"￥99.8";
+        _priceLabel.text = @"";
     }
     return _priceLabel;
 }
@@ -131,7 +131,7 @@
         _weightLabel.textAlignment = NSTextAlignmentLeft;
         _weightLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _weightLabel.textColor = [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
-        _weightLabel.text = @"1.2kg";
+        _weightLabel.text = @"";
     }
     return _weightLabel;
 }
@@ -141,7 +141,7 @@
         _countLabel.textAlignment = NSTextAlignmentLeft;
         _countLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _countLabel.textColor = [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1];
-        _countLabel.text = @"6个";
+        _countLabel.text = @"";
     }
     return _countLabel;
 }
@@ -223,9 +223,10 @@
     NSInteger count = [_countField.text integerValue];
     
     if (count ==1) {
+        
         [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
-       
+        _model.productQuantity =0;
     }else{
         count = count-1;
         _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
@@ -233,8 +234,9 @@
             [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
             [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
         }
+         _model.productQuantity = [_countField.text integerValue];
     }
-    _model.productQuantity = [_countField.text integerValue];
+   
     self.addBlock(_model);
 }
 -(void)setGoodtype:(GOODSTYPE)goodtype{

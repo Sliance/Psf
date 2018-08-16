@@ -61,7 +61,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -76,7 +76,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = [UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1];
-        _nameLabel.text = @"澳洲牛腱子";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -87,7 +87,7 @@
         _weightLabel.textAlignment = NSTextAlignmentLeft;
         _weightLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _weightLabel.textColor = DSColorFromHex(0x787878);
-        _weightLabel.text = @"6个  1.2kg";
+        _weightLabel.text = @"";
     }
     return _weightLabel;
 }
@@ -98,7 +98,7 @@
         _countLabel.textAlignment = NSTextAlignmentRight;
         _countLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _countLabel.textColor = DSColorFromHex(0x464646);
-        _countLabel.text = @"X2";
+        _countLabel.text = @"";
     }
     return _countLabel;
 }
@@ -108,7 +108,7 @@
         _orderNumLabel.textAlignment = NSTextAlignmentLeft;
         _orderNumLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _orderNumLabel.textColor = DSColorFromHex(0x464646);
-        _orderNumLabel.text = @"订单编号：41235323";
+        _orderNumLabel.text = @"订单编号:";
     }
     return _orderNumLabel;
 }
@@ -118,7 +118,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _payableLabel.textColor = DSColorFromHex(0x464646);
-        _payableLabel.text = @"￥39.8";
+        _payableLabel.text = @"";
     }
     return _payableLabel;
 }

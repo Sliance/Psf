@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface RefundOrderReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///订单编号
 @property(nonatomic,assign)NSInteger saleOrderId;
 ///订单商品编号

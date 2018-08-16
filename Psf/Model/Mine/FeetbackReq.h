@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface FeetbackReq : NSObject
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///反馈类型
 @property(nonatomic,copy)NSString *memberFeedbackType;
 ///反馈内容

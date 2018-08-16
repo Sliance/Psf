@@ -12,6 +12,7 @@
 #import "SubjectModel.h"
 
 
+
 /**
  *  把RGB色值由0～255转为标准的0～1.0, alpha默认为1.0
  *
@@ -137,7 +138,7 @@ typedef NS_ENUM(NSInteger,ZSCycleScrollPageControlAliment){
  */
 @property (nonatomic, assign) CGFloat titleLabelHeight;
 
-@property(nonatomic,assign)CGSize  imageSize;
+
 /**
  *  创建声明cycleScrollView的方式
  *
@@ -170,5 +171,5 @@ typedef NS_ENUM(NSInteger,ZSCycleScrollPageControlAliment){
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,assign)NSInteger collectionHeight;
-
+@property(nonatomic,assign)CGSize  imageSize;
 @end

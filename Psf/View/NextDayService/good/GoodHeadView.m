@@ -104,6 +104,7 @@
     [self addSubview:self.limitTitleLabel];
     [self addSubview:self.arriveTitleLabel];
     [self addSubview:self.remainTitleLabel];
+    [self addSubview:self.priceLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self).offset(10);
@@ -114,14 +115,19 @@
         make.top.equalTo(self).offset(11);
         make.width.height.mas_equalTo(21);
     }];
-    [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(14);
+       
+    }];
+    [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
-        make.width.mas_equalTo(SCREENWIDTH-30);
+        
     }];
     [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(self.buyerLabel.mas_bottom).offset(15);
+        make.top.equalTo(self.buyerLabel.mas_bottom).offset(24);
         make.width.mas_equalTo(SCREENWIDTH-30);
     }];
     [self.limitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,7 +165,6 @@
     if (!_shareBtn) {
         _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_shareBtn setImage:[UIImage imageNamed:@"shop_share"] forState:UIControlStateNormal];
-        [_shareBtn addTarget:self action:@selector(pressShareBtn:) forControlEvents:UIControlEventTouchUpInside];
         _shareBtn.frame = CGRectMake(0, 20, 40, 40);
     }
     return _shareBtn;
@@ -187,8 +192,8 @@
 -(UILabel *)buyerLabel{
     if (!_buyerLabel) {
         _buyerLabel = [[UILabel alloc]init];
-        _buyerLabel.textAlignment = NSTextAlignmentLeft;
-        _buyerLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+        _buyerLabel.textAlignment = NSTextAlignmentRight;
+        _buyerLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _buyerLabel.textColor = DSColorFromHex(0x787878);
         _buyerLabel.text = @"";
     }
@@ -349,7 +354,14 @@
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
         
         [self setLauoutPreSale];
-      _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+      _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
+        self.priceLabel.font = [UIFont systemFontOfSize:19];
+        _buyerLabel.text = @"已有23人购买";
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%ld人购买",model.productSaleCount]];
+        [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.productSaleCount].length)];
+        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.productSaleCount].length)];
+        _buyerLabel.attributedText = str;
     }else if ([model.productType isEqualToString:@"reward"]){//满减
        [self setCornerLayoutNormal];
     }
@@ -357,7 +369,8 @@
     _contentLabel.text = model.productTitle;
     _weightLabel.text = model.productUnit;
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
-    _buyerLabel.text = @"已有23人购买";
+    
+    
     CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
     if (model.preSaleLimitQuantity ==0) {
         progress = 0.99;

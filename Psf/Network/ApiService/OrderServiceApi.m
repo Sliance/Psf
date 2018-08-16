@@ -21,6 +21,7 @@
 }
 -(void)getOrderListWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/list";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -47,6 +48,7 @@
 ///获取订单详情
 - (void)getDetailOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/find";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -73,6 +75,7 @@
 ///提醒发货
 - (void)noticeOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/notice/mobile/v1/save";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -99,6 +102,7 @@
 ///再来一单
 - (void)againOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/again";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -125,6 +129,7 @@
 ///取消订单
 - (void)cancleOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/cancel";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -151,6 +156,7 @@
 ///删除订单
 - (void)deleteOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/delete";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -177,6 +183,7 @@
 ///确认收货
 - (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/mobile/v1/confirm";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -203,6 +210,7 @@
 ///退款
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/sale/order/refund/mobile/v1/save/apply";
+    req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

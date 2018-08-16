@@ -11,7 +11,8 @@
 @interface GroupModelReq : NSObject
 ///preSale、Groupon
 @property(nonatomic,copy)NSString* productBannerPosition;
-
+///(181)
+@property(nonatomic,copy)NSString *erpStoreId;
 ///应用编号
 @property(nonatomic,copy)NSString *appId;
 ///
