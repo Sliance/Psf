@@ -18,7 +18,13 @@
 @property(nonatomic,strong)UIView *footView;
 ///订单编号
 @property(nonatomic,strong)UILabel *orderNumLabel;
+
 @property(nonatomic,strong)UILabel *detailOrderNumLabel;
+@property(nonatomic,strong)UILabel *orderTypeLabel;
+@property(nonatomic,strong)UILabel *detailorderTypeLabel;
+@property(nonatomic,strong)UILabel *arriveDateLabel;
+@property(nonatomic,strong)UILabel *detailarriveDateLabel;
+
 ///应付合计
 @property(nonatomic,strong)UILabel *payableLabel;
 ///支付方式
@@ -40,7 +46,18 @@
 @property(nonatomic,strong)UIButton *onlineBtn;
 @property(nonatomic,strong)UIButton *phoneBtn;
 @property(nonatomic,strong)UISwitch *chooseSwitch;
-
+//积分
+@property(nonatomic,strong)UILabel *integralLabel;
+@property(nonatomic,strong)UILabel *detailIntegralLabel;
+//满减
+@property(nonatomic,strong)UILabel *fulllLabel;
+@property(nonatomic,strong)UILabel *detailFullLabel;
+//优惠券
+@property(nonatomic,strong)UILabel *couponLabel;
+@property(nonatomic,strong)UILabel *detailCouponLabel;
+//余额
+@property(nonatomic,strong)UILabel *balanaceLabel;
+@property(nonatomic,strong)UILabel *detailBalanceLabel;
 ///订单状态
 @property(nonatomic,assign)ORDERSTYPE ordertype;
 

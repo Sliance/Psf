@@ -30,7 +30,7 @@
     if (!_countLabel) {
         _countLabel = [[UILabel alloc]init];
         _countLabel.textColor = [UIColor whiteColor];
-        _countLabel.font = [UIFont systemFontOfSize:12];
+        _countLabel.font = [UIFont systemFontOfSize:10];
         [_countLabel.layer setMasksToBounds:YES];
         [_countLabel.layer setCornerRadius:8];
         _countLabel.textAlignment = NSTextAlignmentCenter;

@@ -153,7 +153,7 @@
         __weak typeof(self)weakself = self;
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
             ChangeAddressReq *model = weakself.dataArr[indexPath.section];
-            [weakself deleteAddress:model.memberAddressId];
+            [weakself deleteAddress:model.memberAddressId version:model.systemVersion];
         }];
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
             
@@ -164,16 +164,15 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
--(void)deleteAddress:(NSString*)addressid{
+-(void)deleteAddress:(NSString*)addressid version:(NSString*)version{
     
     AddressBaeReq*req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.memberAddressId = addressid;
     req.token = [UserCacheBean share].userInfo.token;
-    req.systemVersion = @"1.0.0";
     req.platform = @"ios";
-    req.systemVersion = @"1.0.0";
+    req.systemVersion = version;
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]deleteAddressWithParam:req response:^(id response) {
         if (response) {

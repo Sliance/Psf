@@ -213,6 +213,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";
+    req.productCategoryId = @"";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
@@ -291,7 +292,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 {
     
     if (indexPath.section ==1) {
-        return CGSizeMake(165, 300);
+        return CGSizeMake(165, 260);
     }else{
         if (self.result.saleOrderStatus ==0) {
             return CGSizeMake(SCREENWIDTH+1, 120);

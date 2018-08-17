@@ -12,6 +12,7 @@
 #import "OrderDetailRes.h"
 #import "RefundOrderReq.h"
 #import "UnifiedOrderReq.h"
+#import "OrderPayRes.h"
 
 @interface OrderServiceApi : BaseApi
 + (instancetype)share;
@@ -33,5 +34,6 @@
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 ///统一下单(支付时用)
 - (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
-
+///订单的状态的数量接口
+- (void)getOrderCountWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
 @end

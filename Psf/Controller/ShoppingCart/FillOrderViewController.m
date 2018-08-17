@@ -501,11 +501,8 @@
     req.token = [UserCacheBean share].userInfo.token;
     
     req.platform = @"ios";
-//    req.tradeType = @"JSAPI";
     req.saleOrderId = orderstr;
-//    req.openId = @"";
-//    req.totalFee = amount;
-//    req.body = @"";
+
     [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
         if (response) {
             

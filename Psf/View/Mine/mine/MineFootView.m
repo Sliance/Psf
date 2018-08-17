@@ -65,7 +65,12 @@
         btn.typeLabel.textColor = DSColorFromHex(0x464646);
         btn.imageLabel.text = imageArr[i];
         btn.typeLabel.text = dataArr[i];
-        btn.countLabel.text = arr[i];
+        if ([arr[i] integerValue]<100) {
+            btn.countLabel.text = arr[i];
+        }else{
+            btn.countLabel.text = @"99+";
+        }
+        
         if ([arr[i] integerValue] ==0) {
             btn.countLabel.hidden = YES;
         }else{

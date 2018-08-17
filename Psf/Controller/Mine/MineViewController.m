@@ -130,47 +130,21 @@
     }];
 }
 -(void)requestorderData{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    UnifiedOrderReq *req = [[UnifiedOrderReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"1.0.0";
     req.platform = @"ios";
-    req.saleOrderStatus = @"";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
-    req.pageSize = @"10";
-    req.productCategoryParentId = @"";
-    req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
-    [[OrderServiceApi share]getOrderListWithParam:req response:^(id response) {
-        if (response!= nil) {
-            NSMutableArray *payArr = [NSMutableArray array];
-            NSMutableArray *deliverArr = [NSMutableArray array];
-            NSMutableArray *receliveArr = [NSMutableArray array];
-            NSMutableArray *evaArr = [NSMutableArray array];
-            NSMutableArray *afterArr = [NSMutableArray array];
-            for (OrderListRes *model in response) {
-                if (model.saleOrderStatus ==0) {
-                    [payArr addObject:model];
-                }else if (model.saleOrderStatus ==1){
-                    [deliverArr addObject:model];
-                }else if (model.saleOrderStatus ==2){
-                    [receliveArr addObject:model];
-                }else if (model.saleOrderStatus ==3){
-                    [evaArr addObject:model];
-                }else if (model.saleOrderStatus ==4){
-                    [afterArr addObject:model];
-                }
-            }
+    [[OrderServiceApi share]getOrderCountWithParam:req response:^(id response) {
+        if (response) {
+            NSDictionary *dic = [response firstObject];
+                        NSArray *countArr = @[[dic[@"saleOrderUnpayCount"] stringValue],[dic[@"saleOrderUnDeliveryCount"] stringValue] ,[dic[@"saleOrderUnReceivedCount"] stringValue],[dic[@"saleOrderUnevaluateCount"] stringValue],[dic[@"saleOrderBackCount"] stringValue]];
             
-            NSArray *countArr = @[[NSString stringWithFormat:@"%ld",payArr.count],[NSString stringWithFormat:@"%ld",deliverArr.count],[NSString stringWithFormat:@"%ld",receliveArr.count],[NSString stringWithFormat:@"%ld",evaArr.count],[NSString stringWithFormat:@"%ld",afterArr.count]];
-            
-            [self.footView setArr:countArr];
-           
+                        [weakself.footView setArr:countArr];
         }
     }];
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

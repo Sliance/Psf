@@ -318,6 +318,7 @@
 		888E71AC20E0F9B700BFBAFF /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71AB20E0F9B700BFBAFF /* MessageTableViewCell.m */; };
 		888E71B020E1070600BFBAFF /* MyCouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71AF20E1070600BFBAFF /* MyCouponController.m */; };
 		888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71B320E1078B00BFBAFF /* MyCouponCell.m */; };
+		88900AEA2126631500F49104 /* OrderPayRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88900AE92126631500F49104 /* OrderPayRes.m */; };
 		88A2B43820F731A5007F338A /* ZHMapAroundInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43620F731A4007F338A /* ZHMapAroundInfoViewController.m */; };
 		88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */; };
 		88A2B43C20F73238007F338A /* ZHMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43B20F73238007F338A /* ZHMapView.m */; };
@@ -964,6 +965,8 @@
 		888E71AF20E1070600BFBAFF /* MyCouponController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponController.m; sourceTree = "<group>"; };
 		888E71B220E1078B00BFBAFF /* MyCouponCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCouponCell.h; sourceTree = "<group>"; };
 		888E71B320E1078B00BFBAFF /* MyCouponCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponCell.m; sourceTree = "<group>"; };
+		88900AE82126631500F49104 /* OrderPayRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPayRes.h; sourceTree = "<group>"; };
+		88900AE92126631500F49104 /* OrderPayRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPayRes.m; sourceTree = "<group>"; };
 		88A2B43520F731A4007F338A /* ZHMapAroundInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMapAroundInfoViewController.h; sourceTree = "<group>"; };
 		88A2B43620F731A4007F338A /* ZHMapAroundInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMapAroundInfoViewController.m; sourceTree = "<group>"; };
 		88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHMapAroundInfoViewController.xib; sourceTree = "<group>"; };
@@ -1123,6 +1126,8 @@
 				882F52E7211AE3840030A949 /* RefundOrderReq.m */,
 				8880AF4921253E9F008B6298 /* UnifiedOrderReq.h */,
 				8880AF4A21253E9F008B6298 /* UnifiedOrderReq.m */,
+				88900AE82126631500F49104 /* OrderPayRes.h */,
+				88900AE92126631500F49104 /* OrderPayRes.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3005,6 +3010,7 @@
 				88D8939420D26AE0007E3C41 /* PsfTabBarController.m in Sources */,
 				8871B89020DB4B2A00DAA5D6 /* UDIDWrapper.m in Sources */,
 				88D8936920D25C42007E3C41 /* main.m in Sources */,
+				88900AEA2126631500F49104 /* OrderPayRes.m in Sources */,
 				88566E682112CFEE00B6C38D /* QiniuUploadHelper.m in Sources */,
 				886A9ED520ECD5F7000503D2 /* DetailMessageCell.m in Sources */,
 				8857EA8C20E35B9100D7E167 /* WaitEvaluateController.m in Sources */,
