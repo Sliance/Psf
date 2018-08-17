@@ -309,10 +309,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==0) {
-        if (self.result.saleOrderStatus==0) {
-            return CGSizeMake(SCREENWIDTH, 343);
+        if ([self.result.saleOrderType isEqualToString:@"preSale"]) {
+            return CGSizeMake(SCREENWIDTH, 440);
         }else{
-         return CGSizeMake(SCREENWIDTH, 317);
+         return CGSizeMake(SCREENWIDTH, 415);
         }
     }
     return CGSizeMake(SCREENWIDTH, 0);
@@ -330,15 +330,20 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
         if (indexPath.section ==0) {
             NSInteger height;
-            if (self.result.saleOrderStatus ==0) {
-                height = 343;
+            if ([self.result.saleOrderType isEqualToString:@"preSale"]) {
+                height = 440;
             }else{
-                height = 317;
+                height = 415;
             }
             OrderDetailFootView*footViews = [[OrderDetailFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, height)];
             [footViews setOrdertype:_ordertype];
             [footViews setModel:self.result];
             [footview addSubview:footViews];
+            [footViews setPhoneBlock:^{
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",@"400-821-6094"];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+                
+            }];
         }
         return footview;
     }

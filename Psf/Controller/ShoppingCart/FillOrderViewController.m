@@ -505,11 +505,20 @@
 
     [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
         if (response) {
-            
+            OrderPayRes *model = response;
+                    //调起微信支付
+                    PayReq* req             = [[PayReq alloc] init];
+                    req.partnerId           = model.partnerid;
+                    req.prepayId            = model.prepayid;
+                    req.nonceStr            = model.noncestr;
+                    req.timeStamp           = model.timestamp.intValue;
+                    req.package             = model.packagestr;
+                    req.sign                = model.sign;
+                    [WXApi sendReq:req];
         }
     }];
     
-    if ([type isEqualToString:@"微信"]) {
+//    if ([type isEqualToString:@"微信"]) {
 //        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
 //
 //        //调起微信支付
@@ -521,7 +530,7 @@
 //        req.package             = [dict objectForKey:@"package"];
 //        req.sign                = [dict objectForKey:@"sign"];
 //        [WXApi sendReq:req];
-    }else{
+//    }else{
         //将商品信息拼接成字符串
         
         
@@ -532,16 +541,16 @@
         // NOTE: 如果加签成功，则继续执行支付
         
         //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        NSString *appScheme = @"犁小农";
-        
+//        NSString *appScheme = @"犁小农";
+    
         // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
         
         
         // NOTE: 调用支付结果开始支付
-        [[AlipaySDK defaultService] payOrder:orderstr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-        }];
-    }
+//        [[AlipaySDK defaultService] payOrder:orderstr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+//            NSLog(@"reslut = %@",resultDic);
+//        }];
+//    }
     
     
 }

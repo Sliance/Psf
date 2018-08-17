@@ -11,13 +11,25 @@
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
 #import "ChooseServiceTypeController.h"
+#import "EmptyShoppingHeadView.h"
 @interface WaitEvaluateController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
-
+@property(nonatomic,strong)EmptyShoppingHeadView *emptyView;
 @end
 
 @implementation WaitEvaluateController
+
+-(EmptyShoppingHeadView *)emptyView{
+    if (!_emptyView) {
+        _emptyView = [[EmptyShoppingHeadView alloc]init];
+        _emptyView.headImage.image = [UIImage imageNamed:@"order_nodata"];
+        _emptyView.titleLabel.text = @"还没有相关订单哦";
+        _emptyView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-30);
+        _emptyView.hidden = YES;
+    }
+    return _emptyView;
+}
 -(UITableView *)tableview{
     if (!_tableview) {
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-30) style:UITableViewStylePlain];
@@ -44,6 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
+    [self.view addSubview:self.emptyView];
    _dataArr = [NSMutableArray array];
    
 }
@@ -70,6 +83,9 @@
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
+            if (weakself.dataArr.count ==0) {
+                weakself.emptyView.hidden = NO;
+            }
             [weakself.tableview reloadData];
         }
     }];

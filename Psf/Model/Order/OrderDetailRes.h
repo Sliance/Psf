@@ -43,7 +43,8 @@
 @property(nonatomic,copy)NSString *saleOrderBalanceAmount;
 ///优惠券金额
 @property(nonatomic,copy)NSString *saleOrderCouponAmount;
-
+//满减金额
+@property(nonatomic,copy)NSString *saleOrderRewardAmount;
 
 ///配送结束时间
 @property(nonatomic,copy)NSString *saleOrderDistributionEndTime;
@@ -94,14 +95,14 @@
 @property(nonatomic,copy)NSString *saleOrderReceiveProvince;
 ///收货类型（0 自提 1 次日达）
 @property(nonatomic,assign)NSInteger saleOrderReceiveType;
-///满减金额
-@property(nonatomic,copy)NSString *saleOrderRewardAmount;
+
+
 ///销售订单状态
 @property(nonatomic,assign)NSInteger saleOrderStatus;
 ///商品总金额
 @property(nonatomic,copy)NSString *saleOrderTotalAmount;
 
-///订单类型
+///订单类型(preSale)
 @property(nonatomic,copy)NSString *saleOrderType;
 ///详细地址
 @property(nonatomic,copy)NSString *storeAddress;

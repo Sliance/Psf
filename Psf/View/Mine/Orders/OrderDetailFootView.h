@@ -20,10 +20,7 @@
 @property(nonatomic,strong)UILabel *orderNumLabel;
 
 @property(nonatomic,strong)UILabel *detailOrderNumLabel;
-@property(nonatomic,strong)UILabel *orderTypeLabel;
-@property(nonatomic,strong)UILabel *detailorderTypeLabel;
-@property(nonatomic,strong)UILabel *arriveDateLabel;
-@property(nonatomic,strong)UILabel *detailarriveDateLabel;
+
 
 ///应付合计
 @property(nonatomic,strong)UILabel *payableLabel;
@@ -46,6 +43,12 @@
 @property(nonatomic,strong)UIButton *onlineBtn;
 @property(nonatomic,strong)UIButton *phoneBtn;
 @property(nonatomic,strong)UISwitch *chooseSwitch;
+//订单类型
+@property(nonatomic,strong)UILabel *orderTypeLabel;
+@property(nonatomic,strong)UILabel *detailorderTypeLabel;
+//到货时间
+@property(nonatomic,strong)UILabel *arriveDateLabel;
+@property(nonatomic,strong)UILabel *detailarriveDateLabel;
 //积分
 @property(nonatomic,strong)UILabel *integralLabel;
 @property(nonatomic,strong)UILabel *detailIntegralLabel;
@@ -62,5 +65,6 @@
 @property(nonatomic,assign)ORDERSTYPE ordertype;
 
 @property(nonatomic,strong)OrderDetailRes *model;
+@property(nonatomic,copy)void (^phoneBlock)();
 
 @end

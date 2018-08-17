@@ -15,67 +15,70 @@
     if (self) {
        
         self.backgroundColor = DSColorFromHex(0xF0F0F0);
-        [self addSubview:self.billView];
         [self addSubview:self.headView];
         [self addSubview:self.footView];
-        [self.billView addSubview:self.billLabel];
         [self.headView addSubview:self.orderNumLabel];
         [self.headView addSubview:self.detailOrderNumLabel];
         [self.headView addSubview:self.lineLabel];
+        [self.headView addSubview:self.centerLine];
         [self.headView addSubview:self.dateLabel];
         [self.headView addSubview:self.detailDateLabel];
-        [self.headView addSubview:self.paytypeLabel];
-        [self.headView addSubview:self.detailPaytypeLabel];
         [self.headView addSubview:self.totoalPayLabel];
         [self.headView addSubview:self.detailTPayLabel];
         [self.headView addSubview:self.freightLabel];
         [self.headView addSubview:self.detailFreightLabel];
         [self.headView addSubview:self.payableLabel];
         [self.footView addSubview:self.serviceDateLabel];
-        [self.headView addSubview:self.xcopyBtn];
         [self.footView addSubview:self.onlineBtn];
         [self.footView addSubview:self.phoneBtn];
-        [self.billView addSubview:self.chooseSwitch];
-        self.billView.frame = CGRectMake(0, 5, SCREENWIDTH, 45);
-        self.headView.frame = CGRectMake(0, 55, SCREENWIDTH, 192);
-        self.billLabel.frame = CGRectMake(15, 0, SCREENWIDTH-80, 45);
-        self.chooseSwitch.frame = CGRectMake(SCREENWIDTH-46-15, 8, 46, 26);
+        [self.headView addSubview:self.orderTypeLabel];
+        [self.headView addSubview:self.detailorderTypeLabel];
+        [self.headView addSubview:self.arriveDateLabel];
+        [self.headView addSubview:self.detailarriveDateLabel];
+        [self.headView addSubview:self.integralLabel];
+        [self.headView addSubview:self.detailIntegralLabel];
+        [self.headView addSubview:self.fulllLabel];
+        [self.headView addSubview:self.detailFullLabel];
+        [self.headView addSubview:self.couponLabel];
+        [self.headView addSubview:self.detailCouponLabel];
+        [self.headView addSubview:self.detailBalanceLabel];
+        [self.headView addSubview:self.balanaceLabel];
+        self.headView.frame = CGRectMake(0, 5, SCREENWIDTH, 300);
         self.orderNumLabel.frame = CGRectMake(15, 16, 70, 13);
         self.detailOrderNumLabel.frame = CGRectMake(5+self.orderNumLabel.ctRight, 15, 170, 13);
-        self.dateLabel.frame = CGRectMake(15, 16+self.orderNumLabel.ctBottom, 70, 13);
-        self.detailDateLabel.frame = CGRectMake(5+self.dateLabel.ctRight, 16+self.orderNumLabel.ctBottom, 170, 13);
-        self.lineLabel.frame = CGRectMake(15, 74, SCREENWIDTH-15, 0.5);
-        self.paytypeLabel.frame = CGRectMake(15, 6+self.lineLabel.ctBottom, 70, 25);
-        self.detailPaytypeLabel.frame = CGRectMake(5+self.paytypeLabel.ctRight, 6+self.lineLabel.ctBottom, 170, 25);
+        self.orderTypeLabel.frame =CGRectMake(15, 16+self.orderNumLabel.ctBottom, 70, 13);
+        self.detailorderTypeLabel.frame = CGRectMake(5+self.orderTypeLabel.ctRight, 16+self.orderNumLabel.ctBottom, 170, 13);
+        self.dateLabel.frame = CGRectMake(15, 16+self.orderTypeLabel.ctBottom, 70, 13);
+        self.detailDateLabel.frame = CGRectMake(5+self.dateLabel.ctRight, 16+self.orderTypeLabel.ctBottom, 170, 13);
+       
         [self setCornerLayout];
     }
     return self;
 }
 -(void)setCornerLayout{
+    self.lineLabel.frame = CGRectMake(15, self.arriveDateLabel.ctBottom, SCREENWIDTH-15, 0.5);
     self.footView.frame = CGRectMake(0, self.headView.ctBottom+5, SCREENWIDTH, 91);
-    self.totoalPayLabel.frame = CGRectMake(15, 10+self.paytypeLabel.ctBottom, 70, 13);
-    self.detailTPayLabel.frame = CGRectMake(5+self.totoalPayLabel.ctRight, 10+self.paytypeLabel.ctBottom, 170, 13);
-    self.freightLabel.frame = CGRectMake(15, 16+self.totoalPayLabel.ctBottom, 70, 13);
-    self.detailFreightLabel.frame = CGRectMake(5+self.freightLabel.ctRight, 16+self.totoalPayLabel.ctBottom, 170, 13);
-    self.centerLine.frame = CGRectMake(15, self.freightLabel.ctBottom+16, SCREENWIDTH-15, 0.5);
-    self.payableLabel.frame = CGRectMake(15, 16+self.centerLine.ctBottom, SCREENWIDTH-30, 13);
+    self.totoalPayLabel.frame = CGRectMake(15, 10+self.lineLabel.ctBottom, 70, 13);
+    self.detailTPayLabel.frame = CGRectMake(5+self.totoalPayLabel.ctRight, 10+self.lineLabel.ctBottom, 170, 13);
+    self.freightLabel.frame = CGRectMake(15, 15+self.totoalPayLabel.ctBottom, 70, 13);
+    self.detailFreightLabel.frame = CGRectMake(5+self.freightLabel.ctRight, 15+self.totoalPayLabel.ctBottom, 170, 13);
+    self.integralLabel.frame =CGRectMake(15, 15+self.freightLabel.ctBottom, 70, 13);
+    self.detailIntegralLabel.frame =CGRectMake(5+self.integralLabel.ctRight, 15+self.freightLabel.ctBottom, 170, 13);
+    self.fulllLabel.frame =CGRectMake(15, 15+self.integralLabel.ctBottom, 70, 13);
+    self.detailFullLabel.frame =CGRectMake(5+self.fulllLabel.ctRight, 15+self.integralLabel.ctBottom, 170, 13);
+    self.couponLabel.frame =CGRectMake(15, 15+self.fulllLabel.ctBottom, 80, 13);
+    self.detailCouponLabel.frame =CGRectMake(5+self.couponLabel.ctRight, 15+self.fulllLabel.ctBottom, 170, 13);
+    self.balanaceLabel.frame =CGRectMake(15, 15+self.couponLabel.ctBottom, 70, 13);
+    self.detailBalanceLabel.frame =CGRectMake(5+self.balanaceLabel.ctRight, 15+self.couponLabel.ctBottom, 170, 13);
+    self.centerLine.frame = CGRectMake(15, self.balanaceLabel.ctBottom+15, SCREENWIDTH-15, 0.5);
+    self.payableLabel.frame = CGRectMake(15, 15+self.centerLine.ctBottom, SCREENWIDTH-30, 13);
     self.serviceDateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 12);
-    self.xcopyBtn.frame = CGRectMake(SCREENWIDTH-55, 15, 40, 20);
+
     self.onlineBtn.frame = CGRectMake(15, 37, (SCREENWIDTH-45)/2, 34);
     self.phoneBtn.frame = CGRectMake(30+(SCREENWIDTH-45)/2, 37, (SCREENWIDTH-45)/2, 34);
 }
 -(void)setOrdertype:(ORDERSTYPE)ordertype{
-    if (ordertype==ORDERSTYPEWaitPayment) {
-        self.headView.frame = CGRectMake(0, 55, SCREENWIDTH, 192);
-        self.paytypeLabel.frame = CGRectMake(15, 6+self.lineLabel.ctBottom, 70, 0);
-        self.detailPaytypeLabel.frame = CGRectMake(5+self.totoalPayLabel.ctRight, 6+self.lineLabel.ctBottom, 170, 0);
-        [self setCornerLayout];
-    } else {
-        self.headView.frame = CGRectMake(0, 5, SCREENWIDTH, 221);
-        self.paytypeLabel.frame = CGRectMake(15, 6+self.lineLabel.ctBottom, 70, 25);
-        self.detailPaytypeLabel.frame = CGRectMake(5+self.totoalPayLabel.ctRight, 6+self.lineLabel.ctBottom, 170, 25);
-        [self setCornerLayout];
-    }
+    
 }
 -(UIView *)billView{
     if (!_billView) {
@@ -137,6 +140,66 @@
         _dateLabel.text = @"下单时间:";
     }
     return _dateLabel;
+}
+-(UILabel *)orderTypeLabel{
+    if (!_orderTypeLabel) {
+        _orderTypeLabel = [[UILabel alloc]init];
+        _orderTypeLabel.textAlignment = NSTextAlignmentLeft;
+        _orderTypeLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _orderTypeLabel.textColor = DSColorFromHex(0x787878);
+        _orderTypeLabel.text = @"订单类型:";
+    }
+    return _orderTypeLabel;
+}
+-(UILabel *)arriveDateLabel{
+    if (!_arriveDateLabel) {
+        _arriveDateLabel = [[UILabel alloc]init];
+        _arriveDateLabel.textAlignment = NSTextAlignmentLeft;
+        _arriveDateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _arriveDateLabel.textColor = DSColorFromHex(0x787878);
+        _arriveDateLabel.text = @"到货时间:";
+    }
+    return _arriveDateLabel;
+}
+-(UILabel *)integralLabel{
+    if (!_integralLabel) {
+        _integralLabel = [[UILabel alloc]init];
+        _integralLabel.textAlignment = NSTextAlignmentLeft;
+        _integralLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _integralLabel.textColor = DSColorFromHex(0x787878);
+        _integralLabel.text = @"积分抵扣:";
+    }
+    return _integralLabel;
+}
+-(UILabel *)fulllLabel{
+    if (!_fulllLabel) {
+        _fulllLabel = [[UILabel alloc]init];
+        _fulllLabel.textAlignment = NSTextAlignmentLeft;
+        _fulllLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _fulllLabel.textColor = DSColorFromHex(0x787878);
+        _fulllLabel.text = @"满减金额:";
+    }
+    return _fulllLabel;
+}
+-(UILabel *)couponLabel{
+    if (!_couponLabel) {
+        _couponLabel = [[UILabel alloc]init];
+        _couponLabel.textAlignment = NSTextAlignmentLeft;
+        _couponLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _couponLabel.textColor = DSColorFromHex(0x787878);
+        _couponLabel.text = @"优惠券抵扣:";
+    }
+    return _couponLabel;
+}
+-(UILabel *)balanaceLabel{
+    if (!_balanaceLabel) {
+        _balanaceLabel = [[UILabel alloc]init];
+        _balanaceLabel.textAlignment = NSTextAlignmentLeft;
+        _balanaceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _balanaceLabel.textColor = DSColorFromHex(0x787878);
+        _balanaceLabel.text = @"余额消费:";
+    }
+    return _balanaceLabel;
 }
 -(UILabel *)paytypeLabel{
     if (!_paytypeLabel) {
@@ -214,7 +277,7 @@
         _detailTPayLabel.textAlignment = NSTextAlignmentLeft;
         _detailTPayLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
         _detailTPayLabel.textColor = DSColorFromHex(0x464646);
-        _detailTPayLabel.text = @"¥ 99.80";
+        _detailTPayLabel.text = @"¥ 0";
     }
     return _detailTPayLabel;
 }
@@ -227,6 +290,66 @@
         _detailFreightLabel.text = @"¥ 0.00";
     }
     return _detailFreightLabel;
+}
+-(UILabel *)detailorderTypeLabel{
+    if (!_detailorderTypeLabel) {
+        _detailorderTypeLabel = [[UILabel alloc]init];
+        _detailorderTypeLabel.textAlignment = NSTextAlignmentLeft;
+        _detailorderTypeLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailorderTypeLabel.textColor = DSColorFromHex(0x464646);
+        _detailorderTypeLabel.text = @"";
+    }
+    return _detailorderTypeLabel;
+}
+-(UILabel *)detailarriveDateLabel{
+    if (!_detailarriveDateLabel) {
+        _detailarriveDateLabel = [[UILabel alloc]init];
+        _detailarriveDateLabel.textAlignment = NSTextAlignmentLeft;
+        _detailarriveDateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailarriveDateLabel.textColor = DSColorFromHex(0x464646);
+        _detailarriveDateLabel.text = @"";
+    }
+    return _detailarriveDateLabel;
+}
+-(UILabel *)detailIntegralLabel{
+    if (!_detailIntegralLabel) {
+        _detailIntegralLabel = [[UILabel alloc]init];
+        _detailIntegralLabel.textAlignment = NSTextAlignmentLeft;
+        _detailIntegralLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailIntegralLabel.textColor = DSColorFromHex(0x464646);
+        _detailIntegralLabel.text = @"¥ 0";
+    }
+    return _detailIntegralLabel;
+}
+-(UILabel *)detailFullLabel{
+    if (!_detailFullLabel) {
+        _detailFullLabel = [[UILabel alloc]init];
+        _detailFullLabel.textAlignment = NSTextAlignmentLeft;
+        _detailFullLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailFullLabel.textColor = DSColorFromHex(0x464646);
+        _detailFullLabel.text = @"¥ 0";
+    }
+    return _detailFullLabel;
+}
+-(UILabel *)detailCouponLabel{
+    if (!_detailCouponLabel) {
+        _detailCouponLabel = [[UILabel alloc]init];
+        _detailCouponLabel.textAlignment = NSTextAlignmentLeft;
+        _detailCouponLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailCouponLabel.textColor = DSColorFromHex(0x464646);
+        _detailCouponLabel.text = @"¥ 0";
+    }
+    return _detailCouponLabel;
+}
+-(UILabel *)detailBalanceLabel{
+    if (!_detailBalanceLabel) {
+        _detailBalanceLabel = [[UILabel alloc]init];
+        _detailBalanceLabel.textAlignment = NSTextAlignmentLeft;
+        _detailBalanceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+        _detailBalanceLabel.textColor = DSColorFromHex(0x464646);
+        _detailBalanceLabel.text = @"¥ 0";
+    }
+    return _detailBalanceLabel;
 }
 -(UILabel *)lineLabel{
     if (!_lineLabel) {
@@ -266,6 +389,7 @@
         [_onlineBtn.layer setMasksToBounds:YES];
         [_onlineBtn.layer setBorderWidth:0.5];
         [_onlineBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        _onlineBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
     }
     return _onlineBtn;
 }
@@ -280,6 +404,8 @@
         [_phoneBtn.layer setMasksToBounds:YES];
         [_phoneBtn.layer setBorderWidth:0.5];
         [_phoneBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        _phoneBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        [_phoneBtn addTarget:self action:@selector(pressPhone) forControlEvents:UIControlEventTouchUpInside];
     }
     return _phoneBtn;
 }
@@ -293,9 +419,54 @@
 -(void)setModel:(OrderDetailRes *)model{
     _model = model;
     _detailOrderNumLabel.text = model.saleOrderId;
-    _detailFreightLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderExpressAmount];
-    _detailTPayLabel.text =  [NSString stringWithFormat:@"￥%@",model.saleOrderTotalAmount];
-    _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+    if (model.saleOrderExpressAmount.length>0) {
+        _detailFreightLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderExpressAmount];
+    }
+    if (model.saleOrderTotalAmount.length>0) {
+        _detailTPayLabel.text =  [NSString stringWithFormat:@"￥%@",model.saleOrderTotalAmount];
+    }
+    if (model.saleOrderPayAmount.length>0) {
+        _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+    }
+    
     _detailDateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
+    if (model.saleOrderCouponAmount.length>0) {
+        self.detailCouponLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderCouponAmount];
+    }
+    if (model.saleOrderPointAmount.length>0) {
+        self.detailIntegralLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderPointAmount];
+    }
+    if (model.saleOrderBalanceAmount.length>0) {
+        self.detailBalanceLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderBalanceAmount];
+    }
+    
+    
+    if ([model.saleOrderType isEqualToString:@"preSale"]) {
+        self.detailorderTypeLabel.text = @"预售订单";
+    }else if ([model.saleOrderType isEqualToString:@"reward"]) {
+        self.detailorderTypeLabel.text = @"满减订单";
+    }else if ([model.saleOrderType isEqualToString:@"groupon"]) {
+        self.detailorderTypeLabel.text = @"团购订单";
+    }else if ([model.saleOrderType isEqualToString:@"normal"]) {
+        self.detailorderTypeLabel.text = @"普通订单";
+    }
+    if ([model.saleOrderType isEqualToString:@"preSale"]) {
+        self.headView.frame = CGRectMake(0, 5, SCREENWIDTH, 350);
+        self.arriveDateLabel.frame = CGRectMake(15, self.dateLabel.ctBottom, 70, 43);
+        self.detailarriveDateLabel.frame = CGRectMake(5+self.arriveDateLabel.ctRight, self.dateLabel.ctBottom, 170, 43);
+        [self setCornerLayout];
+        self.detailarriveDateLabel.text = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"yyyy.MM.dd HH:mm"];
+        self.arriveDateLabel.text = @"到货时间:";
+    } else {
+        self.headView.frame = CGRectMake(0, 5, SCREENWIDTH, 320);
+        self.arriveDateLabel.frame = CGRectMake(15, self.dateLabel.ctBottom, 70, 15);
+        self.detailarriveDateLabel.frame = CGRectMake(5+self.arriveDateLabel.ctRight, self.dateLabel.ctBottom, 170, 15);
+        [self setCornerLayout];
+        self.arriveDateLabel.text = @"";
+        self.detailarriveDateLabel.text = @"";
+    }
+}
+-(void)pressPhone{
+    self.phoneBlock();
 }
 @end
