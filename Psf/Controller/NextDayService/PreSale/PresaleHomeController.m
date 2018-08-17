@@ -109,14 +109,15 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    _dataArr = [NSMutableArray array];
+    [self getPresaleList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.locView];
     self.tableview.tableHeaderView = self.headImage;
-    _dataArr = [NSMutableArray array];
-    [self getPresaleList];
+   
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

@@ -61,6 +61,9 @@ static NSString * const cellID = @"cellID";
         [self adjustNavigationUI:self.navigationController];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         _autoSwitch = 0 != self.tabBarController.selectedIndex;
+    _menuList = [NSMutableArray array];
+    _dataArr = [NSMutableArray array];
+    [self requestData:@""];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -75,9 +78,7 @@ static NSString * const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _menuList = [NSMutableArray array];
-    _dataArr = [NSMutableArray array];
-     [self requestData:@""];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.navTitleLabel];
     
