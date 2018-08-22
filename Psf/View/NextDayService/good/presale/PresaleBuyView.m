@@ -254,6 +254,8 @@
         [titBtn.layer setBorderWidth:0.5];
         [titBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
         [titBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
+        [titBtn.layer setCornerRadius:4];
+        [titBtn.layer setMasksToBounds:YES];
         titBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [titBtn setTitle:skumodel.productSkuUnit forState:UIControlStateNormal];
         titBtn.tag = 1000+i;

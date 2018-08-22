@@ -201,7 +201,7 @@
     
     NSString *url = @"/file/file/mobile/app/v1/qiniu/image/base64/upload";
     NSDictionary *dic = @{@"token":[UserCacheBean share].userInfo.token,@"appId":@"993335466657415169",@"base64String":imageArray,@"timestamp":@"0",@"platform":@"ios"};
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {

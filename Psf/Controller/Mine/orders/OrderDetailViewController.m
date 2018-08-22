@@ -18,13 +18,14 @@
 #import "OrderServiceApi.h"
 #import "FillEvaluateController.h"
 #import "ChooseServiceTypeController.h"
+#import "ZitiMaView.h"
 
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)OrderDetailBottomView *bottomView;
 @property(nonatomic,strong)NSMutableArray *likeArr;
 @property(nonatomic,strong)OrderDetailRes *result;
-
+@property(nonatomic,strong)ZitiMaView *zitiVew;
 @end
 static NSString *cellId = @"OrderCollectionViewCell";
 static NSString *cellIds = @"NextCollectionViewCell";
@@ -34,6 +35,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
         _bottomView = [[OrderDetailBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight])];
     }
     return _bottomView;
+}
+-(ZitiMaView *)zitiVew{
+    if (!_zitiVew) {
+        _zitiVew = [[ZitiMaView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+        _zitiVew.hidden = YES;
+    }
+   return  _zitiVew;
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -56,39 +64,45 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
-    
+    [self.view addSubview:self.zitiVew];
     
     __weak typeof(self)weakself = self;
-    [self.bottomView setPayBlock:^(OrderListRes *model){//付款
+    [self.bottomView setPayBlock:^(OrderDetailRes *model){//付款
         
     }];
-    [self.bottomView setBuyBlock:^(OrderListRes *model){//再次购买
+    [self.bottomView setBuyBlock:^(OrderDetailRes *model){//再次购买
         [weakself againOrder:model.saleOrderId];
     }];
-    [self.bottomView setLogisticsBlock:^(OrderListRes *model){//查看物流
+    [self.bottomView setLogisticsBlock:^(OrderDetailRes *model){//查看物流
         
     }];
-    [self.bottomView setSureBlock:^(OrderListRes *model){//确认收货
+    [self.bottomView setSureBlock:^(OrderDetailRes *model){//确认收货
         [weakself confirmOrder:model.saleOrderId];
     }];
-    [self.bottomView setRefundBlock:^(OrderListRes *model){//退款
+    [self.bottomView setRefundBlock:^(OrderDetailRes *model){//退款
         
     }];
     
-    [self.bottomView setRemindBlock:^(OrderListRes *model) {//提醒发货
+    [self.bottomView setRemindBlock:^(OrderDetailRes *model) {//提醒发货
         [weakself noticeOrder:model.saleOrderId];
     }];
     
-    [self.bottomView setEvaBlock:^(OrderListRes * model) {
+    [self.bottomView setEvaBlock:^(OrderDetailRes * model) {
         FillEvaluateController *fillVC = [[FillEvaluateController alloc]init];
         [fillVC setModel:model];
         [weakself.navigationController pushViewController:fillVC animated:YES];
     }];
-    [self.bottomView setDeleteBlock:^(OrderListRes * model) {//删除订单
+    [self.bottomView setDeleteBlock:^(OrderDetailRes * model) {//删除订单
         [weakself deleteOrder:model.saleOrderId];
     }];
-    [self.bottomView setCancleBlock:^(OrderListRes *model) {//取消订单
+    [self.bottomView setCancleBlock:^(OrderDetailRes *model) {//取消订单
         [weakself cancleOrder:model.saleOrderId];
+    }];
+    [self.bottomView setZitiBlock:^(OrderDetailRes *model) {//自提码
+        weakself.zitiVew.hidden = NO;
+    }];
+    [self.zitiVew setCloseBlock:^{
+        weakself.zitiVew.hidden = YES;
     }];
 }
 -(void)setOrdertype:(ORDERSTYPE)ordertype{
@@ -98,8 +112,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
     _model = model;
     _likeArr = [NSMutableArray array];
     
-    [self.bottomView setStatus:model];
-     [self requestDetail];
+    if (model.saleOrderType.length>0) {
+        [self.bottomView setType:2];
+    }else{
+        [self.bottomView setType:1];
+    }
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestDetail];
 }
 -(void)noticeOrder:(NSString*)saleId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -137,7 +159,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"确认发货成功！"];
+                [weakself showToast:@"确认收货成功！"];
             }
         }
     }];
@@ -221,6 +243,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
         if (response!= nil) {
             [weakself.likeArr removeAllObjects];
             [weakself.likeArr addObjectsFromArray:response];
+            if (weakself.result.saleOrderStatus ==2&&weakself.result.saleOrderReceiveType ==0) {
+                [weakself.zitiVew setSaleOrderId:weakself.result.saleOrderId];
+            }
             [weakself.collectionView reloadData];
            
         }
@@ -247,12 +272,15 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
         if (response) {
             weakself.result = response;
-            if (self.result.saleOrderStatus ==4) {
-                self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]);
+            if (weakself.result.saleOrderStatus ==4) {
+                weakself.collectionView.frame = CGRectMake(0, [weakself navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[weakself navHeightWithHeight]);
             }else{
-                [self.view addSubview:self.bottomView];
+                [weakself.view addSubview:weakself.bottomView];
             }
+            [weakself.bottomView setStatus:weakself.result];
+            
             [weakself.collectionView reloadData];
+            
             [self guessLikeList];
         }
     }];
@@ -382,12 +410,18 @@ static NSString *cellIds = @"NextCollectionViewCell";
     if (indexPath.section ==0) {
         CartProductModel *ordermodel = self.result.saleOrderProductList[indexPath.row];
         ordermodel.systemStatus = self.result.saleOrderStatus;
+        if (self.model.saleOrderType.length>0) {
+            [cell setOrdertype:2];
+        }else{
+            [cell setOrdertype:1];
+        }
         [cell setModel:ordermodel];
         __weak typeof(self)weakself = self;
         [cell setRefundBlock:^(CartProductModel *model){//退款
             ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
             [chooseVC setCarmodel:model];
             [weakself.navigationController pushViewController:chooseVC animated:YES];
+//             [self ceshi:model.saleOrderId];
         }];
         return cell;
     }
@@ -396,7 +430,21 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [collectcell setModel:model];
     return collectcell;
 }
-
+-(void)ceshi:(NSInteger)orderid{
+    RefundOrderReq *req = [[RefundOrderReq alloc]init];
+    req.saleOrderId = orderid ;
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.refundId = orderid;
+    req.totalFee = @"1";
+    req.refundFee = @"1";
+    req.refundDesc = @"测试";
+    [[OrderServiceApi share]ceshirefundOrderWithParam:req response:^(id response) {
+        
+    }];
+}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [detailGoodsViewController new];
     [self.navigationController showViewController:vc sender:nil];

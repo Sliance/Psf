@@ -13,15 +13,24 @@
 #import "DetailGroupController.h"
 #import "ChooseServiceTypeController.h"
 #import "EmptyShoppingHeadView.h"
+#import "ZitiMaView.h"
+#import "detailGoodsViewController.h"
 
 @interface AllOrdersController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)EmptyShoppingHeadView *emptyView;
-
+@property(nonatomic,strong)ZitiMaView *zitiVew;
 @end
 
 @implementation AllOrdersController
+-(ZitiMaView *)zitiVew{
+    if (!_zitiVew) {
+        _zitiVew = [[ZitiMaView alloc]initWithFrame:CGRectMake(0, -[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT)];
+        _zitiVew.hidden = YES;
+    }
+    return  _zitiVew;
+}
 -(EmptyShoppingHeadView *)emptyView{
     if (!_emptyView) {
         _emptyView = [[EmptyShoppingHeadView alloc]init];
@@ -59,6 +68,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.emptyView];
+    [self.view addSubview:self.zitiVew];
     _dataArr = [NSMutableArray array];
    
 }
@@ -128,7 +138,7 @@
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"确认发货成功！"];
+                [weakself showToast:@"确认收货成功！"];
             }
         }
     }];
@@ -167,7 +177,23 @@
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
-        
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
+                    self.tabBarController.selectedIndex = 2;
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }
+            }else{
+                [self showInfo:response[@"code"][@"message"]];
+            }
+        }
     }];
 }
 
@@ -233,6 +259,13 @@
         DetailGroupController *detailVC = [[DetailGroupController alloc]init];
         [detailVC setOrderid:model.saleOrderId];
         [weakself.navigationController pushViewController:detailVC animated:YES];
+    }];
+    [cell setZitiBlock:^(OrderListRes *model) {//自提码
+        [weakself.zitiVew setSaleOrderId:model.saleOrderId];
+         weakself.zitiVew.hidden = NO;
+    }];
+    [self.zitiVew setCloseBlock:^{
+        weakself.zitiVew.hidden = YES;
     }];
     return cell;
 }

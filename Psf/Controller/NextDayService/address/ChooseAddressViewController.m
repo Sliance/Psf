@@ -39,10 +39,10 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 11+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-46) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]) style:UITableViewStyleGrouped];
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorColor = [UIColor whiteColor];
+//        _tableview.separatorColor = [UIColor whiteColor];
         _tableview.tableFooterView = [[UIView alloc]init];
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
@@ -57,12 +57,18 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   [self.view addSubview:self.backBtn];
+   
     [self.view addSubview:self.bottomView];
      [self setTextFieldLeftView:self.chooseView.searchField :@"search_icon":20];
     [self.view addSubview:self.tableview];
-     [self.view addSubview:self.chooseView];
+//     [self.view addSubview:self.chooseView];
     self.dataArr = [NSMutableArray array];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
+   
+  
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self requestAddressList];
 }
 -(void)requestAddressList{
@@ -93,9 +99,29 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 15;
+    if (section ==0) {
+        return 5;
+    }
+    return 20;
 }
-
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc]init];
+    if (section ==0) {
+         view.frame = CGRectMake(0, 0, SCREENWIDTH, 5);
+        return view;
+    }else{
+        view.frame = CGRectMake(0, 0, SCREENWIDTH, 20);
+        UILabel *titleLabel =  [[UILabel alloc]init];
+        titleLabel.frame = CGRectMake(15, 0, SCREENWIDTH, 10);
+        titleLabel.textColor = DSColorFromHex(0x464646);
+        titleLabel.font = [UIFont systemFontOfSize:14];
+        titleLabel.text = @"我的收货地址";
+        [view addSubview:titleLabel];
+    }
+   
+    return view;
+    
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1){
         return 75;
@@ -120,8 +146,9 @@
         choosecell.selectionStyle = UITableViewCellSelectionStyleNone;
         choosecell.textLabel.textColor = DSColorFromHex(0x464646);
         choosecell.textLabel.font = [UIFont systemFontOfSize:14];
-        ChangeAddressReq *model = _dataArr[indexPath.section];
+        ChangeAddressReq *model = _dataArr[indexPath.row];
         [choosecell setIndex:indexPath.row];
+        choosecell.lineImage.image = [UIImage imageNamed:@""];
         [choosecell setModel:model];
         return choosecell;
     }
@@ -131,7 +158,9 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
     if (indexPath.section ==0) {
-        cell.textLabel.text = @"当前：闵行区旭辉·浦江国际";
+        if ([UserCacheBean share].userInfo.area.length>0) {
+             cell.textLabel.text = [NSString stringWithFormat:@"当前：%@%@",[UserCacheBean share].userInfo.area,[UserCacheBean share].userInfo.address];
+        }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = DSColorFromHex(0x464646);
@@ -139,6 +168,28 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section ==1) {
+        ChangeAddressReq *model = _dataArr[indexPath.row];
+        NSString *address = [NSString stringWithFormat:@"%@%@",model.memberAddressProvince,model.memberAddressPositionDetail];
+        [self changeAddress:model];
+        [ZSNotification postLocationResultNotification:@{@"address":address}];
+    }
+}
+-(void)changeAddress:(ChangeAddressReq*)req{
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.memberAddressIsDefault = YES;
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    [[AddressServiceApi share]updateAddressWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] == 200) {
+//            [self showToast:response[@"message"]];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else{
+//            [self showToast:response[@"message"]];
+        }
+    }];
 }
 -(void)editAddressIndex:(NSInteger)index{
     EditAddressController *editVC = [[EditAddressController alloc]init];

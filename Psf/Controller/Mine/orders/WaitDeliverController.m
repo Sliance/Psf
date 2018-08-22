@@ -126,7 +126,7 @@
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"确认发货成功！"];
+                [weakself showToast:@"确认收货成功！"];
             }
         }
     }];
@@ -168,6 +168,7 @@
         
     }];
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -212,6 +213,7 @@
         ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
         [chooseVC setModel:model];
         [weakself.navigationController pushViewController:chooseVC animated:YES];
+       
     }];
     
     [cell setRemindBlock:^(OrderListRes *model) {//提醒发货

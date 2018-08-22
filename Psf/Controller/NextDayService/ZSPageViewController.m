@@ -405,6 +405,9 @@ static NSString *cellId = @"cellId";
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
         [vc setProductID:res.productId];
+    }else if (self.selectedIndex ==1){
+        GroupListRes *model = self.dataArr[indexPath.row];
+        [vc setProductID:model.productId];
     }else{
         StairCategoryRes *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.productList[indexPath.row];

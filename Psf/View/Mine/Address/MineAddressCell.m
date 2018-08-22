@@ -54,6 +54,7 @@
     }];
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_right).offset(16);
+        make.right.equalTo(self).offset(-40);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
     }];
 
@@ -139,13 +140,13 @@
 }
 -(void)pressEditBtn:(UIButton*)sender{
     if ([self.delegate respondsToSelector:@selector(editAddressIndex:)]) {
-        [self.delegate editAddressIndex:sender.tag];
+        [self.delegate editAddressIndex:_index];
     }
 }
 -(void)setModel:(ChangeAddressReq *)model{
     _model = model;
     _titleLabel.text = model.memberAddressName;
-    _detailLabel.text =[NSString stringWithFormat:@"%@%@%@%@",model.memberAddressProvince,model.memberAddressCity,model.memberAddressArea,model.memberAddressDetail];;
+    _detailLabel.text =[NSString stringWithFormat:@"%@%@",model.memberAddressProvince,model.memberAddressPositionDetail];;
     _phoneLabel.text = model.memberAddressMobile;
     if (model.memberAddressIsDefault ==0) {
         self.morenLabel.hidden = YES;

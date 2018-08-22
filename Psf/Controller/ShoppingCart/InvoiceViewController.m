@@ -201,6 +201,13 @@
     [self reloadView];
     [self.view addSubview:self.bottomView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
+    [tap addTarget:self action:@selector(pressTap)];
+    [self.view addGestureRecognizer:tap];
+}
+-(void)pressTap{
+    [_singleField resignFirstResponder];
+    [_taxpayersField resignFirstResponder];
 }
 - (void)dealloc{
     

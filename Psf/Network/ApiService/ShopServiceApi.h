@@ -13,6 +13,7 @@
 #import "CalculateReq.h"
 #import "CalculateThePriceRes.h"
 #import "PlaceOrderReq.h"
+#import "PlaceOrderRes.h"
 
 @interface ShopServiceApi : BaseApi
 + (instancetype)share;

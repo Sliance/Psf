@@ -45,7 +45,7 @@
         [self.headView addSubview:self.balanaceLabel];
         self.headView.frame = CGRectMake(0, 5, SCREENWIDTH, 300);
         self.orderNumLabel.frame = CGRectMake(15, 16, 70, 13);
-        self.detailOrderNumLabel.frame = CGRectMake(5+self.orderNumLabel.ctRight, 15, 170, 13);
+        self.detailOrderNumLabel.frame = CGRectMake(5+self.orderNumLabel.ctRight, 15, SCREENWIDTH-115, 13);
         self.orderTypeLabel.frame =CGRectMake(15, 16+self.orderNumLabel.ctBottom, 70, 13);
         self.detailorderTypeLabel.frame = CGRectMake(5+self.orderTypeLabel.ctRight, 16+self.orderNumLabel.ctBottom, 170, 13);
         self.dateLabel.frame = CGRectMake(15, 16+self.orderTypeLabel.ctBottom, 70, 13);
@@ -418,7 +418,12 @@
 
 -(void)setModel:(OrderDetailRes *)model{
     _model = model;
-    _detailOrderNumLabel.text = model.saleOrderId;
+    
+    if (model.saleOrderReceiveType ==0) {
+        _detailOrderNumLabel.text = [NSString stringWithFormat:@"%@(自提)", model.saleOrderId];
+    }else if (model.saleOrderReceiveType ==1){
+        _detailOrderNumLabel.text = model.saleOrderId;
+    }
     if (model.saleOrderExpressAmount.length>0) {
         _detailFreightLabel.text = [NSString stringWithFormat:@"￥%@",model.saleOrderExpressAmount];
     }

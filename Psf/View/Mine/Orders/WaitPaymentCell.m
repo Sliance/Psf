@@ -277,7 +277,11 @@
             break;
         case 2:
         {
-            self.sureBlock(_model);
+             if (_model.saleOrderReceiveType ==0) {
+               self.zitiBlock(_model);
+             }else if (_model.saleOrderReceiveType ==1) {
+                 self.sureBlock(_model);
+             }
         }
             break;
         case 3:
@@ -360,7 +364,12 @@
 }
 -(void)setModel:(OrderListRes *)model{
     _model = model;
-    _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.saleOrderId];
+    
+    if (model.saleOrderReceiveType ==0) {
+         _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@(自提)",model.saleOrderId];
+    }else if(model.saleOrderReceiveType ==1){
+         _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.saleOrderId];
+    }
     if (model.saleOrderProductList.count==1 ) {
         _headImageTwo.hidden = YES;
         _headImageThree.hidden = YES;
@@ -371,6 +380,7 @@
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
         self.nameLabel.text = carmodel.productName;
         self.weightLabel.text = carmodel.productUnit;
+        self.countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
     }else if (model.saleOrderProductList.count ==2){
         _headImageTwo.hidden = NO;
         _headImageThree.hidden = YES;
@@ -382,7 +392,7 @@
         CartProductModel *carmodel2 = model.saleOrderProductList[1];
         NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
         [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
-        
+        _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
     }else if(model.saleOrderProductList.count>2){
         _headImageTwo.hidden = NO;
         _headImageThree.hidden = NO;
@@ -397,6 +407,7 @@
         CartProductModel *carmodel3 = model.saleOrderProductList[2];
         NSString *url3 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel3.productImagePath];
         [self.headImageThree sd_setImageWithURL:[NSURL URLWithString:url3]];
+        _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
         
     }
     _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
@@ -432,11 +443,12 @@
         case 2:
         {
           _statusLabel.text = @"待收货";
-             [_payBtn.layer setBorderColor:[UIColor clearColor].CGColor];
-            [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_payBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
-            [_payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
-            _sendBtn.hidden = NO;
+            if (model.saleOrderReceiveType ==0) {
+                [_payBtn setTitle:@"自提码" forState:UIControlStateNormal];
+            }else if (model.saleOrderReceiveType ==1){
+                [_payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+            }
+            _sendBtn.hidden = YES;
             _payBtn.hidden = NO;
             
         }
@@ -490,6 +502,7 @@
         default:
             break;
     }
-    _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
+   
+    
 }
 @end

@@ -72,6 +72,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     [self requestData];
     }
 -(void)requestData{

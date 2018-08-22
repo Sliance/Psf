@@ -12,6 +12,8 @@
 #import "FillEvaluateController.h"
 #import "ChooseServiceTypeController.h"
 #import "EmptyShoppingHeadView.h"
+#import "detailGoodsViewController.h"
+
 @interface WaitEvaluateController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -126,7 +128,7 @@
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"确认发货成功！"];
+                [weakself showToast:@"确认收货成功！"];
             }
         }
     }];
@@ -165,7 +167,23 @@
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
-        
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
+                    self.tabBarController.selectedIndex = 2;
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }
+            }else{
+                [self showInfo:response[@"code"][@"message"]];
+            }
+        }
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

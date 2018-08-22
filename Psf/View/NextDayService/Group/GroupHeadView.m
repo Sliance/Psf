@@ -270,11 +270,11 @@
 -(void)setModel:(SpellGroupModel *)model{
     _model = model;
     SpellGroupModel *spellmodel = [model.grouponActivityMemberList firstObject];
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:spellmodel.memberAvatarPath]];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:spellmodel.memberAvatarPath]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
     _shortLabel.text = [NSString stringWithFormat:@"发起了%ld人团",model.grouponActivityMemberLimit];
     _nameLabel.text = spellmodel.memberNickName;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
-    [self.goodImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    [self.goodImage sd_setImageWithURL:[NSURL URLWithString:url]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
     _goodLabel.text = model.productName;
     _pinLabel.text = [NSString stringWithFormat:@"%ld人拼购价   ¥%@",model.grouponActivityMemberLimit,model.grouponActivityPrice];
     _priceLabel.text = [NSString stringWithFormat:@"¥%@",model.productPrice];
@@ -306,7 +306,7 @@
                 [_bgscrollow addSubview:self.tuanLabel];
             }else{
                 SpellGroupModel *canmodel = model.grouponActivityMemberList[i];
-                [tuanImage  sd_setImageWithURL:[NSURL URLWithString:canmodel.memberAvatarPath]];
+                [tuanImage  sd_setImageWithURL:[NSURL URLWithString:canmodel.memberAvatarPath]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
 
             }
             

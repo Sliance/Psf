@@ -16,7 +16,7 @@
 #import "AllOrdersController.h"
 #import "WaitDeliverController.h"
 #import "WaitReceiveController.h"
-#import "WaitEvaluateController.h"
+#import "OrderDetailViewController.h"
 
 @interface RefundViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -202,25 +202,18 @@
     self.orderReq.saleOrderRefundReason = self.reasonField.text;
     [[OrderServiceApi share]refundOrderWithParam:self.orderReq response:^(id response) {
         if (response) {
+            
             if ([response[@"code"] integerValue] ==200) {
+                [self showInfo:@"提交成功"];
                 for (UIViewController *controller in self.navigationController.viewControllers) {
-                    if ([controller isKindOfClass:[AllOrdersController class]]) {
-                        [self.navigationController popToViewController:controller animated:YES];
-                        return ;
-                    }
-                    if ([controller isKindOfClass:[WaitDeliverController class]]) {
-                        [self.navigationController popToViewController:controller animated:YES];
-                        return ;
-                    }
-                    if ([controller isKindOfClass:[WaitReceiveController class]]) {
-                        [self.navigationController popToViewController:controller animated:YES];
-                        return ;
-                    }
-                    if ([controller isKindOfClass:[WaitEvaluateController class]]) {
+                    if ([controller isKindOfClass:[OrderDetailViewController class]]) {
                         [self.navigationController popToViewController:controller animated:YES];
                         return ;
                     }
                 }
+                
+            }else{
+                [self showInfo:response[@"message"]];
             }
         }
     }];

@@ -65,4 +65,6 @@ typedef NS_ENUM(NSInteger, ORDERSTYPE){
 @property(nonatomic,copy)void (^deleteBlock)(OrderListRes*);
 //拼团详情
 @property(nonatomic,copy)void (^groupBlock)(OrderListRes*);
+//自提码
+@property(nonatomic,copy)void (^zitiBlock)(OrderListRes*);
 @end

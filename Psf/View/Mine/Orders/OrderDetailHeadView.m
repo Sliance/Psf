@@ -239,7 +239,7 @@
     
     if (model.memberAddressProvince) {
         self.centerLabel.hidden = YES;
-        self.detailLabel.text = [NSString stringWithFormat:@"%@%@%@%@",model.memberAddressProvince,model.memberAddressCity,model.memberAddressArea,model.memberAddressDetail];
+        self.detailLabel.text = [NSString stringWithFormat:@"%@%@",model.memberAddressProvince,model.memberAddressPositionDetail];
     }else{
         self.centerLabel.hidden = NO;
         self.detailLabel.text =@"";

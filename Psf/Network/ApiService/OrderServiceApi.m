@@ -114,7 +114,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -222,7 +222,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -269,6 +269,58 @@
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
 
+                if (responseModel) {
+                    responseModel(dicResponse[@"data"]);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///自提码
+- (void)getZiTiWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/mobile/v1/user/qrcode";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse[@"data"]);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///退款(测试专用)
+- (void)ceshirefundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/pay/mobile/v1/refund";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
                 if (responseModel) {
                     responseModel(dicResponse[@"data"]);
                 }

@@ -38,6 +38,7 @@
         [_serviceBtn.layer setBorderColor:DSColorFromHex(0xDCDCDC).CGColor];
         [_serviceBtn.layer setBorderWidth:0.5];
         [_serviceBtn setImage:[UIImage imageNamed:@"online_service"] forState:UIControlStateNormal];
+        [_serviceBtn addTarget:self action:@selector(pressService) forControlEvents:UIControlEventTouchUpInside];
     }
     return _serviceBtn;
 }
@@ -56,6 +57,9 @@
 }
 -(void)pressAdd{
     self.pressAddBlock();
+}
+-(void)pressService{
+    self.serviceBlock();
 }
 -(void)setPreSaleIsComplete:(BOOL)preSaleIsComplete{
     _preSaleIsComplete = preSaleIsComplete;

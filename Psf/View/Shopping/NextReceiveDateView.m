@@ -208,7 +208,7 @@
         end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
         start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
     }
-    self.cancleBlock(date,start,end);
+//    self.cancleBlock(date,start,end);
 }
 -(void)pressBtn:(UIButton*)sender{
     sender.selected = !sender.selected;

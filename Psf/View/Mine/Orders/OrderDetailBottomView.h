@@ -7,7 +7,7 @@
 //
 
 #import "BaseView.h"
-#import "OrderListRes.h"
+#import "OrderDetailRes.h"
 
 @interface OrderDetailBottomView : BaseView
 @property(nonatomic,strong)UILabel *lineLabel;
@@ -17,23 +17,26 @@
 ///应付金额
 @property(nonatomic,strong)UILabel *payableLabel;
 ///订单状态
-@property(nonatomic,strong)OrderListRes* status;
+@property(nonatomic,strong)OrderDetailRes* status;
+@property(nonatomic,assign)NSInteger type;
 //付款
-@property(nonatomic,copy)void (^payBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^payBlock)(OrderDetailRes*);
 //提醒发货
-@property(nonatomic,copy)void (^remindBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^remindBlock)(OrderDetailRes*);
 //查看物流
-@property(nonatomic,copy)void (^logisticsBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^logisticsBlock)(OrderDetailRes*);
 //送达日历
-@property(nonatomic,copy)void (^sureBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^sureBlock)(OrderDetailRes*);
 //再次购买
-@property(nonatomic,copy)void (^buyBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^buyBlock)(OrderDetailRes*);
 //评价
-@property(nonatomic,copy)void (^evaBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^evaBlock)(OrderDetailRes*);
 //退款
-@property(nonatomic,copy)void (^refundBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^refundBlock)(OrderDetailRes*);
 //删除订单
-@property(nonatomic,copy)void (^deleteBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^deleteBlock)(OrderDetailRes*);
 //取消订单
-@property(nonatomic,copy)void (^cancleBlock)(OrderListRes*);
+@property(nonatomic,copy)void (^cancleBlock)(OrderDetailRes*);
+//自提码
+@property(nonatomic,copy)void(^zitiBlock)(OrderDetailRes*);
 @end

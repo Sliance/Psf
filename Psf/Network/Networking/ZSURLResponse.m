@@ -27,7 +27,7 @@
     if (self) {
         self.contentString = responseString;
         if (responseData != nil) {
-            self.content = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:NULL];
+            self.content = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
         }
         self.status = status;
         self.requestId = [requestId integerValue];
@@ -52,7 +52,7 @@
         self.isCache = NO;
         
         if (responseData) {
-            self.content = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:NULL];
+            self.content = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
         } else {
             self.content = nil;
         }

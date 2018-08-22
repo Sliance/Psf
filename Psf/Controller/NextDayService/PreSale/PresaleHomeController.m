@@ -29,7 +29,7 @@
         _locView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, 45);
         [_locView.searchBtn addTarget:self action:@selector(pressSearch:) forControlEvents:UIControlEventTouchUpInside];
         [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
-        [_locView.locBtn setTitle:@"上海市" forState:UIControlStateNormal];
+       
     }
     return _locView;
 }
@@ -109,15 +109,29 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+//     [self adjustNavigationUI:self.navigationController];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     _dataArr = [NSMutableArray array];
     [self getPresaleList];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+//    self.navigationController.navigationBar.shadowImage = nil;
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.locView];
     self.tableview.tableHeaderView = self.headImage;
-   
+    
+    [ZSNotification addLocationResultNotification:self action:@selector(location:)];
+}
+-(void)location:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+     [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -143,6 +157,7 @@
         detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
         GroupListRes *model = weakSelf.dataArr[indexPath.row];
         [detailVC setProductID:model.productId];
+        detailVC.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
     return cell;
@@ -234,7 +249,7 @@
 -(void)pressHomeLocation:(UIButton*)sender {
 //    [self showToast:@"目前仅支持上海区域"];
         ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
-    cityViewController.hidesBottomBarWhenPushed = YES;
+        cityViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cityViewController animated:YES];
 }
 - (void)didReceiveMemoryWarning {

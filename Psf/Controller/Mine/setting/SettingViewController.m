@@ -10,7 +10,8 @@
 #import "AboutViewController.h"
 #import "AccountBindController.h"
 #import "FeedbackController.h"
-
+#import "WXApi.h"
+#import "WXApiObject.h"
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
@@ -136,6 +137,20 @@
     }else if (indexPath.row ==1&&indexPath.section ==1){
         FeedbackController *feedvc = [[FeedbackController alloc]init];
         [self.navigationController pushViewController:feedvc animated:YES];
+    }else if (indexPath.row ==3&&indexPath.section ==1){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = @"犁小农";
+        message.description = @"邀您一起";
+        [message setThumbImage:[UIImage imageNamed: @"icon_about"]];
+        WXWebpageObject *webobject = [WXWebpageObject object];
+        webobject.webpageUrl = @"https://www.baidu.com";
+        message.mediaObject = webobject;
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneSession;
+        
+        [WXApi sendReq:req];
     }
 }
 -(void)pressLogionOut{

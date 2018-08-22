@@ -11,10 +11,14 @@
 #import "UMSocialWechatHandler.h"
 #import "WXApi.h"
 #import "LoginServiceApi.h"
-
 #import <AlipaySDK/AlipaySDK.h>
-@interface AppDelegate ()<WXApiDelegate>
+#import <SobotKit/SobotKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+#import "ZSNotification.h"
 
+@interface AppDelegate ()<WXApiDelegate,CLLocationManagerDelegate>
+@property (nonatomic, strong) CLLocationManager *locationManagers;//定位管理
 @end
 
 @implementation AppDelegate
@@ -32,7 +36,69 @@
     [self configUSharePlatforms];
     [self confitUShareSettings];
     [WXApi registerApp:@"wx16b93fcfc9faba3c"];
+    // 错误日志收集
+    [ZCLibClient setZCLibUncaughtExceptionHandler];
+    
+    // 初始化，必须执行，并且必须在进入SDK之前调用
+    [[ZCLibClient getZCLibClient] initSobotSDK:@"738e6f5d803340e0bf9ad0c10f14bc73"];
+    ///定位
+    self.locationManagers = [[CLLocationManager alloc] init];
+    self.locationManagers.delegate = self;
+    self.locationManagers.desiredAccuracy = kCLLocationAccuracyBest;//选择定位经精确度
+    self.locationManagers.distanceFilter = kCLDistanceFilterNone;
+    //授权，定位功能必须得到用户的授权
+    [self.locationManagers requestAlwaysAuthorization];
+    [self.locationManagers requestWhenInUseAuthorization];
+      [self.locationManagers startUpdatingLocation];
+    [ZSNotification addRefreshLocationResultNotification:self action:@selector(refreshloc)];
     return YES;
+}
+-(void)refreshloc{
+     [self.locationManagers startUpdatingLocation];
+}
+
+#pragma mark---定位
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    CLLocation *loc = [locations firstObject];
+    
+    //获得地理位置，把经纬度赋给我们定义的属性
+    [UserCacheBean share].userInfo.latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude];
+    [UserCacheBean share].userInfo.longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude];
+
+    
+    //根据获取的地理位置，获取位置信息
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    __weak typeof(self)weakself = self;
+    [geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
+        
+        for (CLPlacemark *place in placemarks) {
+            
+            NSLog(@"name,%@",place.name);                      // 位置名
+            
+            NSLog(@"thoroughfare,%@",place.thoroughfare);      // 街道
+            
+            NSLog(@"subThoroughfare,%@",place.subThoroughfare);// 子街道
+            
+            NSLog(@"locality,%@",place.locality);              // 市
+            
+            NSLog(@"subLocality,%@",place.subLocality);        // 区
+            
+            NSLog(@"country,%@",place.country);                // 国家
+        
+            [UserCacheBean share].userInfo.thoroughfare = place.thoroughfare;
+            [UserCacheBean share].userInfo.city = place.locality;
+            [UserCacheBean share].userInfo.area = place.subLocality;
+            [UserCacheBean share].userInfo.address = place.name;
+           
+            [ZSNotification postLocationResultNotification:@{@"address":place.name}];
+        }
+        
+    }];
+//    NSLog(@"纬度=%f，经度=%f",self.latitude,self.longitude);
+   
+    [self.locationManagers stopUpdatingLocation];
+    
+    
 }
 - (void)confitUShareSettings
 {
@@ -155,11 +221,11 @@
 {
     
     SendAuthResp *aresp = (SendAuthResp *)resp;
-    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
-    {
-        NSString *code = aresp.code;
-        [self getWeiXinOpenId:code];
-    }
+//    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
+//    {
+//        NSString *code = aresp.code;
+//        [self getWeiXinOpenId:code];
+//    }
     NSString * strMsg = [NSString stringWithFormat:@"errorCode: %d",resp.errCode];
     NSLog(@"strMsg: %@",strMsg);
     
@@ -205,7 +271,7 @@
                 break;
             }
         }
-       
+       [ZSNotification postWeixinPayResultNotification:@{@"weixinpay": wxPayResult,@"strMsg":strMsg}];
     }
 }
 
@@ -275,10 +341,8 @@
             NSError *error = nil;
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
-            NSNotification *notification = [NSNotification notificationWithName:@"wechartlogin"object:nil userInfo:@{@"key":@"接收到了通知"}];
-            
-            [[NSNotificationCenter defaultCenter]postNotification:notification];
-            
+            [ZSNotification postWeixinLoginResultNotification:nil];
+            [ZSNotification postRefreshLocationResultNotification:nil];
         }
     }];
 }
@@ -296,6 +360,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
 }
 
 

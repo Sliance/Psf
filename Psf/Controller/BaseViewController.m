@@ -45,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self adjustNavigationUI:self.navigationController];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
 //    self.navigationController.navigationBar.translucent = YES;
 }
 
@@ -133,7 +134,7 @@
 
 - (void)setLeftButtonWithTitle:(NSString *) title  {
     UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didLeftClick)];
-    [leftBar setTintColor:[UIColor whiteColor]];
+    [leftBar setTintColor:[UIColor grayColor]];
     [leftBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
     [leftBar setTitlePositionAdjustment:UIOffsetMake(10, 0) forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setLeftBarButtonItem:leftBar];
@@ -145,7 +146,7 @@
 }
 
 - (void)didLeftClick {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)doLogin {

@@ -30,6 +30,8 @@ PODS:
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
+  - SobotKit (2.5.6)
+  - SVProgressHUD (2.2.5)
   - WechatOpenSDK (1.8.2)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -45,6 +47,8 @@ DEPENDENCIES:
   - MJRefresh
   - Qiniu (~> 7.1)
   - SDWebImage
+  - SobotKit
+  - SVProgressHUD
   - WechatOpenSDK
   - YYKit
 
@@ -60,6 +64,8 @@ SPEC REPOS:
     - MJRefresh
     - Qiniu
     - SDWebImage
+    - SobotKit
+    - SVProgressHUD
     - WechatOpenSDK
     - YYKit
 
@@ -74,9 +80,11 @@ SPEC CHECKSUMS:
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  SobotKit: 66ca7f1fe46c97fc59ab67ff884a84fb73a73a29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 191da0359532bf4aea1e393840566a3136c9c33c
+PODFILE CHECKSUM: eec07cae9fafcbd04a52a54f20dec6f851cb1105
 
 COCOAPODS: 1.5.3

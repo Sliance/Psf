@@ -32,4 +32,14 @@
 @property(nonatomic,copy)NSString *platform;
 ///
 @property(nonatomic,copy)NSString *timestamp;
+
+
+//测试
+@property(nonatomic,assign)NSInteger refundId;
+///
+@property(nonatomic,copy)NSString *totalFee;
+///
+@property(nonatomic,copy)NSString *refundFee;
+///
+@property(nonatomic,copy)NSString *refundDesc;
 @end

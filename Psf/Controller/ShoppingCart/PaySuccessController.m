@@ -14,7 +14,9 @@
 #import "PresaleHomeController.h"
 #import "ShoppingCartController.h"
 #import "MineViewController.h"
-#import "BaseOrdersController.h"
+#import "OrderDetailViewController.h"
+
+#import "OrderListRes.h"
 
 
 @interface PaySuccessController ()<UICollectionViewDelegate, UICollectionViewDataSource>
@@ -50,6 +52,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
     _likeArr = [NSMutableArray array];
     [self guessLikeList];
   
+}
+-(void)setResult:(PlaceOrderRes *)result{
+    _result = result;
 }
 -(void)guessLikeList{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -141,7 +146,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
    
     
         PaySuccessHeadView* validView = [[PaySuccessHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 190)];
-
+    validView.priceLabel.text = [NSString stringWithFormat:@"实付：%@",self.result.saleOrderPayAmount];
         __weak typeof(self)weakSelf = self;
          [validView setHomeBlock:^{
              for (UIViewController *controller in self.navigationController.viewControllers) {
@@ -160,27 +165,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
              
          }];
         [validView setOrderBlock:^{
-            for (UIViewController *controller in self.navigationController.viewControllers) {
-                if ([controller isKindOfClass:[ShoppingCartController class]]) {
-//                    self.tabBarController.selectedIndex =3;
-                   
-                    [self.navigationController popToViewController:controller animated:YES];
-                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
-                    allVC.selectedIndex =0;
-                    [self.navigationController pushViewController:allVC animated:YES];
-                   
-                }else if ([controller isKindOfClass:[PresaleHomeController class]]){
-                    self.tabBarController.selectedIndex =3;
-                    [self.navigationController popToViewController:controller animated:YES];
-                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
-                    [self.navigationController pushViewController:allVC animated:YES];
-                }else if ([controller isKindOfClass:[MineViewController class]]){
-                    [self.navigationController popToViewController:controller animated:YES];
-                    
-                    BaseOrdersController *allVC = [[BaseOrdersController alloc]init];
-                    [self.navigationController pushViewController:allVC animated:YES];
-                }
-            }
+            OrderDetailViewController *detailVC = [[OrderDetailViewController alloc]init];
+            OrderListRes *model = [[OrderListRes alloc]init];
+            model.saleOrderId = self.result.saleOrderId;
+            [detailVC setModel:model];
+            [self.navigationController pushViewController:detailVC animated:YES];
         }];
     
         [headerView addSubview:validView];

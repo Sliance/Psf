@@ -13,11 +13,7 @@
 #import "ZSPageViewController.h"
 #import <MJRefresh.h>
 #import "PYSearchViewController.h"
-#import "JFLocation.h"
-#import "JFAreaDataManager.h"
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
-#import "JFCityViewController.h"
+
 #import "ZSSortSelectorView.h"
 #import "MenuInfo.h"
 #import "ChooseAddressViewController.h"
@@ -33,19 +29,14 @@ static CGFloat const headViewHeight = 240.0;
 
 NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableViewDidLeaveFromTopNotification";
 
-@interface NextDayServiceController ()<ZJScrollPageViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,PYSearchViewControllerDelegate,JFLocationDelegate, JFCityViewControllerDelegate,CLLocationManagerDelegate,ZSSortSelectorViewDelegate>
+@interface NextDayServiceController ()<ZJScrollPageViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,PYSearchViewControllerDelegate,ZSSortSelectorViewDelegate>
 
 
 @property(nonatomic,strong)HomeLocationView *locView;
 @property(nonatomic,strong)NextSelectorView *seclectorView;
 
-@property (nonatomic, strong) CLLocationManager *locationManagers;//定位管理
-/** 城市定位管理器*/
-@property (nonatomic, strong) JFLocation *locationManager;
-/** 城市数据管理器*/
-@property (nonatomic, strong) JFAreaDataManager *manager;
-@property (nonatomic, strong) NSString *latitude;//纬度
-@property (nonatomic, strong) NSString *longitude;//经度
+
+
 @property (nonatomic, strong)  NSMutableArray *menuList;
 @property (nonatomic, strong)  NSMutableArray *dataArr;
 @property (nonatomic, assign)  BOOL autoSwitch;
@@ -57,7 +48,7 @@ static NSString * const cellID = @"cellID";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.locationManagers startUpdatingLocation];
+  
         [self adjustNavigationUI:self.navigationController];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         _autoSwitch = 0 != self.tabBarController.selectedIndex;
@@ -85,18 +76,6 @@ static NSString * const cellID = @"cellID";
     [self.view addSubview:self.locView];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-
-    ///定位
-    self.locationManagers = [[CLLocationManager alloc] init];
-    self.locationManagers.delegate = self;
-    self.locationManagers.desiredAccuracy = kCLLocationAccuracyBest;//选择定位经精确度
-    self.locationManagers.distanceFilter = kCLDistanceFilterNone;
-    //授权，定位功能必须得到用户的授权
-    [self.locationManagers requestAlwaysAuthorization];
-    [self.locationManagers requestWhenInUseAuthorization];
-    self.locationManager = [[JFLocation alloc] init];
-    _locationManager.delegate = self;
-    
     self.magicView.itemScale = 1;
     self.magicView.headerHeight = 45;
     self.magicView.navigationHeight = [self navHeightWithHeight]+60;
@@ -125,6 +104,12 @@ static NSString * const cellID = @"cellID";
         [weakSelf.magicView reloadDataToPage:index];
     }];
    
+    
+    [ZSNotification addLocationResultNotification:self action:@selector(location:)];
+}
+-(void)location:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
 }
 -(void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
@@ -170,14 +155,6 @@ static NSString * const cellID = @"cellID";
     }
     return _locView;
 }
-- (JFAreaDataManager *)manager {
-    if (!_manager) {
-        _manager = [JFAreaDataManager shareInstance];
-        [_manager areaSqliteDBData];
-    }
-    return _manager;
-}
-
 
 
 
@@ -265,9 +242,10 @@ static NSString * const cellID = @"cellID";
 }
 ///定位
 -(void)pressHomeLocation:(UIButton*)sender {
-    [self showToast:@"目前仅支持上海区域"];
-//    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
-//    [self.navigationController pushViewController:cityViewController animated:YES];
+//    [self showToast:@"目前仅支持上海区域"];
+    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+    cityViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:cityViewController animated:YES];
 }
 #pragma mark - JFCityViewControllerDelegate
 
@@ -276,104 +254,10 @@ static NSString * const cellID = @"cellID";
     [_locView.locBtn setTitle:name forState:UIControlStateNormal];
 }
 
-#pragma mark --- JFLocationDelegate
-//定位中...
-- (void)locating {
-    NSLog(@"定位中...");
-    
-}
-//定位成功
-- (void)currentLocation:(NSDictionary *)locationDictionary {
-    NSString *city = [locationDictionary valueForKey:@"City"];
-    [_locView.locBtn setTitle:city forState:UIControlStateNormal];
-    if (![_locView.locBtn.titleLabel.text isEqualToString:city]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"您定位到%@，确定切换城市吗？",city] preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        __weak typeof(self)weakself = self;
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            weakself.locView.locBtn.titleLabel.text = city;
-            [KCURRENTCITYINFODEFAULTS setObject:city forKey:@"locationCity"];
-            [KCURRENTCITYINFODEFAULTS setObject:city forKey:@"currentCity"];
-            [self.manager cityNumberWithCity:city cityNumber:^(NSString *cityNumber) {
-                [KCURRENTCITYINFODEFAULTS setObject:cityNumber forKey:@"cityNumber"];
-            }];
-        }];
-        [alertController addAction:cancelAction];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-}
 
-/// 拒绝定位
-- (void)refuseToUsePositioningSystem:(NSString *)message {
-    NSLog(@"%@",message);
-}
 
-/// 定位失败
-- (void)locateFailure:(NSString *)message {
-    NSLog(@"%@",message);
-}
-#pragma mark---定位
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    CLLocation *loc = [locations firstObject];
-    
-    //获得地理位置，把经纬度赋给我们定义的属性
-    self.latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude];
-    self.longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude];
-    //也可以存入NSUserDefaults，方便在工程中方便获取
-    [[NSUserDefaults standardUserDefaults] setValue:self.latitude forKey:@"latitude"];
-    [[NSUserDefaults standardUserDefaults] setValue:self.longitude forKey:@"longitude"];
-    
-    //根据获取的地理位置，获取位置信息
-    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    __weak typeof(self)weakself = self;
-    [geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
-        
-        for (CLPlacemark *place in placemarks) {
-            
-            NSLog(@"name,%@",place.name);                      // 位置名
-            
-            NSLog(@"thoroughfare,%@",place.thoroughfare);      // 街道
-            
-            NSLog(@"subThoroughfare,%@",place.subThoroughfare);// 子街道
-            
-            NSLog(@"locality,%@",place.locality);              // 市
-            
-            NSLog(@"subLocality,%@",place.subLocality);        // 区
-            
-            NSLog(@"country,%@",place.country);                // 国家
-            //            if ([JudgeIDAndBankCardisEmptyOrNull:_gpsCityName]) {
-            //                _gpsCityName=@"定位失败";
-            //            }
-            //            WRITE_DATA(place.locality,@"CITY_JC_NAME");
-            //            [self.mytableview reloadData];
-            if (weakself.locView.locBtn.titleLabel.text.length<1) {
-                [weakself.locView.locBtn setTitle:place.locality forState:UIControlStateNormal];
-                [kCurrentCityInfoDefaults setObject:place.locality forKey:@"locationCity"];
-            }
-            
-        }
-        
-    }];
-    NSLog(@"纬度=%f，经度=%f",self.latitude,self.longitude);
-    
-    [self.locationManagers stopUpdatingLocation];
-    
-    
-}
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    if ([error code] == kCLErrorDenied)
-    {
-        //访问被拒绝
-        NSLog(@"拒绝访问");
-    }
-    if ([error code] == kCLErrorLocationUnknown) {
-        //无法获取位置信息
-        NSLog(@"无法获取位置信息");
-    }
-}
+
 #pragma mark - NSNotification
 - (void)addNotification {
     [self removeNotification];

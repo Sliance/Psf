@@ -101,7 +101,7 @@
 - (void)adjustNavigationUI:(UINavigationController *) nav {
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     nav.navigationBar.translucent = YES;
-    [[UINavigationBar appearance] setTintColor:DSColorFromHex(0xffffff)];
+    [[UINavigationBar appearance] setTintColor:DSColorFromHex(0x464646)];
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
     NSShadow *shadow = [[NSShadow alloc] init];

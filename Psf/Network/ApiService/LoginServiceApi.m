@@ -32,7 +32,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -84,7 +84,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {
@@ -99,6 +99,32 @@
 ///保存手机号和密码（未注册情况）
 -(void)savePassWordWithParam:(LoginReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/v1/mobile/save/account/password";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///绑定手机号
+-(void)bindPhoneWithParam:(LoginReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/member/v1/bind/mobile";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

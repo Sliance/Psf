@@ -34,6 +34,8 @@
 #import "ShoppingCartController.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import <SobotKit/SobotKit.h>
+#import "ServiceViewController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -195,6 +197,7 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.bgscrollow];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
     _groupArr = [NSMutableArray array];
     _couponArr = [NSMutableArray array];
     [self.bgscrollow addSubview:self.cycleScroll];
@@ -323,6 +326,10 @@
     [self.presaleBuyView setTapBlock:^{
         _weakSelf.presaleBuyView.hidden = YES;
     }];
+    [self.preBView setServiceBlock:^{
+        ServiceViewController *serviceVC = [[ServiceViewController alloc]init];
+        [_weakSelf.navigationController pushViewController:serviceVC animated:YES];
+     }];
 }
 
 -(void)setProductID:(NSInteger )productID{
@@ -517,6 +524,8 @@
 -(void)reloadData{
     if ([self.result.productType isEqualToString:@"preSale"]) {
         self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 179);
+    }else if ([self.result.productType isEqualToString:@"groupon"]){
+        self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 96);
     }else{
         self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
     }
@@ -619,8 +628,8 @@
 }
 
 -(void)cycleScrollView:(ZSCycleScrollView *)cycleScrollView didSelectItemAtRow:(NSInteger)row{
-    EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
-    [self.navigationController pushViewController:evaVC animated:YES];
+//    EvaluateViewController *evaVC = [[EvaluateViewController alloc]init];
+//    [self.navigationController pushViewController:evaVC animated:YES];
 }
 -(void)finishCouponView{
     self.couponView.hidden = YES;
@@ -655,7 +664,7 @@
     wxMiniobject.path = [NSString stringWithFormat:@"/pages/shopDetail/shopDetail?goodsId=%ld",self.result.productId];
     wxMiniobject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"犁小农";
+    message.title = self.result.productName;
     message.description = @"邀您一起";
     
     [message setThumbImage:bgimageview.image];

@@ -23,7 +23,7 @@
     NSString *url = @"/lxn/groupon/mobile/v1/list";
     req.erpStoreId = @"181";
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
@@ -135,9 +135,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                //                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                PlaceOrderRes *result = [PlaceOrderRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {
@@ -243,9 +243,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-               
+                PlaceOrderRes *result = [PlaceOrderRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {

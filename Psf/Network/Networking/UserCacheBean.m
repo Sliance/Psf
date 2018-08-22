@@ -47,9 +47,14 @@
     [[UserCacheBean share] setUserInfo:user];
 }
 - (void)loginOut {
-    UserBaseInfoModel *userInfo = [[UserBaseInfoModel alloc] init];
-    [UserCacheBean share].userInfo = userInfo;
-    [self setUserInfo:userInfo];
+//    UserBaseInfoModel *userInfo = [[UserBaseInfoModel alloc] init];
+    [UserCacheBean share].userInfo.token = @"";
+    [UserCacheBean share].userInfo.memberMobile = @"";
+    [UserCacheBean share].userInfo.memberNickName = @"";
+    [UserCacheBean share].userInfo.memberAvatarPath = @"";
+    [UserCacheBean share].userInfo.roleId = @"";
+    [UserCacheBean share].userInfo.openid = @"";
+    [self setUserInfo:[UserCacheBean share].userInfo];
 }
 - (BOOL)isLogin {
     if (self.userInfo.token.length > 0) {

@@ -40,4 +40,6 @@
 ///购买数量
 @property(nonatomic,assign)NSInteger saleOrderProductQty;
 @property(nonatomic,assign)NSInteger productSkuId ;
+///是否选中微信
+@property(nonatomic,assign)BOOL useIsWeChart;
 @end

@@ -88,8 +88,10 @@
         make.centerY.equalTo(self);
     }];
 }
-
--(void)setStatus:(OrderListRes*)status{
+-(void)setType:(NSInteger)type{
+    _type = type;
+}
+-(void)setStatus:(OrderDetailRes*)status{
     _status = status;
     switch (status.saleOrderStatus) {
         case 0:
@@ -116,11 +118,14 @@
         case 2:
         {
             
-            [_remindBtn.layer setBorderColor:[UIColor clearColor].CGColor];
-            [_remindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_remindBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
-            [_remindBtn setTitle:@"确认收货" forState:UIControlStateNormal];
-            _sendBtn.hidden = NO;
+            if (_type ==2) {
+                
+                [_remindBtn setTitle:@"自提码" forState:UIControlStateNormal];
+            }else{
+                [_remindBtn setTitle:@"确认用户收货" forState:UIControlStateNormal];
+            }
+            
+            _sendBtn.hidden = YES;
           
         }
             break;
@@ -185,8 +190,12 @@
             break;
         case 2:
         {
-            
-            self.sureBlock(_status);
+            if (_type ==2) {
+                 self.zitiBlock(_status);
+            }else{
+                self.sureBlock(_status);
+            }
+           
             
         }
             break;

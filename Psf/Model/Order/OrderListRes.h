@@ -41,8 +41,8 @@
 @property(nonatomic,copy)NSString* saleOrderPointAmount;
 ///商品图片列表
 @property(nonatomic,strong)NSArray* saleOrderProductList;
-///收货方式
-@property(nonatomic,copy)NSString* saleOrderReceiveType;
+///收货方式(0门店自提，1送货上门)
+@property(nonatomic,assign)NSInteger saleOrderReceiveType;
 ///销售订单状态
 @property(nonatomic,assign)NSInteger saleOrderStatus;
 ///订单商品总数

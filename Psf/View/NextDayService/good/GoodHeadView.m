@@ -48,7 +48,6 @@
     [self.groupView addSubview:self.groupLabel];
     [self.groupView addSubview:self.dateLabel];
     [self addSubview:self.nameLabel];
-    [self addSubview:self.contentLabel];
     [self.groupView addSubview:self.priceLabel];
     [self.groupView addSubview:self.weightLabel];
     [self.groupView addSubview:self.groupLabel];
@@ -59,19 +58,21 @@
     [self addSubview:self.shareBtn];
     self.groupView.frame = CGRectMake(0, 0, SCREENWIDTH, 50);
     self.nameLabel.frame = CGRectMake(15, 15+self.groupView.ctBottom, SCREENWIDTH-50, 17);
-    self.contentLabel.frame = CGRectMake(15, self.nameLabel.ctBottom+11, SCREENWIDTH-30, 15);
+   
     self.shareBtn.frame = CGRectMake(SCREENWIDTH-32, 15+self.groupView.ctBottom, 17, 17);
     self.soldLabel.hidden = YES;
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.groupView).offset(15);
+        make.left.equalTo(self.groupView).offset(10);
+        make.top.equalTo(self.groupView);
+        make.height.mas_equalTo(50);
     }];
     [self.weightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.priceLabel.mas_right);
-        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        make.centerY.equalTo(self.priceLabel).offset(5);
     }];
     [self.originLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.weightLabel.mas_right);
-        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        make.centerY.equalTo(self.weightLabel);
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.originLabel.mas_left);
@@ -244,7 +245,7 @@
         _dateLabel.textAlignment = NSTextAlignmentRight;
         _dateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _dateLabel.textColor = [UIColor whiteColor];
-        _dateLabel.text = @"10天05:17:22";
+        _dateLabel.text = @"";
     }
     return _dateLabel;
 }
@@ -351,17 +352,38 @@
         [self setCornerLayoutGroup];
         self.originLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
         _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
+        self.dateLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+        NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(groupTime) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+        
+        [timer setFireDate:[NSDate distantPast]];
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
         
         [self setLauoutPreSale];
       _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
         self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
         self.priceLabel.font = [UIFont systemFontOfSize:19];
-        _buyerLabel.text = @"已有23人购买";
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%ld人购买",model.productSaleCount]];
-        [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.productSaleCount].length)];
-        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.productSaleCount].length)];
+        _buyerLabel.text = @"已有人购买";
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%ld人购买",model.preSaleQuantity]];
+        [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.preSaleQuantity].length)];
+        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.preSaleQuantity].length)];
         _buyerLabel.attributedText = str;
+        CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
+        if (model.preSaleLimitQuantity ==0) {
+            progress = 0.99;
+        }
+        _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
+        self.limitTitleLabel.text = [NSString stringWithFormat:@"%ld",model.preSaleLimitQuantity];
+        self.arriveTitleLabel.text = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"MM.dd"];
+        if (model.preSaleIsComplete ==YES) {
+            self.remainTitleLabel.text = @"已截单";
+        }else{
+            self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+            NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+            
+            [timer setFireDate:[NSDate distantPast]];
+        }
     }else if ([model.productType isEqualToString:@"reward"]){//满减
        [self setCornerLayoutNormal];
     }
@@ -371,18 +393,10 @@
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
     
     
-    CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
-    if (model.preSaleLimitQuantity ==0) {
-        progress = 0.99;
-    }
-    _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
-    self.limitTitleLabel.text = [NSString stringWithFormat:@"%ld",model.preSaleLimitQuantity];
-    self.arriveTitleLabel.text = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"MM.dd"];
-    self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
-    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     
-    [timer setFireDate:[NSDate distantPast]];
+}
+-(void)groupTime{
+    self.dateLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
 }
 -(void)timerAction{
     self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];

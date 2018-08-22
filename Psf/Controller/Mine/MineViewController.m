@@ -22,6 +22,7 @@
 #import "MineServiceApi.h"
 #import "AfterSalesViewController.h"
 #import "OrderServiceApi.h"
+#import "ScanQrCodeController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -66,6 +67,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     [self setNavWithTitle:@"我的"];
     if([UserCacheBean share].userInfo.token.length<1){
@@ -82,8 +84,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _listArr = @[@"\U0000e907",@"\U0000e905",@"\U0000e90b",@"\U0000e906",@"\U0000e909",@"\U0000e908"];
-    _dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"我的客服",@"设置"];
+   
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     self.tableview.separatorColor = [UIColor whiteColor];
@@ -122,10 +123,19 @@
     self.result = [[MineInformationReq alloc]init];
     [[MineServiceApi share]getMemberInformationWithParam:req response:^(id response) {
         if (response) {
-            self.result = response;
-            [UserCacheBean share].userInfo.memberMobile = self.result.memberMobile;
-            [weakself.headView setResult:self.result];
+            weakself.result = response;
+            [UserCacheBean share].userInfo.memberMobile = weakself.result.memberMobile;
+            [UserCacheBean share].userInfo.roleId = weakself.result.memberRoleType;
+            [weakself.headView setResult:weakself.result];
             [weakself requestorderData];
+            if ([weakself.result.memberRoleType integerValue] ==2) {
+                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e908",@"\U0000e909",@"\U0000e906"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"设置"];
+            }else{
+                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e908",@"\U0000e909",@"\U0000e906",@"\U0000e905"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"设置",@"扫码入口"];
+            }
+            [weakself.tableview reloadData];
         }
     }];
 }
@@ -223,11 +233,8 @@
                 [self.navigationController pushViewController:couponVC animated:YES];
             }
                 break;
+            
             case 4:
-            {
-            }
-                break;
-            case 5:
             {
                 SettingViewController *setVC = [[SettingViewController alloc]init];
                 setVC.hidesBottomBarWhenPushed = YES;
@@ -241,6 +248,13 @@
                 [self.navigationController pushViewController:walletVC animated:YES];
             }
                 break;
+            case 5:
+            {
+                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                ScanQrCodeController *qrVC = [story instantiateViewControllerWithIdentifier:@"ScanQrCodeController"];
+                qrVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:qrVC animated:YES];
+            }
             default:
                 break;
         }

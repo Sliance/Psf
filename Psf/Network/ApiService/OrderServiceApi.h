@@ -14,6 +14,7 @@
 #import "UnifiedOrderReq.h"
 #import "OrderPayRes.h"
 
+
 @interface OrderServiceApi : BaseApi
 + (instancetype)share;
 ///获取订单列表
@@ -36,4 +37,11 @@
 - (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
 ///订单的状态的数量接口
 - (void)getOrderCountWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
+///自提码
+- (void)getZiTiWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
+
+///退款(测试专用)
+- (void)ceshirefundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
+
+
 @end

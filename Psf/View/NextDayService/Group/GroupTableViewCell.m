@@ -81,7 +81,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -95,7 +95,7 @@
         _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textColor = DSColorFromHex(0x464646);
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.text = @"山东烟台红富士苹果";
+        _titleLabel.text = @"";
     }
     return _titleLabel;
 }
@@ -105,7 +105,7 @@
         _detailLabel.font = [UIFont systemFontOfSize:12];
         _detailLabel.textColor = DSColorFromHex(0x777777);
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        _detailLabel.text = @"酥脆多汁，香甜可口";
+        _detailLabel.text = @"";
     }
     return _detailLabel;
 }
@@ -143,7 +143,7 @@
     if (!_addBtn) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _addBtn.backgroundColor = DSColorFromHex(0xFF4C4D);
-        [_addBtn setTitle:@"去开团" forState:UIControlStateNormal];
+        [_addBtn setTitle:@"去参团" forState:UIControlStateNormal];
         [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _addBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_addBtn.layer setCornerRadius:2];

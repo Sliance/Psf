@@ -42,7 +42,7 @@
 @property(nonatomic,strong)StoreRes *storemodel;
 @property(nonatomic,strong)ChangeAddressReq *leftModel;
 @property(nonatomic,strong)PlaceOrderReq *placemodel;
-
+@property(nonatomic,strong)PlaceOrderRes *resultmodel;
 @property(nonatomic,assign)NSInteger type;
 @end
 
@@ -96,12 +96,14 @@
         _dataArr = [NSMutableArray array];
         _couponArr = [NSMutableArray array];
         _calculateModel = [[CalculateReq alloc]init];
+        _calculateModel.useIsWeChart = YES;
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.placemodel = [[PlaceOrderReq alloc]init];
+    self.resultmodel = [[PlaceOrderRes alloc]init];
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     [self.view addSubview:self.bottomView];
@@ -147,7 +149,9 @@
        
     }];
     [self.headView setDateBlock:^(NSInteger index) {
-        weakSelf.dateView.hidden = NO;
+        if (weakSelf.type ==1) {
+            weakSelf.dateView.hidden = NO;
+        }
     }];
     [self.dateView setCancleBlock:^(NSString* date,NSString *start,NSString* end) {
         weakSelf.dateView.hidden = YES;
@@ -158,6 +162,18 @@
             [weakSelf calculatePrice:weakSelf.calculateModel];
         }
     }];
+     [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+}
+-(void)weixinPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
+        PaySuccessController *successVC = [[PaySuccessController alloc]init];
+        if(self.resultmodel){
+         successVC.result = self.resultmodel;
+         [self.navigationController pushViewController:successVC animated:YES];
+        }
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
 }
 -(void)setGoodstype:(GOOGSTYPE )goodstype{
     _goodstype = goodstype;
@@ -335,7 +351,13 @@
     req.useIsBalance = self.calculateModel.useIsBalance;
     req.usePointIs = self.calculateModel.usePointIs;
     req.saleOrderPointAmount = self.resModel.saleOrderPointAmount;
-    req.saleOrderPayType = @"微信";
+   
+    if (self.calculateModel.useIsWeChart ==NO) {
+        [self showInfo:@"请选择付款方式"];
+        return;
+    }else{
+         req.saleOrderPayType = @"微信";
+    }
     req.saleOrderIsInvoice = self.placemodel.saleOrderIsInvoice;
     req.saleOrderInvoiceType = self.placemodel.saleOrderInvoiceType;
     req.saleOrderPlatform = @"ios";
@@ -354,7 +376,7 @@
     req.saleOrderInvoiceContent = @"";
     req.saleOrderInvoiceEmail = @"";
     if (self.type ==1) {
-        req.saleOrderReceiveType = @"送货上门";
+        req.saleOrderReceiveType = @"1";
         req.saleOrderReceiveName = self.leftModel.memberAddressName;
         req.saleOrderReceiveProvince = self.leftModel.memberAddressProvince;
         req.saleOrderReceiveCity = self.leftModel.memberAddressCity;
@@ -367,9 +389,10 @@
             [self showInfo:@"请填写收货地址"];
             return;
         }
+        
     }else if (self.type ==2){
         req.saleOrderReceiveName = @"";
-        req.saleOrderReceiveType = @"门店自提";
+        req.saleOrderReceiveType = @"0";
         if (self.storemodel.storeName.length<1) {
             req.merchantStoreName = @"";
         }else{
@@ -451,16 +474,21 @@
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]placeThePriceWithParam:req response:^(id response) {
         if (response) {
-            if ([response[@"code"] integerValue] == 200) {
-//                [weakself showToast:@"下单成功"];
-                NSString *orderid = response[@"data"][@"saleOrderId"];
-                if ([response[@"data"][@"saleOrderPayAmount"] isEqualToString:@"0"]) {
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                [weakself showToast:response[@"message"]];
+            }else{
+                PlaceOrderRes *result = [[PlaceOrderRes alloc]init];
+                result= response;
+                self.resultmodel = result ;
+                if ([result.saleOrderPayAmount isEqualToString:@"0"]) {
                     PaySuccessController *successVC = [[PaySuccessController alloc]init];
+                    successVC.result = result;
                     [self.navigationController pushViewController:successVC animated:YES];
                 }else{
-                   [self gotoAlipayOrWX:orderid Amount:response[@"data"][@"saleOrderPayAmount"] payType:req.saleOrderPayType];
-                  
+                    [self gotoAlipayOrWX:result.saleOrderId Amount:result.saleOrderPayAmount payType:req.saleOrderPayType];
+                    
                 }
+                
             }
         }
     }];
@@ -470,10 +498,21 @@
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]saveGroupWithParam:req response:^(id response) {
         if (response) {
-            if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"下单成功"];
-               
-                [weakself.navigationController popViewControllerAnimated:YES];
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                [weakself showToast:response[@"message"]];
+            }else{
+                PlaceOrderRes *result = [[PlaceOrderRes alloc]init];
+                result= response;
+                self.resultmodel = result ;
+                if ([result.saleOrderPayAmount isEqualToString:@"0"]) {
+                    PaySuccessController *successVC = [[PaySuccessController alloc]init];
+                    successVC.result = result;
+                    [self.navigationController pushViewController:successVC animated:YES];
+                }else{
+                    [self gotoAlipayOrWX:result.saleOrderId Amount:result.saleOrderPayAmount payType:req.saleOrderPayType];
+                    
+                }
+                
             }
         }
     }];
@@ -483,11 +522,21 @@
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]savePresaleWithParam:req response:^(id response) {
         if (response) {
-            if ([response[@"code"] integerValue] == 200) {
-                [weakself showToast:@"下单成功"];
-                [weakself.navigationController popViewControllerAnimated:YES];
-            }else{
+            if ([response isKindOfClass:[NSDictionary class]]) {
                 [weakself showToast:response[@"message"]];
+            }else{
+                PlaceOrderRes *result = [[PlaceOrderRes alloc]init];
+                result= response;
+                self.resultmodel = result ;
+                if ([result.saleOrderPayAmount isEqualToString:@"0"]) {
+                    PaySuccessController *successVC = [[PaySuccessController alloc]init];
+                    successVC.result = result;
+                    [self.navigationController pushViewController:successVC animated:YES];
+                }else{
+                    [self gotoAlipayOrWX:result.saleOrderId Amount:result.saleOrderPayAmount payType:req.saleOrderPayType];
+                    
+                }
+                
             }
         }
     }];
@@ -608,7 +657,7 @@
         if (_goodstype ==GOOGSTYPENormal) {
             CartProductModel *model = _dataArr[indexPath.row];
             [cell setModel:model];
-        }else if (_goodstype ==GOOGSTYPEGroup||_goodstype ==GOOGSTYPEPresale){
+        }else{
             GoodDetailRes *model = _dataArr[indexPath.row];
             [cell setRes:model];
         }
@@ -749,7 +798,7 @@
 
 -(void)pressWeChart:(UIButton*)sender{
     sender.selected = !sender.selected;
-    
+    self.calculateModel.useIsWeChart = sender.selected;
 }
 ///下单
 -(void)pressRemind{

@@ -113,7 +113,7 @@
 -(void)setModel:(SpellGroupModel *)model{
     _model = model;
   
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
      _groupName.text = [NSString stringWithFormat:@"%@的团",model.memberNickName];
     NSUInteger chacount = model.grouponActivityMemberLimit -model.grouponActivityMemberCount;
     _shortlabel.text = [NSString stringWithFormat:@"还差%ld人成团",chacount];

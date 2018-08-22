@@ -94,7 +94,7 @@
 }
 -(void)setModel:(EvaluateListModel *)model{
     _model = model;
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.memberAvatarPath]placeholderImage:[UIImage imageNamed:@"mine_avater_55"]];
     self.nameLabel.text = model.memberNickName;
     self.dateLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
     self.contentsLabel.text = model.saleOrderProductCommentContent;

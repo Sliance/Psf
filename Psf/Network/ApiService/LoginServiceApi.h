@@ -24,4 +24,6 @@
 -(void)retrievePasswordWithParam:(LoginReq *) req response:(responseModel) responseModel;
 ///微信登录
 -(void)weChartLoginWithParam:(LoginReq *) req response:(responseModel) responseModel;
+///绑定手机号获取验证码
+-(void)bindPhoneWithParam:(LoginReq *) req response:(responseModel) responseModel;
 @end

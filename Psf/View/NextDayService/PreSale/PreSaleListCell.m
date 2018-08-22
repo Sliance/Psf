@@ -160,7 +160,7 @@
 -(UIButton *)addBtn{
     if (!_addBtn) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setTitle:@"预售商品" forState:UIControlStateNormal];
+        [_addBtn setTitle:@"预购商品" forState:UIControlStateNormal];
         [_addBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
         _addBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_addBtn.layer setCornerRadius:2];

@@ -188,17 +188,15 @@
     req.memberMobile = _phoneField.text;
     __weak typeof(self)weakself = self;
     [[LoginServiceApi share]passWordLoginWithParam:req response:^(id response) {
-        if (response) {
+        if ([response[@"code"]integerValue] ==200 ) {
             NSError *error = nil;
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
+            [ZSNotification postRefreshLocationResultNotification:nil];
+            [weakself.navigationController popViewControllerAnimated:YES];
             
-            for (UIViewController *viewcontroller in self.navigationController.viewControllers) {
-                if ([viewcontroller isKindOfClass:[MineViewController class]]) {
-                    [weakself.navigationController popToViewController:viewcontroller animated:YES];
-                }
-            }
-            
+        }else{
+            [self showToast:response[@"message"]];
         }
     }];
 }

@@ -174,6 +174,14 @@
 		8866206821005DC500C7923D /* NSDate+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 8866206721005DC500C7923D /* NSDate+Add.m */; };
 		8866206B2100892D00C7923D /* MineServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8866206A2100892D00C7923D /* MineServiceApi.m */; };
 		8866206F210096AD00C7923D /* MineInformationReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8866206E210096AD00C7923D /* MineInformationReq.m */; };
+		88671890212CFAC500D861AD /* ZSNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8867188F212CFAC500D861AD /* ZSNotification.m */; };
+		88671892212D086300D861AD /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 88671891212D086200D861AD /* libc++abi.tbd */; };
+		88671895212D08B800D861AD /* BindMobileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88671894212D08B800D861AD /* BindMobileController.m */; };
+		886718A4212D3BD300D861AD /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 886718A0212D3BD300D861AD /* icomoon.woff */; };
+		886718A5212D3BD300D861AD /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 886718A1212D3BD300D861AD /* icomoon.eot */; };
+		886718A6212D3BD300D861AD /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 886718A2212D3BD300D861AD /* icomoon.svg */; };
+		886718A7212D3BD300D861AD /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 886718A3212D3BD300D861AD /* icomoon.ttf */; };
+		886718A9212D3BDC00D861AD /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 886718A8212D3BDC00D861AD /* demo.html */; };
 		8868035820F83B8100BFC1BC /* CouponListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035720F83B8100BFC1BC /* CouponListRes.m */; };
 		8868035B20F83C5900BFC1BC /* CouponServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035A20F83C5900BFC1BC /* CouponServiceApi.m */; };
 		8868035E20F856DF00BFC1BC /* GroupServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035D20F856DF00BFC1BC /* GroupServiceApi.m */; };
@@ -243,14 +251,12 @@
 		8871B8E020DBB92D00DAA5D6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8DF20DBB92D00DAA5D6 /* SystemConfiguration.framework */; };
 		8871B8E220DBB93E00DAA5D6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8E120DBB93E00DAA5D6 /* libsqlite3.0.tbd */; };
 		8871B8E420DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8871B8E320DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd */; };
-		8872DC68211D252700555FEA /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC67211D252700555FEA /* demo.html */; };
-		8872DC6D211D253200555FEA /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC69211D253100555FEA /* icomoon.woff */; };
-		8872DC6E211D253200555FEA /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6A211D253100555FEA /* icomoon.eot */; };
-		8872DC6F211D253200555FEA /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6B211D253200555FEA /* icomoon.svg */; };
-		8872DC70211D253200555FEA /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8872DC6C211D253200555FEA /* icomoon.ttf */; };
 		8872DC73211D2EAA00555FEA /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC72211D2EAA00555FEA /* FeedbackController.m */; };
 		8872DC76211D3F4C00555FEA /* FeedbackTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC75211D3F4C00555FEA /* FeedbackTypeView.m */; };
 		8872DC79211D64DE00555FEA /* FeetbackReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872DC78211D64DE00555FEA /* FeetbackReq.m */; };
+		88747ADF212A62630058ED5B /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747ADE212A62630058ED5B /* ServiceViewController.m */; };
+		88747AE2212A94BC0058ED5B /* ZitiMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747AE1212A94BC0058ED5B /* ZitiMaView.m */; };
+		88747AE5212AC0B70058ED5B /* PlaceOrderRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747AE4212AC0B70058ED5B /* PlaceOrderRes.m */; };
 		88747E8220EDA812000BC993 /* UseCouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8120EDA812000BC993 /* UseCouponController.m */; };
 		88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8420EDFA7C000BC993 /* FillEvaluateController.m */; };
 		88747E8820EDFB97000BC993 /* FillEvaluateHwadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88747E8720EDFB97000BC993 /* FillEvaluateHwadView.m */; };
@@ -265,6 +271,9 @@
 		8881BF3B21184ADB00F6A0CD /* FillEvaluateReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF3A21184ADB00F6A0CD /* FillEvaluateReq.m */; };
 		8881BF8721186E3800F6A0CD /* InvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881BF8621186E3800F6A0CD /* InvoiceViewController.m */; };
 		88828D9321114D6200E366D6 /* LoginServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 88828D9221114D6200E366D6 /* LoginServiceApi.m */; };
+		888630AE212BA25700B89080 /* CreatQRCodeAndBarCodeFromLeon.m in Sources */ = {isa = PBXBuildFile; fileRef = 888630AD212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.m */; };
+		888630B0212BCCC200B89080 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888630AF212BCCC200B89080 /* AVFoundation.framework */; };
+		888630B4212BE3D900B89080 /* ScanQrCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888630B3212BE3D900B89080 /* ScanQrCodeController.m */; };
 		888AC7E720FC43BD00587F88 /* GroupGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */; };
 		888AC7EA20FC43D800587F88 /* PresaleGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E920FC43D800587F88 /* PresaleGoodBottomView.m */; };
 		888AC7ED20FC7A2700587F88 /* DetailSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7EC20FC7A2700587F88 /* DetailSortHeadView.m */; };
@@ -693,6 +702,16 @@
 		8866206A2100892D00C7923D /* MineServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineServiceApi.m; sourceTree = "<group>"; };
 		8866206D210096AD00C7923D /* MineInformationReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineInformationReq.h; sourceTree = "<group>"; };
 		8866206E210096AD00C7923D /* MineInformationReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineInformationReq.m; sourceTree = "<group>"; };
+		8867188E212CFAC500D861AD /* ZSNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSNotification.h; sourceTree = "<group>"; };
+		8867188F212CFAC500D861AD /* ZSNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSNotification.m; sourceTree = "<group>"; };
+		88671891212D086200D861AD /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		88671893212D08B800D861AD /* BindMobileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindMobileController.h; sourceTree = "<group>"; };
+		88671894212D08B800D861AD /* BindMobileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindMobileController.m; sourceTree = "<group>"; };
+		886718A0212D3BD300D861AD /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
+		886718A1212D3BD300D861AD /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
+		886718A2212D3BD300D861AD /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
+		886718A3212D3BD300D861AD /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		886718A8212D3BDC00D861AD /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
 		8868035620F83B8100BFC1BC /* CouponListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponListRes.h; sourceTree = "<group>"; };
 		8868035720F83B8100BFC1BC /* CouponListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponListRes.m; sourceTree = "<group>"; };
 		8868035920F83C5900BFC1BC /* CouponServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponServiceApi.h; sourceTree = "<group>"; };
@@ -828,17 +847,18 @@
 		8871B8DF20DBB92D00DAA5D6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8871B8E120DBB93E00DAA5D6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		8871B8E320DBB97F00DAA5D6 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		8872DC67211D252700555FEA /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
-		8872DC69211D253100555FEA /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
-		8872DC6A211D253100555FEA /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
-		8872DC6B211D253200555FEA /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
-		8872DC6C211D253200555FEA /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
 		8872DC71211D2EAA00555FEA /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
 		8872DC72211D2EAA00555FEA /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
 		8872DC74211D3F4C00555FEA /* FeedbackTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackTypeView.h; sourceTree = "<group>"; };
 		8872DC75211D3F4C00555FEA /* FeedbackTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackTypeView.m; sourceTree = "<group>"; };
 		8872DC77211D64DE00555FEA /* FeetbackReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeetbackReq.h; sourceTree = "<group>"; };
 		8872DC78211D64DE00555FEA /* FeetbackReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeetbackReq.m; sourceTree = "<group>"; };
+		88747ADD212A62630058ED5B /* ServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceViewController.h; sourceTree = "<group>"; };
+		88747ADE212A62630058ED5B /* ServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceViewController.m; sourceTree = "<group>"; };
+		88747AE0212A94BC0058ED5B /* ZitiMaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZitiMaView.h; sourceTree = "<group>"; };
+		88747AE1212A94BC0058ED5B /* ZitiMaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZitiMaView.m; sourceTree = "<group>"; };
+		88747AE3212AC0B70058ED5B /* PlaceOrderRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceOrderRes.h; sourceTree = "<group>"; };
+		88747AE4212AC0B70058ED5B /* PlaceOrderRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceOrderRes.m; sourceTree = "<group>"; };
 		88747E8020EDA812000BC993 /* UseCouponController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UseCouponController.h; sourceTree = "<group>"; };
 		88747E8120EDA812000BC993 /* UseCouponController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UseCouponController.m; sourceTree = "<group>"; };
 		88747E8320EDFA7C000BC993 /* FillEvaluateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FillEvaluateController.h; sourceTree = "<group>"; };
@@ -867,6 +887,11 @@
 		8881BF8621186E3800F6A0CD /* InvoiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceViewController.m; sourceTree = "<group>"; };
 		88828D9121114D6200E366D6 /* LoginServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginServiceApi.h; sourceTree = "<group>"; };
 		88828D9221114D6200E366D6 /* LoginServiceApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginServiceApi.m; sourceTree = "<group>"; };
+		888630AC212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatQRCodeAndBarCodeFromLeon.h; sourceTree = "<group>"; };
+		888630AD212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatQRCodeAndBarCodeFromLeon.m; sourceTree = "<group>"; };
+		888630AF212BCCC200B89080 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		888630B2212BE3D900B89080 /* ScanQrCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanQrCodeController.h; sourceTree = "<group>"; };
+		888630B3212BE3D900B89080 /* ScanQrCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanQrCodeController.m; sourceTree = "<group>"; };
 		888AC7E520FC43BD00587F88 /* GroupGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupGoodBottomView.h; sourceTree = "<group>"; };
 		888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupGoodBottomView.m; sourceTree = "<group>"; };
 		888AC7E820FC43D800587F88 /* PresaleGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleGoodBottomView.h; sourceTree = "<group>"; };
@@ -1028,6 +1053,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88671892212D086300D861AD /* libc++abi.tbd in Frameworks */,
+				888630B0212BCCC200B89080 /* AVFoundation.framework in Frameworks */,
 				88660CD9212159B100846477 /* AlipaySDK.framework in Frameworks */,
 				88660CE121215A5100846477 /* CoreMotion.framework in Frameworks */,
 				88660CCB2121133A00846477 /* CFNetwork.framework in Frameworks */,
@@ -1080,6 +1107,8 @@
 		6254B2E541645C8750742314 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88671891212D086200D861AD /* libc++abi.tbd */,
+				888630AF212BCCC200B89080 /* AVFoundation.framework */,
 				88660CE021215A5100846477 /* CoreMotion.framework */,
 				88660CDE21215A3900846477 /* Foundation.framework */,
 				88660CDC21215A2C00846477 /* UIKit.framework */,
@@ -1128,6 +1157,8 @@
 				8880AF4A21253E9F008B6298 /* UnifiedOrderReq.m */,
 				88900AE82126631500F49104 /* OrderPayRes.h */,
 				88900AE92126631500F49104 /* OrderPayRes.m */,
+				88747AE3212AC0B70058ED5B /* PlaceOrderRes.h */,
+				88747AE4212AC0B70058ED5B /* PlaceOrderRes.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1300,6 +1331,12 @@
 		88566E652112CFCF00B6C38D /* UploadImage */ = {
 			isa = PBXGroup;
 			children = (
+				888B17D9211EF3B000501322 /* AES.h */,
+				888B17DA211EF3B100501322 /* AES.m */,
+				888B17DB211EF3B100501322 /* MD5.h */,
+				888B17DD211EF3B200501322 /* MD5.m */,
+				888B17DC211EF3B200501322 /* RSA.h */,
+				888B17DE211EF3B300501322 /* RSA.m */,
 				88566E692112D09800B6C38D /* UploadImageTool.h */,
 				88566E6A2112D09900B6C38D /* UploadImageTool.m */,
 				88566E662112CFEE00B6C38D /* QiniuUploadHelper.h */,
@@ -1367,6 +1404,8 @@
 				88590B7120E4705D00F51BC5 /* OrderDetailHeadView.m */,
 				88590B7320E4707500F51BC5 /* OrderDetailBottomView.h */,
 				88590B7420E4707500F51BC5 /* OrderDetailBottomView.m */,
+				88747AE0212A94BC0058ED5B /* ZitiMaView.h */,
+				88747AE1212A94BC0058ED5B /* ZitiMaView.m */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1395,6 +1434,8 @@
 				88636D2220E24A72006CE5D8 /* EvaluateViewController.m */,
 				88747E8320EDFA7C000BC993 /* FillEvaluateController.h */,
 				88747E8420EDFA7C000BC993 /* FillEvaluateController.m */,
+				88747ADD212A62630058ED5B /* ServiceViewController.h */,
+				88747ADE212A62630058ED5B /* ServiceViewController.m */,
 			);
 			path = goods;
 			sourceTree = "<group>";
@@ -1571,11 +1612,11 @@
 		8860DA6420DA1D69009E53B0 /* IconFont */ = {
 			isa = PBXGroup;
 			children = (
-				8872DC67211D252700555FEA /* demo.html */,
-				8872DC6A211D253100555FEA /* icomoon.eot */,
-				8872DC6B211D253200555FEA /* icomoon.svg */,
-				8872DC6C211D253200555FEA /* icomoon.ttf */,
-				8872DC69211D253100555FEA /* icomoon.woff */,
+				886718A8212D3BDC00D861AD /* demo.html */,
+				886718A1212D3BD300D861AD /* icomoon.eot */,
+				886718A2212D3BD300D861AD /* icomoon.svg */,
+				886718A3212D3BD300D861AD /* icomoon.ttf */,
+				886718A0212D3BD300D861AD /* icomoon.woff */,
 			);
 			path = IconFont;
 			sourceTree = "<group>";
@@ -1813,6 +1854,7 @@
 		8871B86720DB454800DAA5D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				888630AB212BA23B00B89080 /* BarCode */,
 				88566E612112C77000B6C38D /* ViewController */,
 				88566E0C2112A8E000B6C38D /* UIImage */,
 				88566E062112A88900B6C38D /* NSObject */,
@@ -1969,12 +2011,6 @@
 			children = (
 				88660CD12121599A00846477 /* Alipay */,
 				888B17CD211EEF4600501322 /* WeChatSDK */,
-				888B17D9211EF3B000501322 /* AES.h */,
-				888B17DA211EF3B100501322 /* AES.m */,
-				888B17DB211EF3B100501322 /* MD5.h */,
-				888B17DD211EF3B200501322 /* MD5.m */,
-				888B17DC211EF3B200501322 /* RSA.h */,
-				888B17DE211EF3B300501322 /* RSA.m */,
 				888B17A4211ECC3400501322 /* UMSocial */,
 				8881BF322118240400F6A0CD /* UITextView */,
 				88566E652112CFCF00B6C38D /* UploadImage */,
@@ -1982,6 +2018,8 @@
 				88566E1F2112C2ED00B6C38D /* TYUploadImageSubView */,
 				8871B89E20DB6FDB00DAA5D6 /* secrch */,
 				8860DA6420DA1D69009E53B0 /* IconFont */,
+				8867188E212CFAC500D861AD /* ZSNotification.h */,
+				8867188F212CFAC500D861AD /* ZSNotification.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -2005,6 +2043,24 @@
 				8881BF332118242100F6A0CD /* UIPlaceHolderTextView.m */,
 			);
 			path = UITextView;
+			sourceTree = "<group>";
+		};
+		888630AB212BA23B00B89080 /* BarCode */ = {
+			isa = PBXGroup;
+			children = (
+				888630AC212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.h */,
+				888630AD212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.m */,
+			);
+			path = BarCode;
+			sourceTree = "<group>";
+		};
+		888630B1212BE39700B89080 /* QrCode */ = {
+			isa = PBXGroup;
+			children = (
+				888630B2212BE3D900B89080 /* ScanQrCodeController.h */,
+				888630B3212BE3D900B89080 /* ScanQrCodeController.m */,
+			);
+			path = QrCode;
 			sourceTree = "<group>";
 		};
 		888AC7EE20FC843800587F88 /* presale */ = {
@@ -2297,7 +2353,7 @@
 			path = address;
 			sourceTree = "<group>";
 		};
-		888E719E20E0F27800BFBAFF /* MyreceiveAddress */ = {
+		888E719E20E0F27800BFBAFF /* Address */ = {
 			isa = PBXGroup;
 			children = (
 				88A2B43520F731A4007F338A /* ZHMapAroundInfoViewController.h */,
@@ -2310,7 +2366,7 @@
 				886AC40E2101F9A000B6F32F /* StoreAddressController.h */,
 				886AC40F2101F9A000B6F32F /* StoreAddressController.m */,
 			);
-			path = MyreceiveAddress;
+			path = Address;
 			sourceTree = "<group>";
 		};
 		888E71A520E0F93700BFBAFF /* message */ = {
@@ -2508,6 +2564,7 @@
 		88D893A320D26DE0007E3C41 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				888630B1212BE39700B89080 /* QrCode */,
 				88D9283D211078B10001B2E3 /* Login */,
 				886A9EC920ECBA89000503D2 /* Refund */,
 				888D66D820EA34D60007D471 /* wallet */,
@@ -2515,7 +2572,7 @@
 				88636D0D20E21131006CE5D8 /* setting */,
 				888E71AD20E106E600BFBAFF /* coupon */,
 				888E71A520E0F93700BFBAFF /* message */,
-				888E719E20E0F27800BFBAFF /* MyreceiveAddress */,
+				888E719E20E0F27800BFBAFF /* Address */,
 				88D893A420D26DF5007E3C41 /* MineViewController.h */,
 				88D893A520D26DF5007E3C41 /* MineViewController.m */,
 			);
@@ -2559,6 +2616,8 @@
 				88D92842211079760001B2E3 /* PassWordLoginController.m */,
 				88D9283F211078E70001B2E3 /* LoginViewController.h */,
 				88D9283E211078E70001B2E3 /* LoginViewController.m */,
+				88671893212D08B800D861AD /* BindMobileController.h */,
+				88671894212D08B800D861AD /* BindMobileController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2670,20 +2729,20 @@
 			files = (
 				88D8936620D25C42007E3C41 /* LaunchScreen.storyboard in Resources */,
 				8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */,
-				8872DC70211D253200555FEA /* icomoon.ttf in Resources */,
+				886718A9212D3BDC00D861AD /* demo.html in Resources */,
+				886718A4212D3BD300D861AD /* icomoon.woff in Resources */,
+				886718A5212D3BD300D861AD /* icomoon.eot in Resources */,
 				88566E852114035600B6C38D /* DatePickerTool.xib in Resources */,
-				8872DC6E211D253200555FEA /* icomoon.eot in Resources */,
-				8872DC68211D252700555FEA /* demo.html in Resources */,
 				88660CD8212159B100846477 /* AlipaySDK.bundle in Resources */,
 				88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */,
 				888B17CA211ECC3400501322 /* UMCommonLog.bundle in Resources */,
 				88D8936320D25C42007E3C41 /* Assets.xcassets in Resources */,
-				8872DC6F211D253200555FEA /* icomoon.svg in Resources */,
+				886718A6212D3BD300D861AD /* icomoon.svg in Resources */,
 				88566E842114035600B6C38D /* SexPickerTool.xib in Resources */,
+				886718A7212D3BD300D861AD /* icomoon.ttf in Resources */,
 				88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */,
 				8871B8B020DB702700DAA5D6 /* PYSearch.bundle in Resources */,
 				88D8936120D25C41007E3C41 /* Main.storyboard in Resources */,
-				8872DC6D211D253200555FEA /* icomoon.woff in Resources */,
 				888B17C6211ECC3400501322 /* UMSocialSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2713,10 +2772,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Psf/Pods-Psf-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/SobotKit/SobotKit.bundle",
+				"${PODS_ROOT}/SobotKit/ZCEmojiExpression.bundle",
+				"${PODS_ROOT}/SobotKit/en.lproj",
+				"${PODS_ROOT}/SobotKit/zh-Hans.lproj",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SobotKit.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZCEmojiExpression.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2805,6 +2874,7 @@
 				888E719D20E0EC8E00BFBAFF /* ChooseAddressViewController.m in Sources */,
 				888B17D7211EF2FA00501322 /* RandomKey.m in Sources */,
 				8871B86120DB441000DAA5D6 /* FilePathManager.m in Sources */,
+				88747AE5212AC0B70058ED5B /* PlaceOrderRes.m in Sources */,
 				88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
 				885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */,
@@ -2834,6 +2904,8 @@
 				8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */,
 				88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */,
 				88590B7520E4707500F51BC5 /* OrderDetailBottomView.m in Sources */,
+				888630AE212BA25700B89080 /* CreatQRCodeAndBarCodeFromLeon.m in Sources */,
+				888630B4212BE3D900B89080 /* ScanQrCodeController.m in Sources */,
 				885F407620DCCD0C009F04D6 /* ValidShopHeadView.m in Sources */,
 				8871B88D20DB4B0000DAA5D6 /* NSString+MD5Addition.m in Sources */,
 				888E71AC20E0F9B700BFBAFF /* MessageTableViewCell.m in Sources */,
@@ -2975,9 +3047,12 @@
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
+				88671890212CFAC500D861AD /* ZSNotification.m in Sources */,
 				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
 				88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
+				88671895212D08B800D861AD /* BindMobileController.m in Sources */,
+				88747ADF212A62630058ED5B /* ServiceViewController.m in Sources */,
 				88566E4C2112C35400B6C38D /* TZImagePickerController.m in Sources */,
 				88600BD120D890B80098CF10 /* ZSDotView.m in Sources */,
 				8871B83A20DB40B700DAA5D6 /* ZSURLResponse.m in Sources */,
@@ -3004,6 +3079,7 @@
 				88484D8920EB5CD300400D16 /* GroupCollectionViewCell.m in Sources */,
 				88534C3320E63B9800D6F43C /* GroupViewController.m in Sources */,
 				88D92843211079770001B2E3 /* PassWordLoginController.m in Sources */,
+				88747AE2212A94BC0058ED5B /* ZitiMaView.m in Sources */,
 				8871B8B120DB702700DAA5D6 /* PYSearchConst.m in Sources */,
 				88797FA020F34A910044A527 /* GoodDetailRes.m in Sources */,
 				88590B8220E4F26200F51BC5 /* EvaluateListModel.m in Sources */,

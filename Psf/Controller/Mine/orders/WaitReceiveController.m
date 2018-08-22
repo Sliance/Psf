@@ -12,13 +12,23 @@
 #import "FillEvaluateController.h"
 #import "ChooseServiceTypeController.h"
 #import "EmptyShoppingHeadView.h"
+#import "ZitiMaView.h"
+
 @interface WaitReceiveController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)EmptyShoppingHeadView *emptyView;
+@property(nonatomic,strong)ZitiMaView *zitiVew;
 @end
 
 @implementation WaitReceiveController
+-(ZitiMaView *)zitiVew{
+    if (!_zitiVew) {
+        _zitiVew = [[ZitiMaView alloc]initWithFrame:CGRectMake(0, -[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT)];
+        _zitiVew.hidden = YES;
+    }
+    return  _zitiVew;
+}
 -(EmptyShoppingHeadView *)emptyView{
     if (!_emptyView) {
         _emptyView = [[EmptyShoppingHeadView alloc]init];
@@ -56,6 +66,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
    [self.view addSubview:self.emptyView];
+    [self.view addSubview:self.zitiVew];
     _dataArr = [NSMutableArray array];
     
 }
@@ -225,6 +236,13 @@
     }];
     [cell setDeleteBlock:^(OrderListRes * model) {//删除订单
         [weakself deleteOrder:model.saleOrderId];
+    }];
+    [cell setZitiBlock:^(OrderListRes *model) {//自提码
+        [weakself.zitiVew setSaleOrderId:model.saleOrderId];
+         weakself.zitiVew.hidden = NO;
+    }];
+    [self.zitiVew setCloseBlock:^{
+        weakself.zitiVew.hidden = YES;
     }];
     return cell;
 }

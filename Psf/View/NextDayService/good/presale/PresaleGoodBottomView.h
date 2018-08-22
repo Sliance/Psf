@@ -14,6 +14,7 @@
 @property(nonatomic,strong)UIButton *addBtn;
 
 @property(nonatomic,copy)void(^pressAddBlock)();
+@property(nonatomic,copy)void(^serviceBlock)();
 @property(nonatomic,assign)BOOL preSaleIsComplete;
 
 @end

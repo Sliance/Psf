@@ -38,5 +38,6 @@
 #import <YYKit.h>
 #import <MJExtension.h>
 #import <MBProgressHUD.h>
+#import "ZSNotification.h"
 
 #endif /* ZSConfig_h */

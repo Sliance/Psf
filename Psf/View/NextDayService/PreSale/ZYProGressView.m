@@ -31,7 +31,7 @@
     if (!_viewBottom) {
         _viewBottom = [[UIView alloc]initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height/4, self.bounds.size.width, self.bounds.size.height/2)];
         _viewBottom.backgroundColor = [UIColor grayColor];
-        _viewBottom.layer.cornerRadius = 3;
+        _viewBottom.layer.cornerRadius = 5;
         _viewBottom.layer.masksToBounds = YES;
     }
     return _viewBottom;
@@ -40,7 +40,7 @@
     if (!_viewTop) {
         _viewTop = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, self.viewBottom.frame.size.height)];
         _viewTop.backgroundColor = [UIColor redColor];
-        _viewTop.layer.cornerRadius = 3;
+        _viewTop.layer.cornerRadius = 5;
         _viewTop.layer.masksToBounds = YES;
     }
     return _viewTop;

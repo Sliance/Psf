@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+#import "PlaceOrderRes.h"
 @interface PaySuccessController : BaseViewController
+@property(nonatomic,strong)PlaceOrderRes* result;
+
 
 @end

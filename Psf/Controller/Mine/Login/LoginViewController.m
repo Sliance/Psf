@@ -13,6 +13,7 @@
 #import <UMShare/UMShare.h>
 
 #import "WXApi.h"
+#import "BindMobileController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -151,6 +152,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     [self setNavWithTitle:@"我的"];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -256,17 +258,20 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
     [tap addTarget:self action:@selector(pressTap)];
     [self.view addGestureRecognizer:tap];
-    //创建通知中心对象
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    
-    //注册、接收通知
+   
   
-    [center addObserver:self selector:@selector(weChartLgin:)name:@"wechartlogin" object:nil];
+    [ZSNotification addWeixinLoginResultNotification:self action:@selector(weChartLgin:)];
 }
 
 -(void)weChartLgin:(NSNotification *)noti{
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([UserCacheBean share].userInfo.memberMobile.length>0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        BindMobileController *bindVC = [[BindMobileController alloc]init];
+        bindVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:bindVC animated:YES];
+    }
+    
 }
 -(void)pressTap{
     [_phoneField resignFirstResponder];
@@ -327,13 +332,15 @@
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[LoginServiceApi share]requestLoginWithParam:req response:^(id response) {
-        if (response) {
+        if ([response[@"code"]integerValue] ==200 ) {
                 NSError *error = nil;
                 UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
                 [UserCacheBean share].userInfo = userInfoModel;
-                
+                [ZSNotification postRefreshLocationResultNotification:nil];
                 [weakself.navigationController popViewControllerAnimated:YES];
             
+        }else{
+            [self showToast:response[@"message"]];
         }
     }];
 }
