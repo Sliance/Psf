@@ -57,11 +57,11 @@
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"1.0.0";
+    req.version = @"";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
@@ -101,28 +101,41 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+
+        [self setTitle:@"犁小农"];
+       
         
-        [self setNavWithTitle:@"犁小农"];
     }
     return self;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-//     [self adjustNavigationUI:self.navigationController];
+     [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-    _dataArr = [NSMutableArray array];
+   self.title = @"犁小农";
     [self getPresaleList];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [self adjustNavigationUI:self.navigationController];
+   
 //    self.navigationController.navigationBar.shadowImage = nil;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+   
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+     _dataArr = [NSMutableArray array];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.locView];
     self.tableview.tableHeaderView = self.headImage;
@@ -164,10 +177,14 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
-    GroupListRes *model = _dataArr[indexPath.row];
-    [detailVC setProductID:model.productId];
-    detailVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    
+    if (_dataArr.count>0) {
+       GroupListRes * model = _dataArr[indexPath.row];
+        [detailVC setProductID:model.productId];
+        detailVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+   
 }
 
 -(void)didClickCancel:(PYSearchViewController *)searchViewController{
@@ -188,7 +205,7 @@
     req.productCategoryId = @"" ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
@@ -231,7 +248,7 @@
             req.productName = searchText;
             req.cityId = @"310100";
             req.cityName = @"上海市";
-            req.pageIndex = @"1";
+            req.pageIndex = 1;
             req.pageSize = @"10";
             __weak typeof(self)weakself = self;
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {

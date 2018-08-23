@@ -46,7 +46,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"分类"];
+        [self setTitle:@"分类"];
        
     }
     return self;
@@ -102,7 +102,12 @@ static NSString *cellId = @"SortCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
    [self.view addSubview:self.locView];
    [self.view addSubview:self.sortLeftView];
     _dataArr = [NSMutableArray array];
@@ -212,7 +217,7 @@ static NSString *cellId = @"SortCollectionViewCell";
     req.productCategoryId = @"" ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
@@ -252,7 +257,7 @@ static NSString *cellId = @"SortCollectionViewCell";
             req.productName = searchText;
             req.cityId = @"310100";
             req.cityName = @"上海市";
-            req.pageIndex = @"1";
+            req.pageIndex = 1;
             req.pageSize = @"10";
             __weak typeof(self)weakself = self;
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {

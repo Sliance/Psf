@@ -193,7 +193,12 @@
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
             [ZSNotification postRefreshLocationResultNotification:nil];
-            [weakself.navigationController popViewControllerAnimated:YES];
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[MineViewController class]]) {
+                    [weakself.navigationController popToViewController:controller animated:YES];
+                }
+            }
+            
             
         }else{
             [self showToast:response[@"message"]];

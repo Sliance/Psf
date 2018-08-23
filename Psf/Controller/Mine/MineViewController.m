@@ -61,7 +61,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"我的"];
+        [self setTitle:@"我的"];
     }
     return self;
 }
@@ -69,7 +69,7 @@
     [super viewWillAppear:animated];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-    [self setNavWithTitle:@"我的"];
+    [self setTitle:@"我的"];
     if([UserCacheBean share].userInfo.token.length<1){
         LoginViewController *loginVC = [[LoginViewController alloc]init];
         [self showViewController:loginVC sender:nil];
@@ -84,7 +84,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     self.tableview.separatorColor = [UIColor whiteColor];

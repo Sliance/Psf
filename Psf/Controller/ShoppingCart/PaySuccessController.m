@@ -30,12 +30,18 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"下单成功"];
+        [self setTitle:@"下单成功"];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -65,7 +71,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";

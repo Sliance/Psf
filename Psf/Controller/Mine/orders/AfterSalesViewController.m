@@ -16,6 +16,7 @@
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)EmptyShoppingHeadView *emptyView;
+@property(nonatomic,assign)NSInteger pageIndex;
 @end
 
 @implementation AfterSalesViewController
@@ -46,19 +47,41 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         
         self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
-        [self setNavWithTitle:@"售后服务"]; 
+        [self setTitle:@"售后服务"]; 
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.emptyView];
     _dataArr = [NSMutableArray array];
     
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.pageIndex = 1;
+    [self requestData];
+}
+-(void)headerRefreshing
+{
+    self.pageIndex = 1;
+    [self requestData];
+}
+/**
+ *  上拉刷新
+ */
+-(void)footerRefreshing
+{
+    
+    self.pageIndex++;
     [self requestData];
 }
 
@@ -72,17 +95,31 @@
     req.saleOrderStatus = @"4";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]getOrderListWithParam:req response:^(id response) {
         if (response!= nil) {
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
+            if (self.pageIndex ==1) {
+                [weakself.dataArr removeAllObjects];
+                [weakself.dataArr addObjectsFromArray:response];
+                [weakself.tableview.mj_header endRefreshing];
+            }else{
+                [weakself.dataArr addObjectsFromArray:response];
+                [weakself.tableview.mj_header endRefreshing];
+                [weakself.tableview.mj_footer endRefreshing];
+            }
+            
             if (weakself.dataArr.count ==0) {
                 weakself.emptyView.hidden = NO;
+            }
+            if ([response count] < 10) {
+                [weakself.tableview.mj_footer removeFromSuperview];
+            }
+            else{
+                weakself.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakself refreshingAction:@selector(footerRefreshing)];
             }
             [weakself.tableview reloadData];
         }

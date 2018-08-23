@@ -153,7 +153,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-    [self setNavWithTitle:@"我的"];
+    [self setTitle:@"我的"];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

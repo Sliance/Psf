@@ -28,7 +28,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"推荐"];
+        [self setTitle:@"推荐"];
         
     }
     return self;
@@ -138,7 +138,7 @@
 -(void)setDataArr:(NSMutableArray *)dataArr{
     _dataArr = dataArr;
     StairCategoryRes *model = dataArr[_selectedIndex];
-    [self setNavWithTitle:model.productCategoryName];
+    [self setTitle:model.productCategoryName];
     [self generateTestData];
     [self.magicView reloadDataToPage:_selectedIndex];
 }

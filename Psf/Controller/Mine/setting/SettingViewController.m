@@ -47,13 +47,19 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"设置"];
+        [self setTitle:@"设置"];
         self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     _dataArr = @[@"清除缓存",@"意见反馈",@"关于我们",@"分享应用"];
     UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];

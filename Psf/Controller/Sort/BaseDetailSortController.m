@@ -48,7 +48,7 @@ static NSString *cellId = @"cellId";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = model.productCategoryId;
-        req.pageIndex = @"1";
+        req.pageIndex = 1;
         req.pageSize = @"10";
     req.productCategoryId = [NSString stringWithFormat:@"%ld",model.productCategoryId] ;
     req.cityId = @"310100";
@@ -157,7 +157,7 @@ static NSString *cellId = @"cellId";
     req.productCategoryId = @"" ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
@@ -197,7 +197,7 @@ static NSString *cellId = @"cellId";
             req.productName = searchText;
             req.cityId = @"310100";
             req.cityName = @"上海市";
-            req.pageIndex = @"1";
+            req.pageIndex = 1;
             req.pageSize = @"10";
             __weak typeof(self)weakself = self;
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {

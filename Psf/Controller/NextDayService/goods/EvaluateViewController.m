@@ -49,12 +49,18 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"评价"];
+        [self setTitle:@"评价"];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     _imageDataArr = [NSMutableArray array];
     _contentDataArr = [NSMutableArray array];
@@ -77,7 +83,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = _productId;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";

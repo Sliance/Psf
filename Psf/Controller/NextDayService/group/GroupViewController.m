@@ -46,7 +46,7 @@
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
@@ -70,7 +70,7 @@
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
@@ -111,9 +111,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         if (_goodtype ==GOODTYPEGROUP) {
-            [self setNavWithTitle:@"团购商品"];
+            [self setTitle:@"团购商品"];
         }else{
-            [self setNavWithTitle:@"预售商品"];
+            [self setTitle:@"预售商品"];
         }
     }
     return self;
@@ -121,15 +121,22 @@
 -(void)setGoodtype:(GOODTYPE)goodtype{
     _goodtype = goodtype;
     if (_goodtype ==GOODTYPEGROUP) {
-        [self setNavWithTitle:@"团购商品"];
+        [self setTitle:@"团购商品"];
          [self getGroupList];
     }else{
-        [self setNavWithTitle:@"预售商品"];
+        [self setTitle:@"预售商品"];
         [self getPresaleList];
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headImage;
     _dataArr = [NSMutableArray array];

@@ -105,6 +105,13 @@ static NSString *cellId = @"cellId";
 - (instancetype)init
 {
     if (self = [super init]) {
+        if (@available(iOS 11.0, *)) {
+            self.baseSearchTableView.contentInsetAdjustmentBehavior = NO;
+            self.collectionView.contentInsetAdjustmentBehavior = NO;
+        } else {
+            self.navigationController.navigationBar.translucent = NO;
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
         [self setup];
     }
     return self;
@@ -1361,7 +1368,7 @@ static NSString *cellId = @"cellId";
     req.productName = search;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]SearchDataListWithParam:req response:^(id response) {

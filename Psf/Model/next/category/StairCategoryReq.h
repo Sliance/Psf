@@ -42,7 +42,7 @@
 ///商品数量
 @property(nonatomic,assign)NSInteger productQuantity;
 ///
-@property(nonatomic,copy)NSString *pageIndex;
+@property(nonatomic,assign)NSInteger pageIndex;
 ///
 @property(nonatomic,copy)NSString *pageSize;
 ///

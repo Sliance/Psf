@@ -46,7 +46,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"订单详情"];
+        [self setTitle:@"订单详情"];
     }
     return self;
 }
@@ -231,7 +231,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";
@@ -262,7 +262,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.saleOrderStatus = @"2";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";

@@ -21,6 +21,7 @@
 #import "GroupServiceApi.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
+#import "BusinessCooperationController.h"
 @interface ZSPageViewController ()<ZSCycleScrollViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
@@ -84,7 +85,7 @@ static NSString *cellId = @"cellId";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
@@ -194,7 +195,7 @@ static NSString *cellId = @"cellId";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = model.productCategoryId;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"4";
     req.productCategoryParentId = model.productCategoryParentId;
     req.cityId = @"310100";
@@ -288,6 +289,10 @@ static NSString *cellId = @"cellId";
             req.scene = WXSceneSession;
 
             [WXApi sendReq:req];
+        }else if (index ==4){
+            BusinessCooperationController *bussinessVC = [[BusinessCooperationController alloc]init];
+            bussinessVC.hidesBottomBarWhenPushed = YES;
+            [weakself.navigationController pushViewController:bussinessVC animated:YES];
         }
     }else{
         DetailSortController *vc = [DetailSortController new];

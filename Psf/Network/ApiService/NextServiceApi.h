@@ -43,4 +43,6 @@
 
 ///根据分类编号查询商品列表
 - (void)getCategoryListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///企业合作
+- (void)businessCooperationWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

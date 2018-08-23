@@ -199,6 +199,7 @@
 		886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC4092101D79000B6F32F /* PointAmountCell.m */; };
 		886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40C2101EAF900B6F32F /* StoreRes.m */; };
 		886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40F2101F9A000B6F32F /* StoreAddressController.m */; };
+		886DB908212E52B600CF8C64 /* BusinessCooperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886DB907212E52B600CF8C64 /* BusinessCooperationController.m */; };
 		8871B82020DB3E9800DAA5D6 /* ZSAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */; };
 		8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83020DB406C00DAA5D6 /* ZSRequestCenter.m */; };
 		8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83320DB408600DAA5D6 /* ZSRequestGenerator.m */; };
@@ -746,6 +747,8 @@
 		886AC40C2101EAF900B6F32F /* StoreRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreRes.m; sourceTree = "<group>"; };
 		886AC40E2101F9A000B6F32F /* StoreAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreAddressController.h; sourceTree = "<group>"; };
 		886AC40F2101F9A000B6F32F /* StoreAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressController.m; sourceTree = "<group>"; };
+		886DB906212E52B600CF8C64 /* BusinessCooperationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BusinessCooperationController.h; sourceTree = "<group>"; };
+		886DB907212E52B600CF8C64 /* BusinessCooperationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BusinessCooperationController.m; sourceTree = "<group>"; };
 		8871B81B20DB3DA400DAA5D6 /* ZSAFNetworkingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAFNetworkingConfig.h; sourceTree = "<group>"; };
 		8871B81E20DB3E9800DAA5D6 /* ZSAPIProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAPIProxy.h; sourceTree = "<group>"; };
 		8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAPIProxy.m; sourceTree = "<group>"; };
@@ -1513,7 +1516,6 @@
 		88600BD420D890BF0098CF10 /* ZSSortSelectorView */ = {
 			isa = PBXGroup;
 			children = (
-				88D8939520D26C2F007E3C41 /* PsfTabBarItem.h */,
 				88600BD620D890FF0098CF10 /* ZSScrollButton.h */,
 				88600BD520D890FF0098CF10 /* ZSScrollButton.m */,
 				88600BD720D890FF0098CF10 /* ZSSortSelectorView.h */,
@@ -1791,6 +1793,22 @@
 				886A9ECE20ECBAC5000503D2 /* RefundViewController.m */,
 			);
 			path = Refund;
+			sourceTree = "<group>";
+		};
+		886DB905212E529300CF8C64 /* BusinessCooperation */ = {
+			isa = PBXGroup;
+			children = (
+				886DB906212E52B600CF8C64 /* BusinessCooperationController.h */,
+				886DB907212E52B600CF8C64 /* BusinessCooperationController.m */,
+			);
+			path = BusinessCooperation;
+			sourceTree = "<group>";
+		};
+		886DB909212E574E00CF8C64 /* BusinessCooperation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinessCooperation;
 			sourceTree = "<group>";
 		};
 		8871B82120DB3F3C00DAA5D6 /* Networking */ = {
@@ -2305,6 +2323,7 @@
 		888E717620E0C3F500BFBAFF /* next */ = {
 			isa = PBXGroup;
 			children = (
+				886DB909212E574E00CF8C64 /* BusinessCooperation */,
 				885303C120F4A162009807B2 /* evaluat */,
 				88797F9D20F34A770044A527 /* good */,
 				88747E8920EE250D000BC993 /* category */,
@@ -2506,6 +2525,7 @@
 				88600C0720D90C590098CF10 /* Sort */,
 				88600C0320D8E9270098CF10 /* NextDayService */,
 				88D8939620D26C2F007E3C41 /* PsfTabBarItem.m */,
+				88D8939520D26C2F007E3C41 /* PsfTabBarItem.h */,
 				8860DA5A20D9EF2F009E53B0 /* BaseView.h */,
 				8860DA5B20D9EF2F009E53B0 /* BaseView.m */,
 				88636D0720E1FD73006CE5D8 /* BaseTableViewCell.h */,
@@ -2532,6 +2552,7 @@
 		88D8939820D26CF0007E3C41 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				886DB905212E529300CF8C64 /* BusinessCooperation */,
 				88D9281C211030790001B2E3 /* PreSale */,
 				88534C3020E63B6C00D6F43C /* group */,
 				888E719A20E0EC6600BFBAFF /* address */,
@@ -2950,6 +2971,7 @@
 				88534C2C20E614ED00D6F43C /* GetCouponsView.m in Sources */,
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
 				88484D7A20EB179B00400D16 /* PayTypeView.m in Sources */,
+				886DB908212E52B600CF8C64 /* BusinessCooperationController.m in Sources */,
 				886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */,
 				8872DC73211D2EAA00555FEA /* FeedbackController.m in Sources */,
 				8872DC79211D64DE00555FEA /* FeetbackReq.m in Sources */,

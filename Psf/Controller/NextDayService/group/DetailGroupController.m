@@ -36,6 +36,12 @@ static NSString *cellId = @"cellId";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.collectionView];
     self.result = [[SpellGroupModel alloc]init];
     self.dataArr = [NSMutableArray array];
@@ -67,7 +73,7 @@ static NSString *cellId = @"cellId";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";

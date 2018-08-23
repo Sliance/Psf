@@ -44,13 +44,19 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"设置"];
+        [self setTitle:@"设置"];
         self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.tableview];
     _dataArr = @[@"修改密码",@"更换手机号",@"微信登录",@"QQ登录",@"微博登录"];
     _tableview.tableHeaderView = self.headView;

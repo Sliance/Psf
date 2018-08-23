@@ -36,6 +36,8 @@
 #import "WXApi.h"
 #import <SobotKit/SobotKit.h>
 #import "ServiceViewController.h"
+#import "PresaleHomeController.h"
+#import "NextDayServiceController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -188,14 +190,19 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"商品"];
+        [self setTitle:@"商品"];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    if (@available(iOS 11.0, *)) {
+        _bgscrollow.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.bgscrollow];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
     _groupArr = [NSMutableArray array];
@@ -224,6 +231,7 @@
         _weakSelf.couponView.hidden = NO;
     }];
     [self.tourDiyView setPressGoBlock:^(NSInteger index) {
+        
         FillOrderViewController *detailVC = [[FillOrderViewController alloc]init];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
@@ -290,38 +298,86 @@
     
     [self.groupBuyView setSubmitBlock:^(NSInteger type,NSInteger count){
         _weakSelf.groupBuyView.hidden = YES;
-        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
-        _weakSelf.result.saleOrderProductQty = count;
-        _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
-        if (type ==1) {
-            [sureVC setGoodstype:GOOGSTYPESingle];
-        }else if (type ==2){
-            [sureVC setGoodstype:GOOGSTYPEGroup];
+        if ([UserCacheBean share].userInfo.token.length>0) {
+            FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+            _weakSelf.result.saleOrderProductQty = count;
+            _weakSelf.result.productPrice = _weakSelf.result.grouponPrice;
+            if (type ==1) {
+                [sureVC setGoodstype:GOOGSTYPESingle];
+            }else if (type ==2){
+                [sureVC setGoodstype:GOOGSTYPEGroup];
+            }
+            
+            [sureVC setGooddetail:_weakSelf.result];
+            [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+        }else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                _weakSelf.tabBarController.selectedIndex = 3;
+                for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+                    
+                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                        [_weakSelf.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                }
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [_weakSelf presentViewController:alert animated:YES completion:nil];
         }
         
-        [sureVC setGooddetail:_weakSelf.result];
-        [_weakSelf.navigationController pushViewController:sureVC animated:YES];
     }];
     [self.groupBuyView setTapBlock:^{
         _weakSelf.groupBuyView.hidden = YES;
     }];
    
     [self.presaleBuyView setSubmitBlock:^(NSInteger count,NSInteger index,NSInteger _type){
-        
-        ProductSkuModel *skumodel = _weakSelf.resmodel.productSkuList[index];
-       
-      
-        _weakSelf.presaleBuyView.hidden = YES;
-        if(_type ==0){
-          FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
-         _weakSelf.result.saleOrderProductQty = count;
-         [sureVC setGoodstype:GOOGSTYPEPresale];
-         [sureVC setSkumodel:skumodel];
-         [sureVC setGooddetail:_weakSelf.resmodel];
-         [_weakSelf.navigationController pushViewController:sureVC animated:YES];
-        }else if (_type ==1){
-            [_weakSelf addShopCount:skumodel];
+        if ([UserCacheBean share].userInfo.token.length>0) {
+            ProductSkuModel *skumodel = _weakSelf.resmodel.productSkuList[index];
+            _weakSelf.presaleBuyView.hidden = YES;
+            if(_type ==0){
+                FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+                _weakSelf.result.saleOrderProductQty = count;
+                [sureVC setGoodstype:GOOGSTYPEPresale];
+                [sureVC setSkumodel:skumodel];
+                [sureVC setGooddetail:_weakSelf.resmodel];
+                [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+            }else if (_type ==1){
+                [_weakSelf addShopCount:skumodel];
+            }
+        }else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                _weakSelf.tabBarController.selectedIndex = 3;
+                for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+                    if ([controller isKindOfClass:[PresaleHomeController class]]) {
+                        [_weakSelf.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                        [_weakSelf.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                }
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [_weakSelf presentViewController:alert animated:YES completion:nil];
         }
+        
     }];
     [self.presaleBuyView setTapBlock:^{
         _weakSelf.presaleBuyView.hidden = YES;
@@ -349,7 +405,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = _productID;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -388,7 +444,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = _productID;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -428,7 +484,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = _productID;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -456,7 +512,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     req.productId = _productID;
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -481,7 +537,7 @@
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     //    req.productId = [NSString stringWithFormat:@"%ld",productID];
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";

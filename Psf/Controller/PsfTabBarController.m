@@ -106,7 +106,7 @@
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
     NSShadow *shadow = [[NSShadow alloc] init];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor whiteColor], NSForegroundColorAttributeName,
+                                                           DSColorFromHex(0x474747), NSForegroundColorAttributeName,
                                                            shadow, NSShadowAttributeName,
                                                            [UIFont systemFontOfSize:18], NSFontAttributeName, nil]];
     

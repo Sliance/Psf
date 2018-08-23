@@ -39,7 +39,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]) style:UITableViewStyleGrouped];
         _tableview.delegate = self;
         _tableview.dataSource = self;
 //        _tableview.separatorColor = [UIColor whiteColor];
@@ -51,13 +51,18 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"选择收货地址"];
+        [self setTitle:@"选择收货地址"];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     [self.view addSubview:self.bottomView];
      [self setTextFieldLeftView:self.chooseView.searchField :@"search_icon":20];
     [self.view addSubview:self.tableview];

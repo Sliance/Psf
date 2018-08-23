@@ -33,12 +33,18 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"消息中心"];
+        [self setTitle:@"消息中心"];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     _listArr = @[@"我的客服",@"犁小农活动",@"物流助手",@"通知消息"];
     _dataArr = @[@"查看我与客服的沟通记录",@"新年活动所有水果85折优惠",@"订单485883245已发货",@"您有一件商品未付款"];
     _imageArr = @[@"service_mine",@"activity_mine",@"logistics_mine",@"notification_mine"];

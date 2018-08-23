@@ -21,16 +21,20 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self initData];
+        
         self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
         
-        
+        [self adjustNavigationUI:self.navigationController];
     }
     return self;
 }
 
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self adjustNavigationUI:self.navigationController];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseUI];
@@ -46,19 +50,21 @@
     [super viewWillAppear:animated];
     [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
+   
+    
 //    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)adjustNavigationUI:(UINavigationController *) nav {
     [[UINavigationBar appearance] setBarTintColor:DSNavi];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"icon_back"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
     NSShadow *shadow = [[NSShadow alloc] init];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor whiteColor], NSForegroundColorAttributeName,
+                                                           DSColorFromHex(0x474747), NSForegroundColorAttributeName,
                                                            shadow, NSShadowAttributeName,
-                                                           [UIFont systemFontOfSize:20], NSFontAttributeName, nil]];
+                                                           [UIFont systemFontOfSize:18], NSFontAttributeName, nil]];
     //去掉返回按钮上的字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, 0)
                                                          forBarMetrics:UIBarMetricsDefault];
@@ -94,12 +100,10 @@
     [hud hide:YES afterDelay:3];
 }
 
-- (void)initData {
-    
-}
+
 
 - (void)initBaseUI {
-    [self setTitle:@""];
+    [self setTitle:@"犁小农"];
 }
 -(void)setNavWithTitle:(NSString *)navtitle{
     UILabel *navlabel = [[UILabel alloc]init];
@@ -107,7 +111,7 @@
     navlabel.textColor = DSColorFromHex(0x474747);
     navlabel.font = [UIFont systemFontOfSize:18];
     navlabel.text = navtitle;
-     self.navigationItem.titleView = navlabel;
+//     self.navigationItem.titleView = navlabel;
 }
 - (void)setRightButtonWithTitle:(NSString *) title  {
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didRightClick)];

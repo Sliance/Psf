@@ -43,12 +43,18 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"购物车"];
+        [self setTitle:@"购物车"];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-49) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -86,7 +92,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.saleOrderStatus = @"0";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -128,7 +134,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
     //    req.productId = [NSString stringWithFormat:@"%ld",productID];
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.saleOrderId = @"1013703405872041985";
@@ -189,7 +195,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";

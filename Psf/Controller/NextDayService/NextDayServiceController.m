@@ -63,7 +63,7 @@ static NSString * const cellID = @"cellID";
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@""];
+        [self setTitle:@""];
     }
     return self;
 }
@@ -183,7 +183,7 @@ static NSString * const cellID = @"cellID";
     req.productCategoryId = @"" ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.pageIndex = @"1";
+    req.pageIndex = 1;
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
@@ -226,7 +226,7 @@ static NSString * const cellID = @"cellID";
             req.productName = searchText;
             req.cityId = @"310100";
             req.cityName = @"上海市";
-            req.pageIndex = @"1";
+            req.pageIndex = 1;
             req.pageSize = @"10";
             __weak typeof(self)weakself = self;
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {

@@ -39,5 +39,5 @@
 #import <MJExtension.h>
 #import <MBProgressHUD.h>
 #import "ZSNotification.h"
-
+#import <MJRefresh.h>
 #endif /* ZSConfig_h */

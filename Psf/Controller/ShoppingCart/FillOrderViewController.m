@@ -92,7 +92,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setNavWithTitle:@"填写订单"];
+        [self setTitle:@"填写订单"];
         _dataArr = [NSMutableArray array];
         _couponArr = [NSMutableArray array];
         _calculateModel = [[CalculateReq alloc]init];
@@ -102,6 +102,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _tableview.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     self.placemodel = [[PlaceOrderReq alloc]init];
     self.resultmodel = [[PlaceOrderRes alloc]init];
     [self.view addSubview:self.tableview];
@@ -356,7 +362,7 @@
         [self showInfo:@"请选择付款方式"];
         return;
     }else{
-         req.saleOrderPayType = @"微信";
+         req.saleOrderPayType = @"2";
     }
     req.saleOrderIsInvoice = self.placemodel.saleOrderIsInvoice;
     req.saleOrderInvoiceType = self.placemodel.saleOrderInvoiceType;

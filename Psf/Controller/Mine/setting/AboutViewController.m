@@ -70,6 +70,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.view addSubview:self.iconImage];
     [self.view addSubview:self.evaluateBtn];
     [self.view addSubview:self.privacyBtn];
