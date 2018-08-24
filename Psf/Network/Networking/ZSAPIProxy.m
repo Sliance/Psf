@@ -220,7 +220,7 @@ typedef NS_ENUM(NSInteger, NetworkRequestType) {
             NSLog(@"%@", error);
             [self hiddenLoading];
             if (isShow == YES) {
-                [self showInfo:@"网络连接失败,请重试"];
+//                [self showInfo:@"网络连接失败,请重试"];
             }
             if (fail) {
                 succeed(nil);
@@ -261,7 +261,7 @@ typedef NS_ENUM(NSInteger, NetworkRequestType) {
             NSLog(@"%@", error);
             [self hiddenLoading];
             if (isShow == YES) {
-                [self showInfo:@"网络连接失败,请重试"];
+//                [self showInfo:@"网络连接失败,请重试"];
             }
             if (fail) {
                 succeed(nil);

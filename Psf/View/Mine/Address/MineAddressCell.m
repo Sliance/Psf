@@ -65,7 +65,7 @@
     }];
     [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-16);
-        make.width.height.mas_equalTo(15);
+        make.width.height.mas_equalTo(30);
         make.centerY.equalTo(self);
     }];
     

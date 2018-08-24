@@ -19,13 +19,16 @@
 #import "FillEvaluateController.h"
 #import "ChooseServiceTypeController.h"
 #import "ZitiMaView.h"
-
+#import "WXApiObject.h"
+#import "WXApi.h"
+#import "PaySuccessController.h"
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)OrderDetailBottomView *bottomView;
 @property(nonatomic,strong)NSMutableArray *likeArr;
 @property(nonatomic,strong)OrderDetailRes *result;
 @property(nonatomic,strong)ZitiMaView *zitiVew;
+@property(nonatomic,strong)PlaceOrderRes* resultmodel;
 @end
 static NSString *cellId = @"OrderCollectionViewCell";
 static NSString *cellIds = @"NextCollectionViewCell";
@@ -52,6 +55,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -68,7 +77,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     __weak typeof(self)weakself = self;
     [self.bottomView setPayBlock:^(OrderDetailRes *model){//付款
-        
+        weakself.resultmodel = [[PlaceOrderRes alloc]init];
+        weakself.resultmodel.saleOrderId = model.saleOrderId;
+        weakself.resultmodel.saleOrderPayAmount = model.saleOrderPayAmount;
+        [weakself gotoAlipayOrWX:model.saleOrderId Amount:model.saleOrderPayAmount payType:@"2"];
     }];
     [self.bottomView setBuyBlock:^(OrderDetailRes *model){//再次购买
         [weakself againOrder:model.saleOrderId];
@@ -104,6 +116,18 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.zitiVew setCloseBlock:^{
         weakself.zitiVew.hidden = YES;
     }];
+    [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+}
+-(void)weixinPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
+        PaySuccessController *successVC = [[PaySuccessController alloc]init];
+        if(self.resultmodel){
+            successVC.result = self.resultmodel;
+            [self.navigationController pushViewController:successVC animated:YES];
+        }
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
 }
 -(void)setOrdertype:(ORDERSTYPE)ordertype{
     _ordertype = ordertype;
@@ -282,6 +306,31 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [weakself.collectionView reloadData];
             
             [self guessLikeList];
+        }
+    }];
+}
+-(void)gotoAlipayOrWX:(NSString *)orderstr Amount:(NSString*)amount payType:(NSString*)type{
+    UnifiedOrderReq *req =[[UnifiedOrderReq alloc]init];
+    
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    
+    req.platform = @"ios";
+    req.saleOrderId = orderstr;
+    
+    [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
+        if (response) {
+            OrderPayRes *model = response;
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.partnerId           = model.partnerid;
+            req.prepayId            = model.prepayid;
+            req.nonceStr            = model.noncestr;
+            req.timeStamp           = model.timestamp.intValue;
+            req.package             = model.packagestr;
+            req.sign                = model.sign;
+            [WXApi sendReq:req];
         }
     }];
 }

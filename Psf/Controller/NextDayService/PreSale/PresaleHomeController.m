@@ -42,7 +42,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-45) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45) style:UITableViewStylePlain];
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.separatorColor = [UIColor whiteColor];
         _tableview.delegate = self;
@@ -104,7 +104,6 @@
 
         [self setTitle:@"犁小农"];
        
-        
     }
     return self;
 }
@@ -113,7 +112,7 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
      [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-   self.title = @"犁小农";
+   
     [self getPresaleList];
 }
 -(void)viewDidDisappear:(BOOL)animated{
@@ -132,7 +131,10 @@
      _dataArr = [NSMutableArray array];
     if (@available(iOS 11.0, *)) {
         _tableview.contentInsetAdjustmentBehavior = NO;
+        self.tableview.frame= CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45-[self tabBarHeight]);
     } else {
+        
+        self.tableview.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-45);
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }

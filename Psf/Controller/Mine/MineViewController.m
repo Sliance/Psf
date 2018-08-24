@@ -89,6 +89,7 @@
     } else {
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
+        self.tableview.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
     }
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;

@@ -17,7 +17,7 @@
 #import "OrderDetailViewController.h"
 
 #import "OrderListRes.h"
-
+#import "NextDayServiceController.h"
 
 @interface PaySuccessController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -37,7 +37,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
-        _collectionView.contentInsetAdjustmentBehavior = NO;
+        _collectionView.contentInsetAdjustmentBehavior = NO;        
     } else {
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -162,7 +162,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
                      
                  }else if ([controller isKindOfClass:[PresaleHomeController class]]){
                      [self.navigationController popToViewController:controller animated:YES];
-                 }else if ([controller isKindOfClass:[MineViewController class]]){
+                 }else if ([controller isKindOfClass:[MineViewController class]]||[controller isKindOfClass:[NextDayServiceController class]]){
                      self.tabBarController.selectedIndex =0;
                      [self.navigationController popToViewController:controller animated:YES];
                      

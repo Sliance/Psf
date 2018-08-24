@@ -15,13 +15,16 @@
 #import "EmptyShoppingHeadView.h"
 #import "ZitiMaView.h"
 #import "detailGoodsViewController.h"
-
+#import "WXApiObject.h"
+#import "WXApi.h"
+#import "PaySuccessController.h"
 @interface AllOrdersController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)EmptyShoppingHeadView *emptyView;
 @property(nonatomic,strong)ZitiMaView *zitiVew;
 @property(nonatomic,assign)NSInteger pageIndex;
+@property(nonatomic,strong)PlaceOrderRes* resultmodel;
 @end
 
 @implementation AllOrdersController
@@ -78,6 +81,18 @@
     [self.view addSubview:self.zitiVew];
     _dataArr = [NSMutableArray array];
     self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+}
+-(void)weixinPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
+        PaySuccessController *successVC = [[PaySuccessController alloc]init];
+        if(self.resultmodel){
+            successVC.result = self.resultmodel;
+            [self.navigationController pushViewController:successVC animated:YES];
+        }
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -232,7 +247,31 @@
         }
     }];
 }
-
+-(void)gotoAlipayOrWX:(NSString *)orderstr Amount:(NSString*)amount payType:(NSString*)type{
+    UnifiedOrderReq *req =[[UnifiedOrderReq alloc]init];
+    
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    
+    req.platform = @"ios";
+    req.saleOrderId = orderstr;
+    
+    [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
+        if (response) {
+            OrderPayRes *model = response;
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.partnerId           = model.partnerid;
+            req.prepayId            = model.prepayid;
+            req.nonceStr            = model.noncestr;
+            req.timeStamp           = model.timestamp.intValue;
+            req.package             = model.packagestr;
+            req.sign                = model.sign;
+            [WXApi sendReq:req];
+        }
+    }];
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -262,7 +301,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak typeof(self)weakself = self;
     [cell setPayBlock:^(OrderListRes *model){//付款
-        
+        weakself.resultmodel = [[PlaceOrderRes alloc]init];
+        weakself.resultmodel.saleOrderId = model.saleOrderId;
+        weakself.resultmodel.saleOrderPayAmount = model.saleOrderPayAmount;
+        [weakself gotoAlipayOrWX:model.saleOrderId Amount:model.saleOrderPayAmount payType:@"2"];
     }];
     [cell setBuyBlock:^(OrderListRes *model){//再次购买
         [weakself againOrder:model.saleOrderId];

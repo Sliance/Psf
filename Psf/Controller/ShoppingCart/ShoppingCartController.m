@@ -49,12 +49,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (@available(iOS 11.0, *)) {
-        _collectionView.contentInsetAdjustmentBehavior = NO;
-    } else {
-        self.navigationController.navigationBar.translucent = NO;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-49) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -75,6 +70,14 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.footView setAllBlock:^(BOOL selected) {
         [weakself selectedAll:selected];
     }];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+        self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-49);
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-49);
+    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -113,6 +116,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }
             if(weakself.result.cartProductList.count ==0){
                 weakself.footView.hidden = YES;
+                self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
             }else{
                 weakself.footView.hidden = NO;
             }
@@ -262,6 +266,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
                 weakself.footView.hidden = NO;
             }
             [weakself.footView setModel:weakself.result];
+            if (self.result.cartProductList.count==0) {
+                
+            }
             [weakself.collectionView reloadData];
         }
     }];
