@@ -50,6 +50,7 @@
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
@@ -90,7 +91,7 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 122;
@@ -101,11 +102,12 @@
     if (!cell) {
         cell = [[MineWalletCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-    if (indexPath.row ==0) {
-        if (self.resultDic[@"memberBalance"]) {
-            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
-        }
-    }else if (indexPath.row ==1) {
+//    if (indexPath.row ==0) {
+//        if (self.resultDic[@"memberBalance"]) {
+//            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
+//        }
+//    }else
+        if (indexPath.row ==0) {
         cell.titleLabel.text = @"积分";
         cell.contentLabel.text = @"满额积分自动抵扣现金";
         cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
@@ -121,7 +123,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row ==1) {
+    if (indexPath.row ==0) {
         MyIntegralController *myVC = [[MyIntegralController alloc]init];
         [myVC setDic:self.resultDic];
         [self.navigationController pushViewController:myVC animated:YES];

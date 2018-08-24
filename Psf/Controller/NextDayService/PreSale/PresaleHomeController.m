@@ -14,6 +14,7 @@
 #import "NextServiceApi.h"
 #import "PYSearchViewController.h"
 #import "ChooseAddressViewController.h"
+#import "GroupServiceApi.h"
 
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -85,7 +86,7 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.cityName = @"上海市";
-    req.productBannerPosition = type;
+    req.productBannerPosition = @"index";
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
         if (response!= nil) {

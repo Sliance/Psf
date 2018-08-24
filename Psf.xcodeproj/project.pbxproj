@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		882379912124328F005BC550 /* PaySuccessHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 882379902124328F005BC550 /* PaySuccessHeadView.m */; };
 		88237994212432F9005BC550 /* PaySuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88237993212432F9005BC550 /* PaySuccessController.m */; };
+		8824EB0621301D9E000CBA7E /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8824EB0221301D9D000CBA7E /* icomoon.eot */; };
+		8824EB0721301D9E000CBA7E /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8824EB0321301D9E000CBA7E /* icomoon.ttf */; };
+		8824EB0821301D9E000CBA7E /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8824EB0421301D9E000CBA7E /* icomoon.svg */; };
+		8824EB0921301D9E000CBA7E /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8824EB0521301D9E000CBA7E /* icomoon.woff */; };
 		882F52E5211AD8640030A949 /* RefundfootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 882F52E4211AD8640030A949 /* RefundfootView.m */; };
 		882F52E8211AE3840030A949 /* RefundOrderReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 882F52E7211AE3840030A949 /* RefundOrderReq.m */; };
 		884400E620F5AB05001F85EA /* ProductSkuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884400E520F5AB05001F85EA /* ProductSkuModel.m */; };
@@ -177,11 +181,6 @@
 		88671890212CFAC500D861AD /* ZSNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8867188F212CFAC500D861AD /* ZSNotification.m */; };
 		88671892212D086300D861AD /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 88671891212D086200D861AD /* libc++abi.tbd */; };
 		88671895212D08B800D861AD /* BindMobileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88671894212D08B800D861AD /* BindMobileController.m */; };
-		886718A4212D3BD300D861AD /* icomoon.woff in Resources */ = {isa = PBXBuildFile; fileRef = 886718A0212D3BD300D861AD /* icomoon.woff */; };
-		886718A5212D3BD300D861AD /* icomoon.eot in Resources */ = {isa = PBXBuildFile; fileRef = 886718A1212D3BD300D861AD /* icomoon.eot */; };
-		886718A6212D3BD300D861AD /* icomoon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 886718A2212D3BD300D861AD /* icomoon.svg */; };
-		886718A7212D3BD300D861AD /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 886718A3212D3BD300D861AD /* icomoon.ttf */; };
-		886718A9212D3BDC00D861AD /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 886718A8212D3BDC00D861AD /* demo.html */; };
 		8868035820F83B8100BFC1BC /* CouponListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035720F83B8100BFC1BC /* CouponListRes.m */; };
 		8868035B20F83C5900BFC1BC /* CouponServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035A20F83C5900BFC1BC /* CouponServiceApi.m */; };
 		8868035E20F856DF00BFC1BC /* GroupServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8868035D20F856DF00BFC1BC /* GroupServiceApi.m */; };
@@ -383,6 +382,10 @@
 		882379902124328F005BC550 /* PaySuccessHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaySuccessHeadView.m; sourceTree = "<group>"; };
 		88237992212432F9005BC550 /* PaySuccessController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaySuccessController.h; sourceTree = "<group>"; };
 		88237993212432F9005BC550 /* PaySuccessController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaySuccessController.m; sourceTree = "<group>"; };
+		8824EB0221301D9D000CBA7E /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
+		8824EB0321301D9E000CBA7E /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		8824EB0421301D9E000CBA7E /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
+		8824EB0521301D9E000CBA7E /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
 		882F52E3211AD8640030A949 /* RefundfootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundfootView.h; sourceTree = "<group>"; };
 		882F52E4211AD8640030A949 /* RefundfootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundfootView.m; sourceTree = "<group>"; };
 		882F52E6211AE3840030A949 /* RefundOrderReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundOrderReq.h; sourceTree = "<group>"; };
@@ -708,11 +711,6 @@
 		88671891212D086200D861AD /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
 		88671893212D08B800D861AD /* BindMobileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindMobileController.h; sourceTree = "<group>"; };
 		88671894212D08B800D861AD /* BindMobileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindMobileController.m; sourceTree = "<group>"; };
-		886718A0212D3BD300D861AD /* icomoon.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.woff; sourceTree = "<group>"; };
-		886718A1212D3BD300D861AD /* icomoon.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.eot; sourceTree = "<group>"; };
-		886718A2212D3BD300D861AD /* icomoon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icomoon.svg; sourceTree = "<group>"; };
-		886718A3212D3BD300D861AD /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
-		886718A8212D3BDC00D861AD /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
 		8868035620F83B8100BFC1BC /* CouponListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponListRes.h; sourceTree = "<group>"; };
 		8868035720F83B8100BFC1BC /* CouponListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponListRes.m; sourceTree = "<group>"; };
 		8868035920F83C5900BFC1BC /* CouponServiceApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponServiceApi.h; sourceTree = "<group>"; };
@@ -1614,11 +1612,10 @@
 		8860DA6420DA1D69009E53B0 /* IconFont */ = {
 			isa = PBXGroup;
 			children = (
-				886718A8212D3BDC00D861AD /* demo.html */,
-				886718A1212D3BD300D861AD /* icomoon.eot */,
-				886718A2212D3BD300D861AD /* icomoon.svg */,
-				886718A3212D3BD300D861AD /* icomoon.ttf */,
-				886718A0212D3BD300D861AD /* icomoon.woff */,
+				8824EB0221301D9D000CBA7E /* icomoon.eot */,
+				8824EB0421301D9E000CBA7E /* icomoon.svg */,
+				8824EB0321301D9E000CBA7E /* icomoon.ttf */,
+				8824EB0521301D9E000CBA7E /* icomoon.woff */,
 			);
 			path = IconFont;
 			sourceTree = "<group>";
@@ -2748,22 +2745,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8824EB0921301D9E000CBA7E /* icomoon.woff in Resources */,
 				88D8936620D25C42007E3C41 /* LaunchScreen.storyboard in Resources */,
+				8824EB0721301D9E000CBA7E /* icomoon.ttf in Resources */,
 				8857032420FF5ABD002BCDC9 /* areaArray.plist in Resources */,
-				886718A9212D3BDC00D861AD /* demo.html in Resources */,
-				886718A4212D3BD300D861AD /* icomoon.woff in Resources */,
-				886718A5212D3BD300D861AD /* icomoon.eot in Resources */,
 				88566E852114035600B6C38D /* DatePickerTool.xib in Resources */,
 				88660CD8212159B100846477 /* AlipaySDK.bundle in Resources */,
 				88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */,
 				888B17CA211ECC3400501322 /* UMCommonLog.bundle in Resources */,
 				88D8936320D25C42007E3C41 /* Assets.xcassets in Resources */,
-				886718A6212D3BD300D861AD /* icomoon.svg in Resources */,
 				88566E842114035600B6C38D /* SexPickerTool.xib in Resources */,
-				886718A7212D3BD300D861AD /* icomoon.ttf in Resources */,
+				8824EB0821301D9E000CBA7E /* icomoon.svg in Resources */,
 				88566E442112C35400B6C38D /* TZImagePickerController.bundle in Resources */,
 				8871B8B020DB702700DAA5D6 /* PYSearch.bundle in Resources */,
 				88D8936120D25C41007E3C41 /* Main.storyboard in Resources */,
+				8824EB0621301D9E000CBA7E /* icomoon.eot in Resources */,
 				888B17C6211ECC3400501322 /* UMSocialSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

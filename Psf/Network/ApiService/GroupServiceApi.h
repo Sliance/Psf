@@ -37,4 +37,5 @@
 - (void)getPresalePriceWithParam:(CalculateReq *) req response:(responseModel) responseModel;
 ///预售下单
 - (void)savePresaleWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel;
+
 @end
