@@ -11,6 +11,7 @@
 #import "BottomView.h"
 #import "PayTypeView.h"
 #import "MineServiceApi.h"
+#import "MineViewController.h"
 
 @interface RechargeViewController ()<UIScrollViewDelegate>
 
@@ -78,9 +79,13 @@
         
     }];
     _dataArr = [NSMutableArray array];
+    __weak typeof(self)weakself = self;
     [self.bottomView setGotoBlock:^{
-        for (UIViewController *controller in <#collection#>) {
-            <#statements#>
+        for (UIViewController *controller in weakself.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[MineViewController class]]) {
+                weakself.tabBarController.selectedIndex =1;
+                [weakself.navigationController popToViewController:controller animated:YES];
+            }
         }
     }];
     [self requestData];
