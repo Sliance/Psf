@@ -37,7 +37,7 @@
 {
     self.tabBarController.tabBar.translucent = NO;//去掉透明
     PsfTabBarItem *nextItem;
-    PsfTabBarItem *sortItem;
+//    PsfTabBarItem *sortItem;
     PsfTabBarItem *shopItem;
     PsfTabBarItem *mineItem;
    
@@ -51,9 +51,9 @@
     nextItem.image = [[UIImage imageNamed:@"next_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nextItem.selectedImage = [UIImage imageNamed:@"next_icon_selected"];
     
-    sortItem = [[PsfTabBarItem alloc]initWithTitle:@"分类" image:[UIImage imageNamed:@"sort_icon_selected"] selectedImage:[UIImage imageNamed:@"sort_icon_selected"]];
-    sortItem.image = [[UIImage imageNamed:@"sort_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    sortItem.selectedImage = [UIImage imageNamed:@"sort_icon_selected"];
+//    sortItem = [[PsfTabBarItem alloc]initWithTitle:@"分类" image:[UIImage imageNamed:@"sort_icon_selected"] selectedImage:[UIImage imageNamed:@"sort_icon_selected"]];
+//    sortItem.image = [[UIImage imageNamed:@"sort_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    sortItem.selectedImage = [UIImage imageNamed:@"sort_icon_selected"];
     shopItem = [[PsfTabBarItem alloc]initWithTitle:@"购物车" image:[UIImage imageNamed:@"shopping_icon_selected"] selectedImage:[UIImage imageNamed:@"shopping_icon_selected"]];
     shopItem.image = [[UIImage imageNamed:@"shopping_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     shopItem.selectedImage = [UIImage imageNamed:@"shopping_icon_selected"];
@@ -70,11 +70,11 @@
     [self adjustNavigationUI:nextNavController];
     //分类
 //    SortViewController *sortController = [[SortViewController alloc] init];
-        NextDayServiceController *sortController = [[NextDayServiceController alloc] init];
-    UINavigationController *sortNavController = [[UINavigationController alloc] initWithRootViewController:sortController];
-    sortController.navigationController.navigationBar.translucent = YES;
-    sortNavController.tabBarItem = sortItem;
-    [self adjustNavigationUI:sortNavController];
+//        NextDayServiceController *sortController = [[NextDayServiceController alloc] init];
+//    UINavigationController *sortNavController = [[UINavigationController alloc] initWithRootViewController:sortController];
+//    sortController.navigationController.navigationBar.translucent = YES;
+//    sortNavController.tabBarItem = sortItem;
+//    [self adjustNavigationUI:sortNavController];
    
     
     //购物车
@@ -92,7 +92,7 @@
     myNavController.tabBarItem = mineItem;
     [self adjustNavigationUI:myNavController];
     
-    self.viewControllers = @[nextNavController,sortNavController,shopNavController, myNavController];
+    self.viewControllers = @[nextNavController,shopNavController, myNavController];
     [self.tabBar setBackgroundColor:[UIColor clearColor]];
     self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
