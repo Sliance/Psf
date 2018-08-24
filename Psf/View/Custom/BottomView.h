@@ -10,5 +10,5 @@
 
 @interface BottomView : BaseView
 @property(nonatomic,strong)UIButton *bottomBtn;
-
+@property(nonatomic,copy)void (^gotoBlock)();
 @end

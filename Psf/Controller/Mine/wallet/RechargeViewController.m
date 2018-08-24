@@ -78,6 +78,11 @@
         
     }];
     _dataArr = [NSMutableArray array];
+    [self.bottomView setGotoBlock:^{
+        for (UIViewController *controller in <#collection#>) {
+            <#statements#>
+        }
+    }];
     [self requestData];
 }
 -(void)requestData{
