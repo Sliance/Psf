@@ -116,7 +116,14 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }
             if(weakself.result.cartProductList.count ==0){
                 weakself.footView.hidden = YES;
-                self.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
+                if (@available(iOS 11.0, *)) {
+                    weakself.collectionView.contentInsetAdjustmentBehavior = NO;
+                    weakself.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
+                } else {
+                    weakself.navigationController.navigationBar.translucent = NO;
+                    weakself.automaticallyAdjustsScrollViewInsets = NO;
+                    weakself.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
+                }
             }else{
                 weakself.footView.hidden = NO;
             }
