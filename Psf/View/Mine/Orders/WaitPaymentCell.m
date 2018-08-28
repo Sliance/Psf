@@ -296,7 +296,7 @@
             break;
         case 5:
         {
-            
+             self.buyBlock(_model);
         }
             break;
         case 6:

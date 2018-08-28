@@ -1,4 +1,4 @@
-//
+ //
 //  OrderCollectionViewCell.m
 //  Psf
 //
@@ -230,7 +230,7 @@
     self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     self.weightLabel.text = model.productUnit;
     _countLabel.text = [NSString stringWithFormat:@"X%ld",model.saleOrderProductQty];
-    
+    if (_ordertype ==2) {
     switch (model.systemStatus) {
         case 0:
         {
@@ -255,12 +255,8 @@
         case 2:
         {
             _statusLabel.text = @"待收货";
-            if (_ordertype ==2) {
                 [self updatePayBtn];
                 [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
-            }else{
-                _payBtn.hidden = YES;
-            }
            
             _sendBtn.hidden = YES;
 
@@ -308,7 +304,11 @@
             break;
         default:
             break;
-    }
+     }
+    }else{
+        _payBtn.hidden = YES;
+}
+
 
 }
 -(void)pressPay{

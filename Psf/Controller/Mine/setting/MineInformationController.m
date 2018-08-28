@@ -15,13 +15,13 @@
 #import "SexPickerTool.h"
 #import "DatePickerTool.h"
 
-@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MineInformationController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *dataArr;
 @property(nonatomic,strong)BottomView *bottomView;
 @property(nonatomic,strong)MineInformationReq *result;
 @property(nonatomic,strong)NSMutableArray *imageArr;
-
+@property(nonatomic,strong)UITextField *nameField;
 @end
 
 @implementation MineInformationController
@@ -93,7 +93,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 15;
+    return 0.01;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -130,7 +130,19 @@
     switch (indexPath.row) {
         case 1:
         {
-          cell.detailTextLabel.text = self.result.memberNickName;
+            UITextField*field;
+            if (!field) {
+                field = [[UITextField alloc]init];
+                field.textAlignment = NSTextAlignmentRight;
+                field.font = [UIFont systemFontOfSize:13];
+                field.frame = CGRectMake(SCREENWIDTH/2, 0, SCREENWIDTH/2-15, 45);
+                field.delegate = self;
+                
+                [cell addSubview:field];
+            }
+            _nameField = field;
+          field.text = self.result.memberNickName;
+            
         }
             break;
         case 2:
@@ -264,11 +276,21 @@
     self.result.timestamp = @"529675086";
     self.result.token = [UserCacheBean share].userInfo.token;
     self.result.platform = @"ios";
+    self.result.memberNickName = self.nameField.text;
     [[MineServiceApi share]updateMemberInformationWithParam:self.result response:^(id response) {
         if (response) {
             [self showToast:response[@"message"]];
         }
     }];
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
+}
+-(void)hideKeyBoard{
+    
+    self.result.memberNickName = _nameField.text;
+   
+    [_nameField resignFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

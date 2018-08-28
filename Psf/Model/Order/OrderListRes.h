@@ -50,6 +50,8 @@
 ///销售订单类型
 @property(nonatomic,copy)NSString* saleOrderType;
 
+@property(nonatomic,copy)NSString *memberId;
+
 
 
 

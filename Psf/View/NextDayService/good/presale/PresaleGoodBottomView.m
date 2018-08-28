@@ -37,7 +37,7 @@
         _serviceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_serviceBtn.layer setBorderColor:DSColorFromHex(0xDCDCDC).CGColor];
         [_serviceBtn.layer setBorderWidth:0.5];
-        [_serviceBtn setImage:[UIImage imageNamed:@"online_service"] forState:UIControlStateNormal];
+        [_serviceBtn setImage:[UIImage imageNamed:@"phone_service"] forState:UIControlStateNormal];
         [_serviceBtn addTarget:self action:@selector(pressService) forControlEvents:UIControlEventTouchUpInside];
     }
     return _serviceBtn;

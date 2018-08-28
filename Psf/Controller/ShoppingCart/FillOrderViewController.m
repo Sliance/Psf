@@ -113,7 +113,7 @@
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
     [self.view addSubview:self.bottomView];
-    [self.view addSubview:self.typeView];
+   
     [self.view addSubview:self.dateView];
     _type = 1;
     [self.headView setGoodtype:CLAIMGOODSTYPEVISIT];
@@ -183,6 +183,28 @@
 }
 -(void)setGoodstype:(GOOGSTYPE )goodstype{
     _goodstype = goodstype;
+    if (_goodstype ==GOOGSTYPEPresale) {
+        self.type = 2;
+        self.calculateModel.expressEnable = NO;
+        self.calculateModel.usePointIs = YES;
+        self.calculateModel.useIsBalance = YES;
+        [self calculatePrice:self.calculateModel];
+        [self.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+        [self.headView setStoremodel:self.storemodel];
+        self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
+    self.tableview.tableHeaderView = self.headView;
+        if (@available(iOS 11.0, *)) {
+            _tableview.contentInsetAdjustmentBehavior = NO;
+            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
+        } else {
+            self.navigationController.navigationBar.translucent = NO;
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
+        }
+    }else{
+        [self.view addSubview:self.typeView];
+    }
+    
 }
 
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
@@ -315,21 +337,24 @@
         }
     }];
 }
+
 -(void)pickUpStoreData{
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]pickUpSingleDefaultAddresWithParam:req response:^(id response) {
         if (response) {
             weakself.storemodel = response;
-           
-            
+            if (weakself.goodstype ==GOOGSTYPEPresale) {
+                self.type =2;
+                self.calculateModel.expressEnable = NO;
+                [self calculatePrice:self.calculateModel];
+                [self.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+                [self.headView setStoremodel:self.storemodel];
+            }
         }
         weakself.calculateModel.usePointIs = YES;
         weakself.calculateModel.productList = weakself.productArr;
@@ -695,7 +720,12 @@
             }
             
         }else if(indexPath.row ==6) {
-            cell.nameLabel.text = [NSString stringWithFormat:@"余额抵扣￥%@",self.resModel.useMemberBalance];
+            if (self.resModel.useMemberBalance.length>0) {
+                 cell.nameLabel.text = [NSString stringWithFormat:@"余额抵扣￥%@",self.resModel.useMemberBalance];
+            }else{
+                 cell.nameLabel.text = @"余额抵扣￥0";
+            }
+           
             if (self.calculateModel) {
                 cell.yuEswitch.selected = self.calculateModel.useIsBalance;
             }else{

@@ -127,8 +127,8 @@
         for (ImageModel *model in imageArr) {
             if (model.fileId) {
                 ImageModel *imagemodel = [[ImageModel alloc]init];
-                imagemodel.saleOrderProductCommentImageId = model.fileId;
-                imagemodel.saleOrderProductCommentImagePath = model.fileOriginalPath;
+                imagemodel.saleOrderRefundImageId = model.fileId;
+                imagemodel.saleOrderRefundImagePath = model.fileOriginalPath;
                 [weakself.imageurlArr addObject:imagemodel];
             }
         }

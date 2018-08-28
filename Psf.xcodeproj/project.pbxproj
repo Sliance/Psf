@@ -199,6 +199,7 @@
 		886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40C2101EAF900B6F32F /* StoreRes.m */; };
 		886AC4102101F9A000B6F32F /* StoreAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886AC40F2101F9A000B6F32F /* StoreAddressController.m */; };
 		886DB908212E52B600CF8C64 /* BusinessCooperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886DB907212E52B600CF8C64 /* BusinessCooperationController.m */; };
+		887081E02133979B0083E540 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 887081DF2133979B0083E540 /* HomeTableViewCell.m */; };
 		8871B82020DB3E9800DAA5D6 /* ZSAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */; };
 		8871B83120DB406C00DAA5D6 /* ZSRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83020DB406C00DAA5D6 /* ZSRequestCenter.m */; };
 		8871B83420DB408600DAA5D6 /* ZSRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8871B83320DB408600DAA5D6 /* ZSRequestGenerator.m */; };
@@ -747,6 +748,8 @@
 		886AC40F2101F9A000B6F32F /* StoreAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressController.m; sourceTree = "<group>"; };
 		886DB906212E52B600CF8C64 /* BusinessCooperationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BusinessCooperationController.h; sourceTree = "<group>"; };
 		886DB907212E52B600CF8C64 /* BusinessCooperationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BusinessCooperationController.m; sourceTree = "<group>"; };
+		887081DE2133979B0083E540 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
+		887081DF2133979B0083E540 /* HomeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
 		8871B81B20DB3DA400DAA5D6 /* ZSAFNetworkingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAFNetworkingConfig.h; sourceTree = "<group>"; };
 		8871B81E20DB3E9800DAA5D6 /* ZSAPIProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAPIProxy.h; sourceTree = "<group>"; };
 		8871B81F20DB3E9800DAA5D6 /* ZSAPIProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAPIProxy.m; sourceTree = "<group>"; };
@@ -1588,6 +1591,8 @@
 				888D66D220E9ECE00007D471 /* NextCollectionHeadView.m */,
 				88635DE520FDE8610012AE77 /* TuiJianView.h */,
 				88635DE620FDE8610012AE77 /* TuiJianView.m */,
+				887081DE2133979B0083E540 /* HomeTableViewCell.h */,
+				887081DF2133979B0083E540 /* HomeTableViewCell.m */,
 			);
 			path = NextDayService;
 			sourceTree = "<group>";
@@ -2790,19 +2795,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Psf/Pods-Psf-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/SobotKit/SobotKit.bundle",
-				"${PODS_ROOT}/SobotKit/ZCEmojiExpression.bundle",
-				"${PODS_ROOT}/SobotKit/en.lproj",
-				"${PODS_ROOT}/SobotKit/zh-Hans.lproj",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SobotKit.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZCEmojiExpression.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2896,6 +2893,7 @@
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
 				885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */,
 				886A9EC820EC9DE8000503D2 /* SureOrderTableViewCell.m in Sources */,
+				887081E02133979B0083E540 /* HomeTableViewCell.m in Sources */,
 				88600BCE20D890B80098CF10 /* UIView+Frame.m in Sources */,
 				88600BCD20D890B80098CF10 /* NSData+ZSCache.m in Sources */,
 				88484D7D20EB38A900400D16 /* MyIntegralController.m in Sources */,
@@ -3222,6 +3220,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DNLYQ8TZ35;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3239,7 +3238,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "<key>LSApplicationQueriesSchemes</key>\n<array>\n    <!-- 微信 URL Scheme 白名单-->\n    <string>wechat</string>\n    <string>weixin</string>\n    <!-- 新浪微博 URL Scheme 白名单-->\n    <string>sinaweibohd</string>\n    <string>sinaweibo</string>\n    <string>sinaweibosso</string>\n    <string>weibosdk</string>\n    <string>weibosdk2.5</string>\n    <!-- QQ、Qzone URL Scheme 白名单-->\n    <string>mqqapi</string>\n    <string>mqq</string>\n    <string>mqqOpensdkSSoLogin</string>\n    <string>mqqconnect</string>\n    <string>mqqopensdkdataline</string>\n    <string>mqqopensdkgrouptribeshare</string>\n    <string>mqqopensdkfriend</string>\n    <string>mqqopensdkapi</string>\n    <string>mqqopensdkapiV2</string>\n    <string>mqqopensdkapiV3</string>\n    <string>mqqopensdkapiV4</string>\n    <string>mqzoneopensdk</string>\n    <string>wtloginmqq</string>\n    <string>wtloginmqq2</string>\n    <string>mqqwpa</string>\n    <string>mqzone</string>\n    <string>mqzonev2</string>\n    <string>mqzoneshare</string>\n    <string>wtloginqzone</string>\n    <string>mqzonewx</string>\n    <string>mqzoneopensdkapiV2</string>\n    <string>mqzoneopensdkapi19</string>\n    <string>mqzoneopensdkapi</string>\n    <string>mqqbrowser</string>\n    <string>mttbrowser</string>\n    <string>tim</string>\n    <string>timapi</string>\n    <string>timopensdkfriend</string>\n    <string>timwpa</string>\n    <string>timgamebindinggroup</string>\n    <string>timapiwallet</string>\n    <string>timOpensdkSSoLogin</string>\n    <string>wtlogintim</string>\n    <string>timopensdkgrouptribeshare</string>\n    <string>timopensdkapiV4</string>\n    <string>timgamebindinggroup</string>\n    <string>timopensdkdataline</string>\n    <string>wtlogintimV1</string>\n    <string>timapiV1</string>\n    <!-- 支付宝 URL Scheme 白名单-->\n    <string>alipay</string>\n    <string>alipayshare</string>\n    <!-- 钉钉 URL Scheme 白名单-->\n      <string>dingtalk</string>\n      <string>dingtalk-open</string>\n    <!--Linkedin URL Scheme 白名单-->\n    <string>linkedin</string>\n    <string>linkedin-sdk2</string>\n    <string>linkedin-sdk</string>\n    <!-- 点点虫 URL Scheme 白名单-->\n    <string>laiwangsso</string>\n    <!-- 易信 URL Scheme 白名单-->\n    <string>yixin</string>\n    <string>yixinopenapi</string>\n    <!-- instagram URL Scheme 白名单-->\n    <string>instagram</string>\n    <!-- whatsapp URL Scheme 白名单-->\n    <string>whatsapp</string>\n    <!-- line URL Scheme 白名单-->\n    <string>line</string>\n    <!-- Facebook URL Scheme 白名单-->\n    <string>fbapi</string>\n    <string>fb-messenger-api</string>\n    <string>fb-messenger-share-api</string>\n    <string>fbauth2</string>\n    <string>fbshareextension</string>\n    <!-- Kakao URL Scheme 白名单-->  \n    <!-- 注：以下第一个参数需替换为自己的kakao appkey--> \n    <!-- 格式为 kakao + \"kakao appkey\"-->    \n    <string>kakaofa63a0b2356e923f3edd6512d531f546</string>\n    <string>kakaokompassauth</string>\n    <string>storykompassauth</string>\n    <string>kakaolink</string>\n    <string>kakaotalk-4.5.0</string>\n    <string>kakaostory-2.9.0</string>\n   <!-- pinterest URL Scheme 白名单-->  \n    <string>pinterestsdk.v1</string>\n   <!-- Tumblr URL Scheme 白名单-->  \n    <string>tumblr</string>\n   <!-- 印象笔记 -->\n    <string>evernote</string>\n    <string>en</string>\n    <string>enx</string>\n    <string>evernotecid</string>\n    <string>evernotemsg</string>\n   <!-- 有道云笔记-->\n    <string>youdaonote</string>\n    <string>ynotedictfav</string>\n    <string>com.youdao.note.todayViewNote</string>\n    <string>ynotesharesdk</string>\n   <!-- Google+-->\n    <string>gplus</string>\n   <!-- Pocket-->\n    <string>pocket</string>\n    <string>readitlater</string>\n    <string>pocket-oauth-v1</string>\n    <string>fb131450656879143</string>\n    <string>en-readitlater-5776</string>\n    <string>com.ideashower.ReadItLaterPro3</string>\n    <string>com.ideashower.ReadItLaterPro</string>\n    <string>com.ideashower.ReadItLaterProAlpha</string>\n    <string>com.ideashower.ReadItLaterProEnterprise</string>\n   <!-- VKontakte-->\n    <string>vk</string>\n    <string>vk-share</string>\n    <string>vkauthorize</string>\n   <!-- Twitter-->\n    <string>twitter</string>\n    <string>twitterauth</string>\n";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3281,6 +3280,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DNLYQ8TZ35;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3292,7 +3292,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "<key>LSApplicationQueriesSchemes</key>\n<array>\n    <!-- 微信 URL Scheme 白名单-->\n    <string>wechat</string>\n    <string>weixin</string>\n    <!-- 新浪微博 URL Scheme 白名单-->\n    <string>sinaweibohd</string>\n    <string>sinaweibo</string>\n    <string>sinaweibosso</string>\n    <string>weibosdk</string>\n    <string>weibosdk2.5</string>\n    <!-- QQ、Qzone URL Scheme 白名单-->\n    <string>mqqapi</string>\n    <string>mqq</string>\n    <string>mqqOpensdkSSoLogin</string>\n    <string>mqqconnect</string>\n    <string>mqqopensdkdataline</string>\n    <string>mqqopensdkgrouptribeshare</string>\n    <string>mqqopensdkfriend</string>\n    <string>mqqopensdkapi</string>\n    <string>mqqopensdkapiV2</string>\n    <string>mqqopensdkapiV3</string>\n    <string>mqqopensdkapiV4</string>\n    <string>mqzoneopensdk</string>\n    <string>wtloginmqq</string>\n    <string>wtloginmqq2</string>\n    <string>mqqwpa</string>\n    <string>mqzone</string>\n    <string>mqzonev2</string>\n    <string>mqzoneshare</string>\n    <string>wtloginqzone</string>\n    <string>mqzonewx</string>\n    <string>mqzoneopensdkapiV2</string>\n    <string>mqzoneopensdkapi19</string>\n    <string>mqzoneopensdkapi</string>\n    <string>mqqbrowser</string>\n    <string>mttbrowser</string>\n    <string>tim</string>\n    <string>timapi</string>\n    <string>timopensdkfriend</string>\n    <string>timwpa</string>\n    <string>timgamebindinggroup</string>\n    <string>timapiwallet</string>\n    <string>timOpensdkSSoLogin</string>\n    <string>wtlogintim</string>\n    <string>timopensdkgrouptribeshare</string>\n    <string>timopensdkapiV4</string>\n    <string>timgamebindinggroup</string>\n    <string>timopensdkdataline</string>\n    <string>wtlogintimV1</string>\n    <string>timapiV1</string>\n    <!-- 支付宝 URL Scheme 白名单-->\n    <string>alipay</string>\n    <string>alipayshare</string>\n    <!-- 钉钉 URL Scheme 白名单-->\n      <string>dingtalk</string>\n      <string>dingtalk-open</string>\n    <!--Linkedin URL Scheme 白名单-->\n    <string>linkedin</string>\n    <string>linkedin-sdk2</string>\n    <string>linkedin-sdk</string>\n    <!-- 点点虫 URL Scheme 白名单-->\n    <string>laiwangsso</string>\n    <!-- 易信 URL Scheme 白名单-->\n    <string>yixin</string>\n    <string>yixinopenapi</string>\n    <!-- instagram URL Scheme 白名单-->\n    <string>instagram</string>\n    <!-- whatsapp URL Scheme 白名单-->\n    <string>whatsapp</string>\n    <!-- line URL Scheme 白名单-->\n    <string>line</string>\n    <!-- Facebook URL Scheme 白名单-->\n    <string>fbapi</string>\n    <string>fb-messenger-api</string>\n    <string>fb-messenger-share-api</string>\n    <string>fbauth2</string>\n    <string>fbshareextension</string>\n    <!-- Kakao URL Scheme 白名单-->  \n    <!-- 注：以下第一个参数需替换为自己的kakao appkey--> \n    <!-- 格式为 kakao + \"kakao appkey\"-->    \n    <string>kakaofa63a0b2356e923f3edd6512d531f546</string>\n    <string>kakaokompassauth</string>\n    <string>storykompassauth</string>\n    <string>kakaolink</string>\n    <string>kakaotalk-4.5.0</string>\n    <string>kakaostory-2.9.0</string>\n   <!-- pinterest URL Scheme 白名单-->  \n    <string>pinterestsdk.v1</string>\n   <!-- Tumblr URL Scheme 白名单-->  \n    <string>tumblr</string>\n   <!-- 印象笔记 -->\n    <string>evernote</string>\n    <string>en</string>\n    <string>enx</string>\n    <string>evernotecid</string>\n    <string>evernotemsg</string>\n   <!-- 有道云笔记-->\n    <string>youdaonote</string>\n    <string>ynotedictfav</string>\n    <string>com.youdao.note.todayViewNote</string>\n    <string>ynotesharesdk</string>\n   <!-- Google+-->\n    <string>gplus</string>\n   <!-- Pocket-->\n    <string>pocket</string>\n    <string>readitlater</string>\n    <string>pocket-oauth-v1</string>\n    <string>fb131450656879143</string>\n    <string>en-readitlater-5776</string>\n    <string>com.ideashower.ReadItLaterPro3</string>\n    <string>com.ideashower.ReadItLaterPro</string>\n    <string>com.ideashower.ReadItLaterProAlpha</string>\n    <string>com.ideashower.ReadItLaterProEnterprise</string>\n   <!-- VKontakte-->\n    <string>vk</string>\n    <string>vk-share</string>\n    <string>vkauthorize</string>\n   <!-- Twitter-->\n    <string>twitter</string>\n    <string>twitterauth</string>\n";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3353,7 +3353,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xingqige.Lxn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3411,7 +3411,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xingqige.Lxn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

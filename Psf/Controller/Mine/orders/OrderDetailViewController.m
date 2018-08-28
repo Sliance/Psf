@@ -29,6 +29,7 @@
 @property(nonatomic,strong)OrderDetailRes *result;
 @property(nonatomic,strong)ZitiMaView *zitiVew;
 @property(nonatomic,strong)PlaceOrderRes* resultmodel;
+@property(nonatomic,assign)NSInteger type;
 @end
 static NSString *cellId = @"OrderCollectionViewCell";
 static NSString *cellIds = @"NextCollectionViewCell";
@@ -83,13 +84,34 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [weakself gotoAlipayOrWX:model.saleOrderId Amount:model.saleOrderPayAmount payType:@"2"];
     }];
     [self.bottomView setBuyBlock:^(OrderDetailRes *model){//再次购买
+        
         [weakself againOrder:model.saleOrderId];
+       
     }];
     [self.bottomView setLogisticsBlock:^(OrderDetailRes *model){//查看物流
         
     }];
     [self.bottomView setSureBlock:^(OrderDetailRes *model){//确认收货
-        [weakself confirmOrder:model.saleOrderId];
+        if (weakself.type ==1) {
+            if ([[UserCacheBean share].userInfo.roleId integerValue] ==1) {
+                StairCategoryReq *req = [[StairCategoryReq alloc]init];
+                req.updateType = @"delivery";
+                req.saleOrderId = model.saleOrderId;
+                [weakself deliverOrder:req];
+            }else if ([[UserCacheBean share].userInfo.roleId integerValue] ==0&&weakself.model.memberId.length>0){
+                StairCategoryReq *req = [[StairCategoryReq alloc]init];
+                req.updateType = @"selfLeft";
+                req.saleOrderId = model.saleOrderId;
+                [weakself deliverOrder:req];
+            }else if([[UserCacheBean share].userInfo.roleId integerValue] ==0&&weakself.model.memberId.length==0){
+                StairCategoryReq *req = [[StairCategoryReq alloc]init];
+                req.updateType = @"confirm";
+                req.saleOrderId = model.saleOrderId;
+                [weakself deliverOrder:req];
+            }
+        }else{
+           [weakself confirmOrder:model.saleOrderId];
+        }
     }];
     [self.bottomView setRefundBlock:^(OrderDetailRes *model){//退款
         
@@ -137,10 +159,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
     _likeArr = [NSMutableArray array];
     
     if (model.saleOrderType.length>0) {
+        _type =2;
         [self.bottomView setType:2];
     }else{
+        _type = 1;
         [self.bottomView setType:1];
     }
+    [self.bottomView setMemberId:model.memberId];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -167,6 +192,30 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }];
     
+}
+-(void)deliverOrder:(StairCategoryReq*)req{
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]confirmDeliveryOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                if ([[UserCacheBean share].userInfo.roleId integerValue] ==1) {
+                    [self showInfo:@"发货成功"];
+                }else if ([[UserCacheBean share].userInfo.roleId integerValue] ==0&&weakself.model.memberId.length>0){
+                    [self showInfo:@"自提成功"];
+                }else if([[UserCacheBean share].userInfo.roleId integerValue] ==0&&weakself.model.memberId.length==0){
+                   [self showInfo:@"收货成功"];
+                }
+            }else{
+                [self showInfo:response[@"message"]];
+                
+            }
+        }
+    }];
 }
 -(void)confirmOrder:(NSString*)orderid{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -242,7 +291,23 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
-        
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
+                    self.tabBarController.selectedIndex = 1;
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }
+            }else{
+                [self showInfo:response[@"code"][@"message"]];
+            }
+        }
     }];
 }
 -(void)guessLikeList{
@@ -471,6 +536,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [chooseVC setCarmodel:model];
             [weakself.navigationController pushViewController:chooseVC animated:YES];
 //             [self ceshi:model.saleOrderId];
+        }];
+        [cell setBuyBlock:^(CartProductModel *model) {
+    
         }];
         return cell;
     }

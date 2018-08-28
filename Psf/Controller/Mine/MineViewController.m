@@ -132,14 +132,16 @@
             weakself.result = response;
             [UserCacheBean share].userInfo.memberMobile = weakself.result.memberMobile;
             [UserCacheBean share].userInfo.roleId = weakself.result.memberRoleType;
+            [UserCacheBean share].userInfo.memberNickName = weakself.result.memberNickName;
             [weakself.headView setResult:weakself.result];
             [weakself requestorderData];
             if ([weakself.result.memberRoleType integerValue] ==2) {
-                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e908",@"\U0000e909",@"\U0000e906"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"设置"];
+                //@"\U0000e908",
+                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e909",@"\U0000e906"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"设置"];
             }else{
-                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e908",@"\U0000e909",@"\U0000e906",@"\U0000e905"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的消息",@"我的优惠券",@"设置",@"扫码入口"];
+                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e909",@"\U0000e906",@"\U0000e905"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"设置",@"扫码入口"];
             }
             [weakself.tableview reloadData];
         }
@@ -225,14 +227,14 @@
                     [self.navigationController pushViewController:addressVC animated:YES];
                 }
                 break;
+//            case 2:
+//            {
+//                MessageCenterController *messageVC = [[MessageCenterController alloc]init];
+//                messageVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:messageVC animated:YES];
+//            }
+//                break;
             case 2:
-            {
-                MessageCenterController *messageVC = [[MessageCenterController alloc]init];
-                messageVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:messageVC animated:YES];
-            }
-                break;
-            case 3:
             {
                 MyCouponController *couponVC = [[MyCouponController alloc]init];
                 couponVC.hidesBottomBarWhenPushed = YES;
@@ -240,7 +242,7 @@
             }
                 break;
             
-            case 4:
+            case 3:
             {
                 SettingViewController *setVC = [[SettingViewController alloc]init];
                 setVC.hidesBottomBarWhenPushed = YES;
@@ -254,7 +256,7 @@
                 [self.navigationController pushViewController:walletVC animated:YES];
             }
                 break;
-            case 5:
+            case 4:
             {
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 ScanQrCodeController *qrVC = [story instantiateViewControllerWithIdentifier:@"ScanQrCodeController"];

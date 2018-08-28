@@ -15,8 +15,10 @@
 #import "PYSearchViewController.h"
 #import "ChooseAddressViewController.h"
 #import "GroupServiceApi.h"
+#import "HomeTableViewCell.h"
+#import "PresaleController.h"
 
-@interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -27,7 +29,7 @@
 -(HomeLocationView *)locView{
     if (!_locView) {
         _locView = [[HomeLocationView alloc]init];
-        _locView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, 45);
+        _locView.frame = CGRectMake(0, [self navHeightWithHeight]-44, SCREENWIDTH, 45);
         [_locView.searchBtn addTarget:self action:@selector(pressSearch:) forControlEvents:UIControlEventTouchUpInside];
         [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
        
@@ -43,7 +45,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+1, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45) style:UITableViewStylePlain];
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.separatorColor = [UIColor whiteColor];
         _tableview.delegate = self;
@@ -90,20 +92,18 @@
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
         if (response!= nil) {
-            NSMutableArray*imagArr = [NSMutableArray array];
-            [imagArr addObjectsFromArray:response];
-            GroupBannerModel *model = [imagArr firstObject];
-            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productBannerImagePath];
-            [weakself.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
             
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.tableview reloadData];
         }
     }];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
-        [self setTitle:@"犁小农"];
+        self.view.backgroundColor = [UIColor whiteColor];
+        [self setTitle:@""];
        
     }
     return self;
@@ -113,14 +113,15 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
      [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-   
-    [self getPresaleList];
+    [self getBanner:@"index"];
+    
+    self.navigationController.navigationBar.hidden = YES;
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self adjustNavigationUI:self.navigationController];
    
-//    self.navigationController.navigationBar.shadowImage = nil;
+self.navigationController.navigationBar.hidden = NO;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -132,16 +133,16 @@
      _dataArr = [NSMutableArray array];
     if (@available(iOS 11.0, *)) {
         _tableview.contentInsetAdjustmentBehavior = NO;
-        self.tableview.frame= CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45-[self tabBarHeight]);
+        self.tableview.frame= CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-1-[self tabBarHeight]);
     } else {
         
-        self.tableview.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-45);
+        self.tableview.frame = CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-1);
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.locView];
-    self.tableview.tableHeaderView = self.headImage;
+   
     
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
 }
@@ -156,36 +157,30 @@
     return _dataArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 146;
+    return 277*SCREENWIDTH/375+50;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identify = @"GroupTableViewCell";
-    PreSaleListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    static NSString *identify = @"HomeTableViewCell";
+    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
-        cell = [[PreSaleListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        cell = [[HomeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    GroupListRes *model = _dataArr[indexPath.row];
+    GroupBannerModel *model = _dataArr[indexPath.row];
     [cell setModel:model];
     __weak typeof(self)weakSelf = self;
-    [cell setPressAddBlock:^(NSInteger index) {
-        detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
-        GroupListRes *model = weakSelf.dataArr[indexPath.row];
-        [detailVC setProductID:model.productId];
-        detailVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:detailVC animated:YES];
-    }];
+
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
-    
-    if (_dataArr.count>0) {
-       GroupListRes * model = _dataArr[indexPath.row];
-        [detailVC setProductID:model.productId];
+    if (indexPath.row ==0) {
+        PresaleController *detailVC = [[PresaleController alloc]init];
         detailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:detailVC animated:YES];
+    }else{
+        [self showInfo:@"正在开发中，敬请期待。。。"];
+        
     }
    
 }

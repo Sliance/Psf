@@ -36,6 +36,7 @@
         _bottomView = [[BottomView alloc]init];
         _bottomView.frame = CGRectMake(0, SCREENHEIGHT-53, SCREENWIDTH, 53);
         [_bottomView.bottomBtn setTitle:@"充值" forState:UIControlStateNormal];
+        [_bottomView.bottomBtn addTarget:self action:@selector(pressBottom) forControlEvents:UIControlEventTouchUpInside];
         _bottomView.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return _bottomView;
@@ -79,16 +80,16 @@
         
     }];
     _dataArr = [NSMutableArray array];
-    __weak typeof(self)weakself = self;
-    [self.bottomView setGotoBlock:^{
-        for (UIViewController *controller in weakself.navigationController.viewControllers) {
-            if ([controller isKindOfClass:[MineViewController class]]) {
-                weakself.tabBarController.selectedIndex =1;
-                [weakself.navigationController popToViewController:controller animated:YES];
-            }
-        }
-    }];
+   
     [self requestData];
+}
+-(void)pressBottom{
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[MineViewController class]]) {
+            self.tabBarController.selectedIndex =1;
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
 }
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];

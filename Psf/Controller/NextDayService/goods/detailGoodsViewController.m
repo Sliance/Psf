@@ -34,7 +34,7 @@
 #import "ShoppingCartController.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
-#import <SobotKit/SobotKit.h>
+
 #import "ServiceViewController.h"
 #import "PresaleHomeController.h"
 #import "NextDayServiceController.h"
@@ -198,10 +198,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
-        _bgscrollow.contentInsetAdjustmentBehavior = NO;
+        self.bgscrollow.contentInsetAdjustmentBehavior = NO;
+        self.bgscrollow.frame =  CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
     } else {
-        self.navigationController.navigationBar.translucent = NO;
-        self.automaticallyAdjustsScrollViewInsets = NO;
+
+         self.bgscrollow.frame =  CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
     }
     [self.view addSubview:self.bgscrollow];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];
@@ -255,7 +256,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
             message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 3;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
                 
@@ -272,11 +273,11 @@
             if ([controller isKindOfClass:[ShoppingCartController class]]) {
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
             }else if ([controller isKindOfClass:[NextDayServiceController class]]){
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 1;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
             }else if ([controller isKindOfClass:[SortViewController class]]){
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 1;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
             }
@@ -314,7 +315,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 3;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     
                     if ([controller isKindOfClass:[NextDayServiceController class]]) {
@@ -356,7 +357,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 3;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     if ([controller isKindOfClass:[PresaleHomeController class]]) {
                         [_weakSelf.navigationController popToViewController:controller animated:YES];
@@ -383,8 +384,8 @@
         _weakSelf.presaleBuyView.hidden = YES;
     }];
     [self.preBView setServiceBlock:^{
-        ServiceViewController *serviceVC = [[ServiceViewController alloc]init];
-        [_weakSelf.navigationController pushViewController:serviceVC animated:YES];
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",@"400-821-6094"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
      }];
 }
 
@@ -711,26 +712,26 @@
     }];
 }
 -(void)pressShare:(UIButton*)sender{
-    UIImageView *bgimageview = [[UIImageView alloc]init];
-    ImageModel *model = [self.result.productImageList firstObject];
-    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
-    WXMiniProgramObject *wxMiniobject = [WXMiniProgramObject object];
-    wxMiniobject.webpageUrl = @"https://www.baidu.com";
-    wxMiniobject.userName = @"gh_8cc4d494480f";
-    wxMiniobject.path = [NSString stringWithFormat:@"/pages/shopDetail/shopDetail?goodsId=%ld",self.result.productId];
-    wxMiniobject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = self.result.productName;
-    message.description = @"邀您一起";
-    
-    [message setThumbImage:bgimageview.image];
-    message.mediaObject = wxMiniobject;
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = WXSceneSession;
-    
-    [WXApi sendReq:req];
+//    UIImageView *bgimageview = [[UIImageView alloc]init];
+//    ImageModel *model = [self.result.productImageList firstObject];
+//    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+//    WXMiniProgramObject *wxMiniobject = [WXMiniProgramObject object];
+//    wxMiniobject.webpageUrl = @"https://www.baidu.com";
+//    wxMiniobject.userName = @"gh_8cc4d494480f";
+//    wxMiniobject.path = [NSString stringWithFormat:@"/pages/shopDetail/shopDetail?goodsId=%ld",self.result.productId];
+//    wxMiniobject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+//    WXMediaMessage *message = [WXMediaMessage message];
+//    message.title = self.result.productName;
+//    message.description = @"邀您一起";
+//
+//    [message setThumbImage:bgimageview.image];
+//    message.mediaObject = wxMiniobject;
+//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+//    req.bText = NO;
+//    req.message = message;
+//    req.scene = WXSceneSession;
+//
+//    [WXApi sendReq:req];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

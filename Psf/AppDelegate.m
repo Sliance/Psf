@@ -12,7 +12,7 @@
 #import "WXApi.h"
 #import "LoginServiceApi.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import <SobotKit/SobotKit.h>
+
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "ZSNotification.h"
@@ -36,11 +36,7 @@
     [self configUSharePlatforms];
     [self confitUShareSettings];
     [WXApi registerApp:@"wx16b93fcfc9faba3c"];
-    // 错误日志收集
-    [ZCLibClient setZCLibUncaughtExceptionHandler];
     
-    // 初始化，必须执行，并且必须在进入SDK之前调用
-    [[ZCLibClient getZCLibClient] initSobotSDK:@"738e6f5d803340e0bf9ad0c10f14bc73"];
     ///定位
     self.locationManagers = [[CLLocationManager alloc] init];
     self.locationManagers.delegate = self;

@@ -231,7 +231,7 @@
         if (response) {
             if ([response[@"code"] integerValue] ==200) {
                 if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
-                    self.tabBarController.selectedIndex = 2;
+                    self.tabBarController.selectedIndex = 1;
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];

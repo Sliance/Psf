@@ -15,6 +15,8 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "PaySuccessController.h"
+#import "detailGoodsViewController.h"
+
 @interface WaitPaymentController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -216,7 +218,23 @@
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
-        
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
+                    self.tabBarController.selectedIndex = 1;
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
+                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [self.navigationController pushViewController:detailVC animated:YES];
+                }
+            }else{
+                [self showInfo:response[@"code"][@"message"]];
+            }
+        }
     }];
 }
 -(void)gotoAlipayOrWX:(NSString *)orderstr Amount:(NSString*)amount payType:(NSString*)type{

@@ -39,4 +39,7 @@
 @property(nonatomic,copy)void (^cancleBlock)(OrderDetailRes*);
 //自提码
 @property(nonatomic,copy)void(^zitiBlock)(OrderDetailRes*);
+
+@property(nonatomic,copy)NSString *memberId;
+
 @end

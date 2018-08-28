@@ -27,6 +27,7 @@
 @property(nonatomic,strong)NSMutableArray *reqArr;
 @property(nonatomic,strong)UIButton *sumitBtn;
 @property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)UIPlaceHolderTextView *contentTXT;
 
 @end
 
@@ -81,7 +82,13 @@
     self.tableview.tableFooterView = headView;
     
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
+}
+-(void)hideKeyBoard{
+    
+    [self.contentTXT resignFirstResponder];
+}
 -(void)setModel:(OrderListRes *)model{
     _model = model;
     _dataArr = [NSMutableArray array];
@@ -196,6 +203,7 @@
     [cell setEvamodel:evamodel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.viewPhotoBgIDCard.superViewController = self;
+    self.contentTXT = cell.contentTXT ;
     return cell;
 }
 

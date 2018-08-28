@@ -194,7 +194,7 @@
         
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex : 0 ];
         
-        stringValue = metadataObject. stringValue ;
+        stringValue = metadataObject.stringValue ;
     }
     // 当前延迟1.0秒
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -205,7 +205,7 @@
         self.scanResult.text = stringValue;
         NSMutableDictionary *result = [stringValue mj_JSONObject];
         OrderListRes *model = [[OrderListRes alloc]init];
-        model.saleOrderId = result[@"saleOrderId"];
+        model = [OrderListRes mj_objectWithKeyValues:result];
         OrderDetailViewController *orderVC = [[OrderDetailViewController alloc]init];
         [orderVC setModel:model];
         [self.navigationController pushViewController:orderVC animated:YES];

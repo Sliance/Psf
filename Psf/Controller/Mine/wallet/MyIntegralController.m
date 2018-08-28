@@ -9,6 +9,7 @@
 #import "MyIntegralController.h"
 #import "BottomView.h"
 #import "TradingDetailController.h"
+#import "MineViewController.h"
 
 @interface MyIntegralController ()<UIScrollViewDelegate>
 
@@ -113,6 +114,14 @@
     TradingDetailController *detailVC = [[TradingDetailController alloc]init];
     detailVC.type =2;
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+-(void)pressBottom:(UIButton*)sedner{
+    self.tabBarController.selectedIndex = 1;
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[MineViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

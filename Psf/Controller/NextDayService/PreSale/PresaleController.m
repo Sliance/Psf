@@ -23,7 +23,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.frame = CGRectMake(0, 0, SCREENWIDTH, 120);
+        _headImage.frame = CGRectMake(0, 0, SCREENWIDTH, 200*SCREENWIDTH/375);
     }
     return _headImage;
 }
@@ -104,6 +104,7 @@
     }
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headImage;
+    self.tableview.tableFooterView = [[UIView alloc]init];
     _dataArr = [NSMutableArray array];
      [self getPresaleList];
 }

@@ -91,8 +91,12 @@
 -(void)setType:(NSInteger)type{
     _type = type;
 }
+-(void)setMemberId:(NSString *)memberId{
+    _memberId = memberId;
+}
 -(void)setStatus:(OrderDetailRes*)status{
     _status = status;
+    if (_type ==2) {
     switch (status.saleOrderStatus) {
         case 0:
         {
@@ -118,13 +122,10 @@
         case 2:
         {
             
-            if (_type ==2) {
-                
+           
                 [_remindBtn setTitle:@"自提码" forState:UIControlStateNormal];
-            }else{
-                [_remindBtn setTitle:@"确认用户收货" forState:UIControlStateNormal];
-            }
-            
+           
+           
             _sendBtn.hidden = YES;
           
         }
@@ -169,9 +170,21 @@
             break;
         default:
             break;
+      }
+    }else{
+        _sendBtn.hidden = YES;
+        _remindBtn.hidden = NO;
+        if ([[UserCacheBean share].userInfo.roleId integerValue] ==1) {
+             [_remindBtn setTitle:@"发货" forState:UIControlStateNormal];
+        }else if([[UserCacheBean share].userInfo.roleId integerValue] ==0&&self.memberId.length>0){
+             [_remindBtn setTitle:@"用户自提" forState:UIControlStateNormal];
+        }else if([[UserCacheBean share].userInfo.roleId integerValue] ==0&&self.memberId.length==0){
+            [_remindBtn setTitle:@"门店收货" forState:UIControlStateNormal];
+        }
     }
 }
 -(void)pressPay{
+  if (_type ==2) {
     switch (_status.saleOrderStatus) {
         case 0:
         {
@@ -190,12 +203,7 @@
             break;
         case 2:
         {
-            if (_type ==2) {
-                 self.zitiBlock(_status);
-            }else{
-                self.sureBlock(_status);
-            }
-           
+            self.zitiBlock(_status);
             
         }
             break;
@@ -233,6 +241,9 @@
             break;
         default:
             break;
+      }
+    }else{
+        self.sureBlock(_status);
     }
 }
 -(void)pressSend{

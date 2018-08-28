@@ -24,12 +24,9 @@
         _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_bottomBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
         _bottomBtn.frame = CGRectMake(15, 0, SCREENWIDTH-30, 39);
-        [_bottomBtn addTarget:self action:@selector(gotoShop) forControlEvents:UIControlEventTouchUpInside];
         [_bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     return _bottomBtn;
 }
--(void)gotoShop{
-    self.gotoBlock();
-}
+
 @end

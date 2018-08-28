@@ -67,4 +67,6 @@
 @property(nonatomic,copy)NSString*subjectPosition;
 ///自定义专题
 @property(nonatomic,copy)NSString*subjectId;
+
+@property(nonatomic,copy)NSString*updateType;
 @end

@@ -16,4 +16,8 @@
 ///上传图片返回
 @property(nonatomic,assign)NSInteger fileId;
 @property(nonatomic,copy)NSString* fileOriginalPath;
+
+///
+@property(nonatomic,assign)NSInteger saleOrderRefundImageId;
+@property(nonatomic,copy)NSString* saleOrderRefundImagePath;
 @end

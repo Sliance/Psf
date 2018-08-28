@@ -31,6 +31,8 @@
 - (void)deleteOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///确认收货
 - (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///确认发货
+- (void)confirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///退款
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 ///统一下单(支付时用)

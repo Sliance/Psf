@@ -487,16 +487,17 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    detailGoodsViewController *vc = [detailGoodsViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+   detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
+    detailVC.hidesBottomBarWhenPushed = YES;
+    
     if (indexPath.section ==0) {
         CartProductModel *model = _dataArr[indexPath.row];
-        [vc setProductID:model.productId];
+        [detailVC setProductID:model.productId];
     }else if (indexPath.section ==2){
         StairCategoryListRes *model = _likeArr[indexPath.row];
-         [vc setProductID:model.productId];
+         [detailVC setProductID:model.productId];
     }
-    [self.navigationController showViewController:vc sender:nil];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];

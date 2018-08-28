@@ -338,4 +338,31 @@
         
     }];
 }
+///确认发货
+- (void)confirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/mobile/v1/update/status";
+    req.erpStoreId = @"181";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 @end

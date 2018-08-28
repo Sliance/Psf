@@ -72,9 +72,9 @@
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
-    req.token = @"eyJleHBpcmVUaW1lIjoxNTYxNjI1OTU3ODc0LCJ1c2VySWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI2Iiwib2JqZWN0SWQiOiIxMDEwNDEyNTM0NzkxNTUzMDI1In0=";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.token = [UserCacheBean share].userInfo.token;
     req.systemVersion = @"1.0.0";
     req.platform = @"ios";
     req.storeId = model.storeId;
@@ -119,7 +119,7 @@
     [cell setModel:model];
      __weak typeof(self)weakself = self;
     [cell setSelectedBlock:^(StoreRes * model) {
-        model.memberStoreIsDefault = 1;
+        model.memberStoreIsDefault = YES;
         [weakself updateAddress:model];
     }];
     return cell;
