@@ -10,9 +10,9 @@
 #define ZSConfig_h
 #define DPSIGNATURE @"RNKCoeffPosGEwv7FpLsWokxTozPt9ki"//加密key
 //#define DPHOST @"http://192.168.1.126:8088" // 开发环境
-//#define DPHOST @"http://192.168.1.157:8088" // 测试环境
+#define DPHOST @"http://192.168.1.157:8088" // 测试环境
 //#define DPHOST @"http://47.97.101.203:8088" // 测试环境
-#define DPHOST @"https://xcx.lxnong.com"// 生产环境
+//#define DPHOST @"https://xcx.lxnong.com"// 生产环境
 #define IMAGEHOST  @"https://xcxmmeida.lxnong.com/"//图片地址
 #define APPNAME @"Psf"
 #define SUPPLIERAPIKEY @"PsfAppApiKey"
