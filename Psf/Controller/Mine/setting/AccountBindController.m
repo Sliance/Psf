@@ -58,7 +58,8 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.view addSubview:self.tableview];
-    _dataArr = @[@"修改密码",@"更换手机号",@"微信登录",@"QQ登录",@"微博登录"];
+//    ,@"更换手机号",@"微信登录",@"QQ登录",@"微博登录"
+    _dataArr = @[@"修改密码"];
     _tableview.tableHeaderView = self.headView;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -66,7 +67,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 5;
+    return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

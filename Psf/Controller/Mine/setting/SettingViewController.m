@@ -61,7 +61,8 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.view addSubview:self.tableview];
-    _dataArr = @[@"清除缓存",@"意见反馈",@"关于我们",@"分享应用"];
+//    ,@"分享应用"
+    _dataArr = @[@"清除缓存",@"意见反馈",@"关于我们"];
     UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
     footView.backgroundColor = DSColorFromHex(0xF0F0F0);
     [footView addSubview:self.loginOutBtn];
@@ -74,7 +75,7 @@
     if (section ==0) {
         return 1;
     }
-    return 4;
+    return _dataArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
