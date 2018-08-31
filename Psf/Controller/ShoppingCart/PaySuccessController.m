@@ -174,6 +174,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             OrderDetailViewController *detailVC = [[OrderDetailViewController alloc]init];
             OrderListRes *model = [[OrderListRes alloc]init];
             model.saleOrderId = self.result.saleOrderId;
+            model.saleOrderType = @"success";
             [detailVC setModel:model];
             [self.navigationController pushViewController:detailVC animated:YES];
         }];

@@ -113,7 +113,7 @@
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(90);
+        make.width.mas_equalTo(133);
         make.height.mas_equalTo(133);
         make.top.equalTo(self.view).offset([self navHeightWithHeight]+22);
         make.centerX.equalTo(self.view);
