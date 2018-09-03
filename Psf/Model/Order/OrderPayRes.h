@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface OrderPayRes : NSObject
+///微信
 @property(nonatomic,copy)NSString *appid;
 @property(nonatomic,copy)NSString *noncestr;
 @property(nonatomic,copy)NSString *packagestr;
@@ -17,4 +18,6 @@
 @property(nonatomic,copy)NSString *sign;
 @property(nonatomic,copy)NSString *timestamp;
 
+///支付宝
+@property(nonatomic,copy)NSString *body;
 @end

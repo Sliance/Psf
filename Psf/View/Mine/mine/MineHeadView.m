@@ -40,6 +40,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setcornerLayout];
     }
     return self;
@@ -80,7 +81,16 @@
     }
     [image sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
     
-    
-    self.nameLabel.text = result.memberNickName;
+    if([UserCacheBean share].userInfo.token.length<1){
+        self.nameLabel.text = @"登录/注册";
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tologin)];
+        self.nameLabel.userInteractionEnabled = YES;
+        [self.nameLabel addGestureRecognizer:tap];
+    }else{
+       self.nameLabel.text = result.memberNickName;
+    }
+}
+-(void)tologin{
+    self.tologinBlock();
 }
 @end

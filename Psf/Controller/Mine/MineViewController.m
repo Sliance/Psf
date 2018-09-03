@@ -23,7 +23,7 @@
 #import "AfterSalesViewController.h"
 #import "OrderServiceApi.h"
 #import "ScanQrCodeController.h"
-
+#import "CustomFootView.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *listArr;
@@ -40,6 +40,7 @@
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
+        _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.tableFooterView = [[UIView alloc]init];
         
     }
@@ -72,8 +73,12 @@
     [self setTitle:@"我的"];
     if([UserCacheBean share].userInfo.token.length<1){
         LoginViewController *loginVC = [[LoginViewController alloc]init];
-        [self showViewController:loginVC sender:nil];
+        loginVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginVC animated:YES];
     }else{
+        if ([[UserCacheBean share].userInfo.token isEqualToString:@"0"]) {
+            [UserCacheBean share].userInfo.token = @"";
+        }
          [self requestData];
     }
 }
@@ -93,28 +98,49 @@
     }
     [self.view addSubview:self.tableview];
     self.tableview.tableHeaderView = self.headView;
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
     self.tableview.separatorColor = [UIColor whiteColor];
     __weak typeof(self) weakSelf = self;
     [self.headView setSkipBlock:^(NSInteger tag) {
-        MineInformationController *infoVC = [[MineInformationController alloc]init];
-        infoVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:infoVC animated:YES];
+        if([UserCacheBean share].userInfo.token.length<1){
+            LoginViewController *loginVC = [[LoginViewController alloc]init];
+            loginVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:loginVC animated:YES];
+        }else{
+           MineInformationController *infoVC = [[MineInformationController alloc]init];
+           infoVC.hidesBottomBarWhenPushed = YES;
+           [weakSelf.navigationController pushViewController:infoVC animated:YES];
+        }
+    }];
+    [self.headView setTologinBlock:^{
+        LoginViewController *loginVC = [[LoginViewController alloc]init];
+        loginVC.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:loginVC animated:YES];
     }];
     [self.footView setSkipMineBlock:^(NSInteger index) {
-        if (index ==5) {
+        if ([UserCacheBean share].userInfo.token.length<1) {
+            LoginViewController *loginVC = [[LoginViewController alloc]init];
+            loginVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:loginVC animated:YES];
+        }else{
+            if (index ==5) {
             AfterSalesViewController *chooseVC = [[AfterSalesViewController alloc]init];
             chooseVC.hidesBottomBarWhenPushed = YES;
             [weakSelf.navigationController pushViewController:chooseVC animated:YES];
-        }else{
+          }else{
             BaseOrdersController *orderVC = [[BaseOrdersController alloc]init];
             orderVC.hidesBottomBarWhenPushed = YES;
             [orderVC setSelectedIndex:index];
             [weakSelf.navigationController pushViewController:orderVC animated:YES];
         }
+    }
     }];
     
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -204,7 +230,7 @@
         cell.titleLabel.textColor = DSColorFromHex(0x969696);
         cell.detailLabel.text = _dataArr[indexPath.row];
     }
-   
+    [cell setIndex:indexPath.row];
     cell.detailLabel.textColor = DSColorFromHex(0x464646);
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -212,6 +238,12 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([UserCacheBean share].userInfo.token.length<1) {
+        LoginViewController *loginVC = [[LoginViewController alloc]init];
+        loginVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }else{
     if (indexPath.section ==0) {
         BaseOrdersController *baseOrderVC = [[BaseOrdersController alloc]init];
         baseOrderVC.hidesBottomBarWhenPushed = YES;
@@ -267,6 +299,7 @@
                 break;
         }
     }
+  }
    
 }
 

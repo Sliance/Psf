@@ -17,5 +17,6 @@
 @property(nonatomic,strong)UILabel *rightLabel;
 
 @property(nonatomic,strong)GroupBannerModel *model;
+@property(nonatomic,strong)UILabel *lineLabel;
 
 @end

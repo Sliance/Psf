@@ -44,6 +44,8 @@
 @property(nonatomic,strong)PlaceOrderReq *placemodel;
 @property(nonatomic,strong)PlaceOrderRes *resultmodel;
 @property(nonatomic,assign)NSInteger type;
+@property(nonatomic,assign)NSInteger payType;
+
 @end
 
 @implementation FillOrderViewController
@@ -116,6 +118,7 @@
    
     [self.view addSubview:self.dateView];
     _type = 1;
+//    _payType = 0;
     [self.headView setGoodtype:CLAIMGOODSTYPEVISIT];
     __weak typeof(self) weakSelf = self;
     [self.typeView setChooseTypeBlock:^(NSInteger index) {
@@ -202,7 +205,11 @@
             self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
         }
     }else{
+        self.typeView.frame = CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, 46);
+        self.typeView.hidden = NO;
         [self.view addSubview:self.typeView];
+        self.tableview.frame = CGRectMake(0,46+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-46-[self navHeightWithHeight]);
+        
     }
     
 }
@@ -383,10 +390,9 @@
     req.usePointIs = self.calculateModel.usePointIs;
     req.saleOrderPointAmount = self.resModel.saleOrderPointAmount;
    
-    if (self.calculateModel.useIsWeChart ==NO) {
-        [self showInfo:@"请选择付款方式"];
-        return;
-    }else{
+    if (self.payType ==1) {
+        req.saleOrderPayType = @"3";
+    }else if(self.payType ==0){
          req.saleOrderPayType = @"2";
     }
     req.saleOrderIsInvoice = self.placemodel.saleOrderIsInvoice;
@@ -582,8 +588,8 @@
     
     req.platform = @"ios";
     req.saleOrderId = orderstr;
-
-    [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
+   if (self.payType ==0) {
+     [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
         if (response) {
             OrderPayRes *model = response;
                     //调起微信支付
@@ -594,46 +600,24 @@
                     req.timeStamp           = model.timestamp.intValue;
                     req.package             = model.packagestr;
                     req.sign                = model.sign;
-                    [WXApi sendReq:req];
+                [WXApi sendReq:req];
+        
         }
     }];
-    
-//    if ([type isEqualToString:@"微信"]) {
-//        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-//
-//        //调起微信支付
-//        PayReq* req             = [[PayReq alloc] init];
-//        req.partnerId           = [dict objectForKey:@"partnerid"];
-//        req.prepayId            = [dict objectForKey:@"prepayid"];
-//        req.nonceStr            = [dict objectForKey:@"noncestr"];
-//        req.timeStamp           = stamp.intValue;
-//        req.package             = [dict objectForKey:@"package"];
-//        req.sign                = [dict objectForKey:@"sign"];
-//        [WXApi sendReq:req];
-//    }else{
-        //将商品信息拼接成字符串
-        
-        
-        // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
-        //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
-        
-        
-        // NOTE: 如果加签成功，则继续执行支付
-        
-        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-//        NSString *appScheme = @"犁小农";
-    
-        // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
-        
-        
-        // NOTE: 调用支付结果开始支付
-//        [[AlipaySDK defaultService] payOrder:orderstr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-//            NSLog(@"reslut = %@",resultDic);
-//        }];
-//    }
-    
-    
+   }else{
+    [[OrderServiceApi share]alipayOrderWithParam:req response:^(id response) {
+        if (response) {
+             OrderPayRes *model = response;
+            NSString *appScheme = @"LxnScheme";
+            [[AlipaySDK defaultService] payOrder:model.body fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                NSLog(@"reslut = %@",resultDic);
+            }];
+        }
+    }];
 }
+
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
@@ -643,7 +627,7 @@
     }else if (section ==1){
         return 8;
     }
-    return 1;
+    return 2;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -813,16 +797,43 @@
             
         }
     }else if (indexPath.section ==2){
-        cell.textLabel.text = @"微信支付";
-        cell.detailTextLabel.text = @"";
-        cell.imageView.image = [UIImage imageNamed:@"wechat_icon"];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"shopping_normal"] forState:UIControlStateNormal];
-         [btn setImage:[UIImage imageNamed:@"shopping_selected"] forState:UIControlStateSelected];
-        btn.selected = YES;
-        [btn addTarget:self action:@selector(pressWeChart:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = CGRectMake(SCREENWIDTH-35, 12, 20, 20);
-        [cell addSubview:btn];
+        static NSString *identify = @"PointAmountCell";
+        PointAmountCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+        if (!cell) {
+            cell = [[PointAmountCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setIndex:indexPath.row];
+        if (_payType ==0) {
+            if (indexPath.row ==0) {
+                cell.nameLabel.text = @"微信支付";
+                cell.yuEswitch.selected = YES;
+            }else if (indexPath.row ==1){
+                cell.nameLabel.text = @"支付宝支付";
+                cell.yuEswitch.selected = NO;
+            }
+        }else if (_payType ==1){
+            if (indexPath.row ==0) {
+                cell.nameLabel.text = @"微信支付";
+                cell.yuEswitch.selected = NO;
+            }else if (indexPath.row ==1){
+                cell.nameLabel.text = @"支付宝支付";
+                cell.yuEswitch.selected = YES;
+            }
+        }
+        __weak typeof(self)weakself = self;
+        [cell setYuEBlock:^(NSInteger index) {
+            if (index ==0) {
+                weakself.payType =0;
+                [weakself.tableview reloadData];
+                
+            }else if (index ==1){
+                weakself.payType =1;
+                 [weakself.tableview reloadData];
+            }
+        }];
+        
+        return cell;
     }
     cell.textLabel.textColor = DSColorFromHex(0x464646);
     cell.textLabel.font = [UIFont systemFontOfSize:15];

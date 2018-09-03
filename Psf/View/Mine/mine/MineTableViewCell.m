@@ -63,6 +63,7 @@
     }else{
         offect = 40;
     }
+    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(15);
@@ -77,7 +78,39 @@
         make.top.equalTo(self.detailLabel.mas_bottom).offset(-1);
         make.left.equalTo(self).offset(offect);
         make.right.equalTo(self);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(0.5);
     }];
+}
+-(void)setIndex:(NSInteger)index{
+    _index = index;
+    switch (index) {
+        case 0:
+        {
+            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:15];
+        }
+            break;
+        case 1:
+        {
+            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:14];
+        }
+            break;
+        case 2:
+        {
+            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:16];
+        }
+            break;
+        case 3:
+        {
+            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:16];
+        }
+            break;
+        case 4:
+        {
+            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:15];
+        }
+            break;
+        default:
+            break;
+    }
 }
 @end

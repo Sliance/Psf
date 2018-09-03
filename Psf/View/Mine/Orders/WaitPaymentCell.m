@@ -29,7 +29,7 @@
 }
 -(void)updatePayBtn{
     [_payBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
-    [_payBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+    [_payBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     [_payBtn.layer setBorderWidth:0.5];
     [_payBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
 }
@@ -258,7 +258,7 @@
         [_sendBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_sendBtn.layer setBorderWidth:0.5];
         [_sendBtn addTarget:self action:@selector(pressSend) forControlEvents:UIControlEventTouchUpInside];
-        [_sendBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_sendBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     }
     return _sendBtn;
 }

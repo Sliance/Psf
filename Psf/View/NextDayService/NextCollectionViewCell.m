@@ -112,19 +112,19 @@
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.headImage.mas_bottom).offset(12);
+        make.top.equalTo(self.headImage.mas_bottom).offset(10);
         make.width.mas_equalTo(165);
         
     }];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(5);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
         make.width.mas_equalTo(165);
         
     }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.contentLabel.mas_bottom).offset(8);
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(6);
         
     }];
     [self.weightLabel mas_makeConstraints:^(MASConstraintMaker *make) {

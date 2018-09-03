@@ -19,7 +19,7 @@
 #import "EmptyShoppingHeadView.h"
 #import "NextCollectionHeadView.h"
 #import "CartProductModel.h"
-
+#import "CustomFootView.h"
 @interface ShoppingCartController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)ShopFootView *footView;
@@ -34,7 +34,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 @implementation ShoppingCartController
 -(ShopFootView *)footView{
     if (!_footView) {
-        _footView = [[ShopFootView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-49, SCREENWIDTH, 49)];
+        _footView = [[ShopFootView alloc]initWithFrame:CGRectZero];
+        if (@available(iOS 11.0, *)) {
+            _footView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-49, SCREENWIDTH, 49);
+        } else {
+           _footView.frame = CGRectMake(0,SCREENHEIGHT-[self tabBarHeight]-49-[self navHeightWithHeight], SCREENWIDTH, 49);
+            
+        }
         _footView.hidden = YES;
         [_footView.submitBtn addTarget:self action:@selector(pressSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -82,8 +88,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
+//    self.footView.hidden = YES;
     [self requestData];
-    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+//    self.footView.hidden = NO;
+}
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -115,7 +126,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
                 }
             }
             if(weakself.result.cartProductList.count ==0){
-                weakself.footView.hidden = YES;
+                
                 if (@available(iOS 11.0, *)) {
                     weakself.collectionView.contentInsetAdjustmentBehavior = NO;
                     weakself.collectionView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
@@ -124,8 +135,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
                     weakself.automaticallyAdjustsScrollViewInsets = NO;
                     weakself.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]);
                 }
-            }else{
+                weakself.footView.hidden = YES;
+            }else if(weakself.result.cartProductList.count>0){
                 weakself.footView.hidden = NO;
+                
             }
             [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];

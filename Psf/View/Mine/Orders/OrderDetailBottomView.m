@@ -19,7 +19,7 @@
         [_remindBtn.layer setMasksToBounds:YES];
         [_remindBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_remindBtn.layer setBorderWidth:0.5];
-        [_remindBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_remindBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     }
     return _remindBtn;
 }
@@ -32,7 +32,7 @@
         [_sendBtn.layer setMasksToBounds:YES];
         [_sendBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_sendBtn.layer setBorderWidth:0.5];
-        [_sendBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_sendBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     }
     return _sendBtn;
 }

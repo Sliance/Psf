@@ -18,7 +18,7 @@
 }
 -(void)updatePayBtn{
     [_payBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
-    [_payBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+    [_payBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     [_payBtn.layer setBorderWidth:0.5];
     [_payBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
 }
@@ -68,9 +68,9 @@
     self.countLabel.frame = CGRectMake(SCREENWIDTH-60,20,45, 14);
     self.weightLabel.frame = CGRectMake(self.headImage.ctRight+10, self.nameLabel.ctBottom+10, 160, 12);
     self.payableLabel.frame = CGRectMake(self.headImage.ctRight+10, self.weightLabel.ctBottom+33, 120, 12);
-    self.statusLabel.frame = CGRectMake(SCREENWIDTH-60,self.nameLabel.ctBottom+10,45, 12);
-    self.payBtn.frame = CGRectMake(SCREENWIDTH-105,125,90, 34);
-    self.sendBtn.frame = CGRectMake(SCREENWIDTH-205,125,90, 34);
+    self.statusLabel.frame = CGRectMake(SCREENWIDTH-75,self.nameLabel.ctBottom+10,60, 12);
+    self.payBtn.frame = CGRectMake(SCREENWIDTH-105,75,90, 34);
+    self.sendBtn.frame = CGRectMake(SCREENWIDTH-205,75,90, 34);
 }
 -(UIImageView *)headImage{
     if (!_headImage) {
@@ -212,7 +212,7 @@
         [_sendBtn.layer setMasksToBounds:YES];
         [_sendBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_sendBtn.layer setBorderWidth:0.5];
-        [_sendBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_sendBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
     }
     return _sendBtn;
 }

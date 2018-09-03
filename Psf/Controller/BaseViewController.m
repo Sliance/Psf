@@ -25,6 +25,7 @@
         self.view.backgroundColor = DSColorFromHex(0xF0F0F0);
         
         [self adjustNavigationUI:self.navigationController];
+        
     }
     return self;
 }
@@ -80,9 +81,26 @@
                                                      target:self
                                                      action:nil];
     }
-//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[self imageWithColor:[UIColor whiteColor] size:CGSizeMake(SCREENWIDTH, [self navHeightWithHeight])] forBarMetrics:UIBarMetricsDefault];
+   
+    [[UINavigationBar appearance] setShadowImage:[self imageWithColor:DSColorFromHex(0xF0F0F0) size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.5)]];
+    
+  
     
 }
+#pragma mark - public methods
+- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
+    if (!color || size.width <= 0 || size.height <= 0) return nil;
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 
 - (void)showToast:(NSString *)info {
     [self showInfo:info];

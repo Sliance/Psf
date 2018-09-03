@@ -104,6 +104,7 @@
     if (!_normalBView) {
         _normalBView = [[GoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
         
+        
     }
     return _normalBView;
 }
@@ -117,7 +118,7 @@
 -(GroupGoodBottomView *)groupBView{
     if (!_groupBView) {
         _groupBView = [[GroupGoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
-        
+       
     }
     return _groupBView;
 }
@@ -142,8 +143,11 @@
     if (!_groupBuyView) {
         _groupBuyView = [[GroupBuyView alloc]init];
         _groupBuyView.hidden = YES;
-        _groupBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
-        [_groupBuyView setHeight:[self tabBarHeight]];
+        
+        
+             _groupBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+    
+         [_groupBuyView setHeight:[self tabBarHeight]];
     }
     return _groupBuyView;
 }
@@ -151,7 +155,8 @@
     if (!_presaleBuyView) {
         _presaleBuyView = [[PresaleBuyView alloc]init];
         _presaleBuyView.hidden = YES;
-        _presaleBuyView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+            _presaleBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        
         [_presaleBuyView setHeight:[self tabBarHeight]];
     }
     return _presaleBuyView;
@@ -669,7 +674,7 @@
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
     
     self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
-    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, self.webView.scrollView.contentSize.height);
+    self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, 100);
     if (self.result.productContent.length<1) {
         self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, 50);
     }

@@ -384,7 +384,7 @@ static NSString *cellId = @"cellId";
     self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancleButton];
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [backButton setTitle:@"    " forState:UIControlStateNormal];
+    [backButton setTitle:@"" forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backDidClick)  forControlEvents:UIControlEventTouchUpInside];
     [backButton sizeToFit];
@@ -393,16 +393,7 @@ static NSString *cellId = @"cellId";
     backButton.py_width -= PYSEARCH_MARGIN;
     [backButton setTintColor:DSColorFromHex(0x000000)];
     self.backButton = backButton;
-
-    UILabel *label = [[UILabel alloc]init];
-                       
-    label.text = @"搜索";
-    
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = DSColorFromHex(0x474747);
-    label.font = [UIFont systemFontOfSize:18];
-
-    self.navigationItem.titleView = label;
+    self.navigationItem.title = @" 搜索";
     
   
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];

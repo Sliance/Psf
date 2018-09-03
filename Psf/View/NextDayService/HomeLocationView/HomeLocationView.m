@@ -58,7 +58,7 @@
 -(UILabel *)lineLabel{
     if (!_lineLabel ) {
         _lineLabel = [[UILabel alloc]init];
-        _lineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
         _lineLabel.frame = CGRectMake(0, 44, SCREENWIDTH, 0.5);
     }
     return _lineLabel;

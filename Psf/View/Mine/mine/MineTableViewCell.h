@@ -13,5 +13,6 @@
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,assign)NSInteger section;
+@property(nonatomic,assign)NSInteger index;
 
 @end

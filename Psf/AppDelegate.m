@@ -174,7 +174,7 @@
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//            [HYNotification postAliPayResultNotification:resultDic];
+            NSLog(@"result = %@",resultDic);
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果
@@ -195,6 +195,7 @@
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
     }
+    
     if ([url.host isEqualToString:@"pay"]) {//微信支付
         [WXApi handleOpenURL:url delegate:self];
     }
@@ -342,6 +343,9 @@
         }
     }];
 }
+
+
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

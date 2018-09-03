@@ -329,6 +329,7 @@
 		888E71B020E1070600BFBAFF /* MyCouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71AF20E1070600BFBAFF /* MyCouponController.m */; };
 		888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71B320E1078B00BFBAFF /* MyCouponCell.m */; };
 		88900AEA2126631500F49104 /* OrderPayRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88900AE92126631500F49104 /* OrderPayRes.m */; };
+		88935A79213CE36800C0386A /* CustomFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88935A78213CE36800C0386A /* CustomFootView.m */; };
 		88A2B43820F731A5007F338A /* ZHMapAroundInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43620F731A4007F338A /* ZHMapAroundInfoViewController.m */; };
 		88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */; };
 		88A2B43C20F73238007F338A /* ZHMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43B20F73238007F338A /* ZHMapView.m */; };
@@ -996,6 +997,8 @@
 		888E71B320E1078B00BFBAFF /* MyCouponCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponCell.m; sourceTree = "<group>"; };
 		88900AE82126631500F49104 /* OrderPayRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPayRes.h; sourceTree = "<group>"; };
 		88900AE92126631500F49104 /* OrderPayRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPayRes.m; sourceTree = "<group>"; };
+		88935A77213CE36800C0386A /* CustomFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomFootView.h; sourceTree = "<group>"; };
+		88935A78213CE36800C0386A /* CustomFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomFootView.m; sourceTree = "<group>"; };
 		88A2B43520F731A4007F338A /* ZHMapAroundInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMapAroundInfoViewController.h; sourceTree = "<group>"; };
 		88A2B43620F731A4007F338A /* ZHMapAroundInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMapAroundInfoViewController.m; sourceTree = "<group>"; };
 		88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHMapAroundInfoViewController.xib; sourceTree = "<group>"; };
@@ -1057,19 +1060,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88671892212D086300D861AD /* libc++abi.tbd in Frameworks */,
-				888630B0212BCCC200B89080 /* AVFoundation.framework in Frameworks */,
-				88660CD9212159B100846477 /* AlipaySDK.framework in Frameworks */,
 				88660CE121215A5100846477 /* CoreMotion.framework in Frameworks */,
 				88660CCB2121133A00846477 /* CFNetwork.framework in Frameworks */,
 				88660CDF21215A3900846477 /* Foundation.framework in Frameworks */,
 				88660CDD21215A2C00846477 /* UIKit.framework in Frameworks */,
-				8871B8D820DBB8F300DAA5D6 /* CoreGraphics.framework in Frameworks */,
 				88660CDB21215A0800846477 /* CoreText.framework in Frameworks */,
-				888B177F211E77BA00501322 /* CoreTelephony.framework in Frameworks */,
 				8871B8E020DBB92D00DAA5D6 /* SystemConfiguration.framework in Frameworks */,
 				8871B8DC20DBB91100DAA5D6 /* libz.tbd in Frameworks */,
 				888B1781211E77D300501322 /* libc++.tbd in Frameworks */,
+				88671892212D086300D861AD /* libc++abi.tbd in Frameworks */,
+				888630B0212BCCC200B89080 /* AVFoundation.framework in Frameworks */,
+				88660CD9212159B100846477 /* AlipaySDK.framework in Frameworks */,
+				8871B8D820DBB8F300DAA5D6 /* CoreGraphics.framework in Frameworks */,
+				888B177F211E77BA00501322 /* CoreTelephony.framework in Frameworks */,
 				888B17C2211ECC3400501322 /* libSocialQQ.a in Frameworks */,
 				888B1785211E780700501322 /* Photos.framework in Frameworks */,
 				888B1783211E77F900501322 /* ImageIO.framework in Frameworks */,
@@ -1487,6 +1490,8 @@
 				885F408520DCFCBA009F04D6 /* NavgationView.m */,
 				888E71A220E0F35800BFBAFF /* BottomView.h */,
 				888E71A320E0F35800BFBAFF /* BottomView.m */,
+				88935A77213CE36800C0386A /* CustomFootView.h */,
+				88935A78213CE36800C0386A /* CustomFootView.m */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -2884,6 +2889,7 @@
 				886A9ED220ECD52E000503D2 /* MessageViewController.m in Sources */,
 				8871B8CA20DBB29200DAA5D6 /* JFCityHeaderView.m in Sources */,
 				8871B86220DB441000DAA5D6 /* ImageUtils.m in Sources */,
+				88935A79213CE36800C0386A /* CustomFootView.m in Sources */,
 				88590B7920E4D79400F51BC5 /* DetailSortController.m in Sources */,
 				888E719D20E0EC8E00BFBAFF /* ChooseAddressViewController.m in Sources */,
 				888B17D7211EF2FA00501322 /* RandomKey.m in Sources */,

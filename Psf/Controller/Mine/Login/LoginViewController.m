@@ -28,7 +28,10 @@
 @property(nonatomic,strong)UIButton *qqBtn;
 @property(nonatomic,strong)UIButton *weiboBtn;
 @property(nonatomic,strong)UILabel* noticeLabel;
+@property(nonatomic,strong)UILabel *loginLabel;
 
+@property(nonatomic,strong)UILabel* leftLineLabel;
+@property(nonatomic,strong)UILabel *rightlineLabel;
 @end
 
 @implementation LoginViewController
@@ -149,11 +152,39 @@
     }
     return _noticeLabel;
 }
+-(UILabel *)loginLabel{
+    if (!_loginLabel) {
+        _loginLabel = [[UILabel alloc]init];
+        _loginLabel.text = @"微信登录";
+        _loginLabel.textAlignment = NSTextAlignmentCenter;
+        _loginLabel.textColor = DSColorFromHex(0x787878);
+        _loginLabel.font = [UIFont systemFontOfSize:10];
+    }
+    return _loginLabel;
+}
+-(UILabel *)leftLineLabel{
+    if (!_leftLineLabel) {
+        _leftLineLabel = [[UILabel alloc]init];
+        _leftLineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+    }
+    return _leftLineLabel;
+}
+-(UILabel *)rightlineLabel{
+    if (!_rightlineLabel) {
+        _rightlineLabel = [[UILabel alloc]init];
+        _rightlineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+    }
+    return _rightlineLabel;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-    [self setTitle:@"我的"];
+//    [self setLeftButtonWithIcon:[UIImage imageNamed:@"date_dismiss"]];
+    if ([UserCacheBean share].userInfo.token.length==0) {
+         [UserCacheBean share].userInfo.token = @"0";
+    }
+   
+    [self setTitle:@""];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -181,6 +212,9 @@
     [self.view addSubview:self.noticeLabel];
     [self.phoneField addSubview:self.phoneLine];
     [self.codeField addSubview:self.codelLine];
+    [self.view addSubview:self.loginLabel];
+    [self.view addSubview:self.leftLineLabel];
+    [self.view addSubview:self.rightlineLabel];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(133);
         make.height.mas_equalTo(133);
@@ -234,16 +268,34 @@
         make.top.equalTo(self.finishBtn.mas_bottom).offset(15);
         make.centerX.equalTo(self.view);
     }];
+    [self.loginLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+       make.top.equalTo(self.passLoginBtn.mas_bottom).offset(30);
+        make.width.mas_equalTo(70);
+        make.centerX.equalTo(self.passLoginBtn);
+    }];
+    [self.leftLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.loginLabel.mas_left);
+        make.width.mas_equalTo(70);
+        make.centerY.equalTo(self.loginLabel);
+        make.height.mas_equalTo(0.5);
+    }];
+    [self.rightlineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.loginLabel.mas_right);
+        make.width.mas_equalTo(70);
+        make.centerY.equalTo(self.loginLabel);
+        make.height.mas_equalTo(0.5);
+    }];
 //    [self.qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.mas_equalTo(40);
 //        make.height.mas_equalTo(40);
 //        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
 //        make.centerX.equalTo(self.view);
 //    }];
+
     [self.wechartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(40);
-        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
+        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(62);
         make.centerX.equalTo(self.passLoginBtn);
     }];
 //    [self.weiboBtn mas_makeConstraints:^(MASConstraintMaker *make) {

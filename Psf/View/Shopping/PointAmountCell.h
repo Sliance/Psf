@@ -13,4 +13,8 @@
 @property(nonatomic,strong)UIButton *yuEswitch;
 @property(nonatomic,copy)void(^yuEBlock)(NSInteger);
 @property(nonatomic,assign)NSInteger index;
+
+@property(nonatomic,strong)UIButton *headimage;
+
+
 @end

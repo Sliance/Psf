@@ -440,7 +440,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             return CGSizeMake(SCREENWIDTH+1, 120);
         }
     }
-    return CGSizeMake(SCREENWIDTH+1, 167);
+    return CGSizeMake(SCREENWIDTH+1, 120);
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -532,10 +532,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [cell setModel:ordermodel];
         __weak typeof(self)weakself = self;
         [cell setRefundBlock:^(CartProductModel *model){//退款
-            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
-            [chooseVC setCarmodel:model];
-            [weakself.navigationController pushViewController:chooseVC animated:YES];
-//             [self ceshi:model.saleOrderId];
+//            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+//            [chooseVC setCarmodel:model];
+//            [weakself.navigationController pushViewController:chooseVC animated:YES];
+             [self ceshi:model.saleOrderId];
         }];
         [cell setBuyBlock:^(CartProductModel *model) {
     

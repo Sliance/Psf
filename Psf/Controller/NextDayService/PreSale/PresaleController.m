@@ -10,7 +10,7 @@
 #import "GroupServiceApi.h"
 #import "PreSaleListCell.h"
 #import "detailGoodsViewController.h"
-
+#import "CustomFootView.h"
 @interface PresaleController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
@@ -106,6 +106,8 @@
     self.tableview.tableHeaderView = self.headImage;
     self.tableview.tableFooterView = [[UIView alloc]init];
     _dataArr = [NSMutableArray array];
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
      [self getPresaleList];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

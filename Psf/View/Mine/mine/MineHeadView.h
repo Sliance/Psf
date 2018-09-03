@@ -15,5 +15,6 @@
 @property(nonatomic,strong)UILabel *lineLabel;
 @property (nonatomic, copy) void(^skipBlock)(NSInteger);
 @property(nonatomic,strong)MineInformationReq *result;
+@property(nonatomic,copy)void (^tologinBlock)();
 
 @end

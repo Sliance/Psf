@@ -234,9 +234,35 @@
         
     }];
 }
-///统一下单(支付时用)
+///统一下单(微信支付时用)
 - (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/pay/mobile/v1/app/wxpay";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                OrderPayRes *result = [OrderPayRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///统一下单(支付宝支付时用)
+- (void)alipayOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/pay/mobile/v1/app/alipay";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -314,7 +340,7 @@
 }
 ///退款(测试专用)
 - (void)ceshirefundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/pay/mobile/v1/refund";
+    NSString *url = @"/lxn/pay/mobile/v1/ali/refund";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

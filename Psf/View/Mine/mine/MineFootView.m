@@ -29,6 +29,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setcornerLayout];
     }
     return self;
@@ -58,7 +59,7 @@
     NSArray *imageArr= @[@"\U0000e901",@"\U0000e900",@"\U0000e903",@"\U0000e902",@"\U0000e907"];
     NSArray *dataArr = @[@"待付款",@"待发货",@"待收货",@"待评价",@"退换/售后"];
     for (int i = 0; i<imageArr.count; i++) {
-        MineTypeBtn *btn = [[MineTypeBtn alloc]initWithFrame:CGRectMake(SCREENWIDTH/5*i, 17, SCREENWIDTH/5, 53)]
+        MineTypeBtn *btn = [[MineTypeBtn alloc]initWithFrame:CGRectMake(SCREENWIDTH/5*i, 10, SCREENWIDTH/5, 53)]
         ;
         btn.imageLabel.textColor = DSColorFromHex(0x666666);
         btn.countLabel.backgroundColor = DSColorFromHex(0xFF4C4D);

@@ -35,7 +35,9 @@
 - (void)confirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///退款
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
-///统一下单(支付时用)
+///统一下单(支付宝支付时用)
+- (void)alipayOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
+///统一下单(微信支付时用)
 - (void)unifiedOrderWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;
 ///订单的状态的数量接口
 - (void)getOrderCountWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel;

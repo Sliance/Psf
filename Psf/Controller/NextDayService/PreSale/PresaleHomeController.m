@@ -17,6 +17,7 @@
 #import "GroupServiceApi.h"
 #import "HomeTableViewCell.h"
 #import "PresaleController.h"
+#import "CustomFootView.h"
 
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -110,7 +111,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+   
      [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
     [self getBanner:@"index"];
@@ -143,7 +144,8 @@ self.navigationController.navigationBar.hidden = NO;
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.locView];
    
-    
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
 }
 -(void)location:(NSNotification *)notifi{
@@ -157,7 +159,7 @@ self.navigationController.navigationBar.hidden = NO;
     return _dataArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 277*SCREENWIDTH/375+50;
+    return 277*SCREENWIDTH/375+50+10;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identify = @"HomeTableViewCell";

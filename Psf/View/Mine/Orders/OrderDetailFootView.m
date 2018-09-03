@@ -388,7 +388,7 @@
         [_onlineBtn.layer setCornerRadius:2];
         [_onlineBtn.layer setMasksToBounds:YES];
         [_onlineBtn.layer setBorderWidth:0.5];
-        [_onlineBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_onlineBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
         _onlineBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
     }
     return _onlineBtn;
@@ -403,7 +403,7 @@
         [_phoneBtn.layer setCornerRadius:2];
         [_phoneBtn.layer setMasksToBounds:YES];
         [_phoneBtn.layer setBorderWidth:0.5];
-        [_phoneBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_phoneBtn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
         _phoneBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
         [_phoneBtn addTarget:self action:@selector(pressPhone) forControlEvents:UIControlEventTouchUpInside];
     }

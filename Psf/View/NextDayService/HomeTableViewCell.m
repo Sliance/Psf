@@ -33,11 +33,12 @@
     [self.contentView addSubview:self.headimage];
     [self.contentView addSubview:self.leftlLabel];
     [self.contentView addSubview:self.rightLabel];
+    [self.contentView addSubview:self.lineLabel];
     self.titleLabel.frame = CGRectMake(SCREENWIDTH/2-50, 0, 100, 50);
     self.leftlLabel.frame = CGRectMake(0, 0, SCREENWIDTH/2-50, 50);
     self.rightLabel.frame = CGRectMake(SCREENWIDTH/2+50, 0, SCREENWIDTH/2-50, 50);
     self.headimage.frame = CGRectMake(0, 50, SCREENWIDTH, 277*SCREENWIDTH/375);
-    
+    self.lineLabel.frame = CGRectMake(0, self.headimage.ctBottom, SCREENWIDTH, 10);
 }
 -(UIImageView *)headimage{
     if (!_headimage) {
@@ -75,6 +76,13 @@
         _rightLabel.text = @"\\\\\\\\\\\\\\";
     }
     return _rightLabel;
+}
+-(UILabel *)lineLabel{
+    if (!_lineLabel) {
+        _lineLabel = [[UILabel alloc]init];
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
+    }
+    return _lineLabel;
 }
 -(void)setModel:(GroupBannerModel *)model{
     _model = model;

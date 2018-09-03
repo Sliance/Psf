@@ -23,6 +23,16 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        
+    }
+    return self;
+}
+-(void)setIndex:(NSInteger)index{
+    _index = index;
+    _yuEswitch.tag = _index;
+    if (index ==5||index ==6) {
+       
         [self addSubview:self.nameLabel];
         [self addSubview:self.yuEswitch];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -35,12 +45,32 @@
             make.width.mas_equalTo(20);
             make.height.mas_equalTo(20);
         }];
+    }else{
+        [self addSubview:self.headimage];
+        [self addSubview:self.nameLabel];
+        [self addSubview:self.yuEswitch];
+        [self.headimage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(5);
+            make.top.bottom.equalTo(self);
+            make.width.height.mas_equalTo(45);
+        }];
+        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headimage.mas_right);
+            make.top.bottom.equalTo(self);
+        }];
+        [self.yuEswitch mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-15);
+            make.top.equalTo(self).offset(12);
+            make.width.mas_equalTo(20);
+            make.height.mas_equalTo(20);
+        }];
+        if (index ==0) {
+            [self.headimage setImage:[UIImage imageNamed:@"wechat_icon"] forState:UIControlStateNormal];
+        }else if (index ==1){
+            [self.headimage setImage:[UIImage imageNamed:@"aiplay"] forState:UIControlStateNormal];
+        }
     }
-    return self;
-}
--(void)setIndex:(NSInteger)index{
-    _index = index;
-    _yuEswitch.tag = _index;
+    
 }
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
@@ -62,7 +92,16 @@
     }
     return _yuEswitch;
 }
+-(UIButton *)headimage{
+    if (!_headimage) {
+        
+        _headimage = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _headimage.enabled = NO;
+        
+    }
+    return _headimage;
+}
 -(void)pressSwitch:(UIButton*)sender{
-    self.yuEBlock(sender.tag);
+    self.yuEBlock(_index);
 }
 @end
