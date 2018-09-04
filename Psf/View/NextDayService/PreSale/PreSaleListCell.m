@@ -206,8 +206,14 @@
 
     NSString *ExpireTime = [NSDate cStringFromTimestamp:model.preSaleExpireTime Formatter:@"MM.dd"];
     NSString *DeliveryTime = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"MM.dd"];
-    if (model.preSaleIsComplete==NO) {
+    if (model.preSaleIsComplete == NO) {
         self.weightLabel.text =[NSString stringWithFormat:@"%@截单/%@送达",ExpireTime,DeliveryTime];
+         self.weightLabel.textColor = DSColorFromHex(0xFF4C4D);
+        self.weightLabel.backgroundColor = DSColorFromHex(0xFFEEEE);
+        [_addBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+        [_addBtn.layer setBorderWidth:0.5];
+        [_addBtn setTitle:@"预购商品" forState:UIControlStateNormal];
+        [_addBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
     }else{
         self.weightLabel.text =[NSString stringWithFormat:@"已经截单/%@送达",DeliveryTime];
         self.weightLabel.backgroundColor = [UIColor whiteColor];

@@ -177,7 +177,7 @@
 }
 -(UIScrollView *)bgscrollow{
     if (!_bgscrollow) {
-        _bgscrollow = [[UIScrollView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT)];
+        _bgscrollow = [[UIScrollView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight])];
         _bgscrollow.contentSize = CGSizeMake(0, SCREENHEIGHT*3);
         _bgscrollow.delegate = self;
         _bgscrollow.backgroundColor = DSColorFromHex(0xF0F0F0);
@@ -217,10 +217,10 @@
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
         self.bgscrollow.contentInsetAdjustmentBehavior = NO;
-        self.bgscrollow.frame =  CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        self.bgscrollow.frame =  CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]);
     } else {
 
-         self.bgscrollow.frame =  CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
+         self.bgscrollow.frame =  CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]);
     }
     [self.view addSubview:self.bgscrollow];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"icon_back"]];

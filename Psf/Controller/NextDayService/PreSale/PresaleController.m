@@ -15,6 +15,7 @@
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,assign)NSInteger pageIndex;
 
 @end
 
@@ -38,7 +39,20 @@
     }
     return _tableview;
 }
-
+-(void)headerRefreshing
+{
+    self.pageIndex = 1;
+    [self getPresaleList];
+}
+/**
+ *  上拉刷新
+ */
+-(void)footerRefreshing
+{
+    
+    self.pageIndex++;
+    [self getPresaleList];
+}
 -(void)getPresaleList{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -48,7 +62,7 @@
     req.platform = @"ios";
     req.userLongitude = @"121.4737";
     req.userLatitude = @"31.23037";
-    req.pageIndex = 1;
+    req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
@@ -56,9 +70,27 @@
     __weak typeof(self)weakself = self;
     [[GroupServiceApi share]getPresaleListWithParam:req response:^(id response) {
         if (response!= nil) {
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
-            [weakself getBanner:@"preSale"];
+            
+            if (self.pageIndex ==1) {
+                [weakself.dataArr removeAllObjects];
+                [weakself.dataArr addObjectsFromArray:response];
+                [weakself.tableview.mj_header endRefreshing];
+            }else{
+                [weakself.dataArr addObjectsFromArray:response];
+                [weakself.tableview.mj_header endRefreshing];
+                [weakself.tableview.mj_footer endRefreshing];
+            }
+            
+            
+            if ([response count] < 10) {
+                [weakself.tableview.mj_footer removeFromSuperview];
+                CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+                self.tableview.tableFooterView = footView;
+            }
+            else{
+                weakself.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakself refreshingAction:@selector(footerRefreshing)];
+            }
+             [weakself getBanner:@"preSale"];
             [weakself.tableview reloadData];
         }
     }];
@@ -106,8 +138,10 @@
     self.tableview.tableHeaderView = self.headImage;
     self.tableview.tableFooterView = [[UIView alloc]init];
     _dataArr = [NSMutableArray array];
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
     self.tableview.tableFooterView = footView;
+    self.pageIndex = 1;
      [self getPresaleList];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
