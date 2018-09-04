@@ -14,7 +14,7 @@
 #import "ChooseServiceTypeController.h"
 #import "EmptyShoppingHeadView.h"
 #import "detailGoodsViewController.h"
-
+#import "CustomFootView.h"
 @interface WaitDeliverController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -122,6 +122,8 @@
             }
             if ([response count] < 10) {
                 [weakself.tableview.mj_footer removeFromSuperview];
+                CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+                self.tableview.tableFooterView = footView;
             }
             else{
                 weakself.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakself refreshingAction:@selector(footerRefreshing)];

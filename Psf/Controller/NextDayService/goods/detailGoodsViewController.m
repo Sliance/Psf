@@ -206,7 +206,10 @@
              
          }else{
         self.preBView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENHEIGHT, [self tabBarHeight]);
+        self.normalBView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENHEIGHT, [self tabBarHeight]);
+        self.groupBView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENHEIGHT, [self tabBarHeight]);
         _presaleBuyView.frame = CGRectMake(0,-[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+        _groupBuyView.frame = CGRectMake(0,-[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
          }
     }
 }

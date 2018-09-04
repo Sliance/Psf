@@ -27,7 +27,7 @@
 #import "WXApi.h"
 #import "PaySuccessController.h"
 #import "OrderServiceApi.h"
-
+#import "CustomFootView.h"
 @interface FillOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -172,6 +172,8 @@
             [weakSelf calculatePrice:weakSelf.calculateModel];
         }
     }];
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
      [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
     [ZSNotification addAlipayPayResultNotification:self action:@selector(AlipayPay:)];
 }

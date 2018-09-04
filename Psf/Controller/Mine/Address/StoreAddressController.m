@@ -9,6 +9,7 @@
 #import "StoreAddressController.h"
 #import "AddressServiceApi.h"
 #import "StoreAddressCell.h"
+#import "CustomFootView.h"
 
 @interface StoreAddressController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -19,7 +20,7 @@
 @implementation StoreAddressController
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.tableFooterView = [[UIView alloc]init];
@@ -44,6 +45,8 @@
     }
     [self.view addSubview:self.tableview];
     _dataArr = [NSMutableArray array];
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

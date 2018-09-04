@@ -10,6 +10,7 @@
 #import "BottomView.h"
 #import "MineAddressCell.h"
 #import "EditAddressController.h"
+#import "CustomFootView.h"
 
 @interface MyReceiveAddressController ()<UITableViewDelegate,UITableViewDataSource,MineAddressCellDelegate>
 @property(nonatomic,strong)UITableView *tableview;
@@ -57,6 +58,8 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.bottomView];
     _dataArr = [NSMutableArray array];
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

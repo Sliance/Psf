@@ -13,6 +13,7 @@
 #import "StairCategoryReq.h"
 #import "NextServiceApi.h"
 #import "EvaluateListModel.h"
+#import "CustomFootView.h"
 
 @interface EvaluateViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -66,6 +67,8 @@
     _contentDataArr = [NSMutableArray array];
     self.tableview.tableHeaderView = self.headView;
     self.type = 0;
+    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
+    self.tableview.tableFooterView = footView;
 }
 - (void)setProductId:(NSInteger)productId{
     _productId = productId;
