@@ -593,7 +593,7 @@
     }
         [self.headView setModel:self.result];
     
-    NSString *html_str = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.productContent];
+    NSString *html_str = [NSString stringWithFormat:@"<head><style>img{width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.productContent];
     
     [self.webView loadHTMLString:html_str baseURL:nil];
     
