@@ -181,7 +181,7 @@ self.navigationController.navigationBar.hidden = NO;
         detailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
-        [self showInfo:@"正在开发中，敬请期待。。。"];
+        [self showInfo:@"正在开发中，敬请期待"];
         
     }
    

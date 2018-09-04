@@ -364,16 +364,20 @@
         self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
         self.priceLabel.font = [UIFont systemFontOfSize:19];
         _buyerLabel.text = @"已有人购买";
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%ld人购买",model.preSaleQuantity]];
-        [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.preSaleQuantity].length)];
-        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",model.preSaleQuantity].length)];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%d人购买",model.preSaleQuantity]];
+        [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%d",model.preSaleQuantity].length)];
+        [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",(long)model.preSaleQuantity].length)];
         _buyerLabel.attributedText = str;
         CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
         if (model.preSaleLimitQuantity ==0) {
             progress = 0.99;
         }
         _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
-        self.limitTitleLabel.text = [NSString stringWithFormat:@"%ld",model.preSaleLimitQuantity];
+        if (model.preSaleLimitQuantity ==0) {
+            self.limitTitleLabel.text = @"无上限";
+        }else{
+            self.limitTitleLabel.text = [NSString stringWithFormat:@"%d",model.preSaleLimitQuantity];
+        }
         self.arriveTitleLabel.text = [NSDate cStringFromTimestamp:model.preSaleDeliveryTime Formatter:@"MM.dd"];
         if (model.preSaleIsComplete ==YES) {
             self.remainTitleLabel.text = @"已截单";

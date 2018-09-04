@@ -24,6 +24,17 @@
 +(void)postWeixinPayResultNotification:(NSDictionary *)userInfo{
     [[NSNotificationCenter defaultCenter] postNotificationName:WeixinPayResultNotification object:nil userInfo:userInfo];
 }
+///支付宝支付
++(void)addAlipayPayResultNotification:(id)target action:(SEL)action
+{
+    [[NSNotificationCenter defaultCenter] addObserver:target
+                                             selector:action
+                                                 name:AlipayPayResultNotification
+                                               object:nil];
+}
++(void)postAlipayPayResultNotification:(NSDictionary *)userInfo{
+    [[NSNotificationCenter defaultCenter] postNotificationName:AlipayPayResultNotification object:nil userInfo:userInfo];
+}
 //定位
 +(void)addLocationResultNotification:(id)target action:(SEL)action{
     [[NSNotificationCenter defaultCenter] addObserver:target

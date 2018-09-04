@@ -38,6 +38,7 @@
         _phoneField.font = [UIFont systemFontOfSize:12];
         _phoneField.borderStyle = UITextBorderStyleNone;
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneField.maxLength = 11;
     }
     return _phoneField;
 }

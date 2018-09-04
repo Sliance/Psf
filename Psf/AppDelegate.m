@@ -175,6 +175,10 @@
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
+            if ([resultDic[@"resultStatus"] integerValue] ==9000) {
+                 [ZSNotification postAlipayPayResultNotification:@{@"strMsg":@"支付成功"}];
+            }
+            
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果
@@ -199,9 +203,7 @@
     if ([url.host isEqualToString:@"pay"]) {//微信支付
         [WXApi handleOpenURL:url delegate:self];
     }
-    if (![url.host isEqualToString:@"pay"]) {//微信支付
-        [WXApi handleOpenURL:url delegate:self];
-    }
+    
     return YES;
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -251,6 +253,7 @@
                 strMsg = @"支付成功";
                 NSLog(@"支付成功: %d",resp.errCode);
                 wxPayResult = @"success";
+               
                 break;
             }
             case WXErrCodeUserCancel:

@@ -532,10 +532,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [cell setModel:ordermodel];
         __weak typeof(self)weakself = self;
         [cell setRefundBlock:^(CartProductModel *model){//退款
-//            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
-//            [chooseVC setCarmodel:model];
-//            [weakself.navigationController pushViewController:chooseVC animated:YES];
-             [self ceshi:model.saleOrderId];
+            ChooseServiceTypeController *chooseVC = [[ChooseServiceTypeController alloc]init];
+            [chooseVC setCarmodel:model];
+            [weakself.navigationController pushViewController:chooseVC animated:YES];
+//             [self ceshi:model.saleOrderId];
         }];
         [cell setBuyBlock:^(CartProductModel *model) {
     

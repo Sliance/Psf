@@ -510,6 +510,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
         StairCategoryListRes *model = _likeArr[indexPath.row];
          [detailVC setProductID:model.productId];
     }
+    if (self.footView.hidden ==YES) {
+        detailVC.navStr = @"shop";
+    }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
@@ -521,6 +524,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [Arr addObject:model];
         }
     }
+    [fillVC setGoodstype:GOOGSTYPENormal];
     [fillVC setProductArr:Arr];
     [fillVC setResult:self.result];
     [self.navigationController pushViewController:fillVC animated:YES];

@@ -11,4 +11,7 @@
 @interface detailGoodsViewController : BaseViewController
 
 @property(nonatomic,assign)NSInteger productID;
+
+@property(nonatomic,strong)NSString *navStr;
+
 @end

@@ -134,7 +134,7 @@
     if (!_couponView) {
         _couponView = [[GetCouponsView alloc]init];
         _couponView.hidden = YES;
-         _couponView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+         _couponView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
         _couponView.delegate = self;
     }
     return _couponView;
@@ -145,7 +145,7 @@
         _groupBuyView.hidden = YES;
         
         
-             _groupBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+             _groupBuyView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
     
          [_groupBuyView setHeight:[self tabBarHeight]];
     }
@@ -155,7 +155,7 @@
     if (!_presaleBuyView) {
         _presaleBuyView = [[PresaleBuyView alloc]init];
         _presaleBuyView.hidden = YES;
-            _presaleBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+            _presaleBuyView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
         
         [_presaleBuyView setHeight:[self tabBarHeight]];
     }
@@ -199,7 +199,17 @@
     }
     return self;
 }
-
+-(void)setNavStr:(NSString *)navStr{
+    _navStr = navStr;
+    if ([navStr isEqualToString:@"shop"]) {
+         if (@available(iOS 11.0, *)) {
+             
+         }else{
+        self.preBView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENHEIGHT, [self tabBarHeight]);
+        _presaleBuyView.frame = CGRectMake(0,-[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+         }
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
@@ -239,12 +249,14 @@
     [self.tourDiyView setPressGoBlock:^(NSInteger index) {
         
         FillOrderViewController *detailVC = [[FillOrderViewController alloc]init];
+        [detailVC setNavStr:_weakSelf.navStr];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
    
     [self.footView setSelectedCollect:^(NSInteger productId) {
         detailGoodsViewController*detailVC = [[detailGoodsViewController alloc]init];
         [detailVC setProductID:productId];
+        [detailVC setNavStr:_weakSelf.navStr];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
     [self.normalBView setPressAddBlock:^{
@@ -315,6 +327,7 @@
             }
             
             [sureVC setGooddetail:_weakSelf.result];
+            [sureVC setNavStr:_weakSelf.navStr];
             [_weakSelf.navigationController pushViewController:sureVC animated:YES];
         }else{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
@@ -354,6 +367,7 @@
                 [sureVC setGoodstype:GOOGSTYPEPresale];
                 [sureVC setSkumodel:skumodel];
                 [sureVC setGooddetail:_weakSelf.resmodel];
+                [sureVC setNavStr:_weakSelf.navStr];
                 [_weakSelf.navigationController pushViewController:sureVC animated:YES];
             }else if (_type ==1){
                 [_weakSelf addShopCount:skumodel];

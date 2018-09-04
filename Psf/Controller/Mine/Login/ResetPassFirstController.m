@@ -37,6 +37,7 @@
         _phoneField.font = [UIFont systemFontOfSize:12];
         _phoneField.borderStyle = UITextBorderStyleNone;
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneField.maxLength =11;
     }
     return _phoneField;
 }
@@ -48,6 +49,7 @@
         _codeField.font = [UIFont systemFontOfSize:12];
         _codeField.borderStyle = UITextBorderStyleNone;
         _codeField.keyboardType = UIKeyboardTypeNumberPad;
+        _codeField.maxLength =6;
     }
     return _codeField;
 }

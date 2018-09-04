@@ -58,6 +58,7 @@
     }
     return _dateView;
 }
+
 -(UITableView *)tableview{
     if (!_tableview) {
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,46+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-46-[self navHeightWithHeight]) style:UITableViewStylePlain];
@@ -79,8 +80,8 @@
 }
 -(FillOrderTypeView *)typeView{
     if (!_typeView) {
-        _typeView = [[FillOrderTypeView alloc]init];
-        _typeView.frame = CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, 46);
+        _typeView = [[FillOrderTypeView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, 46)];
+        
     }
     return _typeView;
 }
@@ -172,7 +173,11 @@
         }
     }];
      [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+    [ZSNotification addAlipayPayResultNotification:self action:@selector(AlipayPay:)];
 }
+
+#pragma mark-支付回调通知
+
 -(void)weixinPay:(NSNotification *)notifi{
     NSDictionary *userInfo = [notifi userInfo];
     if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
@@ -180,6 +185,17 @@
         if(self.resultmodel){
          successVC.result = self.resultmodel;
          [self.navigationController pushViewController:successVC animated:YES];
+        }
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
+}
+-(void)AlipayPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"strMsg"] isEqualToString:@"支付成功"]) {
+        PaySuccessController *successVC = [[PaySuccessController alloc]init];
+        if(self.resultmodel){
+            successVC.result = self.resultmodel;
+            [self.navigationController pushViewController:successVC animated:YES];
         }
     }
     [self showInfo:[userInfo objectForKey:@"strMsg"]];
@@ -213,7 +229,16 @@
     }
     
 }
-
+-(void)setNavStr:(NSString *)navStr{
+    _navStr = navStr;
+    if ([navStr isEqualToString:@"shop"]) {
+         if (@available(iOS 11.0, *)) {
+         }else{
+             self.tableview.frame =  CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
+              _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENWIDTH, [self tabBarHeight]);
+         }
+    }
+}
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
     _gooddetail = gooddetail;
     ProductSkuModel *model;
@@ -242,7 +267,7 @@
     _result = result;
     
 }
-
+#pragma mark----网络请求
 -(void)reloadLeftAddress{
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
@@ -617,7 +642,7 @@
 }
 
 }
-
+#pragma mark--------UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
@@ -842,15 +867,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
--(void)pressWeChart:(UIButton*)sender{
-    sender.selected = !sender.selected;
-    self.calculateModel.useIsWeChart = sender.selected;
-}
-///下单
--(void)pressRemind{
-    [self placeOrder];
-}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
         if (indexPath.row ==0) {
@@ -869,6 +885,16 @@
             [self.navigationController pushViewController:invoiceVC animated:YES];
         }
     }
+}
+
+#pragma mark---Action
+-(void)pressWeChart:(UIButton*)sender{
+    sender.selected = !sender.selected;
+    self.calculateModel.useIsWeChart = sender.selected;
+}
+///下单
+-(void)pressRemind{
+    [self placeOrder];
 }
 
 - (void)didReceiveMemoryWarning {
