@@ -22,12 +22,16 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "PaySuccessController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "ChoosePayTypeView.h"
+
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)OrderDetailBottomView *bottomView;
 @property(nonatomic,strong)NSMutableArray *likeArr;
 @property(nonatomic,strong)OrderDetailRes *result;
 @property(nonatomic,strong)ZitiMaView *zitiVew;
+@property(nonatomic,strong)ChoosePayTypeView *payTypeView;
 @property(nonatomic,strong)PlaceOrderRes* resultmodel;
 @property(nonatomic,assign)NSInteger type;
 @end
@@ -47,6 +51,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
     }
    return  _zitiVew;
 }
+-(ChoosePayTypeView *)payTypeView{
+    if (!_payTypeView) {
+        _payTypeView = [[ChoosePayTypeView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+        _payTypeView.hidden = YES;
+    }
+    return  _payTypeView;
+}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -62,6 +73,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+   
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -75,13 +87,20 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
     [self.view addSubview:self.zitiVew];
-    
+     [self.view addSubview:self.payTypeView];
     __weak typeof(self)weakself = self;
     [self.bottomView setPayBlock:^(OrderDetailRes *model){//付款
         weakself.resultmodel = [[PlaceOrderRes alloc]init];
         weakself.resultmodel.saleOrderId = model.saleOrderId;
         weakself.resultmodel.saleOrderPayAmount = model.saleOrderPayAmount;
-        [weakself gotoAlipayOrWX:model.saleOrderId Amount:model.saleOrderPayAmount payType:@"2"];
+        [weakself.payTypeView setSureBlock:^(NSString * type) {
+            [weakself gotoAlipayOrWX:model.saleOrderId Amount:model.saleOrderPayAmount payType:type];
+            weakself.payTypeView.hidden = YES;
+        }];
+        weakself.payTypeView.hidden = NO;
+    }];
+    [self.payTypeView setCloseBlock:^{
+        weakself.payTypeView.hidden = YES;
     }];
     [self.bottomView setBuyBlock:^(OrderDetailRes *model){//再次购买
         
@@ -138,11 +157,25 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.zitiVew setCloseBlock:^{
         weakself.zitiVew.hidden = YES;
     }];
+    
     [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+    [ZSNotification addAlipayPayResultNotification:self action:@selector(AlipayPay:)];
 }
+#pragma mark-支付回调通知
 -(void)weixinPay:(NSNotification *)notifi{
     NSDictionary *userInfo = [notifi userInfo];
     if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
+        PaySuccessController *successVC = [[PaySuccessController alloc]init];
+        if(self.resultmodel){
+            successVC.result = self.resultmodel;
+            [self.navigationController pushViewController:successVC animated:YES];
+        }
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
+}
+-(void)AlipayPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"strMsg"] isEqualToString:@"支付成功"]) {
         PaySuccessController *successVC = [[PaySuccessController alloc]init];
         if(self.resultmodel){
             successVC.result = self.resultmodel;
@@ -166,11 +199,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [self.bottomView setType:1];
     }
     [self.bottomView setMemberId:model.memberId];
-    
+     [self requestDetail];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestDetail];
+   
 }
 -(void)noticeOrder:(NSString*)saleId{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -383,21 +416,33 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     req.platform = @"ios";
     req.saleOrderId = orderstr;
-    
-    [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
-        if (response) {
-            OrderPayRes *model = response;
-            //调起微信支付
-            PayReq* req             = [[PayReq alloc] init];
-            req.partnerId           = model.partnerid;
-            req.prepayId            = model.prepayid;
-            req.nonceStr            = model.noncestr;
-            req.timeStamp           = model.timestamp.intValue;
-            req.package             = model.packagestr;
-            req.sign                = model.sign;
-            [WXApi sendReq:req];
-        }
-    }];
+    if ([type isEqualToString:@"2"]) {
+        [[OrderServiceApi share]unifiedOrderWithParam:req response:^(id response) {
+            if (response) {
+                OrderPayRes *model = response;
+                //调起微信支付
+                PayReq* req             = [[PayReq alloc] init];
+                req.partnerId           = model.partnerid;
+                req.prepayId            = model.prepayid;
+                req.nonceStr            = model.noncestr;
+                req.timeStamp           = model.timestamp.intValue;
+                req.package             = model.packagestr;
+                req.sign                = model.sign;
+                [WXApi sendReq:req];
+                
+            }
+        }];
+    }else{
+        [[OrderServiceApi share]alipayOrderWithParam:req response:^(id response) {
+            if (response) {
+                OrderPayRes *model = response;
+                NSString *appScheme = @"LxnScheme";
+                [[AlipaySDK defaultService] payOrder:model.body fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                    NSLog(@"reslut = %@",resultDic);
+                }];
+            }
+        }];
+    }
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 2;
@@ -540,6 +585,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [cell setBuyBlock:^(CartProductModel *model) {
     
         }];
+        [cell setPayBlock:^(CartProductModel *model) {//付款
+            weakself.resultmodel = [[PlaceOrderRes alloc]init];
+            weakself.resultmodel.saleOrderId = model.saleOrderId;
+            [weakself.payTypeView setSureBlock:^(NSString * type) {
+                [weakself gotoAlipayOrWX:model.saleOrderId Amount:weakself.resultmodel.saleOrderPayAmount payType:type];
+                weakself.payTypeView.hidden = YES;
+            }];
+            weakself.payTypeView.hidden = NO;
+        }];
+        
         return cell;
     }
     
@@ -564,6 +619,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [detailGoodsViewController new];
+    StairCategoryListRes *model = _likeArr[indexPath.row];
+    [vc setProductID:model.productId];
     [self.navigationController showViewController:vc sender:nil];
 }
 - (void)didReceiveMemoryWarning {

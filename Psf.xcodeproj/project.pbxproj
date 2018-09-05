@@ -334,6 +334,8 @@
 		888E71B020E1070600BFBAFF /* MyCouponController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71AF20E1070600BFBAFF /* MyCouponController.m */; };
 		888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888E71B320E1078B00BFBAFF /* MyCouponCell.m */; };
 		88900AEA2126631500F49104 /* OrderPayRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 88900AE92126631500F49104 /* OrderPayRes.m */; };
+		8891C837213F723E00537062 /* ChoosePayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891C836213F723E00537062 /* ChoosePayTypeView.m */; };
+		8891C83A213FAFE400537062 /* PresaleSController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8891C839213FAFE400537062 /* PresaleSController.m */; };
 		88935A79213CE36800C0386A /* CustomFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88935A78213CE36800C0386A /* CustomFootView.m */; };
 		88A2B43820F731A5007F338A /* ZHMapAroundInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43620F731A4007F338A /* ZHMapAroundInfoViewController.m */; };
 		88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */; };
@@ -1012,6 +1014,10 @@
 		888E71B320E1078B00BFBAFF /* MyCouponCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponCell.m; sourceTree = "<group>"; };
 		88900AE82126631500F49104 /* OrderPayRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPayRes.h; sourceTree = "<group>"; };
 		88900AE92126631500F49104 /* OrderPayRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPayRes.m; sourceTree = "<group>"; };
+		8891C835213F723E00537062 /* ChoosePayTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoosePayTypeView.h; sourceTree = "<group>"; };
+		8891C836213F723E00537062 /* ChoosePayTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoosePayTypeView.m; sourceTree = "<group>"; };
+		8891C838213FAFE400537062 /* PresaleSController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleSController.h; sourceTree = "<group>"; };
+		8891C839213FAFE400537062 /* PresaleSController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresaleSController.m; sourceTree = "<group>"; };
 		88935A77213CE36800C0386A /* CustomFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomFootView.h; sourceTree = "<group>"; };
 		88935A78213CE36800C0386A /* CustomFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomFootView.m; sourceTree = "<group>"; };
 		88A2B43520F731A4007F338A /* ZHMapAroundInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMapAroundInfoViewController.h; sourceTree = "<group>"; };
@@ -1525,6 +1531,8 @@
 				888E71A320E0F35800BFBAFF /* BottomView.m */,
 				88935A77213CE36800C0386A /* CustomFootView.h */,
 				88935A78213CE36800C0386A /* CustomFootView.m */,
+				8891C835213F723E00537062 /* ChoosePayTypeView.h */,
+				8891C836213F723E00537062 /* ChoosePayTypeView.m */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -2659,6 +2667,8 @@
 				88D9281E211030A20001B2E3 /* PresaleController.m */,
 				887706D02122D9DE00CD7697 /* PresaleHomeController.h */,
 				887706D12122D9DE00CD7697 /* PresaleHomeController.m */,
+				8891C838213FAFE400537062 /* PresaleSController.h */,
+				8891C839213FAFE400537062 /* PresaleSController.m */,
 			);
 			path = PreSale;
 			sourceTree = "<group>";
@@ -3079,6 +3089,7 @@
 				88636D0C20E1FF1E006CE5D8 /* MineAddressCell.m in Sources */,
 				886AC4072101B79200B6F32F /* CalculateThePriceRes.m in Sources */,
 				8871B84820DB419A00DAA5D6 /* NSURLRequest+TYAFNetworking.m in Sources */,
+				8891C837213F723E00537062 /* ChoosePayTypeView.m in Sources */,
 				882F52E5211AD8640030A949 /* RefundfootView.m in Sources */,
 				88600BF920D8D16E0098CF10 /* ZJTitleView.m in Sources */,
 				8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */,
@@ -3146,6 +3157,7 @@
 				88D8939420D26AE0007E3C41 /* PsfTabBarController.m in Sources */,
 				8871B89020DB4B2A00DAA5D6 /* UDIDWrapper.m in Sources */,
 				88D8936920D25C42007E3C41 /* main.m in Sources */,
+				8891C83A213FAFE400537062 /* PresaleSController.m in Sources */,
 				88900AEA2126631500F49104 /* OrderPayRes.m in Sources */,
 				88566E682112CFEE00B6C38D /* QiniuUploadHelper.m in Sources */,
 				886A9ED520ECD5F7000503D2 /* DetailMessageCell.m in Sources */,

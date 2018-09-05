@@ -56,7 +56,7 @@
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductId;
 ///
-@property(nonatomic,assign)NSInteger saleOrderId;
+@property(nonatomic,copy)NSString *saleOrderId;
 
 @property(nonatomic,assign)CGFloat cellH;
 

@@ -177,6 +177,8 @@
             NSLog(@"result = %@",resultDic);
             if ([resultDic[@"resultStatus"] integerValue] ==9000) {
                  [ZSNotification postAlipayPayResultNotification:@{@"strMsg":@"支付成功"}];
+            }else{
+                [ZSNotification postAlipayPayResultNotification:@{@"strMsg":resultDic[@"memo"]}];
             }
             
         }];
