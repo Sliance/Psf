@@ -178,7 +178,7 @@ self.navigationController.navigationBar.hidden = NO;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row ==0) {
-        PresaleController *detailVC = [[PresaleController alloc]init];
+        PresaleSController *detailVC = [[PresaleSController alloc]init];
         detailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{

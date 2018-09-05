@@ -13,6 +13,7 @@
 #import "AddressServiceApi.h"
 #import "MineAddressCell.h"
 #import "EditAddressController.h"
+#import "StoreAddressCell.h"
 
 @interface ChooseAddressViewController ()<UITableViewDelegate,UITableViewDataSource,MineAddressCellDelegate>
 @property(nonatomic,strong)UITableView *tableview;
@@ -39,7 +40,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStyleGrouped];
         _tableview.delegate = self;
         _tableview.dataSource = self;
 //        _tableview.separatorColor = [UIColor whiteColor];
@@ -51,7 +52,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setTitle:@"选择收货地址"];
+        [self setTitle:@"选择门店地址"];
     }
     return self;
 }
@@ -63,7 +64,7 @@
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    [self.view addSubview:self.bottomView];
+//    [self.view addSubview:self.bottomView];
      [self setTextFieldLeftView:self.chooseView.searchField :@"search_icon":20];
     [self.view addSubview:self.tableview];
 //     [self.view addSubview:self.chooseView];
@@ -80,16 +81,35 @@
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
+    req.userLongitude = @"121.4737";
+    req.userLatitude = @"31.23037";
     req.token = [UserCacheBean share].userInfo.token;
     req.systemVersion = @"1.0.0";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
-    [[AddressServiceApi share]getAddressListWithParam:req response:^(id response) {
+    [[AddressServiceApi share]pickUpAddresListWithParam:req response:^(id response) {
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
             [weakself.tableview reloadData];
+        }
+    }];
+}
+-(void)updateAddress:(StoreRes*)model{
+    AddressBaeReq *req = [[AddressBaeReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.token = [UserCacheBean share].userInfo.token;
+    req.systemVersion = @"1.0.0";
+    req.platform = @"ios";
+    req.storeId = model.storeId;
+    __weak typeof(self)weakself = self;
+    [[AddressServiceApi share]updateStoreAddresWithParam:req response:^(id response) {
+        if([response[@"code"] integerValue]==200){
+            
+            [weakself.navigationController popViewControllerAnimated:YES];
         }
     }];
 }
@@ -120,7 +140,7 @@
         titleLabel.frame = CGRectMake(15, 0, SCREENWIDTH, 10);
         titleLabel.textColor = DSColorFromHex(0x464646);
         titleLabel.font = [UIFont systemFontOfSize:14];
-        titleLabel.text = @"我的收货地址";
+        titleLabel.text = @"门店地址";
         [view addSubview:titleLabel];
     }
    
@@ -129,33 +149,38 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1){
-        return 75;
+        return 70;
         
     }
     return 44;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section ==1){
-        return @"我的收货地址";
+        return @"门店地址";
     }
   return @"";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
-        static NSString *identify = @"MineAddressCell";
-        MineAddressCell *choosecell = [tableView dequeueReusableCellWithIdentifier:identify];
-        if (!choosecell) {
-            choosecell = [[MineAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        
+        static NSString *identify = @"identify";
+        StoreAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+        if (!cell) {
+            cell = [[StoreAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
         }
-        choosecell.delegate = self;
-        choosecell.selectionStyle = UITableViewCellSelectionStyleNone;
-        choosecell.textLabel.textColor = DSColorFromHex(0x464646);
-        choosecell.textLabel.font = [UIFont systemFontOfSize:14];
-        ChangeAddressReq *model = _dataArr[indexPath.row];
-        [choosecell setIndex:indexPath.row];
-        choosecell.lineImage.image = [UIImage imageNamed:@""];
-        [choosecell setModel:model];
-        return choosecell;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.textColor = DSColorFromHex(0x464646);
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        StoreRes *model = _dataArr[indexPath.row];
+        [cell setIndex:indexPath.row];
+        [cell setModel:model];
+        __weak typeof(self)weakself = self;
+        [cell setSelectedBlock:^(StoreRes * model) {
+            model.memberStoreIsDefault = YES;
+            [weakself updateAddress:model];
+        }];
+        return cell;
     }
     static NSString *identify = @"identify";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
@@ -174,9 +199,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
-        ChangeAddressReq *model = _dataArr[indexPath.row];
-        NSString *address = [NSString stringWithFormat:@"%@%@",model.memberAddressProvince,model.memberAddressPositionDetail];
-        [self changeAddress:model];
+        StoreRes *model = _dataArr[indexPath.row];
+        NSString *address = model.storeName;
+        [self updateAddress:model];
         [ZSNotification postLocationResultNotification:@{@"address":address}];
     }
 }

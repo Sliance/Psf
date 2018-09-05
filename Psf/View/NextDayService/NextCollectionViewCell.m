@@ -41,6 +41,16 @@
     }
     return _contentLabel;
 }
+-(UILabel *)presaleLabel{
+    if (!_presaleLabel) {
+        _presaleLabel = [[UILabel alloc]init];
+        _presaleLabel.textAlignment = NSTextAlignmentRight;
+        _presaleLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+        _presaleLabel.textColor = [UIColor colorWithRed:119.001/255.0 green:119.001/255.0 blue:119.001/255.0 alpha:1];
+        _presaleLabel.text = @"";
+    }
+    return _presaleLabel;
+}
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc]init];
@@ -104,9 +114,10 @@
     [self addSubview:self.weightLabel];
     [self addSubview:self.raiseLabel];
     [self addSubview:self.quickLabel];
+    [self addSubview:self.presaleLabel];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self);
+        make.top.equalTo(self).offset(15);
         make.width.height.mas_equalTo(165);
         
     }];
@@ -129,6 +140,11 @@
     }];
     [self.weightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.priceLabel.mas_right);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        
+    }];
+    [self.presaleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
         make.bottom.equalTo(self.priceLabel.mas_bottom);
         
     }];
@@ -160,7 +176,14 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,groupmodel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = groupmodel.productTitle;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.grouponPrice];
+   
+    if (groupmodel.preSaleId.length>0) {
+        
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.productPrice];
+        self.presaleLabel.text = [NSString stringWithFormat:@"%ld人已预定",(long)groupmodel.preSaleQuantity];
+    }else{
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.grouponPrice];
+    }
     self.weightLabel.text = groupmodel.productUnit;
 }
 @end

@@ -13,35 +13,23 @@
 #import "GroupServiceApi.h"
 @interface PresaleSController ()<ZSCycleScrollViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
+
 
 @property(nonatomic,strong)NSMutableArray *dataArr;
-@property(nonatomic,strong)NSMutableArray *collectArr;
+@property(nonatomic,strong)NSMutableArray *imageArr;
 @property(nonatomic,assign)NSInteger pageIndex;
 
 @end
 static NSString *cellId = @"cellId";
 @implementation PresaleSController
--(ZSCycleScrollView *)cycleScroll{
-    if (!_cycleScroll) {
-        _cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectZero];
-        _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
-        _cycleScroll.delegate =self;
-        [_cycleScroll setIndex:1];
-        
-        _cycleScroll.autoScrollTimeInterval = 3.0;
-        _cycleScroll.dotColor = [UIColor redColor];
-    }
-    return _cycleScroll;
-}
+
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.itemSize = CGSizeMake(165, 165);
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT*10) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.scrollEnabled = NO;
         [_collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellId];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
@@ -50,12 +38,13 @@ static NSString *cellId = @"cellId";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.cycleScroll];
+    
     [self.view addSubview:self.collectionView];
-    self.cycleScroll.frame = CGRectMake(0, 0,SCREENWIDTH, 200);
-    self.collectionView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, SCREENHEIGHT*10);
+   
+    self.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     self.view.backgroundColor = [UIColor whiteColor];
     _dataArr = [NSMutableArray array];
+    self.imageArr = [NSMutableArray array];
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     self.pageIndex = 1;
     [self getPresaleList];
@@ -129,16 +118,16 @@ static NSString *cellId = @"cellId";
     [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
         if (response!= nil) {
             
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr removeAllObjects];
+            
+            [weakself.imageArr removeAllObjects];
             
             for (GroupBannerModel*model in response) {
                 if (model.productBannerImagePath) {
-                    [arr addObject:model.productBannerImagePath];
+                    [weakself.imageArr addObject:model.productBannerImagePath];
                 }
             }
             
-            [weakself.cycleScroll setImageUrlGroups:arr];
+            [weakself.collectionView reloadData];
             
         }
     }];
@@ -174,7 +163,7 @@ static NSString *cellId = @"cellId";
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(165, 260);
+    return CGSizeMake(165, 250);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -201,8 +190,20 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
+    ZSCycleScrollView *cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREENWIDTH, 200)];
+    cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
+    cycleScroll.delegate =self;
+    [cycleScroll setIndex:1];
     
-    [headerView addSubview:self.cycleScroll];
+    cycleScroll.autoScrollTimeInterval = 3.0;
+    cycleScroll.dotColor = [UIColor redColor];
+    [headerView addSubview:cycleScroll];
+    [cycleScroll setImageUrlGroups:self.imageArr];
+    [cycleScroll setDataArr:nil];
+    [cycleScroll setCollectionHeight:0];
+    cycleScroll.supportBtn.hidden = YES;
+    cycleScroll.returnBtn.hidden = YES;
+    cycleScroll.sendBtn.hidden = YES;
     return headerView;
 }
 

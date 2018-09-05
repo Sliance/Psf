@@ -18,6 +18,8 @@
 @property(nonatomic,strong)UILabel *nameLabel;
 ///物品详情
 @property(nonatomic,strong)UILabel *contentLabel;
+///预售预定人数
+@property(nonatomic,strong)UILabel *presaleLabel;
 ///物品价格
 @property(nonatomic,strong)UILabel *priceLabel;
 ///物品重量
