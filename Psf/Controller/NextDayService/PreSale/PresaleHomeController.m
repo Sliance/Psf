@@ -17,6 +17,7 @@
 #import "GroupServiceApi.h"
 #import "HomeTableViewCell.h"
 #import "PresaleController.h"
+#import "PresaleSController.h"
 #import "CustomFootView.h"
 
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
