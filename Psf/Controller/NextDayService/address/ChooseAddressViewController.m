@@ -108,7 +108,8 @@
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]updateStoreAddresWithParam:req response:^(id response) {
         if([response[@"code"] integerValue]==200){
-            
+             NSString *address = model.storeName;
+             [ZSNotification postLocationResultNotification:@{@"address":address}];
             [weakself.navigationController popViewControllerAnimated:YES];
         }
     }];
@@ -200,9 +201,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
         StoreRes *model = _dataArr[indexPath.row];
-        NSString *address = model.storeName;
+       
         [self updateAddress:model];
-        [ZSNotification postLocationResultNotification:@{@"address":address}];
+       
     }
 }
 -(void)changeAddress:(ChangeAddressReq*)req{
