@@ -205,7 +205,9 @@
     if ([url.host isEqualToString:@"pay"]) {//微信支付
         [WXApi handleOpenURL:url delegate:self];
     }
-    
+    if (![url.host isEqualToString:@"pay"]) {//微信支付
+        [WXApi handleOpenURL:url delegate:self];
+    }
     return YES;
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -281,7 +283,7 @@
 //通过code获取access_token，openid，unionid
 - (void)getWeiXinOpenId:(NSString *)code{
     NSString *AppId = @"wx16b93fcfc9faba3c";
-    NSString *AppSerect = @"3e55d10c0ef98d2c32515293ee3cd2f5";
+    NSString *AppSerect = @"1a149ee1179985fd7bebb9a46b593158";
     NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",AppId,AppSerect,code];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

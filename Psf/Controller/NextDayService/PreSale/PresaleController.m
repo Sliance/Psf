@@ -30,7 +30,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT) style:UITableViewStylePlain];
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.separatorColor = [UIColor whiteColor];
         _tableview.delegate = self;

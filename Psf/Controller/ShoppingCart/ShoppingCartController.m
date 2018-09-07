@@ -399,7 +399,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
     }
     return CGSizeMake(SCREENWIDTH, 0);
 }
-
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+    return CGSizeMake(SCREENWIDTH, 70);
+}
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {

@@ -180,6 +180,9 @@ static NSString *cellId = @"cellId";
     
     return CGSizeMake(SCREENWIDTH, 200);
 }
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+    return CGSizeMake(SCREENWIDTH, 70);
+}
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     

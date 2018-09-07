@@ -200,10 +200,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [self.bottomView setType:1];
     }
     [self.bottomView setMemberId:model.memberId];
-     [self requestDetail];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+     [self requestDetail];
    
 }
 -(void)noticeOrder:(NSString*)saleId{
@@ -308,6 +309,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"取消订单成功！"];
+                [self requestDetail];
             }
         }
     }];
@@ -328,18 +330,18 @@ static NSString *cellIds = @"NextCollectionViewCell";
         if (response) {
             if ([response[@"code"] integerValue] ==200) {
                 if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
-                    self.tabBarController.selectedIndex = 1;
+                    weakself.tabBarController.selectedIndex = 1;
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
-                    [self.navigationController pushViewController:detailVC animated:YES];
+                    [weakself.navigationController pushViewController:detailVC animated:YES];
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
-                    [self.navigationController pushViewController:detailVC animated:YES];
+                    [weakself.navigationController pushViewController:detailVC animated:YES];
                 }
             }else{
-                [self showInfo:response[@"code"][@"message"]];
+                [weakself showInfo:response[@"code"][@"message"]];
             }
         }
     }];
