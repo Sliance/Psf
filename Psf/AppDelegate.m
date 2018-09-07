@@ -218,11 +218,11 @@
 {
     
     SendAuthResp *aresp = (SendAuthResp *)resp;
-//    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
-//    {
-//        NSString *code = aresp.code;
-//        [self getWeiXinOpenId:code];
-//    }
+    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
+    {
+        NSString *code = aresp.code;
+        [self getWeiXinOpenId:code];
+    }
     NSString * strMsg = [NSString stringWithFormat:@"errorCode: %d",resp.errCode];
     NSLog(@"strMsg: %@",strMsg);
     
