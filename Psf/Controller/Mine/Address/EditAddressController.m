@@ -95,7 +95,7 @@
     [self.footView setMorenBlock:^(BOOL selected) {
         weakself.changeReq.memberAddressIsDefault = selected;
     }];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard:)];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoard:)];
 //    [self.view addGestureRecognizer:tap];
     
 }

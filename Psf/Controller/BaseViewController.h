@@ -12,9 +12,9 @@
 #import "NavgationView.h"
 #import "UIViewController+Loading.h"
 
-typedef void (^LoginComplited) ();
-typedef void(^refreshListBlock)();
-typedef void(^scrollToTopBlcok)();
+typedef void (^LoginComplited) (void);
+typedef void(^refreshListBlock)(void);
+typedef void(^scrollToTopBlcok)(void);
 
 @interface BaseViewController : UIViewController<NavgationViewDelegate>
 @property (nonatomic, strong) LoginComplited loginComplitedBlock;

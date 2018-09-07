@@ -164,7 +164,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    __weak typeof(self)weakself = self;
+    
     [[ShopServiceApi share]getShopCartCountWithParam:req response:^(id response) {
         
     }];
@@ -445,7 +445,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
         validView.headImage.hidden = YES;
         [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
-        __weak typeof(self)weakSelf = self;
+        
         [validView setPressTypeBlock:^(NSInteger index) {
             
         }];

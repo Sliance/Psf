@@ -15,7 +15,7 @@
 #import "NextServiceApi.h"
 #import "PYSearchViewController.h"
 
-@interface SortViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,SortLeftScrollowDelegate>
+@interface SortViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,SortLeftScrollowDelegate,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)HomeLocationView *locView;
 @property(nonatomic,strong)SortLeftScrollow *sortLeftView;
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -259,7 +259,7 @@ static NSString *cellId = @"SortCollectionViewCell";
             req.cityName = @"上海市";
             req.pageIndex = 1;
             req.pageSize = @"10";
-            __weak typeof(self)weakself = self;
+            
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {
                 if (response) {
                     [searchSuggestionsM removeAllObjects];

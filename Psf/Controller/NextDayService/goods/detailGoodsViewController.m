@@ -38,6 +38,7 @@
 #import "ServiceViewController.h"
 #import "PresaleHomeController.h"
 #import "NextDayServiceController.h"
+#import "MineViewController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;

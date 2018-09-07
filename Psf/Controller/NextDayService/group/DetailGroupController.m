@@ -142,7 +142,7 @@ static NSString *cellId = @"cellId";
     }
     GroupHeadView* validView = [[GroupHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 412)];
     [validView setModel:self.result];
-    __weak typeof(self)weakSelf = self;
+   
     [validView setSubnitBtn:^(NSInteger index) {
 //        FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
 //        [weakSelf.navigationController pushViewController:sureVC animated:YES];

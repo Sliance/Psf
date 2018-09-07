@@ -65,6 +65,6 @@
 @property(nonatomic,assign)ORDERSTYPE ordertype;
 
 @property(nonatomic,strong)OrderDetailRes *model;
-@property(nonatomic,copy)void (^phoneBlock)();
+@property(nonatomic,copy)void (^phoneBlock)(void);
 
 @end

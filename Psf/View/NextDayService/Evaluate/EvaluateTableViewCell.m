@@ -127,8 +127,7 @@
 }
 +(CGFloat)getCellHeightWithData:(EvaluateListModel *)model{
     CGFloat height = 69;
-    CGFloat width =  [UIScreen mainScreen].bounds.size.width;
-    
+        
     if (model.saleOrderProductCommentContent.length>0) {
         CGFloat height1 = [model.saleOrderProductCommentContent heightForFont:[UIFont systemFontOfSize:15] width:SCREENWIDTH-30];
         height += height1 + 5;

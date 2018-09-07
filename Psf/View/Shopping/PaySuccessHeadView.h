@@ -15,7 +15,7 @@
 @property(nonatomic,strong)UIButton *homeBtn;
 @property(nonatomic,strong)UIButton *orderBtn;
 @property(nonatomic,strong)UILabel *titleLabel;
-@property(nonatomic,copy)void (^homeBlock)();
+@property(nonatomic,copy)void (^homeBlock)(void);
 
-@property(nonatomic,copy)void (^orderBlock)();
+@property(nonatomic,copy)void (^orderBlock)(void);
 @end

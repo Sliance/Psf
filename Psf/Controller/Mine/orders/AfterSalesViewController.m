@@ -208,18 +208,18 @@
         if (response) {
             if ([response[@"code"] integerValue] ==200) {
                 if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
-                    self.tabBarController.selectedIndex = 1;
+                    weakself.tabBarController.selectedIndex = 1;
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
-                    [self.navigationController pushViewController:detailVC animated:YES];
+                    [weakself.navigationController pushViewController:detailVC animated:YES];
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
-                    [self.navigationController pushViewController:detailVC animated:YES];
+                    [weakself.navigationController pushViewController:detailVC animated:YES];
                 }
             }else{
-                [self showInfo:response[@"code"][@"message"]];
+                [weakself showInfo:response[@"code"][@"message"]];
             }
         }
     }];

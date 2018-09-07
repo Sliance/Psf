@@ -23,5 +23,5 @@
 @property(nonatomic,strong)UIButton *wxBtn;
 @property(nonatomic,strong)UIButton *alipayBtn;
 @property(nonatomic,copy)void (^sureBlock)(NSString*);
-@property(nonatomic,copy)void (^closeBlock)();
+@property(nonatomic,copy)void (^closeBlock)(void);
 @end

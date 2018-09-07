@@ -103,7 +103,7 @@
     if (!_rightTBtn) {
         _rightTBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightTBtn setImage:[UIImage imageNamed:@"icon_right"] forState:UIControlStateNormal];
-        [_rightTBtn addTarget:self action:@selector(pressEditBtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [_rightTBtn addTarget:self action:@selector(pressEditBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightTBtn;
 }
@@ -111,7 +111,7 @@
     if (!_rightBBtn) {
         _rightBBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightBBtn setImage:[UIImage imageNamed:@"icon_right"] forState:UIControlStateNormal];
-        [_rightBBtn addTarget:self action:@selector(pressEditBtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [_rightBBtn addTarget:self action:@selector(pressEditBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightBBtn;
 }

@@ -13,8 +13,8 @@
 
 @property(nonatomic,strong)UIButton *addBtn;
 
-@property(nonatomic,copy)void(^pressAddBlock)();
-@property(nonatomic,copy)void(^serviceBlock)();
+@property(nonatomic,copy)void(^pressAddBlock)(void);
+@property(nonatomic,copy)void(^serviceBlock)(void);
 @property(nonatomic,assign)BOOL preSaleIsComplete;
 
 @end

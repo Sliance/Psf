@@ -134,7 +134,7 @@
     if (!_qqBtn) {
         _qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_qqBtn setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
-        [_qqBtn addTarget:self action:@selector(getAuthWithUserInfoFromQQ) forControlEvents:UIControlEventTouchUpInside];
+//        [_qqBtn addTarget:self action:@selector(getAuthWithUserInfoFromQQ) forControlEvents:UIControlEventTouchUpInside];
     }
     return _qqBtn;
 }
@@ -142,7 +142,7 @@
     if (!_weiboBtn) {
         _weiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_weiboBtn setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
-        [_weiboBtn addTarget:self action:@selector(getAuthWithUserInfoFromSina) forControlEvents:UIControlEventTouchUpInside];
+//        [_weiboBtn addTarget:self action:@selector(getAuthWithUserInfoFromSina) forControlEvents:UIControlEventTouchUpInside];
     }
     return _weiboBtn;
 }

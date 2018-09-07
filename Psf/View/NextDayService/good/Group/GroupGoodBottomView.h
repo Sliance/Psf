@@ -20,8 +20,8 @@
 @property(nonatomic,strong)UILabel *singleLabel;
 @property(nonatomic,strong)UILabel *groupLabel;
 
-@property(nonatomic,copy)void(^SingleBlock)();
-@property(nonatomic,copy)void(^GroupBlock)();
+@property(nonatomic,copy)void(^SingleBlock)(void);
+@property(nonatomic,copy)void(^GroupBlock)(void);
 @property(nonatomic,strong)GoodDetailRes *model;
 
 @end

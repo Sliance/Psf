@@ -20,7 +20,7 @@
 @property(nonatomic,strong)UIButton *submitBtn;
 
 @property(nonatomic,copy)void(^submitBlock)(NSInteger,NSInteger,NSInteger);
-@property(nonatomic,copy)void(^tapBlock)();
+@property(nonatomic,copy)void(^tapBlock)(void);
 @property(nonatomic,assign)NSInteger height;
 @property(nonatomic,assign)NSInteger count;
 @property(nonatomic,strong)GoodDetailRes *model;

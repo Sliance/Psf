@@ -89,7 +89,7 @@
     
     [self.contentTXT resignFirstResponder];
 }
--(void)setModel:(OrderListRes *)model{
+-(void)setModel:(OrderDetailRes *)model{
     _model = model;
     _dataArr = [NSMutableArray array];
     _reqArr = [NSMutableArray array];

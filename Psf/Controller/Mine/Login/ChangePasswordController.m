@@ -160,7 +160,7 @@
 //
 //            [weakself.navigationController popViewControllerAnimated:YES];
             SettingPassWordController *setVC = [[SettingPassWordController alloc]init];
-            [self.navigationController pushViewController:setVC animated:YES];
+            [weakself.navigationController pushViewController:setVC animated:YES];
         }
     }];
    

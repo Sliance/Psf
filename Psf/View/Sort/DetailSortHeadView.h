@@ -11,5 +11,5 @@
 @interface DetailSortHeadView : BaseView
 @property(nonatomic,strong)UIButton *searchBtn;
 @property(nonatomic,strong)UILabel *titleLabel;
-@property(nonatomic,copy)void(^searchBlock)();
+@property(nonatomic,copy)void(^searchBlock)(void);
 @end

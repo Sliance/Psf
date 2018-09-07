@@ -19,5 +19,5 @@
 @property(nonatomic,strong)UIImageView *codeimage;
 ///销售订单编号
 @property(nonatomic,copy)NSString *saleOrderId;
-@property(nonatomic,copy)void (^closeBlock)();
+@property(nonatomic,copy)void (^closeBlock)(void);
 @end

@@ -88,7 +88,7 @@
 }
 -(void)setCarmodel:(CartProductModel *)carmodel{
     _carmodel = carmodel;
-    self.orderReq.saleOrderId = carmodel.saleOrderId;
+    self.orderReq.saleOrderId = [carmodel.saleOrderId integerValue];
     self.orderReq.saleOrderProductId = carmodel.saleOrderProductId;
     self.orderReq.saleOrderRefundType = _type;
     self.orderReq.saleOrderRefundAmount = carmodel.productPrice;

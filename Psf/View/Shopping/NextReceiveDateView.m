@@ -191,7 +191,7 @@
         _leftBtn = sender;
     }
     
-    NSString *date = [NSString stringWithFormat:@"%@ %@",_leftBtn.titleLabel.text,_tmpBtn.titleLabel.text];
+//    NSString *date = [NSString stringWithFormat:@"%@ %@",_leftBtn.titleLabel.text,_tmpBtn.titleLabel.text];
     NSDate *now;
     NSString *start;
     NSString *end;

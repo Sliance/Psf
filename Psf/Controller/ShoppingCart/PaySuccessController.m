@@ -155,16 +155,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
     validView.priceLabel.text = [NSString stringWithFormat:@"实付：%@",self.result.saleOrderPayAmount];
         __weak typeof(self)weakSelf = self;
          [validView setHomeBlock:^{
-             for (UIViewController *controller in self.navigationController.viewControllers) {
+             for (UIViewController *controller in weakSelf.navigationController.viewControllers) {
                  if ([controller isKindOfClass:[ShoppingCartController class]]) {
-                     self.tabBarController.selectedIndex =0;
-                     [self.navigationController popToViewController:controller animated:YES];
+                     weakSelf.tabBarController.selectedIndex =0;
+                     [weakSelf.navigationController popToViewController:controller animated:YES];
                      
                  }else if ([controller isKindOfClass:[PresaleHomeController class]]){
-                     [self.navigationController popToViewController:controller animated:YES];
+                     [weakSelf.navigationController popToViewController:controller animated:YES];
                  }else if ([controller isKindOfClass:[MineViewController class]]||[controller isKindOfClass:[NextDayServiceController class]]){
-                     self.tabBarController.selectedIndex =0;
-                     [self.navigationController popToViewController:controller animated:YES];
+                     weakSelf.tabBarController.selectedIndex =0;
+                     [weakSelf.navigationController popToViewController:controller animated:YES];
                      
                  }
              }

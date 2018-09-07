@@ -16,6 +16,6 @@
 @property(nonatomic,strong)NSArray *dataArr;
 
 @property(nonatomic,copy)void (^selectedBlock)(NSInteger,NSString*);
-@property(nonatomic,copy)void (^yinBlock)();
+@property(nonatomic,copy)void (^yinBlock)(void);
 
 @end

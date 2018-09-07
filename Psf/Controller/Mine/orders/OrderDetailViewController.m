@@ -142,6 +142,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     [self.bottomView setEvaBlock:^(OrderDetailRes * model) {
         FillEvaluateController *fillVC = [[FillEvaluateController alloc]init];
+        
         [fillVC setModel:model];
         [weakself.navigationController pushViewController:fillVC animated:YES];
     }];
@@ -618,10 +619,19 @@ static NSString *cellIds = @"NextCollectionViewCell";
     }];
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    detailGoodsViewController *vc = [detailGoodsViewController new];
-    StairCategoryListRes *model = _likeArr[indexPath.row];
-    [vc setProductID:model.productId];
-    [self.navigationController showViewController:vc sender:nil];
+    if (indexPath.section ==0) {
+        detailGoodsViewController *vc = [detailGoodsViewController new];
+        CartProductModel *ordermodel =  self.result.saleOrderProductList[indexPath.row];
+        [vc setProductID:ordermodel.productId];
+        [self.navigationController showViewController:vc sender:nil];
+        
+    }else if (indexPath.section ==1){
+        detailGoodsViewController *vc = [detailGoodsViewController new];
+        StairCategoryListRes *model = _likeArr[indexPath.row];
+        [vc setProductID:model.productId];
+        [self.navigationController showViewController:vc sender:nil];
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

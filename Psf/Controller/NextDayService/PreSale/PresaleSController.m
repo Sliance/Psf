@@ -21,6 +21,7 @@
 
 @end
 static NSString *cellId = @"cellId";
+
 @implementation PresaleSController
 
 -(UICollectionView *)collectionView{

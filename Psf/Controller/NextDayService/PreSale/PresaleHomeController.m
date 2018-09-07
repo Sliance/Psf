@@ -172,7 +172,7 @@ self.navigationController.navigationBar.hidden = NO;
     
     GroupBannerModel *model = _dataArr[indexPath.row];
     [cell setModel:model];
-    __weak typeof(self)weakSelf = self;
+  
 
     return cell;
 }
@@ -251,7 +251,7 @@ self.navigationController.navigationBar.hidden = NO;
             req.cityName = @"上海市";
             req.pageIndex = 1;
             req.pageSize = @"10";
-            __weak typeof(self)weakself = self;
+           
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {
                 if (response) {
                     [searchSuggestionsM removeAllObjects];

@@ -23,9 +23,7 @@
 
 #define kCurrentCityInfoDefaults [NSUserDefaults standardUserDefaults]
 #define KCURRENTCITYINFODEFAULTS [NSUserDefaults standardUserDefaults]
-static CGFloat const segmentViewHeight = 40.0;
-static CGFloat const naviBarHeight = 64.0;
-static CGFloat const headViewHeight = 240.0;
+
 
 NSString *const ZJParentTableViewDidLeaveFromTopNotification = @"ZJParentTableViewDidLeaveFromTopNotification";
 
@@ -228,7 +226,7 @@ static NSString * const cellID = @"cellID";
             req.cityName = @"上海市";
             req.pageIndex = 1;
             req.pageSize = @"10";
-            __weak typeof(self)weakself = self;
+            
             [[NextServiceApi share]SearchHintListWithParam:req response:^(id response) {
                 if (response) {
                     [searchSuggestionsM removeAllObjects];
