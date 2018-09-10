@@ -314,7 +314,6 @@
     [tap addTarget:self action:@selector(pressTap)];
     [self.view addGestureRecognizer:tap];
    
-  
     [ZSNotification addWeixinLoginResultNotification:self action:@selector(weChartLgin:)];
 }
 
