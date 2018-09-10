@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -86,7 +86,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>犁小农 需要您的同意才能使用拍照功能</string>
+	<string>“犁小农”想访问您的相机，为了帮您扫描二维码和互动等功能</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>使用定位获取附近门店，为您提供更精准的服务</string>
 	<key>NSLocationAlwaysUsageDescription</key>
