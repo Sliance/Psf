@@ -69,4 +69,7 @@
 @property(nonatomic,copy)NSString*subjectId;
 
 @property(nonatomic,copy)NSString*updateType;
+///充值规则编号
+@property(nonatomic,copy)NSString *memberRechargeRuleId;
+@property(nonatomic,assign)NSInteger erpProductId;
 @end

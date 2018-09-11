@@ -19,7 +19,7 @@
 #import "PresaleController.h"
 #import "PresaleSController.h"
 #import "CustomFootView.h"
-
+#import "NextDayListController.h"
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
@@ -113,17 +113,18 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
    
-     [self adjustNavigationUI:self.navigationController];
-    [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
+//     [self adjustNavigationUI:self.navigationController];
+    [self setLeftButtonWithIcon:[UIImage imageNamed:@"11"]];
     [self getBanner:@"index"];
     
     self.navigationController.navigationBar.hidden = YES;
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self adjustNavigationUI:self.navigationController];
+//
+//    [self adjustNavigationUI:self.navigationController];
    
-self.navigationController.navigationBar.hidden = NO;
+  self.navigationController.navigationBar.hidden = NO;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -181,6 +182,10 @@ self.navigationController.navigationBar.hidden = NO;
         PresaleSController *detailVC = [[PresaleSController alloc]init];
         detailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:detailVC animated:YES];
+    }else if (indexPath.row ==1){
+        NextDayListController *nextVC= [[NextDayListController alloc]init];
+        nextVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         [self showInfo:@"正在开发中，敬请期待"];
         

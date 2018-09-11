@@ -416,6 +416,9 @@
     _productID = productID;
     
 }
+-(void)setErpProductId:(NSInteger)erpProductId{
+    _erpProductId = erpProductId;
+}
 -(void)reloadGoodDetail{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -435,6 +438,7 @@
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
+    req.erpProductId = _erpProductId;
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if(response != nil){

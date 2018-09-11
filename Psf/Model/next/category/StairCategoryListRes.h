@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface StairCategoryListRes : NSObject
+@property(nonatomic,assign)NSInteger erpProductId;
 ///
 @property(nonatomic,assign)NSInteger productId;
 ///图片

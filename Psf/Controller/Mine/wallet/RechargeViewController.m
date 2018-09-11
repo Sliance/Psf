@@ -12,6 +12,8 @@
 #import "PayTypeView.h"
 #import "MineServiceApi.h"
 #import "MineViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+
 
 @interface RechargeViewController ()<UIScrollViewDelegate>
 
@@ -20,6 +22,8 @@
 @property(nonatomic,strong)BottomView *bottomView;
 @property(nonatomic,strong)PayTypeView *payView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)RechargeRuleModel *rulemodel;
+@property(nonatomic,assign)BOOL selected;
 
 @end
 
@@ -72,24 +76,58 @@
     [self.bgscrollow addSubview:self.headView];
     [self.bgscrollow addSubview:self.payView];
     [self.view addSubview:self.bottomView];
-   
+    __weak typeof(self)weakself = self;
     [self.headView setChooseBlock:^(NSInteger index) {
-        
+        weakself.rulemodel = weakself.dataArr[index];
     }];
-    [self.payView setChooseBlock:^(NSInteger index) {
-        
+    [self.payView setChooseBlock:^(BOOL index) {
+        weakself.selected = index;
     }];
     _dataArr = [NSMutableArray array];
-   
+    _rulemodel = [[RechargeRuleModel alloc]init];
+    _selected = YES;
     [self requestData];
+    [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
+    [ZSNotification addAlipayPayResultNotification:self action:@selector(AlipayPay:)];
+}
+
+#pragma mark-支付回调通知
+
+-(void)weixinPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"weixinpay"] isEqualToString:@"success"]) {
+        [self showInfo:@"支付成功"];
+    }
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
+}
+-(void)AlipayPay:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    
+    [self showInfo:[userInfo objectForKey:@"strMsg"]];
 }
 -(void)pressBottom{
-    for (UIViewController *controller in self.navigationController.viewControllers) {
-        if ([controller isKindOfClass:[MineViewController class]]) {
-            self.tabBarController.selectedIndex =1;
-            [self.navigationController popToViewController:controller animated:YES];
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    req.memberRechargeRuleId = _rulemodel.memberRechargeRuleId;
+    [[MineServiceApi share]topUpWithParam:req response:^(id response) {
+        if ([response isKindOfClass:[OrderPayRes class]]) {
+            OrderPayRes *model = response;
+            NSString *appScheme = @"LxnScheme";
+            [[AlipaySDK defaultService] payOrder:model.body fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                NSLog(@"reslut = %@",resultDic);
+            }];
+        }else{
+            [weakself showToast:response[@"message"]];
         }
-    }
+    }];
 }
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -111,6 +149,7 @@
     }];
 }
 -(void)reloadData{
+    self.rulemodel = [self.dataArr firstObject];
     [self.headView setDataArr:self.dataArr];
     self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, (self.dataArr.count+1)/2*105+25);
     self.payView.frame = CGRectMake(0, self.headView.ctBottom+10, SCREENWIDTH, 45);

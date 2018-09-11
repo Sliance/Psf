@@ -15,6 +15,7 @@
 @property(nonatomic,copy)NSString *grouponExpireTime;
 ///商品编号
 @property(nonatomic,assign)NSInteger productId;
+@property(nonatomic,assign)NSInteger erpProductId;
 ///商品名称
 @property(nonatomic,copy)NSString *productName;
 ///商品标题

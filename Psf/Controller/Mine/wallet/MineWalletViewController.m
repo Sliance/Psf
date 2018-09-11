@@ -91,7 +91,7 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 122;
@@ -102,15 +102,17 @@
     if (!cell) {
         cell = [[MineWalletCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-//    if (indexPath.row ==0) {
-//        if (self.resultDic[@"memberBalance"]) {
-//            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
-//        }
-//    }else
-        if (indexPath.row ==0) {
+    if (indexPath.row ==0) {
+        if (self.resultDic[@"memberBalance"]) {
+            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
+        }
+    }else if (indexPath.row ==1) {
         cell.titleLabel.text = @"积分";
         cell.contentLabel.text = @"满额积分自动抵扣现金";
-        cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
+        if (self.resultDic[@"memberPoint"]) {
+             cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
+        }
+       
         cell.rechargeBtn.hidden = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

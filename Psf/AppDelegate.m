@@ -171,6 +171,12 @@
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
+    if ([url.host isEqualToString:@"pay"]) {//微信支付
+        [WXApi handleOpenURL:url delegate:self];
+    }
+    if (![url.host isEqualToString:@"pay"]&&![url.host isEqualToString:@"safepay"]) {//微信登录
+        [WXApi handleOpenURL:url delegate:self];
+    }
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -202,12 +208,7 @@
         }];
     }
     
-    if ([url.host isEqualToString:@"pay"]) {//微信支付
-        [WXApi handleOpenURL:url delegate:self];
-    }
-    if (![url.host isEqualToString:@"pay"]) {//微信支付
-        [WXApi handleOpenURL:url delegate:self];
-    }
+    
     return YES;
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

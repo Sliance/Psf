@@ -37,7 +37,7 @@
 -(UIButton *)imageLabel{
     if (!_imageLabel) {
         _imageLabel = [[UIButton alloc]init];
-        [_imageLabel setImage:[UIImage imageNamed:@"wechat_icon"] forState:UIControlStateNormal];
+        [_imageLabel setImage:[UIImage imageNamed:@"aiplay"] forState:UIControlStateNormal];
     }
     return _imageLabel;
 }
@@ -47,7 +47,7 @@
         _typeLabel.font = [UIFont systemFontOfSize:15];
         _typeLabel.textColor = DSColorFromHex(0x474747);
         _typeLabel.textAlignment = NSTextAlignmentLeft;
-        _typeLabel.text = @"微信支付";
+        _typeLabel.text = @"支付宝支付";
     }
     return _typeLabel;
 }
@@ -57,6 +57,7 @@
         [_chooseBtn setImage:[UIImage imageNamed:@"shopping_normal"] forState:UIControlStateNormal];
         [_chooseBtn setImage:[UIImage imageNamed:@"shopping_selected"] forState:UIControlStateSelected];
         [_chooseBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _chooseBtn.selected = YES;
     }
     return _chooseBtn;
 }

@@ -23,6 +23,15 @@
         [btn addTarget:self action:@selector(pressChoose:) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(20+i%2*(SCREENWIDTH/2-25/2), i/2*105+20,SCREENWIDTH/2-55/2, 90);
         [self addSubview:btn];
+        if (i ==0) {
+            btn.selected =YES;
+            _tmpBtn = btn;
+            [btn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            btn.numLabel.textColor = DSColorFromHex(0xFF4C4D);
+            btn.detailLabel.textColor = DSColorFromHex(0xFF4C4D);
+            btn.backgroundColor = DSColorFromHex(0xFAEFEC);
+        }
+        btn.tag =i;
         RechargeRuleModel *model = dataArr[i];
         btn.numLabel.text = [NSString stringWithFormat:@"充值%@元",model.rechargeMoney];
         btn.detailLabel.text = [NSString stringWithFormat:@"送%@余额",model.backMoney];

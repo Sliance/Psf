@@ -1,27 +1,23 @@
 //
-//  PresaleSController.m
+//  NextDayListController.m
 //  Psf
 //
-//  Created by 燕来秋mac9 on 2018/9/5.
+//  Created by 燕来秋mac9 on 2018/9/11.
 //  Copyright © 2018年 zhangshu. All rights reserved.
 //
 
-#import "PresaleSController.h"
-#import "ZSCycleScrollView.h"
+#import "NextDayListController.h"
 #import "NextCollectionViewCell.h"
 #import "detailGoodsViewController.h"
-#import "GroupServiceApi.h"
-@interface PresaleSController ()<ZSCycleScrollViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
+#import "NextServiceApi.h"
+@interface NextDayListController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
-@property(nonatomic,strong)NSMutableArray *imageArr;
+
 @property(nonatomic,assign)NSInteger pageIndex;
-
 @end
-
 static NSString *cellId = @"cellId";
-
-@implementation PresaleSController
+@implementation NextDayListController
 
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
@@ -40,20 +36,21 @@ static NSString *cellId = @"cellId";
     [super viewDidLoad];
     
     [self.view addSubview:self.collectionView];
-   
+    
     self.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     self.view.backgroundColor = [UIColor whiteColor];
     _dataArr = [NSMutableArray array];
-    self.imageArr = [NSMutableArray array];
+    
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     self.pageIndex = 1;
     [self getPresaleList];
+    
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        [self setTitle:@"预售商品"];
+        [self setTitle:@"次日达"];
     }
     return self;
 }
@@ -87,7 +84,7 @@ static NSString *cellId = @"cellId";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
-    [[GroupServiceApi share]getPresaleListWithParam:req response:^(id response) {
+    [[NextServiceApi share]nextDayWithParam:req response:^(id response) {
         if (response!= nil) {
             
             if (self.pageIndex ==1) {
@@ -103,44 +100,18 @@ static NSString *cellId = @"cellId";
             
             if ([response count] < 10) {
                 [weakself.collectionView.mj_footer removeFromSuperview];
-               
+                
             }
             else{
                 weakself.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakself refreshingAction:@selector(footerRefreshing)];
             }
-            [weakself getBanner:@"preSale"];
+           
             [weakself.collectionView reloadData];
         }
     }];
 }
 
--(void)getBanner:(NSString*)type{
-    GroupModelReq *req = [[GroupModelReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"1.0.0";
-    req.platform = @"ios";
-    req.cityName = @"上海市";
-    req.productBannerPosition = type;
-    __weak typeof(self)weakself = self;
-    [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
-        if (response!= nil) {
-            
-            
-            [weakself.imageArr removeAllObjects];
-            
-            for (GroupBannerModel*model in response) {
-                if (model.productBannerImagePath) {
-                    [weakself.imageArr addObject:model.productBannerImagePath];
-                }
-            }
-            
-            [weakself.collectionView reloadData];
-            
-        }
-    }];
-}
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
     return 1;
@@ -179,14 +150,14 @@ static NSString *cellId = @"cellId";
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     
-        GroupListRes *model = self.dataArr[indexPath.row];
-        [cell setGroupmodel:model];
+    StairCategoryListRes *model = self.dataArr[indexPath.row];
+    [cell setModel:model];
     
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(SCREENWIDTH, 200);
+    return CGSizeMake(SCREENWIDTH, 0);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     return CGSizeMake(SCREENWIDTH, 70);
@@ -202,29 +173,16 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
-    ZSCycleScrollView *cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREENWIDTH, 200)];
-    cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
-    cycleScroll.delegate =self;
-    [cycleScroll setIndex:1];
-    
-    cycleScroll.autoScrollTimeInterval = 3.0;
-    cycleScroll.dotColor = [UIColor redColor];
-    [headerView addSubview:cycleScroll];
-    [cycleScroll setImageUrlGroups:self.imageArr];
-    [cycleScroll setDataArr:nil];
-    [cycleScroll setCollectionHeight:0];
-    cycleScroll.supportBtn.hidden = YES;
-    cycleScroll.returnBtn.hidden = YES;
-    cycleScroll.sendBtn.hidden = YES;
+   
     return headerView;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
     
-        GroupListRes *model = self.dataArr[indexPath.row];
+    StairCategoryListRes *model = self.dataArr[indexPath.row];
     [vc setErpProductId:model.erpProductId];
-        [vc setProductID:model.productId];
+    [vc setProductID:model.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

@@ -15,6 +15,7 @@
 #import "SubjectModel.h"
 #import "FillEvaluateReq.h"
 
+
 @interface NextServiceApi : BaseApi
 + (instancetype)share;
 ///商品分类列表,包含一二级分类
@@ -45,4 +46,9 @@
 - (void)getCategoryListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///企业合作
 - (void)businessCooperationWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
+///次日达列表
+- (void)nextDayWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
+
 @end

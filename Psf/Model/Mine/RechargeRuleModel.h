@@ -11,7 +11,7 @@
 @interface RechargeRuleModel : NSObject
 ///
 @property(nonatomic,copy)NSString *backMoney;
-///
+///充值规则编号
 @property(nonatomic,copy)NSString *memberRechargeRuleId;
 ///
 @property(nonatomic,copy)NSString *memberRechargeRuleIsOpen;

@@ -12,6 +12,7 @@
 #import "IntegralRecord.h"
 #import "RechargeRuleModel.h"
 #import "FeetbackReq.h"
+#import "OrderPayRes.h"
 
 
 @interface MineServiceApi : BaseApi
@@ -30,5 +31,8 @@
 - (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///意见反馈
 - (void)feedBackWithParam:(FeetbackReq *) req response:(responseModel) responseModel;
+///支付宝充值
+- (void)topUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 
 @end

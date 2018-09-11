@@ -280,6 +280,7 @@
 		888630AE212BA25700B89080 /* CreatQRCodeAndBarCodeFromLeon.m in Sources */ = {isa = PBXBuildFile; fileRef = 888630AD212BA25600B89080 /* CreatQRCodeAndBarCodeFromLeon.m */; };
 		888630B0212BCCC200B89080 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888630AF212BCCC200B89080 /* AVFoundation.framework */; };
 		888630B4212BE3D900B89080 /* ScanQrCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888630B3212BE3D900B89080 /* ScanQrCodeController.m */; };
+		888AC07F214771590030BC12 /* NextDayListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC07E214771590030BC12 /* NextDayListController.m */; };
 		888AC7E720FC43BD00587F88 /* GroupGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */; };
 		888AC7EA20FC43D800587F88 /* PresaleGoodBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7E920FC43D800587F88 /* PresaleGoodBottomView.m */; };
 		888AC7ED20FC7A2700587F88 /* DetailSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 888AC7EC20FC7A2700587F88 /* DetailSortHeadView.m */; };
@@ -914,6 +915,8 @@
 		888630AF212BCCC200B89080 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		888630B2212BE3D900B89080 /* ScanQrCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanQrCodeController.h; sourceTree = "<group>"; };
 		888630B3212BE3D900B89080 /* ScanQrCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanQrCodeController.m; sourceTree = "<group>"; };
+		888AC07D214771590030BC12 /* NextDayListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextDayListController.h; sourceTree = "<group>"; };
+		888AC07E214771590030BC12 /* NextDayListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextDayListController.m; sourceTree = "<group>"; };
 		888AC7E520FC43BD00587F88 /* GroupGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupGoodBottomView.h; sourceTree = "<group>"; };
 		888AC7E620FC43BD00587F88 /* GroupGoodBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupGoodBottomView.m; sourceTree = "<group>"; };
 		888AC7E820FC43D800587F88 /* PresaleGoodBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleGoodBottomView.h; sourceTree = "<group>"; };
@@ -2669,6 +2672,8 @@
 				887706D12122D9DE00CD7697 /* PresaleHomeController.m */,
 				8891C838213FAFE400537062 /* PresaleSController.h */,
 				8891C839213FAFE400537062 /* PresaleSController.m */,
+				888AC07D214771590030BC12 /* NextDayListController.h */,
+				888AC07E214771590030BC12 /* NextDayListController.m */,
 			);
 			path = PreSale;
 			sourceTree = "<group>";
@@ -3174,6 +3179,7 @@
 				8871B84920DB419A00DAA5D6 /* NSArray+TYAFNetworking.m in Sources */,
 				8860DA7B20DA562A009E53B0 /* MineTypeBtn.m in Sources */,
 				88636D0520E1E2AD006CE5D8 /* ChooseAddressTableViewCell.m in Sources */,
+				888AC07F214771590030BC12 /* NextDayListController.m in Sources */,
 				88566E502112C35400B6C38D /* UIView+Layout.m in Sources */,
 				88566E8F211460C400B6C38D /* SpellGroupListController.m in Sources */,
 				88636D1720E21958006CE5D8 /* HeadimageTableViewCell.m in Sources */,
