@@ -123,7 +123,7 @@
     }];
     [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-15);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
+        make.top.equalTo(self.shareBtn.mas_bottom).offset(10);
         
     }];
     [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -341,7 +341,7 @@
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
     
-    
+    _nameLabel.text = model.productName;
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
         _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
@@ -390,8 +390,12 @@
         }
     }else if ([model.productType isEqualToString:@"reward"]){//满减
        [self setCornerLayoutNormal];
+    }else if ([model.productType isEqualToString:@"nextDay"]){
+        [self setCornerLayoutNormal];
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        _nameLabel.text = [NSString stringWithFormat:@"[次日达]%@",model.productName];
     }
-    _nameLabel.text = model.productName;
+    
     _contentLabel.text = model.productTitle;
     _weightLabel.text = model.productUnit;
     _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];

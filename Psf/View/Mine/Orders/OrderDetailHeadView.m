@@ -183,25 +183,26 @@
     if (goodtype == CLAIMGOODSTYPEVISIT) {
             self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 40);
        [self setCornerLayout];
-        [self setdate];
+       
         self.typeLabel.text = @"次日达";
+        self.dateLabel.hidden = NO;
     }else if(goodtype == CLAIMGOODSTYPEONESELF){
         self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 0);
         [self setCornerLayout];
         self.typeLabel.text = @"门店自提";
-        self.dateLabel.text = @"";
+        self.dateLabel.hidden = YES;
         
     }else{
         
     }
 }
--(void)setdate{
+-(void)setDate:(NSString *)date{
     NSDate *now = [[[NSDate alloc]init] dateByAddingDays:1];
     NSInteger nowmonth = [now month];
     NSInteger nowday = [now  day];
     NSInteger nowweek = [now weekday];
     NSString* nowweekstr = [self changeWeek:nowweek];
-    NSString *nowstr = [NSString stringWithFormat:@"%ld月%ld日|%@ 09:00-12:00",nowmonth,nowday,nowweekstr];
+    NSString *nowstr = [NSString stringWithFormat:@"%ld月%ld日|%@ %@",nowmonth,nowday,nowweekstr,date];
     self.dateLabel.text = nowstr;
 }
 -(NSString *)changeWeek:(NSInteger)date{

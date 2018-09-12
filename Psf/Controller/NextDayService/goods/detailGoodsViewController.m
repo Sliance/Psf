@@ -135,7 +135,7 @@
     if (!_couponView) {
         _couponView = [[GetCouponsView alloc]init];
         _couponView.hidden = YES;
-         _couponView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
+         _couponView.frame = CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
         _couponView.delegate = self;
     }
     return _couponView;
@@ -249,6 +249,7 @@
     }];
     [self.couponCell setPressCoupBlock:^(NSInteger index) {
         _weakSelf.couponView.hidden = NO;
+        [_weakSelf requestCoupon];
     }];
     [self.tourDiyView setPressGoBlock:^(NSInteger index) {
         
@@ -268,6 +269,8 @@
             
             if (_weakSelf.result.productSkuList.count>1) {
                 _weakSelf.presaleBuyView.hidden = NO;
+                [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
+                [_weakSelf.presaleBuyView setType:1];
             }else{
                 ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
                 [_weakSelf addShopCount:model];
@@ -293,7 +296,7 @@
         for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
             if ([controller isKindOfClass:[ShoppingCartController class]]) {
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
-            }else if ([controller isKindOfClass:[NextDayServiceController class]]){
+            }else if ([controller isKindOfClass:[PresaleHomeController class]]){
                 _weakSelf.tabBarController.selectedIndex = 1;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
@@ -307,6 +310,13 @@
     }];
     [self.preBView setPressAddBlock:^{
         _weakSelf.presaleBuyView.hidden = NO;
+        [_weakSelf.presaleBuyView.submitBtn setTitle:@"马上购买" forState:UIControlStateNormal];
+        [_weakSelf.presaleBuyView setType:0];
+    }];
+    [self.preBView setPressshopBlock:^{
+        _weakSelf.presaleBuyView.hidden = NO;
+        [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
+         [_weakSelf.presaleBuyView setType:1];
     }];
     [self.groupBView setSingleBlock:^{
         [_weakSelf.groupBuyView setType:1];
@@ -550,7 +560,11 @@
     req.productQuantity = 1;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
-        [weakself getShopCount:1];
+       
+        if (response!= nil) {
+            [weakself showInfo:response[@"message"]];
+        }
+         [weakself getShopCount:1];
     }];
 }
 -(void)getShopCount:(NSInteger)index{
@@ -620,14 +634,14 @@
     [self.webView loadHTMLString:html_str baseURL:nil];
     
     if([self.result.productType isEqualToString:@"normal"]){//正常
-       
         [self requestCoupon];
-         [self.view addSubview:self.normalBView];
+        [self.view addSubview:self.normalBView];
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
             [self.presaleBuyView setModel:self.result];
             [self.view addSubview:self.presaleBuyView];
         }
+        
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
         if (self.groupArr.count ==0) {
             _tourHeight = 0;
@@ -653,7 +667,15 @@
         [self.footView setPruductId:self.productID];
          [self reloadHeight];
       [self.view addSubview:self.presaleBuyView];
-    }else {//满减
+    }else if([self.result.productType isEqualToString:@"nextDay"]){//次日达
+        [self requestCoupon];
+        [self.view addSubview:self.normalBView];
+        if (self.result.productSkuList.count>1) {
+            [self.presaleBuyView setType:1];
+            [self.presaleBuyView setModel:self.result];
+            [self.view addSubview:self.presaleBuyView];
+        }
+    }else{//满减
          [self requestCoupon];
          [self.view addSubview:self.normalBView];
         if (self.result.productSkuList.count>1) {

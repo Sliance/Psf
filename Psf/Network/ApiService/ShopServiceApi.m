@@ -165,13 +165,13 @@
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
                 
-                ShoppingListRes *result = [ShoppingListRes mj_objectWithKeyValues:dicResponse[@"data"]];
+              
                 if (responseModel) {
-                    responseModel(result);
+                    responseModel(dicResponse);
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {

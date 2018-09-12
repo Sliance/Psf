@@ -32,6 +32,7 @@
 
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *timeArr;
 @property(nonatomic,strong)NSMutableArray *couponArr;
 @property(nonatomic,strong)OrderDetailHeadView *headView;
 @property(nonatomic,strong)FillOrderBottomView *bottomView;
@@ -98,6 +99,7 @@
         [self setTitle:@"填写订单"];
         _dataArr = [NSMutableArray array];
         _couponArr = [NSMutableArray array];
+        _timeArr = [NSMutableArray array];
         _calculateModel = [[CalculateReq alloc]init];
         _calculateModel.useIsWeChart = YES;
     }
@@ -161,6 +163,7 @@
     [self.headView setDateBlock:^(NSInteger index) {
         if (weakSelf.type ==1) {
             weakSelf.dateView.hidden = NO;
+            
         }
     }];
     [self.dateView setCancleBlock:^(NSString* date,NSString *start,NSString* end) {
@@ -204,31 +207,31 @@
 }
 -(void)setGoodstype:(GOOGSTYPE )goodstype{
     _goodstype = goodstype;
-    if (_goodstype ==GOOGSTYPEPresale) {
-        self.type = 2;
-        self.calculateModel.expressEnable = NO;
-        self.calculateModel.usePointIs = YES;
-        self.calculateModel.useIsBalance = YES;
-        [self calculatePrice:self.calculateModel];
-        [self.headView setGoodtype:CLAIMGOODSTYPEONESELF];
-        [self.headView setStoremodel:self.storemodel];
-        self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
-    self.tableview.tableHeaderView = self.headView;
-        if (@available(iOS 11.0, *)) {
-            _tableview.contentInsetAdjustmentBehavior = NO;
-            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
-        } else {
-            self.navigationController.navigationBar.translucent = NO;
-            self.automaticallyAdjustsScrollViewInsets = NO;
-            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
-        }
-    }else{
+//    if (_goodstype ==GOOGSTYPEPresale) {
+//        self.type = 2;
+//        self.calculateModel.expressEnable = NO;
+//        self.calculateModel.usePointIs = YES;
+//        self.calculateModel.useIsBalance = YES;
+//        [self calculatePrice:self.calculateModel];
+//        [self.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+//        [self.headView setStoremodel:self.storemodel];
+//        self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
+//    self.tableview.tableHeaderView = self.headView;
+//        if (@available(iOS 11.0, *)) {
+//            _tableview.contentInsetAdjustmentBehavior = NO;
+//            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
+//        } else {
+//            self.navigationController.navigationBar.translucent = NO;
+//            self.automaticallyAdjustsScrollViewInsets = NO;
+//            self.tableview.frame =  CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
+//        }
+//    }else{
         self.typeView.frame = CGRectMake(0,[self navHeightWithHeight], SCREENWIDTH, 46);
         self.typeView.hidden = NO;
         [self.view addSubview:self.typeView];
         self.tableview.frame = CGRectMake(0,46+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-46-[self navHeightWithHeight]);
         
-    }
+//    }
     
 }
 -(void)setNavStr:(NSString *)navStr{
@@ -270,6 +273,33 @@
     
 }
 #pragma mark----网络请求
+
+-(void)getDeliveryTime{
+    RefundOrderReq *req = [[RefundOrderReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]getDeliveryTimeWithParam:req response:^(id response) {
+        if ([response[@"code"]integerValue] ==200) {
+            [weakself.timeArr removeAllObjects];
+            [weakself.timeArr addObjectsFromArray:response[@"data"]];
+            NSString *time = [weakself.timeArr firstObject];
+            NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+            NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
+            NSArray *arr = [time componentsSeparatedByString:@"-"];
+            NSString *end = [NSString stringWithFormat:@"%@ %@",next,arr[1]];
+            next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+            weakself.calculateModel.couponId = @"";
+            weakself.calculateModel.saleOrderDistributionStartTime = next;
+            weakself.calculateModel.saleOrderDistributionEndTime = end ;
+            [weakself calculatePrice:weakself.calculateModel];
+            [self.dateView setDatearr:weakself.timeArr];
+            [self.headView setDate:time];
+        }
+    }];
+}
 -(void)reloadLeftAddress{
     AddressBaeReq *req = [[AddressBaeReq alloc]init];
     req.appId = @"993335466657415169";
@@ -380,28 +410,23 @@
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]pickUpSingleDefaultAddresWithParam:req response:^(id response) {
-        if (response) {
-            weakself.storemodel = response;
-            if (weakself.goodstype ==GOOGSTYPEPresale) {
-                self.type =2;
-                self.calculateModel.expressEnable = NO;
-                [self calculatePrice:self.calculateModel];
-                [self.headView setGoodtype:CLAIMGOODSTYPEONESELF];
-                [self.headView setStoremodel:self.storemodel];
-            }
-        }
         weakself.calculateModel.usePointIs = YES;
         weakself.calculateModel.productList = weakself.productArr;
         weakself.calculateModel.useIsBalance = YES;
         weakself.calculateModel.expressEnable = YES;
-        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
-        NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
-        NSString *end = [NSString stringWithFormat:@"%@ 12:00:00",next];
-        next = [NSString stringWithFormat:@"%@ 09:00:00",next];
-        weakself.calculateModel.couponId = @"";
-        weakself.calculateModel.saleOrderDistributionStartTime = next;
-        weakself.calculateModel.saleOrderDistributionEndTime = end ;
-        [weakself calculatePrice:weakself.calculateModel];
+        if (response) {
+            weakself.storemodel = response;
+//            if (weakself.goodstype ==GOOGSTYPEPresale) {
+//                weakself.type =2;
+//                weakself.calculateModel.expressEnable = NO;
+//                
+//                [weakself.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+//                [weakself.headView setStoremodel:self.storemodel];
+//            }
+        }
+       
+        [self getDeliveryTime];
+        
     }];
 }
 -(void)placeOrder{

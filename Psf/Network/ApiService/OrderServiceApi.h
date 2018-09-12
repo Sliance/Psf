@@ -46,6 +46,7 @@
 
 ///退款(测试专用)
 - (void)ceshirefundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
-
+///获取配送时间
+-(void)getDeliveryTimeWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 
 @end

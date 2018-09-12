@@ -18,6 +18,7 @@
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)UIButton *detailBtn;
 @property(nonatomic,strong)NSMutableDictionary *resultDic;
+@property(nonatomic,assign)NSInteger isOpen;
 @end
 
 @implementation MineWalletViewController
@@ -62,9 +63,27 @@
     self.tableview.tableFooterView = self.detailBtn;
      [self.view addSubview:self.tableview];
     self.resultDic = [NSMutableDictionary dictionary];
-    [self requestData];
+    [self topUp];
 }
-
+-(void)topUp{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]openTopUpWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] ==200) {
+            weakself.isOpen = [response[@"data"][@"businessParamValue"] integerValue];
+            
+        }
+         [weakself.tableview reloadData];
+         [self requestData];
+    }];
+}
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -91,6 +110,9 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (_isOpen ==0) {
+        return 1;
+    }
     return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -102,20 +124,38 @@
     if (!cell) {
         cell = [[MineWalletCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
-    if (indexPath.row ==0) {
-        if (self.resultDic[@"memberBalance"]) {
-            cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
+    if (_isOpen ==1) {
+        if (indexPath.row ==0) {
+            if (self.resultDic[@"memberBalance"]) {
+                cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.resultDic[@"memberBalance"]];
+            }
+            cell.titleLabel.text = @"余额";
+            cell.contentLabel.text = @"我的可用余额";
+            cell.rechargeBtn.hidden = NO;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }else if (indexPath.row ==1) {
+            cell.titleLabel.text = @"积分";
+            cell.contentLabel.text = @"满额积分自动抵扣现金";
+            if (self.resultDic[@"memberPoint"]) {
+                cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
+            }
+            
+            cell.rechargeBtn.hidden = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-    }else if (indexPath.row ==1) {
-        cell.titleLabel.text = @"积分";
-        cell.contentLabel.text = @"满额积分自动抵扣现金";
-        if (self.resultDic[@"memberPoint"]) {
-             cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
+    }else if (_isOpen ==0){
+         if (indexPath.row ==0) {
+            cell.titleLabel.text = @"积分";
+            cell.contentLabel.text = @"满额积分自动抵扣现金";
+            if (self.resultDic[@"memberPoint"]) {
+                cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
+            }
+            
+            cell.rechargeBtn.hidden = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-       
-        cell.rechargeBtn.hidden = YES;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
     __weak typeof(self)weakSelf = self;
     [cell setChargeBlock:^(NSInteger index) {
         RechargeViewController *rechargeVC = [[RechargeViewController alloc]init];
@@ -125,11 +165,20 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row ==0) {
-        MyIntegralController *myVC = [[MyIntegralController alloc]init];
-        [myVC setDic:self.resultDic];
-        [self.navigationController pushViewController:myVC animated:YES];
+    if (_isOpen ==0) {
+        if (indexPath.row ==0) {
+            MyIntegralController *myVC = [[MyIntegralController alloc]init];
+            [myVC setDic:self.resultDic];
+            [self.navigationController pushViewController:myVC animated:YES];
+        }
+    }else if (_isOpen ==1){
+        if (indexPath.row ==1) {
+            MyIntegralController *myVC = [[MyIntegralController alloc]init];
+            [myVC setDic:self.resultDic];
+            [self.navigationController pushViewController:myVC animated:YES];
+        }
     }
+   
 }
 
 - (void)didReceiveMemoryWarning {

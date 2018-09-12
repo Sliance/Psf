@@ -13,12 +13,16 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-        [self setCortnetLayout];
+        
     }
     return self;
 }
+-(void)setDatearr:(NSArray *)datearr{
+    _datearr = datearr;
+    [self setCortnetLayout];
+}
 -(void)setCortnetLayout{
-    _datearr = @[@"09:00-12:00",@"12:00-15:00",@"15:00-18:00",@"18:00-21:00"];
+    
     [self addSubview:self.bgview];
     [self addSubview:self.yinview];
     [self.bgview addSubview:self.leftview];
@@ -152,7 +156,7 @@
     if (!_nextBtn) {
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_nextBtn setBackgroundColor:DSColorFromHex(0xF0F0F0)];
-        [_nextBtn setTitle:@"3月11日|周五" forState:UIControlStateNormal];
+        [_nextBtn setTitle:@"" forState:UIControlStateNormal];
         [_nextBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
         _nextBtn.titleLabel.font = [UIFont systemFontOfSize:15];
          [_nextBtn addTarget:self action:@selector(pressLeft:) forControlEvents:UIControlEventTouchUpInside];

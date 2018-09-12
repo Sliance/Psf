@@ -43,4 +43,7 @@ typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
 @property(nonatomic,strong)StoreRes *storemodel;
 
 @property(nonatomic,strong)OrderDetailRes *ordermodel;
+
+@property(nonatomic,strong)NSString *date;
+
 @end

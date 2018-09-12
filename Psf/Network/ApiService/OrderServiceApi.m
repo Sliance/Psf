@@ -391,4 +391,35 @@
         
     }];
 }
+///获取配送时间
+-(void)getDeliveryTimeWithParam:(RefundOrderReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/business/param/mobile/v1/findTime";
+    req.erpStoreId = @"181";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+
+
+
+
 @end

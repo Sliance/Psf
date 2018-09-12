@@ -394,13 +394,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
            
         }
     }
-    if (_likeArr.count>0) {
+    if (_likeArr.count>0&&section ==2){
          return CGSizeMake(SCREENWIDTH, 50);
     }
     return CGSizeMake(SCREENWIDTH, 0);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    return CGSizeMake(SCREENWIDTH, 70);
+    if (section ==2) {
+        return CGSizeMake(SCREENWIDTH, 70);
+    }
+    return CGSizeMake(SCREENWIDTH, 0);
 }
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -442,8 +445,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }
     if (indexPath.section ==2&&_likeArr.count>0){
-//        LikeShopHeadView* likeView = [[LikeShopHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-//        [headerView addSubview:likeView];
+
         NextCollectionHeadView* validView = [[NextCollectionHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
         validView.headImage.hidden = YES;
         [validView.typeBtn setTitle:@"猜你喜欢" forState:UIControlStateNormal];
