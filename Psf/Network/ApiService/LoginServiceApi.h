@@ -26,4 +26,9 @@
 -(void)weChartLoginWithParam:(LoginReq *) req response:(responseModel) responseModel;
 ///绑定手机号获取验证码
 -(void)bindPhoneWithParam:(LoginReq *) req response:(responseModel) responseModel;
+///绑定微信
+-(void)bindWXWithParam:(LoginReq *) req response:(responseModel) responseModel;
+///解绑微信
+-(void)unbindWXWithParam:(LoginReq *) req response:(responseModel) responseModel;
+
 @end

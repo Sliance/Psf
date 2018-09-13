@@ -32,7 +32,8 @@
 @property(nonatomic,strong)NSString *thoroughfare;
 ///详细标志地址
 @property(nonatomic,strong)NSString *address;
-
+///erp
+@property(nonatomic,strong)NSString *erpStoreId;
 - (NSDictionary *)getUserInfoDictionary;
 - (void)configUserInfoModelWithDic:(NSDictionary *) dic;
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic;

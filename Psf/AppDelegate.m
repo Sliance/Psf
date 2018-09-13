@@ -171,10 +171,13 @@
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
+    if([url.scheme isEqualToString:@"lxnscheme"]){
+        
+    }
     if ([url.host isEqualToString:@"pay"]) {//微信支付
         [WXApi handleOpenURL:url delegate:self];
     }
-    if (![url.host isEqualToString:@"pay"]&&![url.host isEqualToString:@"safepay"]) {//微信登录
+    if ([url.host isEqualToString:@"oauth"]) {//微信登录
         [WXApi handleOpenURL:url delegate:self];
     }
     if ([url.host isEqualToString:@"safepay"]) {
@@ -325,28 +328,46 @@
                 req.wechatUnionId = dic[@"unionid"];
                 req.appId = @"993335466657415169";
                 req.timestamp = @"529675086";
-                req.token = @"";
+                
                 req.platform = @"ios";
-                req.openId = @"";
-                req.memberEmail = @"";
-                req.memberMobile = @"";
-                req.memberBirthday = @"";
-                req.memberPassword = @"";
-                req.memberAvatarId = @"";
-                req.memberAccount = @"";
-                [self weChartLogin:req];
+                
+                if ([UserCacheBean share].userInfo.token.length>1) {
+                    req.token = [UserCacheBean share].userInfo.token;
+                    
+                    [self bindWX:req];
+                }else{
+                    req.openId = @"";
+                    req.memberEmail = @"";
+                    req.memberMobile = @"";
+                    req.memberBirthday = @"";
+                    req.memberPassword = @"";
+                    req.memberAvatarId = @"";
+                    req.memberAccount = @"";
+                    req.token = @"";
+                    [self weChartLogin:req];
+                }
+                
             }
         });
     });
 }
-
+-(void)bindWX:(LoginReq*)req{
+    [[LoginServiceApi share]bindWXWithParam:req response:^(id response) {
+        if ([response[@"code"]integerValue] ==200) {
+            [ZSNotification postWeixinLoginResultNotification:@{@"type":@"bind"}];
+        }else{
+            
+        }
+    
+    }];
+}
 -(void)weChartLogin:(LoginReq*)req{
     [[LoginServiceApi share]weChartLoginWithParam:req response:^(id response) {
         if (response) {
             NSError *error = nil;
             UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
             [UserCacheBean share].userInfo = userInfoModel;
-            [ZSNotification postWeixinLoginResultNotification:nil];
+            [ZSNotification postWeixinLoginResultNotification:@{@"type":@"login"}];
             [ZSNotification postRefreshLocationResultNotification:nil];
         }
     }];

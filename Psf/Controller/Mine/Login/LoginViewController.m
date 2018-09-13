@@ -318,6 +318,9 @@
 }
 
 -(void)weChartLgin:(NSNotification *)noti{
+    NSDictionary *userInfo = [noti userInfo];
+    if ([[userInfo objectForKey:@"type"] isEqualToString:@"login"]) {
+
     if ([UserCacheBean share].userInfo.memberMobile.length>0) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
@@ -325,7 +328,7 @@
         bindVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:bindVC animated:YES];
     }
-    
+  }
 }
 -(void)pressTap{
     [_phoneField resignFirstResponder];

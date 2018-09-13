@@ -22,6 +22,8 @@
 ///会员昵称
 @property(nonatomic,copy)NSString*memberNickName;
 @property(nonatomic,copy)NSString*memberMobile;
+///微信联合编号
+@property(nonatomic,copy)NSString*wechatUnionId  ;
 ///角色（0、1、管理员，2普通会员）
 @property(nonatomic,copy)NSString*memberRoleType;
 ///应用编号

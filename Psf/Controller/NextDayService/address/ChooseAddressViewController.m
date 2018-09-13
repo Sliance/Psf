@@ -109,6 +109,7 @@
     [[AddressServiceApi share]updateStoreAddresWithParam:req response:^(id response) {
         if([response[@"code"] integerValue]==200){
              NSString *address = model.storeName;
+            [UserCacheBean share].userInfo.erpStoreId = model.erpStoreId;
              [ZSNotification postLocationResultNotification:@{@"address":address}];
             [weakself.navigationController popViewControllerAnimated:YES];
         }
@@ -174,7 +175,9 @@
         cell.textLabel.textColor = DSColorFromHex(0x464646);
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         StoreRes *model = _dataArr[indexPath.row];
-        [cell setIndex:indexPath.row];
+//        if (indexPath.row) {
+//            [cell setIndex:indexPath.row];
+//        }
         [cell setModel:model];
         __weak typeof(self)weakself = self;
         [cell setSelectedBlock:^(StoreRes * model) {

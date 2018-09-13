@@ -440,6 +440,7 @@
 		8850C0F02105882200BF8F88 /* StoreAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressCell.m; sourceTree = "<group>"; };
 		8850C0F32105B26B00BF8F88 /* OrderListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListRes.h; sourceTree = "<group>"; };
 		8850C0F42105B26B00BF8F88 /* OrderListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListRes.m; sourceTree = "<group>"; };
+		8851C67F214A5D6F005D32D2 /* Psf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Psf.entitlements; sourceTree = "<group>"; };
 		8852A22320EEFE50002C2D12 /* StairCategoryReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StairCategoryReq.h; sourceTree = "<group>"; };
 		8852A22420EEFE50002C2D12 /* StairCategoryReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StairCategoryReq.m; sourceTree = "<group>"; };
 		8852A22620EF1100002C2D12 /* NextReceiveDateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextReceiveDateView.h; sourceTree = "<group>"; };
@@ -2513,6 +2514,7 @@
 		88D8935820D25C41007E3C41 /* Psf */ = {
 			isa = PBXGroup;
 			children = (
+				8851C67F214A5D6F005D32D2 /* Psf.entitlements */,
 				8871B86720DB454800DAA5D6 /* Category */,
 				887B412A20D3910B00D51233 /* Network */,
 				887B412920D38B8D00D51233 /* Tool */,
@@ -2767,6 +2769,11 @@
 				TargetAttributes = {
 					88D8935520D25C41007E3C41 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 					88D8936D20D25C42007E3C41 = {
 						CreatedOnToolsVersion = 9.4.1;

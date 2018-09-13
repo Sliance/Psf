@@ -50,5 +50,6 @@
 @property(nonatomic,copy)NSString *memberGender;
 ///生日
 @property(nonatomic,copy)NSString *memberBirthday;
-
+///会员id
+@property(nonatomic,copy)NSString *memberId;
 @end

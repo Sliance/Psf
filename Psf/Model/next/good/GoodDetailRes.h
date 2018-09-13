@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ProductSkuModel.h"
 @interface GoodDetailRes : NSObject
+@property(nonatomic,assign)NSInteger erpProductId;
 ///商品编号
 @property(nonatomic,assign)NSInteger productId;
 ///商品名称

@@ -22,7 +22,7 @@
 
 ///获取单条会员余额和积分信息
 - (void)getMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/member/mobile/v1/find/balance/point";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -49,7 +49,7 @@
 }
 ///获取单条会员信息
 - (void)getMemberInformationWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/member/mobile/v1/find";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -76,7 +76,7 @@
 }
 ///修改会员信息
 - (void)updateMemberInformationWithParam:(MineInformationReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/member/mobile/v1/update";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -103,7 +103,7 @@
 }
 ///获取会员积分明细信息
 - (void)getMemberBalanceHistoryWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/member/point/record/mobile/v1/find";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -130,7 +130,7 @@
 }
 ///获取会员充值规则表列表
 - (void)rechargeMemberBalanceWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/member/recharge/rule/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -158,7 +158,7 @@
 ///交易记录
 - (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/trade/record/mobile/v1/find";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -185,7 +185,7 @@
 ///意见反馈
 - (void)feedBackWithParam:(FeetbackReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/member/feedback/mobile/v1/save";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -212,7 +212,7 @@
 ///支付宝充值
 - (void)topUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/pay/mobile/v1/app/alipay/recharge";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -240,7 +240,7 @@
 - (void)openTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel
 {
     NSString *url = @"/lxn/business/param/mobile/v1/findRecharge";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

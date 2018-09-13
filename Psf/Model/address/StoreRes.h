@@ -33,4 +33,6 @@
 @property(nonatomic,copy)NSString *storeProvinces;
 ///联系电话
 @property(nonatomic,copy)NSString *storeTel;
+///
+@property(nonatomic,copy)NSString *erpStoreId;
 @end

@@ -53,7 +53,7 @@ static NSString *cellId = @"cellId";
     req.productCategoryId = [NSString stringWithFormat:@"%ld",model.productCategoryId] ;
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     self.dateArr = [[NSMutableArray alloc]init];
     __weak typeof(self) weakSelf = self;
     [[NextServiceApi share]getCategoryListWithParam:req response:^(id response) {

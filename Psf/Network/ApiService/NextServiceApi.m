@@ -21,7 +21,7 @@
 }
 //////商品分类列表,包含一二级分类
 - (void)requestApplyLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel {
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/product/category/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -48,7 +48,7 @@
 }
 ///获取分类下商品信息
 -(void)requestSortListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/product/category/mobile/v1/list/product/by/category/ids";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -75,7 +75,7 @@
 }
 ///商品详情页
 -(void)requestGoodDetailLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/product/mobile/v1/find";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -103,7 +103,7 @@
 }
 ///获取推荐商品列表
 -(void)requestRecommendListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/product/mobile/v1/recommend/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -130,7 +130,7 @@
 }
 ///获取爆款商品列表
 -(void)requestHotListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/product/mobile/v1/hot/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -158,7 +158,7 @@
 
 ///获取评价列表
 - (void)requestEvaluateListModelListLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/saleOrderProductComment/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -185,7 +185,7 @@
 }
 ///
 - (void)requestHomeLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url = @"/lxn/subjectCustomCategory/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -213,7 +213,7 @@
 ///banner
 - (void)requestBannerWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/subject/mobile/v1/list";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -241,7 +241,7 @@
 - (void)SearchHintListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/product/mobile/v1/search/prompt/list";
     NSDictionary *dic = [req mj_keyValues];
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
@@ -267,7 +267,7 @@
 ///搜索商品列表
 - (void)SearchDataListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/product/mobile/v1/search/list";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -294,7 +294,7 @@
 ///新增销售订单商品评论信息
 - (void)fillEvaluatetWithParam:(FillEvaluateReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/saleOrderProductComment/mobile/v1/save";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -322,7 +322,7 @@
 - (void)getCategoryListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/product/mobile/v1/list/by/category/id";
     NSDictionary *dic = [req mj_keyValues];
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
@@ -348,7 +348,7 @@
 ///企业合作
 - (void)businessCooperationWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/company/mobile/v1/list";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -376,7 +376,7 @@
 ///次日达列表
 - (void)nextDayWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/product/mobile/v1/next/day/list";
-    req.erpStoreId = @"181";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

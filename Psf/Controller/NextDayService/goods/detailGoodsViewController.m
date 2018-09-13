@@ -761,26 +761,25 @@
     }];
 }
 -(void)pressShare:(UIButton*)sender{
-//    UIImageView *bgimageview = [[UIImageView alloc]init];
-//    ImageModel *model = [self.result.productImageList firstObject];
-//    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
-//    WXMiniProgramObject *wxMiniobject = [WXMiniProgramObject object];
-//    wxMiniobject.webpageUrl = @"https://www.baidu.com";
-//    wxMiniobject.userName = @"gh_8cc4d494480f";
-//    wxMiniobject.path = [NSString stringWithFormat:@"/pages/shopDetail/shopDetail?goodsId=%ld",self.result.productId];
-//    wxMiniobject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
-//    WXMediaMessage *message = [WXMediaMessage message];
-//    message.title = self.result.productName;
-//    message.description = @"邀您一起";
-//
-//    [message setThumbImage:bgimageview.image];
-//    message.mediaObject = wxMiniobject;
-//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
-//    req.bText = NO;
-//    req.message = message;
-//    req.scene = WXSceneSession;
-//
-//    [WXApi sendReq:req];
+    UIImageView *bgimageview = [[UIImageView alloc]init];
+    ImageModel *model = [self.result.productImageList firstObject];
+    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = self.result.productName;
+    message.thumbData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+    message.description = @"邀您一起";
+    
+    [message setThumbImage:bgimageview.image];
+    WXWebpageObject *webpage = [WXWebpageObject object];
+    webpage.webpageUrl = [NSString stringWithFormat:@"http://share.imdtlab.com:20516/#/?erpStoreId=%@&erpProductId=%ld&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,(long)self.erpProductId,(long)self.result.productId];
+//    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
+    message.mediaObject = webpage;
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+
+    [WXApi sendReq:req];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
