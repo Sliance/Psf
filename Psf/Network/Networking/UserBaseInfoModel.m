@@ -30,7 +30,8 @@
               @"city":@"city",
               @"area":@"area",
               @"thoroughfare":@"thoroughfare",
-             @"address":@"address",@"erpStoreId":@"erpStoreId"
+             @"address":@"address",@"erpStoreId":@"erpStoreId",
+             @"storeName":@"storeName"
              };
 }
 
@@ -52,6 +53,7 @@
                           @"thoroughfare" : self.thoroughfare == nil?@"":self.thoroughfare,
                           @"address" : self.address == nil?@"":self.address,
                           @"erpStoreId" : self.erpStoreId == nil?@"":self.erpStoreId,
+                          @"storeName" : self.storeName == nil?@"":self.storeName,
                           };
     return dic;
 }
@@ -71,6 +73,7 @@
     self.thoroughfare = dic[@"thoroughfare"];
     self.address = dic[@"address"];
     self.erpStoreId = dic[@"erpStoreId"];
+    self.storeName = dic[@"storeName"];
 }
 
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic {
@@ -88,6 +91,7 @@
     self.thoroughfare = dic[@"thoroughfare"];
     self.address = dic[@"address"];
     self.erpStoreId = dic[@"erpStoreId"];
+    self.storeName = dic[@"storeName"];
 }
 
 @end

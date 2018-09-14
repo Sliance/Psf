@@ -37,5 +37,8 @@
 -(void)CalculateThePriceWithParam:(CalculateReq*)req response:(responseModel) responseModel;
 ///下单
 -(void)placeThePriceWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel;
+///结算列表
+-(void)settlementListWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel;
+
 
 @end

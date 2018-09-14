@@ -33,6 +33,8 @@
 - (void)feedBackWithParam:(FeetbackReq *) req response:(responseModel) responseModel;
 ///支付宝充值
 - (void)topUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///微信充值
+- (void)wxTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///充值是否开启 
 - (void)openTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 

@@ -97,4 +97,6 @@
 @property(nonatomic, assign)NSInteger productSkuId;
 
 @property(nonatomic, assign)NSInteger preSaleId;
+///1、购物车下单  2、商品详情下单
+@property(nonatomic, assign)NSInteger orderType ;
 @end

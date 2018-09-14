@@ -254,6 +254,7 @@
     [self.tourDiyView setPressGoBlock:^(NSInteger index) {
         
         FillOrderViewController *detailVC = [[FillOrderViewController alloc]init];
+        [detailVC setOrderType:2];
         [detailVC setNavStr:_weakSelf.navStr];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
@@ -339,7 +340,7 @@
             }else if (type ==2){
                 [sureVC setGoodstype:GOOGSTYPEGroup];
             }
-            
+            [sureVC setOrderType:2];
             [sureVC setGooddetail:_weakSelf.result];
             [sureVC setNavStr:_weakSelf.navStr];
             [_weakSelf.navigationController pushViewController:sureVC animated:YES];
@@ -382,6 +383,7 @@
                 [sureVC setSkumodel:skumodel];
                 [sureVC setGooddetail:_weakSelf.resmodel];
                 [sureVC setNavStr:_weakSelf.navStr];
+                [sureVC setOrderType:2];
                 [_weakSelf.navigationController pushViewController:sureVC animated:YES];
             }else if (_type ==1){
                 [_weakSelf addShopCount:skumodel];
@@ -439,8 +441,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productId = _productID;
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -479,8 +481,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productId = _productID;
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -519,8 +521,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productId = _productID;
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -547,8 +549,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productId = _productID;
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -576,8 +578,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     //    req.productId = [NSString stringWithFormat:@"%ld",productID];
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -749,8 +751,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.couponId = [model.couponId integerValue];
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productCategoryParentId = @"";
     req.cityId = @"310100";
     req.cityName = @"上海市";

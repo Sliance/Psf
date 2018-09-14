@@ -51,4 +51,6 @@
 - (void)nextDayWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 
 
+///获取默认erp
+- (void)getErpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

@@ -34,6 +34,8 @@
 @property(nonatomic,strong)NSString *address;
 ///erp
 @property(nonatomic,strong)NSString *erpStoreId;
+
+@property(nonatomic,strong)NSString *storeName;
 - (NSDictionary *)getUserInfoDictionary;
 - (void)configUserInfoModelWithDic:(NSDictionary *) dic;
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic;

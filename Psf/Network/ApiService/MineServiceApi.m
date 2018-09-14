@@ -236,6 +236,33 @@
         
     }];
 }
+///微信充值
+- (void)wxTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/pay/mobile/v1/wxpay/recharge";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                OrderPayRes *result = [OrderPayRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 ///充值是否开启
 - (void)openTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel
 {

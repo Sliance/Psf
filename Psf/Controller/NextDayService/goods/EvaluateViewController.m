@@ -83,8 +83,8 @@
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.productId = _productId;
     req.pageIndex = 1;
     req.pageSize = @"10";

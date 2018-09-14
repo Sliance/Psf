@@ -76,8 +76,8 @@ static NSString *cellId = @"cellId";
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -85,7 +85,7 @@ static NSString *cellId = @"cellId";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]nextDayWithParam:req response:^(id response) {
-        if (response!= nil) {
+        if (response != nil) {
             
             if (self.pageIndex ==1) {
                 [weakself.dataArr removeAllObjects];

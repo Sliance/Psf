@@ -23,6 +23,10 @@
 @property(nonatomic,assign)NSInteger cartIsActive;
 ///购物车商品列表
 @property(nonatomic,strong)NSArray *cartProductList;
+///预售商品列表
+@property(nonatomic,strong)NSArray *preSaleProductList;
+//次日达普通商品
+@property(nonatomic,strong)NSArray *nextDayProductList;
 ///商品总数量
 @property(nonatomic,assign)NSInteger productQuantity;
 ///商品选中数量

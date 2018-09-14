@@ -20,9 +20,14 @@
 #import "NextCollectionHeadView.h"
 #import "CartProductModel.h"
 #import "CustomFootView.h"
+
+
+#import "ShopAlertView.h"
+
 @interface ShoppingCartController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)ShopFootView *footView;
+@property(nonatomic,strong)ShopAlertView *shopAlertView;
 @property(nonatomic,strong)ShoppingListRes *result;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *loseArr;
@@ -45,6 +50,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [_footView.submitBtn addTarget:self action:@selector(pressSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _footView;
+}
+-(ShopAlertView *)shopAlertView{
+    if (!_shopAlertView) {
+        _shopAlertView = [[ShopAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+    }
+    return _shopAlertView;
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -69,6 +80,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.collectionView
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
     [self.view addSubview:self.footView];
+    [self.view addSubview:self.shopAlertView];
     _dataArr = [NSMutableArray array];
     _loseArr = [NSMutableArray array];
     _likeArr = [NSMutableArray array];
@@ -104,8 +116,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -114,7 +126,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]requestShopListModelListLoadWithParam:req response:^(id response) {
-        if (response!= nil) {
+        if (response) {
              weakself.result = response;
             [weakself.dataArr removeAllObjects];
             [weakself.loseArr removeAllObjects];
@@ -155,8 +167,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     req.couponType = @"allProduct";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     //    req.productId = [NSString stringWithFormat:@"%ld",productID];
     req.pageIndex = 1;
     req.pageSize = @"10";
@@ -179,8 +191,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cartProductId = model.cartProductId;
     req.productCategoryParentId = @"";
    
@@ -215,24 +227,38 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"1.0.0";
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.pageIndex = 1;
     req.pageSize = @"10";
     req.goodsCategoryId = @"";
     req.productCategoryParentId = @"";
     req.productCategoryId = @"";
-    req.cityId = @"310100";
     req.cityName = @"上海市";
+    
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]guessYouLikeWithParam:req response:^(id response) {
-        if (response!= nil) {
+        [self jieSuanData];
+        if ([response isKindOfClass:[NSArray class]]) {
             [weakself.likeArr removeAllObjects];
             [weakself.likeArr addObjectsFromArray:response];
             [weakself.collectionView reloadData];
+            
         }
+        
+    }];
+}
+
+-(void)jieSuanData{
+    PlaceOrderReq *req = [[PlaceOrderReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]settlementListWithParam:req response:^(id response) {
+        
     }];
 }
 -(void)clearGoodCount{
@@ -528,6 +554,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [Arr addObject:model];
         }
     }
+    [fillVC setOrderType:1];
     [fillVC setGoodstype:GOOGSTYPENormal];
     [fillVC setProductArr:Arr];
     [fillVC setResult:self.result];

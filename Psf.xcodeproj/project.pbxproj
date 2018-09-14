@@ -35,6 +35,8 @@
 		8850363A213E569E00C85389 /* NSString+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 88503638213E569E00C85389 /* NSString+Path.m */; };
 		8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850C0F02105882200BF8F88 /* StoreAddressCell.m */; };
 		8850C0F52105B26B00BF8F88 /* OrderListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850C0F42105B26B00BF8F88 /* OrderListRes.m */; };
+		8850E57C214B868F00825E93 /* ShopAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850E57B214B868F00825E93 /* ShopAlertView.m */; };
+		8850E57F214B908800825E93 /* ShopAlertViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850E57E214B908800825E93 /* ShopAlertViewCell.m */; };
 		8852A22520EEFE50002C2D12 /* StairCategoryReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22420EEFE50002C2D12 /* StairCategoryReq.m */; };
 		8852A22820EF1100002C2D12 /* NextReceiveDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22720EF1100002C2D12 /* NextReceiveDateView.m */; };
 		8852A22B20EF79AD002C2D12 /* StairCategoryRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852A22A20EF79AD002C2D12 /* StairCategoryRes.m */; };
@@ -440,6 +442,10 @@
 		8850C0F02105882200BF8F88 /* StoreAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAddressCell.m; sourceTree = "<group>"; };
 		8850C0F32105B26B00BF8F88 /* OrderListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListRes.h; sourceTree = "<group>"; };
 		8850C0F42105B26B00BF8F88 /* OrderListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListRes.m; sourceTree = "<group>"; };
+		8850E57A214B868F00825E93 /* ShopAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopAlertView.h; sourceTree = "<group>"; };
+		8850E57B214B868F00825E93 /* ShopAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopAlertView.m; sourceTree = "<group>"; };
+		8850E57D214B908800825E93 /* ShopAlertViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopAlertViewCell.h; sourceTree = "<group>"; };
+		8850E57E214B908800825E93 /* ShopAlertViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopAlertViewCell.m; sourceTree = "<group>"; };
 		8851C67F214A5D6F005D32D2 /* Psf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Psf.entitlements; sourceTree = "<group>"; };
 		8852A22320EEFE50002C2D12 /* StairCategoryReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StairCategoryReq.h; sourceTree = "<group>"; };
 		8852A22420EEFE50002C2D12 /* StairCategoryReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StairCategoryReq.m; sourceTree = "<group>"; };
@@ -1521,6 +1527,10 @@
 				885B654E2119A84400BD9054 /* InvoiceRuleView.m */,
 				8823798F2124328F005BC550 /* PaySuccessHeadView.h */,
 				882379902124328F005BC550 /* PaySuccessHeadView.m */,
+				8850E57A214B868F00825E93 /* ShopAlertView.h */,
+				8850E57B214B868F00825E93 /* ShopAlertView.m */,
+				8850E57D214B908800825E93 /* ShopAlertViewCell.h */,
+				8850E57E214B908800825E93 /* ShopAlertViewCell.m */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -2942,6 +2952,7 @@
 				8871B85320DB424A00DAA5D6 /* NSString+MoneyStyle.m in Sources */,
 				8871B85520DB424A00DAA5D6 /* UserCurrentLocationManager.m in Sources */,
 				8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */,
+				8850E57C214B868F00825E93 /* ShopAlertView.m in Sources */,
 				886A9ED220ECD52E000503D2 /* MessageViewController.m in Sources */,
 				8871B8CA20DBB29200DAA5D6 /* JFCityHeaderView.m in Sources */,
 				8871B86220DB441000DAA5D6 /* ImageUtils.m in Sources */,
@@ -3133,6 +3144,7 @@
 				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
 				88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
+				8850E57F214B908800825E93 /* ShopAlertViewCell.m in Sources */,
 				88503637213E569000C85389 /* NSData+Ext.m in Sources */,
 				88671895212D08B800D861AD /* BindMobileController.m in Sources */,
 				88747ADF212A62630058ED5B /* ServiceViewController.m in Sources */,

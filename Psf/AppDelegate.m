@@ -16,6 +16,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "ZSNotification.h"
+#import "NextServiceApi.h"
 
 @interface AppDelegate ()<WXApiDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManagers;//定位管理
@@ -47,6 +48,8 @@
     [self.locationManagers requestWhenInUseAuthorization];
       [self.locationManagers startUpdatingLocation];
     [ZSNotification addRefreshLocationResultNotification:self action:@selector(refreshloc)];
+    [UserCacheBean share].userInfo.latitude = @"0";
+    [UserCacheBean share].userInfo.longitude = @"0";
     return YES;
 }
 -(void)refreshloc{
@@ -58,8 +61,17 @@
     CLLocation *loc = [locations firstObject];
     
     //获得地理位置，把经纬度赋给我们定义的属性
-    [UserCacheBean share].userInfo.latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude];
-    [UserCacheBean share].userInfo.longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude];
+    if ([NSString stringWithFormat:@"%f", loc.coordinate.latitude].length>0) {
+         [UserCacheBean share].userInfo.latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude];
+    }else{
+         [UserCacheBean share].userInfo.latitude = @"0";
+    }
+    if ([NSString stringWithFormat:@"%f", loc.coordinate.longitude].length>0) {
+         [UserCacheBean share].userInfo.longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude];
+    }else{
+         [UserCacheBean share].userInfo.longitude = @"0";
+    }
+   
 
     
     //根据获取的地理位置，获取位置信息
@@ -85,8 +97,8 @@
             [UserCacheBean share].userInfo.city = place.locality;
             [UserCacheBean share].userInfo.area = place.subLocality;
             [UserCacheBean share].userInfo.address = place.name;
-           
-            [ZSNotification postLocationResultNotification:@{@"address":place.name}];
+            [ZSNotification postLocationResultNotification:@{@"address":@""}
+             ];
         }
         
     }];
@@ -96,6 +108,7 @@
     
     
 }
+
 - (void)confitUShareSettings
 {
     /*
@@ -171,9 +184,7 @@
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    if([url.scheme isEqualToString:@"lxnscheme"]){
-        
-    }
+    
     if ([url.host isEqualToString:@"pay"]) {//微信支付
         [WXApi handleOpenURL:url delegate:self];
     }

@@ -1,3 +1,4 @@
+
 //
 //  NextServiceApi.m
 //  Psf
@@ -388,6 +389,33 @@
                 }
             }else {
                 if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///获取默认erp
+- (void)getErpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/merchant/store/mobile/v1/find/member/default/or/recent";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
                     responseModel(dicResponse);
                 }
             }
@@ -400,6 +428,5 @@
         
     }];
 }
-
 
 @end

@@ -13,7 +13,9 @@
     
     return @{
              
-             @"cartProductList":@"CartProductModel"
+             @"cartProductList":@"CartProductModel",
+              @"preSaleProductList":@"CartProductModel",
+              @"nextDayProductList":@"CartProductModel"
              };
 }
 @end

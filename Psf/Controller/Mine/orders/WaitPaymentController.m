@@ -137,8 +137,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.saleOrderStatus = @"0";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -179,8 +179,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.saleOrderId = saleId;
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]noticeOrderWithParam:req response:^(id response) {
@@ -200,8 +200,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.saleOrderId = orderid;
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]confirmOrderWithParam:req response:^(id response) {
@@ -221,8 +221,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.saleOrderId = orderid;
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]deleteOrderWithParam:req response:^(id response) {
@@ -241,8 +241,8 @@
     req.version = @"1.0.0";
     req.platform = @"ios";
     req.saleOrderId = orderid;
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {

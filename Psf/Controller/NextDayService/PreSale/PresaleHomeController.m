@@ -64,8 +64,8 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"";
     req.platform = @"ios";
-    req.userLongitude = @"121.4737";
-    req.userLatitude = @"31.23037";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.pageIndex = 1;
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
@@ -76,7 +76,7 @@
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
-            [weakself getBanner:@"preSale"];
+           
             [weakself.tableview reloadData];
         }
     }];
@@ -101,6 +101,44 @@
         }
     }];
 }
+-(void)getErp{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"";
+    req.platform = @"ios";
+    if ([UserCacheBean share].userInfo.longitude.length>0) {
+        req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    }else{
+        req.userLongitude = @"0";
+    }
+    if ([UserCacheBean share].userInfo.latitude.length>0) {
+        req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    }else{
+        req.userLatitude = @"0";
+    }
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]getErpWithParam:req response:^(id response) {
+        if ([response[@"code"]integerValue] ==200) {
+            if ([response[@"data"] count] ==0) {
+                ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+                cityViewController.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:cityViewController animated:YES];
+            }else{
+                [UserCacheBean share].userInfo.erpStoreId = response[@"data"][@"erpStoreId"];
+                [UserCacheBean share].userInfo.storeName = response[@"data"][@"storeName"];
+                [weakself.locView.locBtn setTitle:response[@"data"][@"storeName"] forState:UIControlStateNormal];
+            }
+        }
+        [self getBanner:@"index"];
+    }];
+}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -115,7 +153,8 @@
    
 //     [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"11"]];
-    [self getBanner:@"index"];
+    
+    
     
     self.navigationController.navigationBar.hidden = YES;
 }
@@ -149,10 +188,18 @@
     CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
     self.tableview.tableFooterView = footView;
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
+    [self getErp];
 }
 -(void)location:(NSNotification *)notifi{
     NSDictionary *userInfo = [notifi userInfo];
-     [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
+    if ([userInfo objectForKey:@"address"]) {
+        [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
+        [UserCacheBean share].userInfo.storeName = [userInfo objectForKey:@"address"];
+    }
+    
+    
+    [self getErp];
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -249,8 +296,8 @@
             req.token = [UserCacheBean share].userInfo.token;
             req.version = @"1.0.0";
             req.platform = @"ios";
-            req.userLongitude = @"121.4737";
-            req.userLatitude = @"31.23037";
+            req.userLongitude = [UserCacheBean share].userInfo.longitude;
+            req.userLatitude = [UserCacheBean share].userInfo.latitude;
             req.productName = searchText;
             req.cityId = @"310100";
             req.cityName = @"上海市";

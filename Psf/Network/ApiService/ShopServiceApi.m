@@ -268,7 +268,7 @@
 }
 ///下单
 -(void)placeThePriceWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v1/save";
+    NSString *url = @"/lxn/sale/order/mobile/v2/save";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -282,6 +282,36 @@
             }else {
                 if (responseModel) {
                     responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+
+
+///结算列表
+-(void)settlementListWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/cart/mobile/v1/typeCeshi";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                ShoppingListRes *result = [ShoppingListRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
                 }
             }
         } else {

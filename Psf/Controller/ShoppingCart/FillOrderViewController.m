@@ -539,27 +539,33 @@
         }
         req.productList = arr;
         req.saleOrderType = @"normal";
-        [self placeNormalOrder:req];
+       
     }else if (_goodstype == GOOGSTYPESingle){
         req.saleOrderType = @"normal";
         req.productList = self.dataArr;
-        [self placeNormalOrder:req];
+        
     }else if (_goodstype == GOOGSTYPEGroup){
         req.saleOrderType = @"group";
         req.grouponActiveType = 0;
         req.grouponActivityId = @"";
         req.grouponId = self.gooddetail.grouponId;
         req.productList = self.dataArr;
-        [self placeGroupOrder:req];
+      
     }else if (_goodstype ==GOOGSTYPEPresale){
         req.saleOrderType = @"presale";
         req.preSaleId = self.gooddetail.preSaleId;
         req.productList = self.dataArr;
-        [self placePresaleOrder:req];
+        
     }
+     [self placeNormalOrder:req];
+}
+
+-(void)setOrderType:(NSInteger)orderType{
+    _orderType = orderType;
 }
 ///正常下单
 -(void)placeNormalOrder:(PlaceOrderReq*)req{
+    req.orderType = _orderType;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]placeThePriceWithParam:req response:^(id response) {
         if (response) {
