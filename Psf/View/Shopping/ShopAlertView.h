@@ -7,13 +7,16 @@
 //
 
 #import "BaseView.h"
-
+#import "ShoppingListRes.h"
 @interface ShopAlertView : BaseView<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView *yinBgview;
 @property(nonatomic,strong)UIView *bgView;
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UIButton *closeBtn;
+@property(nonatomic,strong)UILabel *lineLabel;
+
 @property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)ShoppingListRes *model;
 
 
 

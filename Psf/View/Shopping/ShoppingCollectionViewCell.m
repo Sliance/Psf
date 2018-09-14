@@ -277,7 +277,10 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productSkuPrice];
+    if (model.productStorePrice) {
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+    }
+    
     self.weightLabel.text = model.productUnit;
     self.countField.text = [NSString stringWithFormat:@"%ld",(long)model.productQuantity];
     if (_goodtype ==TYPELOSE) {

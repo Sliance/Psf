@@ -29,6 +29,7 @@
 @property(nonatomic,strong)ShopFootView *footView;
 @property(nonatomic,strong)ShopAlertView *shopAlertView;
 @property(nonatomic,strong)ShoppingListRes *result;
+@property(nonatomic,strong)ShoppingListRes *jisuanmodel;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *loseArr;
 @property(nonatomic,strong)NSMutableArray *likeArr;
@@ -54,6 +55,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(ShopAlertView *)shopAlertView{
     if (!_shopAlertView) {
         _shopAlertView = [[ShopAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+        _shopAlertView.hidden = YES;
     }
     return _shopAlertView;
 }
@@ -87,6 +89,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
     __weak typeof(self)weakself = self;
     [self.footView setAllBlock:^(BOOL selected) {
         [weakself selectedAll:selected];
+    }];
+    [self.shopAlertView setCloseBlcok:^{
+        weakself.hidesBottomBarWhenPushed = NO;
+        weakself.shopAlertView.hidden = YES;
+        
     }];
     if (@available(iOS 11.0, *)) {
         _collectionView.contentInsetAdjustmentBehavior = NO;
@@ -258,7 +265,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]settlementListWithParam:req response:^(id response) {
-        
+        if (response) {
+            weakself.jisuanmodel = [[ShoppingListRes alloc]init];
+            weakself.jisuanmodel = response;
+            [weakself.shopAlertView setModel:weakself.jisuanmodel];
+        }
     }];
 }
 -(void)clearGoodCount{
@@ -546,6 +557,17 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
+    
+ if(self.jisuanmodel.cartProductList.count>0&&[self.jisuanmodel.preSaleProductList count]>0) {
+     self.hidesBottomBarWhenPushed = YES;
+     self.shopAlertView.hidden = NO;
+ }else if(self.jisuanmodel.cartProductList.count>0&&self.jisuanmodel.nextDayProductList.count>0){
+     self.hidesBottomBarWhenPushed = YES;
+     self.shopAlertView.hidden = NO;
+ }else if([self.jisuanmodel.preSaleProductList count]>0&&self.jisuanmodel.nextDayProductList.count>0){
+     self.hidesBottomBarWhenPushed = YES;
+     self.shopAlertView.hidden = NO;
+ }else{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
     fillVC.hidesBottomBarWhenPushed = YES;
     NSMutableArray *Arr = [NSMutableArray array];
@@ -559,6 +581,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [fillVC setProductArr:Arr];
     [fillVC setResult:self.result];
     [self.navigationController pushViewController:fillVC animated:YES];
+  }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -85,45 +85,38 @@ static NSString *cellId = @"GoodCollectionViewCell";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.dateLabel];
+        [self addSubview:self.totalLabel];
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.priceLabel];
+        [self addSubview:self.headImage];
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.weightLabel];
+        [self addSubview:self.collectionView];
     }
     return self;
 }
 
 -(void)setLayout{
-    [self addSubview:self.dateLabel];
-    [self addSubview:self.totalLabel];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.priceLabel];
-    [self addSubview:self.headImage];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.weightLabel];
+    
     self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
-    self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom, 100, 15);
+    CGRect rect = [@"共1件，商品金额" boundingRectWithSize:CGSizeMake(MAXFLOAT, 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
+   
+    self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom,rect.size.width, 15);
     self.headImage.frame = CGRectMake(15, self.totalLabel.ctBottom+15, 90, 90);
     self.titleLabel.frame = CGRectMake(self.headImage.ctRight+10, self.headImage.ctTop+20, SCREENWIDTH-130, 15);
     self.weightLabel.frame = CGRectMake(self.headImage.ctRight+10, self.titleLabel.ctBottom+10, SCREENWIDTH-130, 15);
 }
 
 -(void)setMoreLayout{
-    [self addSubview:self.dateLabel];
-    [self addSubview:self.totalLabel];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.priceLabel];
-    [self addSubview:self.headImage];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.weightLabel];
+    
     self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
     self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom, 100, 15);
     
 }
--(void)setType:(NSInteger)type{
-    _type = type;
-    if (type ==0) {
-        [self setLayout];
-    }else if (type ==1){
-        [self setMoreLayout];
-    }
-    
+
+-(void)setProductType:(NSInteger)productType{
+    _productType = productType;
 }
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
@@ -147,7 +140,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    return self.dataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -164,7 +157,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(134, 199);
+    return CGSizeMake(134, 90);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,6 +168,20 @@ static NSString *cellId = @"GoodCollectionViewCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+
+-(void)setModel:(CartProductModel *)model{
+    _model = model;
+}
+-(void)setDataArr:(NSArray *)dataArr{
+    _dataArr = dataArr;
+    if (dataArr.count ==1) {
+        [self setLayout];
+    }else if (dataArr.count>1){
+        [self setMoreLayout];
+    }
     
 }
 @end

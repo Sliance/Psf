@@ -8,7 +8,7 @@
 
 #import "ShopAlertView.h"
 #import "ShopAlertViewCell.h"
-
+#import "CartProductModel.h"
 @implementation ShopAlertView
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -54,11 +54,19 @@
     }
     return _closeBtn;
 }
+-(UILabel *)lineLabel{
+    if (!_lineLabel) {
+        _lineLabel = [[UILabel alloc]init];
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
+    }
+    return _lineLabel;
+}
 -(UITableView *)tableview{
     if (!_tableview) {
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 49, SCREENWIDTH, 447) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
+        _tableview.tableFooterView = [UIView new];
     }
     return _tableview;
 }
@@ -66,14 +74,23 @@
     [self addSubview:self.yinBgview];
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.tableview];
-    
+    [self.bgView addSubview:self.titleLabel];
+    [self.bgView addSubview:self.closeBtn];
+    [self.bgView addSubview:self.lineLabel];
+    self.titleLabel.frame = CGRectMake(15, 0, SCREENWIDTH-65, 48);
+    self.closeBtn.frame = CGRectMake(SCREENWIDTH-48, 0, 48, 48);
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 3;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  4;
+    if (section ==0) {
+        return 1;
+    }else if (section ==1){
+        return [self.model.preSaleProductList count];
+    }
+    return  1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 180;
@@ -84,10 +101,30 @@
     if (!cell) {
         cell =  [[ShopAlertViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
+    
+    [cell setProductType:indexPath.section];
+    if (indexPath.section ==0) {
+        
+            [cell setDataArr:self.model.cartProductList];
+        
+    }else if(indexPath.section ==1){
+        for (NSString *key in self.model.preSaleProductList) {
+            NSArray *arr = [self.model.preSaleProductList objectForKey:key];
+            [cell setDataArr:arr];
+        }
+        
+    }else if(indexPath.section ==2){
+        
+    }
+    
+    
     return cell;
 }
 
-
+-(void)setModel:(ShoppingListRes *)model{
+    _model = model;
+    [self.tableview reloadData];
+}
 
 
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface ShoppingListRes : NSObject
 ///购物车编号
 @property(nonatomic,copy)NSString *cartId;
@@ -24,7 +25,7 @@
 ///购物车商品列表
 @property(nonatomic,strong)NSArray *cartProductList;
 ///预售商品列表
-@property(nonatomic,strong)NSArray *preSaleProductList;
+@property(nonatomic,strong)NSMutableDictionary *preSaleProductList;
 //次日达普通商品
 @property(nonatomic,strong)NSArray *nextDayProductList;
 ///商品总数量

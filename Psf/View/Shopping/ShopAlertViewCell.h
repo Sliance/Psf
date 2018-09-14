@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "CartProductModel.h"
 
 @interface ShopAlertViewCell : BaseTableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 @property(nonatomic,strong)UILabel *dateLabel;
@@ -18,6 +19,10 @@
 @property(nonatomic,strong)UIButton *submitBtn;
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UICollectionView *collectionView;
-@property(nonatomic,assign)NSInteger  type;
+
+@property(nonatomic,assign)NSInteger  productType;
+
+@property(nonatomic,strong)CartProductModel *model;
+@property(nonatomic,strong)NSArray *dataArr;
 
 @end

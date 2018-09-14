@@ -14,7 +14,7 @@
     return @{
              
              @"cartProductList":@"CartProductModel",
-              @"preSaleProductList":@"CartProductModel",
+             
               @"nextDayProductList":@"CartProductModel"
              };
 }
