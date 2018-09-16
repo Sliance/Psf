@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZSConfig.h"
 #import "GoodDetailRes.h"
+#import "CartProductModel.h"
 
 @interface GoodCollectionViewCell : UICollectionViewCell
 ///图片
@@ -17,4 +18,7 @@
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UILabel *priceLabel;
 @property(nonatomic,strong)GoodDetailRes *model;
+@property(nonatomic,strong)CartProductModel *carmodel;
+@property(nonatomic,assign)NSInteger width;
+
 @end

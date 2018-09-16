@@ -27,7 +27,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
         _dateLabel.font = [UIFont systemFontOfSize:15];
         _dateLabel.textColor = DSColorFromHex(0x464646);
         _dateLabel.textAlignment = NSTextAlignmentLeft;
-        _dateLabel.text = @"预售商品 最快明天送达";
+        _dateLabel.text = @"";
     }
     return _dateLabel;
 }
@@ -37,20 +37,11 @@ static NSString *cellId = @"GoodCollectionViewCell";
         _totalLabel.font = [UIFont systemFontOfSize:15];
         _totalLabel.textColor = DSColorFromHex(0x464646);
         _totalLabel.textAlignment = NSTextAlignmentLeft;
-        _totalLabel.text = @"共1件，商品金额";
+        _totalLabel.text = @"";
     }
     return _totalLabel;
 }
--(UILabel *)priceLabel{
-    if (!_priceLabel) {
-        _priceLabel = [[UILabel alloc]init];
-        _priceLabel.font = [UIFont systemFontOfSize:15];
-        _priceLabel.textColor = DSColorFromHex(0x464646);
-        _priceLabel.textAlignment = NSTextAlignmentLeft;
-        _priceLabel.text = @"￥65";
-    }
-    return _priceLabel;
-}
+
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
@@ -67,7 +58,8 @@ static NSString *cellId = @"GoodCollectionViewCell";
         _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textColor = DSColorFromHex(0x474747);
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.text = @"个头饱满 淡淡桂花香广东桂味荔枝";
+        _titleLabel.text = @"";
+        _titleLabel.numberOfLines =0;
     }
     return _titleLabel;
 }
@@ -81,6 +73,20 @@ static NSString *cellId = @"GoodCollectionViewCell";
     }
     return _weightLabel;
 }
+
+-(UIButton *)submitBtn{
+    if (!_submitBtn) {
+        _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_submitBtn setTitle:@"结算" forState:UIControlStateNormal];
+        [_submitBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
+        _submitBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_submitBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+        [_submitBtn.layer setBorderWidth:0.5];
+        [_submitBtn.layer setCornerRadius:2];
+        [_submitBtn addTarget:self action:@selector(pressSubmit) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _submitBtn;
+}
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -88,30 +94,63 @@ static NSString *cellId = @"GoodCollectionViewCell";
         [self addSubview:self.dateLabel];
         [self addSubview:self.totalLabel];
         [self addSubview:self.titleLabel];
-        [self addSubview:self.priceLabel];
+       
         [self addSubview:self.headImage];
         [self addSubview:self.titleLabel];
         [self addSubview:self.weightLabel];
+        [self addSubview:self.submitBtn];
         [self addSubview:self.collectionView];
+         self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
+        self.submitBtn.frame = CGRectMake(SCREENWIDTH-75, 29, 60, 24);
+         self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom,SCREENWIDTH-80, 15);
     }
     return self;
 }
 
 -(void)setLayout{
     
-    self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
-    CGRect rect = [@"共1件，商品金额" boundingRectWithSize:CGSizeMake(MAXFLOAT, 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
    
-    self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom,rect.size.width, 15);
+   
+    self.collectionView.hidden = YES;
+    self.headImage.hidden = NO;
+    self.titleLabel.hidden = NO;
+    self.weightLabel.hidden = NO;
+   
+    CartProductModel *model = [self.dataArr firstObject];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.titleLabel.text = model.productName;
+    self.weightLabel.text = model.productUnit;
+    NSString *price = [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*model.productQuantity];
+    NSString *string = [NSString stringWithFormat:@"共%ld件，商品金额%@",(long)model.productQuantity,price];
+    NSRange rang = [string rangeOfString:price];
+    NSMutableAttributedString *attributStr = [[NSMutableAttributedString alloc]initWithString:string];
+    [attributStr addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:rang];
+    self.totalLabel.attributedText = attributStr;
+   
     self.headImage.frame = CGRectMake(15, self.totalLabel.ctBottom+15, 90, 90);
-    self.titleLabel.frame = CGRectMake(self.headImage.ctRight+10, self.headImage.ctTop+20, SCREENWIDTH-130, 15);
-    self.weightLabel.frame = CGRectMake(self.headImage.ctRight+10, self.titleLabel.ctBottom+10, SCREENWIDTH-130, 15);
+    self.titleLabel.frame = CGRectMake(self.headImage.ctRight+10, self.headImage.ctTop, SCREENWIDTH-130, 90);
+//    self.weightLabel.frame = CGRectMake(self.headImage.ctRight+10, self.titleLabel.ctBottom+5, SCREENWIDTH-130, 15);
 }
 
 -(void)setMoreLayout{
+    self.headImage.hidden = YES;
+    self.titleLabel.hidden = YES;
+    self.weightLabel.hidden = YES;
+    self.collectionView.hidden = NO;
+    CGFloat totalprice= 0.00;
+    NSInteger count = 0;
+    for (CartProductModel *model in _dataArr) {
+        totalprice = totalprice+[model.productStorePrice doubleValue]*model.productQuantity;
+        count = count+model.productQuantity;
+    }
     
-    self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
-    self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom, 100, 15);
+    NSString *price = [NSString stringWithFormat:@"￥%.2f",totalprice];
+    NSString *string = [NSString stringWithFormat:@"共%ld件，商品金额%@",(long)count,price];
+    NSRange rang = [string rangeOfString:price];
+    NSMutableAttributedString *attributStr = [[NSMutableAttributedString alloc]initWithString:string];
+    [attributStr addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:rang];
+    self.totalLabel.attributedText = attributStr;
     
 }
 
@@ -123,7 +162,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumLineSpacing = 2;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,55, SCREENWIDTH, 199) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,60, SCREENWIDTH, 110) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.scrollsToTop = NO;
@@ -145,7 +184,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 10, 0, 0);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
     
 }
 
@@ -157,13 +196,14 @@ static NSString *cellId = @"GoodCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(134, 90);
+    return CGSizeMake(100, 100);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GoodCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-//    GoodDetailRes *model = _dataArr[indexPath.row];
-//    [collectcell setModel:model];
+    CartProductModel *model = _dataArr[indexPath.row];
+    [collectcell setWidth:90];
+    [collectcell setCarmodel:model];
     return collectcell;
 }
 
@@ -171,16 +211,35 @@ static NSString *cellId = @"GoodCollectionViewCell";
     
 }
 
-
+-(void)pressSubmit{
+    self.submitBlock(_dataArr);
+}
 -(void)setModel:(CartProductModel *)model{
     _model = model;
 }
+-(void)setTime:(NSString *)time{
+    _time = time;
+}
 -(void)setDataArr:(NSArray *)dataArr{
     _dataArr = dataArr;
+    for (id dic in dataArr) {
+        if ([dic isKindOfClass:[NSDictionary class]]) {
+             _dataArr = [CartProductModel mj_objectArrayWithKeyValuesArray:dataArr];
+        }
+       
+    }
+    if (_productType==0) {
+        _dateLabel.text = @"普通商品";
+    }else if (_productType==1){
+        _dateLabel.text = [NSString stringWithFormat:@"预售商品 最快%@送达",_time];
+    }else if (_productType==2){
+        _dateLabel.text = @"次日达商品";
+    }
     if (dataArr.count ==1) {
         [self setLayout];
     }else if (dataArr.count>1){
         [self setMoreLayout];
+        [_collectionView reloadData];
     }
     
 }

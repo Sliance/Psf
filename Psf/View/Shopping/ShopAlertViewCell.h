@@ -12,7 +12,7 @@
 @interface ShopAlertViewCell : BaseTableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 @property(nonatomic,strong)UILabel *dateLabel;
 @property(nonatomic,strong)UILabel *totalLabel;
-@property(nonatomic,strong)UILabel *priceLabel;
+
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *weightLabel;
 
@@ -23,6 +23,7 @@
 @property(nonatomic,assign)NSInteger  productType;
 
 @property(nonatomic,strong)CartProductModel *model;
+@property(nonatomic, strong)NSString *time;
 @property(nonatomic,strong)NSArray *dataArr;
-
+@property(nonatomic,copy)void (^submitBlock)(NSArray*);
 @end

@@ -26,7 +26,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = DSColorFromHex(0x474747);
-        _nameLabel.text = @"墨西哥牛油果";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -36,7 +36,7 @@
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _priceLabel.textColor = DSColorFromHex(0xFF4C4D);
-        _priceLabel.text = @"¥ 21";
+        _priceLabel.text = @"¥ 0";
     }
     return _priceLabel;
 }
@@ -51,10 +51,14 @@
     [self addSubview:self.headImage];
     [self addSubview:self.nameLabel];
     [self addSubview:self.priceLabel];
+   
+}
+-(void)setWidth:(NSInteger)width{
+    _width = width;
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(15);
-        make.width.height.mas_equalTo(123);
+        make.width.height.mas_equalTo(width);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,5 +79,10 @@
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+}
+-(void)setCarmodel:(CartProductModel *)carmodel{
+    _carmodel = carmodel;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
 }
 @end

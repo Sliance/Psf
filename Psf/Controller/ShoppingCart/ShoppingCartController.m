@@ -91,9 +91,21 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [weakself selectedAll:selected];
     }];
     [self.shopAlertView setCloseBlcok:^{
-        weakself.hidesBottomBarWhenPushed = NO;
+        weakself.tabBarController.tabBar.hidden = NO;
         weakself.shopAlertView.hidden = YES;
         
+    }];
+    [self.shopAlertView setSubmitBlock:^(NSArray *arr) {
+         weakself.tabBarController.tabBar.hidden = NO;
+        
+         weakself.shopAlertView.hidden = YES;
+        FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
+        fillVC.hidesBottomBarWhenPushed = YES;
+        [fillVC setOrderType:1];
+        [fillVC setGoodstype:GOOGSTYPENormal];
+        [fillVC setProductArr:arr];
+        [fillVC setResult:weakself.result];
+        [weakself.navigationController pushViewController:fillVC animated:YES];
     }];
     if (@available(iOS 11.0, *)) {
         _collectionView.contentInsetAdjustmentBehavior = NO;
@@ -559,13 +571,13 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)pressSubmitBtn:(UIButton*)sender{
     
  if(self.jisuanmodel.cartProductList.count>0&&[self.jisuanmodel.preSaleProductList count]>0) {
-     self.hidesBottomBarWhenPushed = YES;
+     self.tabBarController.tabBar.hidden = YES;
      self.shopAlertView.hidden = NO;
  }else if(self.jisuanmodel.cartProductList.count>0&&self.jisuanmodel.nextDayProductList.count>0){
-     self.hidesBottomBarWhenPushed = YES;
+    self.tabBarController.tabBar.hidden = YES;
      self.shopAlertView.hidden = NO;
  }else if([self.jisuanmodel.preSaleProductList count]>0&&self.jisuanmodel.nextDayProductList.count>0){
-     self.hidesBottomBarWhenPushed = YES;
+     self.tabBarController.tabBar.hidden = YES;
      self.shopAlertView.hidden = NO;
  }else{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];

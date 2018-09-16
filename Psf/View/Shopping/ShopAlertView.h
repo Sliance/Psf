@@ -15,8 +15,11 @@
 @property(nonatomic,strong)UIButton *closeBtn;
 @property(nonatomic,strong)UILabel *lineLabel;
 
+
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)ShoppingListRes *model;
+@property(nonatomic,copy)void (^submitBlock)(NSArray*);
+
 
 
 

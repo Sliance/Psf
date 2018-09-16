@@ -122,6 +122,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GoodCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     GoodDetailRes *model = _dataArr[indexPath.row];
+    [collectcell setWidth:123];
     [collectcell setModel:model];
     return collectcell;
 }

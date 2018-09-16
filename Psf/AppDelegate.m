@@ -239,7 +239,7 @@
 {
     
     SendAuthResp *aresp = (SendAuthResp *)resp;
-    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"Lxn"])
+    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"LxnScheme"])
     {
         NSString *code = aresp.code;
         [self getWeiXinOpenId:code];

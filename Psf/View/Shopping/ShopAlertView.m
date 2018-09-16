@@ -16,6 +16,8 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setLayout];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressClose)];
+        [self.yinBgview addGestureRecognizer:tap];
     }
     return self;
 }
@@ -54,6 +56,7 @@
     }
     return _closeBtn;
 }
+
 -(UILabel *)lineLabel{
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc]init];
@@ -67,6 +70,7 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.tableFooterView = [UIView new];
+        _tableview.separatorColor = DSColorFromHex(0xF0F0F0);
     }
     return _tableview;
 }
@@ -77,9 +81,10 @@
     [self.bgView addSubview:self.titleLabel];
     [self.bgView addSubview:self.closeBtn];
     [self.bgView addSubview:self.lineLabel];
+    
     self.titleLabel.frame = CGRectMake(15, 0, SCREENWIDTH-65, 48);
     self.closeBtn.frame = CGRectMake(SCREENWIDTH-48, 0, 48, 48);
-    
+    self.lineLabel.frame = CGRectMake(15, 48, SCREENWIDTH-15, 1);
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
@@ -110,14 +115,17 @@
     }else if(indexPath.section ==1){
         for (NSString *key in self.model.preSaleProductList) {
             NSArray *arr = [self.model.preSaleProductList objectForKey:key];
+            [cell setTime:key];
             [cell setDataArr:arr];
         }
         
     }else if(indexPath.section ==2){
-        
+        [cell setDataArr:self.model.nextDayProductList];
     }
-    
-    
+    __weak typeof(self)weakself = self;
+    [cell setSubmitBlock:^(NSArray *arr) {
+        weakself.submitBlock(arr);
+    }];
     return cell;
 }
 

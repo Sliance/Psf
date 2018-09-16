@@ -22,13 +22,13 @@ static NSString *cellId = @"cellId";
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-        layout.itemSize = CGSizeMake(165, 165);
+        
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [_collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellId];
         _collectionView.backgroundColor = [UIColor whiteColor];
-        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
+        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"reusableView"];
     }
     return _collectionView;
 }
@@ -42,8 +42,8 @@ static NSString *cellId = @"cellId";
     _dataArr = [NSMutableArray array];
     
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-    self.pageIndex = 1;
-    [self getPresaleList];
+    [self headerRefreshing];
+    
     
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -157,7 +157,7 @@ static NSString *cellId = @"cellId";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(SCREENWIDTH, 0);
+    return CGSizeMake(0, 0);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     return CGSizeMake(SCREENWIDTH, 70);
@@ -165,7 +165,7 @@ static NSString *cellId = @"cellId";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     
-    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
+    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
     
     
     for (UIView *view in headerView.subviews) {
@@ -173,7 +173,8 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
-   
+    UIView *view  = [[UIView alloc]initWithFrame:CGRectZero];
+    [headerView addSubview:view];
     return headerView;
 }
 
