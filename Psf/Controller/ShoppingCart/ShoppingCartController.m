@@ -579,6 +579,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
  }else if([self.jisuanmodel.preSaleProductList count]>0&&self.jisuanmodel.nextDayProductList.count>0){
      self.tabBarController.tabBar.hidden = YES;
      self.shopAlertView.hidden = NO;
+ }else if([self.jisuanmodel.preSaleProductList count]>1){
+     self.tabBarController.tabBar.hidden = YES;
+     self.shopAlertView.hidden = NO;
  }else{
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
     fillVC.hidesBottomBarWhenPushed = YES;

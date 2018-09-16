@@ -91,11 +91,18 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section ==0) {
+        if(self.model.cartProductList.count>0){
         return 1;
+        }else{
+            return 0;
+        }
     }else if (section ==1){
         return [self.model.preSaleProductList count];
     }
-    return  1;
+    if(self.model.nextDayProductList.count>0){
+        return 1;
+    }
+    return 0;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 180;
