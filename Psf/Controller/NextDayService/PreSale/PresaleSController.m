@@ -186,7 +186,7 @@ static NSString *cellId = @"cellId";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(SCREENWIDTH, 200);
+    return CGSizeMake(SCREENWIDTH, 250);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     return CGSizeMake(SCREENWIDTH, 70);
@@ -202,20 +202,36 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
-    ZSCycleScrollView *cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREENWIDTH, 200)];
-    cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
-    cycleScroll.delegate =self;
-    [cycleScroll setIndex:1];
+    if (indexPath.section==0) {
+        ZSCycleScrollView *cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREENWIDTH, 200)];
+        cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
+        cycleScroll.delegate =self;
+        [cycleScroll setIndex:1];
+        
+        cycleScroll.autoScrollTimeInterval = 3.0;
+        cycleScroll.dotColor = [UIColor redColor];
+        [headerView addSubview:cycleScroll];
+        [cycleScroll setImageUrlGroups:self.imageArr];
+        [cycleScroll setDataArr:nil];
+        [cycleScroll setCollectionHeight:0];
+        cycleScroll.supportBtn.hidden = YES;
+        cycleScroll.returnBtn.hidden = YES;
+        cycleScroll.sendBtn.hidden = YES;
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 215, SCREENWIDTH-30, 15)];
+        titleLabel.text = @"星期一";
+        titleLabel.font = [UIFont systemFontOfSize:15];
+        titleLabel.textColor = DSColorFromHex(0x464646);
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 235, SCREENWIDTH-30, 15)];
+        detailLabel.text = @"2018年10月1日";
+        detailLabel.font = [UIFont systemFontOfSize:12];
+        detailLabel.textColor = DSColorFromHex(0x969696);
+        detailLabel.textAlignment = NSTextAlignmentCenter;
+        [headerView addSubview:titleLabel];
+        [headerView addSubview:detailLabel];
+    }
     
-    cycleScroll.autoScrollTimeInterval = 3.0;
-    cycleScroll.dotColor = [UIColor redColor];
-    [headerView addSubview:cycleScroll];
-    [cycleScroll setImageUrlGroups:self.imageArr];
-    [cycleScroll setDataArr:nil];
-    [cycleScroll setCollectionHeight:0];
-    cycleScroll.supportBtn.hidden = YES;
-    cycleScroll.returnBtn.hidden = YES;
-    cycleScroll.sendBtn.hidden = YES;
+    
     return headerView;
 }
 

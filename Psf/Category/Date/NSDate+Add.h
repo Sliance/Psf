@@ -15,7 +15,13 @@
 + (NSString *)cTimestampFromString:(NSString *)theTime ;
 // 时间戳—>字符串时间
 + (NSString *)cStringFromTimestamp:(NSString *)timestamp Formatter:(NSString*)formatter;
-
+/**
+ *  计算剩余时间
+ *
+ *  @param endTime   结束日期
+ *
+ *  @return 剩余时间
+ */
 +(NSString *)getCountDownStringWithEndTime:(NSString *)endTime;
 
 @end

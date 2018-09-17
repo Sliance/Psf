@@ -297,7 +297,7 @@
 
 ///结算列表
 -(void)settlementListWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/cart/mobile/v1/typeCeshi";
+    NSString *url = @"/lxn/cart/mobile/v1/cart/product/type";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {

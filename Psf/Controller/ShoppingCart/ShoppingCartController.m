@@ -41,12 +41,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(ShopFootView *)footView{
     if (!_footView) {
         _footView = [[ShopFootView alloc]initWithFrame:CGRectZero];
-        if (@available(iOS 11.0, *)) {
-            _footView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-49, SCREENWIDTH, 49);
-        } else {
-           _footView.frame = CGRectMake(0,SCREENHEIGHT-[self tabBarHeight]-49-[self navHeightWithHeight], SCREENWIDTH, 49);
-            
-        }
+        
         _footView.hidden = YES;
         [_footView.submitBtn addTarget:self action:@selector(pressSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -87,6 +82,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
     _loseArr = [NSMutableArray array];
     _likeArr = [NSMutableArray array];
     __weak typeof(self)weakself = self;
+    [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-[weakself tabBarHeight]);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(49);
+    }];
+    
     [self.footView setAllBlock:^(BOOL selected) {
         [weakself selectedAll:selected];
     }];
