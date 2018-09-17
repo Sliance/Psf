@@ -143,12 +143,13 @@ static NSString *cellId = @"cellId";
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 1;
+    return self.dataArr.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    
-    return self.dataArr.count;
+    PresaleListRes *model = [[PresaleListRes alloc]init];
+    model = self.dataArr[section];
+    return model.preSaleMobileV1ListResponseList.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -172,24 +173,33 @@ static NSString *cellId = @"cellId";
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     return CGSizeMake(165, 250);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
-        GroupListRes *model = self.dataArr[indexPath.row];
+    PresaleListRes *res = [[PresaleListRes alloc]init];
+    res = self.dataArr[indexPath.section];
+        GroupListRes *model = res.preSaleMobileV1ListResponseList[indexPath.row];
         [cell setGroupmodel:model];
     
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    
-    return CGSizeMake(SCREENWIDTH, 250);
+    if (section ==0) {
+        return CGSizeMake(SCREENWIDTH, 250);
+    }
+    return CGSizeMake(SCREENWIDTH, 50);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    return CGSizeMake(SCREENWIDTH, 70);
+    if (self.dataArr.count>0) {
+        if (section == self.dataArr.count-1) {
+            return CGSizeMake(SCREENWIDTH, 70);
+        }
+    }
+    return CGSizeMake(SCREENWIDTH, 0);
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -202,6 +212,8 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
+    PresaleListRes *model = [[PresaleListRes alloc]init];
+    model = self.dataArr[indexPath.section];
     if (indexPath.section==0) {
         ZSCycleScrollView *cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREENWIDTH, 200)];
         cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
@@ -218,12 +230,25 @@ static NSString *cellId = @"cellId";
         cycleScroll.returnBtn.hidden = YES;
         cycleScroll.sendBtn.hidden = YES;
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 215, SCREENWIDTH-30, 15)];
-        titleLabel.text = @"星期一";
+        titleLabel.text = model.preSaleExpireTimeWeek;
         titleLabel.font = [UIFont systemFontOfSize:15];
         titleLabel.textColor = DSColorFromHex(0x464646);
         titleLabel.textAlignment = NSTextAlignmentCenter;
         UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 235, SCREENWIDTH-30, 15)];
-        detailLabel.text = @"2018年10月1日";
+        detailLabel.text = model.preSaleExpireTimeStr;
+        detailLabel.font = [UIFont systemFontOfSize:12];
+        detailLabel.textColor = DSColorFromHex(0x969696);
+        detailLabel.textAlignment = NSTextAlignmentCenter;
+        [headerView addSubview:titleLabel];
+        [headerView addSubview:detailLabel];
+    }else{
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, SCREENWIDTH-30, 15)];
+        titleLabel.text = model.preSaleExpireTimeWeek;
+        titleLabel.font = [UIFont systemFontOfSize:15];
+        titleLabel.textColor = DSColorFromHex(0x464646);
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, SCREENWIDTH-30, 15)];
+        detailLabel.text = model.preSaleExpireTimeStr;
         detailLabel.font = [UIFont systemFontOfSize:12];
         detailLabel.textColor = DSColorFromHex(0x969696);
         detailLabel.textAlignment = NSTextAlignmentCenter;
@@ -238,7 +263,10 @@ static NSString *cellId = @"cellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
     
-        GroupListRes *model = self.dataArr[indexPath.row];
+    PresaleListRes *res = [[PresaleListRes alloc]init];
+    res = self.dataArr[indexPath.section];
+    GroupListRes *model = res.preSaleMobileV1ListResponseList[indexPath.row];
+    
     [vc setErpProductId:model.erpProductId];
         [vc setProductID:model.productId];
     vc.hidesBottomBarWhenPushed = YES;

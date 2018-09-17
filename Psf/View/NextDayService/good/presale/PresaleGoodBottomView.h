@@ -13,6 +13,8 @@
 
 @property(nonatomic,strong)UIButton *addBtn;
 @property(nonatomic,strong)UIButton *shopBtn;
+@property(nonatomic,strong)UIButton *addShopBtn;
+@property(nonatomic,strong)UILabel *countLabel;
 @property(nonatomic,copy)void(^pressAddBlock)(void);
 @property(nonatomic,copy)void(^pressshopBlock)(void);
 @property(nonatomic,copy)void(^serviceBlock)(void);

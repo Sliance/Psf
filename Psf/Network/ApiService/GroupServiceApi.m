@@ -155,14 +155,14 @@
 }
 ///获取预售信息列表
 - (void)getPresaleListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/pre/sale/mobile/v1/list";
+    NSString *url = @"/lxn/pre/sale/mobile/v1/list/all/week";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [GroupListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                NSArray *result = [PresaleListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
                 if (responseModel) {
                     responseModel(result);
                 }

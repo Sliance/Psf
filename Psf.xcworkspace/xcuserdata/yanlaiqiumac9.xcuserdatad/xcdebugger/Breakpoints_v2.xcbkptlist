@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Network/ApiService/ShopServiceApi.m"
-            timestampString = "558844685.030102"
+            timestampString = "558855888.987893"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "303"
@@ -72,58 +72,74 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Psf/Controller/ShoppingCart/ShoppingCartController.m"
-            timestampString = "558844685.0301549"
+            filePath = "Psf/Network/ApiService/GroupServiceApi.m"
+            timestampString = "558855888.987956"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-getPresaleListWithParam:response:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Psf/Network/ApiService/GroupServiceApi.m"
+            timestampString = "558855888.988004"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "-getPresaleListWithParam:response:"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[ShoppingCartController viewDidLoad]"
+                  symbolName = "-[GroupServiceApi getPresaleListWithParam:response:]"
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/ShoppingCartController.m"
-                  timestampString = "558844685.498691"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/GroupServiceApi.m"
+                  timestampString = "558849147.4968899"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "2125">
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "287">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__37-[ShoppingCartController viewDidLoad]_block_invoke"
+                  symbolName = "__52-[GroupServiceApi getPresaleListWithParam:response:]_block_invoke"
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/ShoppingCartController.m"
-                  timestampString = "558844685.500428"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/GroupServiceApi.m"
+                  timestampString = "558849147.498561"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "19">
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "47">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
+                  symbolName = "__destroy_helper_block_.86"
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/ShoppingCartController.m"
-                  timestampString = "558844685.507944"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/GroupServiceApi.m"
+                  timestampString = "558849147.500114"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
                   offsetFromSymbolStart = "16">
                </Location>
             </Locations>
@@ -135,29 +151,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Psf/Controller/ShoppingCart/ShoppingCartController.m"
-            timestampString = "558844685.030197"
+            filePath = "Psf/Controller/NextDayService/PreSale/PresaleSController.m"
+            timestampString = "558855888.988049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Psf/Network/ApiService/GroupServiceApi.m"
-            timestampString = "558844774.6290261"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-getPresaleListWithParam:response:"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "-collectionView:layout:referenceSizeForFooterInSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

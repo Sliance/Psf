@@ -594,6 +594,9 @@
             if ([dic[@"cartProductCount"] integerValue]>0) {
                 weakself.normalBView.countLabel.hidden = NO;
                 weakself.normalBView.countLabel.text = [NSString stringWithFormat:@"%@",dic[@"cartProductCount"]];
+                weakself.preBView.countLabel.hidden = NO;
+                weakself.preBView.countLabel.text = [NSString stringWithFormat:@"%@",dic[@"cartProductCount"]];
+                
             }
             if (index == 0) {
                  [self reloadGoodDetail];

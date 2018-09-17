@@ -111,6 +111,7 @@
 		8857EA8C20E35B9100D7E167 /* WaitEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857EA8B20E35B9100D7E167 /* WaitEvaluateController.m */; };
 		8857EA8F20E3A83700D7E167 /* OrderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857EA8E20E3A83700D7E167 /* OrderCollectionViewCell.m */; };
 		8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857EA9120E3A93400D7E167 /* OrderDetailViewController.m */; };
+		8858ACEB214F57F2003A7957 /* PresaleListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8858ACEA214F57F2003A7957 /* PresaleListRes.m */; };
 		88590B6F20E4702500F51BC5 /* OrderDetailFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B6E20E4702500F51BC5 /* OrderDetailFootView.m */; };
 		88590B7220E4705D00F51BC5 /* OrderDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B7120E4705D00F51BC5 /* OrderDetailHeadView.m */; };
 		88590B7520E4707500F51BC5 /* OrderDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88590B7420E4707500F51BC5 /* OrderDetailBottomView.m */; };
@@ -591,6 +592,8 @@
 		8857EA8E20E3A83700D7E167 /* OrderCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderCollectionViewCell.m; sourceTree = "<group>"; };
 		8857EA9020E3A93400D7E167 /* OrderDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		8857EA9120E3A93400D7E167 /* OrderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		8858ACE9214F57F2003A7957 /* PresaleListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresaleListRes.h; sourceTree = "<group>"; };
+		8858ACEA214F57F2003A7957 /* PresaleListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresaleListRes.m; sourceTree = "<group>"; };
 		88590B6D20E4702500F51BC5 /* OrderDetailFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailFootView.h; sourceTree = "<group>"; };
 		88590B6E20E4702500F51BC5 /* OrderDetailFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailFootView.m; sourceTree = "<group>"; };
 		88590B7020E4705D00F51BC5 /* OrderDetailHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailHeadView.h; sourceTree = "<group>"; };
@@ -1842,6 +1845,8 @@
 				8868036A20F8C3C800BFC1BC /* GroupBannerModel.m */,
 				88566E872114389A00B6C38D /* SpellGroupModel.h */,
 				88566E882114389A00B6C38D /* SpellGroupModel.m */,
+				8858ACE9214F57F2003A7957 /* PresaleListRes.h */,
+				8858ACEA214F57F2003A7957 /* PresaleListRes.m */,
 			);
 			path = group;
 			sourceTree = "<group>";
@@ -3138,6 +3143,7 @@
 				88600BDA20D890FF0098CF10 /* ZSSortSelectorView.m in Sources */,
 				88D8935E20D25C41007E3C41 /* ViewController.m in Sources */,
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
+				8858ACEB214F57F2003A7957 /* PresaleListRes.m in Sources */,
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
 				88671890212CFAC500D861AD /* ZSNotification.m in Sources */,

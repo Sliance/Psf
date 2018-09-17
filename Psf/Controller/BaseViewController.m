@@ -81,7 +81,7 @@
                                                      target:self
                                                      action:nil];
     }
-    [self.navigationController.navigationBar setBackgroundImage:[self imageWithColor:[UIColor whiteColor] size:CGSizeMake(SCREENWIDTH, [self navHeightWithHeight])] forBarMetrics:UIBarMetricsDefault];
+
    
     [[UINavigationBar appearance] setShadowImage:[self imageWithColor:DSColorFromHex(0xF0F0F0) size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.5)]];
     
