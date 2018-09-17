@@ -95,6 +95,9 @@
     }
     return _countLabel;
 }
+-(void)pressShop{
+    self.goShopeBlock();
+}
 -(void)pressAdd{
     self.pressAddBlock();
 }

@@ -85,6 +85,8 @@
     [[AddressServiceApi share]updateStoreAddresWithParam:req response:^(id response) {
         if([response[@"code"] integerValue]==200){
                 weakself.storeBlock(model);
+            [ZSNotification postLocationResultNotification:@{@"address":@""}
+             ];
             [weakself.navigationController popViewControllerAnimated:YES];
         }
     }];

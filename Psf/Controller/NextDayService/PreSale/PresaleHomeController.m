@@ -191,11 +191,6 @@
     [self getErp];
 }
 -(void)location:(NSNotification *)notifi{
-    NSDictionary *userInfo = [notifi userInfo];
-    if ([userInfo objectForKey:@"address"]) {
-        [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
-        [UserCacheBean share].userInfo.storeName = [userInfo objectForKey:@"address"];
-    }
     
     
     [self getErp];

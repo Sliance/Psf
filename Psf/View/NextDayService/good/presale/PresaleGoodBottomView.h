@@ -18,7 +18,7 @@
 @property(nonatomic,copy)void(^pressAddBlock)(void);
 @property(nonatomic,copy)void(^pressshopBlock)(void);
 @property(nonatomic,copy)void(^serviceBlock)(void);
-
+@property(nonatomic,copy)void(^goShopeBlock)(void);
 @property(nonatomic,assign)BOOL preSaleIsComplete;
 
 @end

@@ -310,14 +310,81 @@
         
     }];
     [self.preBView setPressAddBlock:^{
-        _weakSelf.presaleBuyView.hidden = NO;
-        [_weakSelf.presaleBuyView.submitBtn setTitle:@"马上购买" forState:UIControlStateNormal];
-        [_weakSelf.presaleBuyView setType:0];
+        if ([UserCacheBean share].userInfo.token.length>0) {
+       ProductSkuModel *model= [_weakSelf.result.productSkuList firstObject];
+            FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
+            _weakSelf.result.saleOrderProductQty = 1;
+            [sureVC setGoodstype:GOOGSTYPEPresale];
+            [sureVC setSkumodel:model];
+            [sureVC setGooddetail:_weakSelf.resmodel];
+            [sureVC setNavStr:_weakSelf.navStr];
+            [sureVC setOrderType:2];
+            [_weakSelf.navigationController pushViewController:sureVC animated:YES];
+        }else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                _weakSelf.tabBarController.selectedIndex = 2;
+                for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+                    
+                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                        [_weakSelf.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                }
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [_weakSelf presentViewController:alert animated:YES completion:nil];
+        }
+        
     }];
     [self.preBView setPressshopBlock:^{
-        _weakSelf.presaleBuyView.hidden = NO;
-        [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
-         [_weakSelf.presaleBuyView setType:1];
+         if ([UserCacheBean share].userInfo.token.length>0) {
+            ProductSkuModel *model= [_weakSelf.result.productSkuList firstObject];
+            [_weakSelf addShopCount:model];
+         } else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                _weakSelf.tabBarController.selectedIndex = 2;
+                for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+                    
+                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                        [_weakSelf.navigationController popToViewController:controller animated:YES];
+                        return ;
+                    }
+                }
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [_weakSelf presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+    [self.preBView setGoShopeBlock:^{
+        for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[ShoppingCartController class]]) {
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+            }else if ([controller isKindOfClass:[PresaleHomeController class]]){
+                _weakSelf.tabBarController.selectedIndex = 1;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }else if ([controller isKindOfClass:[SortViewController class]]){
+                _weakSelf.tabBarController.selectedIndex = 1;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }
+        }
     }];
     [self.groupBView setSingleBlock:^{
         [_weakSelf.groupBuyView setType:1];

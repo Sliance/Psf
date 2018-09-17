@@ -238,19 +238,15 @@
 - (void)onResp:(BaseResp *)resp
 {
     
-    SendAuthResp *aresp = (SendAuthResp *)resp;
-    if(aresp.errCode== 0 && [aresp.state isEqualToString:@"LxnScheme"])
-    {
-        NSString *code = aresp.code;
-        [self getWeiXinOpenId:code];
-    }
+    
+   
+   
+    
     NSString * strMsg = [NSString stringWithFormat:@"errorCode: %d",resp.errCode];
     NSLog(@"strMsg: %@",strMsg);
     
     NSString * errStr       = [NSString stringWithFormat:@"errStr: %@",resp.errStr];
     NSLog(@"errStr: %@",errStr);
-    
-    
     NSString * strTitle;
     //判断是微信消息的回调 --> 是支付回调回来的还是消息回调回来的.
     if ([resp isKindOfClass:[SendMessageToWXResp class]])
@@ -291,7 +287,19 @@
             }
         }
        [ZSNotification postWeixinPayResultNotification:@{@"weixinpay": wxPayResult,@"strMsg":strMsg}];
+    
+    
     }
+    if([resp isKindOfClass:[SendAuthResp class]]){
+        
+        SendAuthResp *aresp = (SendAuthResp *)resp;
+        if(aresp.errCode== 0 && [aresp.state isEqualToString:@"LxnScheme"])
+        {
+            NSString *code = aresp.code;
+            [self getWeiXinOpenId:code];
+        }
+    }
+   
 }
 
 

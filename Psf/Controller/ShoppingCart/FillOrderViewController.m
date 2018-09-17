@@ -377,15 +377,16 @@
         req.saleOrderProductQty = self.gooddetail.saleOrderProductQty;
         req.productSkuId = self.gooddetail.productSkuId;
         req.productList = self.dataArr;
-        __weak typeof(self)weakself = self;
-        [[GroupServiceApi share]getPresalePriceWithParam:req response:^(id response) {
-            if (response) {
-                weakself.resModel = [[CalculateThePriceRes alloc]init];
-                weakself.resModel = response;
-                weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
-                [weakself.tableview reloadData];
-            }
-        }];
+        [self calculateNormal:req];
+//        __weak typeof(self)weakself = self;
+//        [[GroupServiceApi share]getPresalePriceWithParam:req response:^(id response) {
+//            if (response) {
+//                weakself.resModel = [[CalculateThePriceRes alloc]init];
+//                weakself.resModel = response;
+//                weakself.bottomView.payableLabel.text = [NSString stringWithFormat:@"应付款：￥%@",weakself.resModel.saleOrderPayAmount];
+//                [weakself.tableview reloadData];
+//            }
+//        }];
     }
     
 }
@@ -470,7 +471,7 @@
         req.saleOrderReceiveProvince = self.leftModel.memberAddressProvince;
         req.saleOrderReceiveCity = self.leftModel.memberAddressCity;
         req.saleOrderReceiveArea = self.leftModel.memberAddressArea;
-        req.saleOrderReceiveAddress = self.leftModel.memberAddressDetail;
+        req.saleOrderReceiveAddress = [NSString stringWithFormat:@"%@%@",self.leftModel.memberAddressPositionDetail,self.leftModel.memberAddressDetail];
         req.saleOrderReceiveMobile = self.leftModel.memberAddressMobile;
         req.merchantStoreName = @"";
          req.merchantStoreId = @"";

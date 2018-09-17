@@ -165,7 +165,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
         
-        static NSString *identify = @"identify";
+        static NSString *identify = @"StoreAddressCell";
         StoreAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
         if (!cell) {
             cell = [[StoreAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
@@ -174,10 +174,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textColor = DSColorFromHex(0x464646);
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        StoreRes *model = _dataArr[indexPath.row];
-//        if (indexPath.row) {
-//            [cell setIndex:indexPath.row];
-//        }
+        StoreRes *model = self.dataArr[indexPath.row];
+        if (indexPath.row) {
+            [cell setIndex:indexPath.row];
+        }
         [cell setModel:model];
         __weak typeof(self)weakself = self;
         [cell setSelectedBlock:^(StoreRes * model) {
@@ -203,7 +203,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
-        StoreRes *model = _dataArr[indexPath.row];
+        StoreRes *model = self.dataArr[indexPath.row];
        
         [self updateAddress:model];
        

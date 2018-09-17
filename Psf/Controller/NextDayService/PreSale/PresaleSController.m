@@ -248,7 +248,12 @@ static NSString *cellId = @"cellId";
         titleLabel.textColor = DSColorFromHex(0x464646);
         titleLabel.textAlignment = NSTextAlignmentCenter;
         UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, SCREENWIDTH-30, 15)];
-        detailLabel.text = model.preSaleExpireTimeStr;
+        if([model.preSaleExpireTimeWeek isEqualToString:@"已截单"]){
+             detailLabel.text = @"";
+        }else{
+             detailLabel.text = model.preSaleExpireTimeStr;
+        }
+       
         detailLabel.font = [UIFont systemFontOfSize:12];
         detailLabel.textColor = DSColorFromHex(0x969696);
         detailLabel.textAlignment = NSTextAlignmentCenter;
