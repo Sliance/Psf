@@ -212,7 +212,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
 }
 
 -(void)pressSubmit{
-    self.submitBlock(_dataArr);
+    self.sureBlock(_dataArr,_time);
 }
 -(void)setModel:(CartProductModel *)model{
     _model = model;

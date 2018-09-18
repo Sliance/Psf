@@ -314,6 +314,9 @@
        ProductSkuModel *model= [_weakSelf.result.productSkuList firstObject];
             FillOrderViewController *sureVC = [[FillOrderViewController alloc]init];
             _weakSelf.result.saleOrderProductQty = 1;
+            
+            NSString *time  = [NSDate cStringFromTimestamp:_weakSelf.result.preSaleDeliveryTime Formatter:@"yyyy-MM-dd"];
+            [sureVC setPresaleTime:time];
             [sureVC setGoodstype:GOOGSTYPEPresale];
             [sureVC setSkumodel:model];
             [sureVC setGooddetail:_weakSelf.resmodel];
@@ -731,6 +734,7 @@
         [self reloadHeight];
     [self.view addSubview:self.groupBuyView];
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
+        [self requestCoupon];
         _tourHeight = 0;
          [self.view addSubview:self.preBView];
         [self.presaleBuyView setType:0];

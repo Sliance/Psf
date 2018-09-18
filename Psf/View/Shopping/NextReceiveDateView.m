@@ -17,6 +17,9 @@
     }
     return self;
 }
+-(void)setNextDate:(NSString *)nextDate{
+    _nextDate = nextDate;
+}
 -(void)setDatearr:(NSArray *)datearr{
     _datearr = datearr;
     [self setCortnetLayout];
@@ -29,7 +32,7 @@
     [self.bgview addSubview:self.titleLabel];
     [self.bgview addSubview:self.lineLabel];
     [self.leftview addSubview:self.nowBtn];
-    [self.leftview addSubview:self.nextBtn];
+//    [self.leftview addSubview:self.nextBtn];
     [self.bgview addSubview:self.cancleBtn];
     self.yinview.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-280);
     self.bgview.frame = CGRectMake(0, SCREENHEIGHT-280, SCREENWIDTH, 280);
@@ -37,7 +40,7 @@
     self.lineLabel.frame = CGRectMake(15, 45, SCREENWIDTH-15, 0.5);
     self.leftview.frame = CGRectMake(0, self.lineLabel.ctBottom, 125, self.bgview.ctHeight);
     self.nowBtn.frame = CGRectMake(0, 0, 125, 45);
-    self.nextBtn.frame = CGRectMake(0, 45, 125, 45);
+//    self.nextBtn.frame = CGRectMake(0, 45, 125, 45);
     self.cancleBtn.frame = CGRectMake(SCREENWIDTH-45, 0, 45, 45);
     for (int i = 0; i<_datearr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,11 +64,20 @@
     }
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressTap)];
     [self.yinview addGestureRecognizer:tap];
-    [self setDate];
     
+    [self setDate];
 }
 -(void)setDate{
-    NSDate *now = [[[NSDate alloc]init] dateByAddingDays:1];
+    NSDate *now;
+    if (_nextDate) {
+        
+       
+        now = [NSDate dateWithString:_nextDate format:@"yyyy-MM-dd"];
+       
+    }else{
+       now = [[[NSDate alloc]init] dateByAddingDays:1];
+    
+    }
     NSDate *yesterday = [now dateByAddingDays:1];
     NSInteger nowmonth = [now month];
     NSInteger nowday = [now  day];
@@ -80,7 +92,6 @@
     NSString *nowstr = [NSString stringWithFormat:@"%ld月%ld日|%@",nowmonth,nowday,nowweekstr];
     NSString *yesstr = [NSString stringWithFormat:@"%ld月%ld日|%@",yesmonth,yesday,yesweekstr];
     [_nowBtn setTitle:nowstr forState:UIControlStateNormal];
-    [_nextBtn setTitle:yesstr forState:UIControlStateNormal];
 }
 -(NSString *)changeWeek:(NSInteger)date{
     if (date==1) {
@@ -152,17 +163,17 @@
     }
     return _nowBtn;
 }
--(UIButton *)nextBtn{
-    if (!_nextBtn) {
-        _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nextBtn setBackgroundColor:DSColorFromHex(0xF0F0F0)];
-        [_nextBtn setTitle:@"" forState:UIControlStateNormal];
-        [_nextBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
-        _nextBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-         [_nextBtn addTarget:self action:@selector(pressLeft:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _nextBtn;
-}
+//-(UIButton *)nextBtn{
+//    if (!_nextBtn) {
+//        _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_nextBtn setBackgroundColor:DSColorFromHex(0xF0F0F0)];
+//        [_nextBtn setTitle:@"" forState:UIControlStateNormal];
+//        [_nextBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
+//        _nextBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//         [_nextBtn addTarget:self action:@selector(pressLeft:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _nextBtn;
+//}
 -(UIButton *)cancleBtn{
     if (!_cancleBtn) {
         _cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -206,12 +217,12 @@
         end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
         start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
     }
-    if (_leftBtn ==_nextBtn) {
-        now = [[[NSDate alloc]init]dateByAddingDays:2];
-        start = [now stringWithFormat:@"yyyy-MM-dd"];
-        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
-        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
-    }
+//    if (_leftBtn ==_nextBtn) {
+//        now = [[[NSDate alloc]init]dateByAddingDays:2];
+//        start = [now stringWithFormat:@"yyyy-MM-dd"];
+//        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+//        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+//    }
 //    self.cancleBlock(date,start,end);
 }
 -(void)pressBtn:(UIButton*)sender{
@@ -243,12 +254,12 @@
         end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
         start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
     }
-    if (_leftBtn ==_nextBtn) {
-        now = [[[NSDate alloc]init]dateByAddingDays:2];
-        start = [now stringWithFormat:@"yyyy-MM-dd"];
-        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
-        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
-    }
+//    if (_leftBtn ==_nextBtn) {
+//        now = [[[NSDate alloc]init]dateByAddingDays:2];
+//        start = [now stringWithFormat:@"yyyy-MM-dd"];
+//        end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
+//        start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
+//    }
     self.cancleBlock(date,start,end);
 }
 @end

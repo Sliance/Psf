@@ -26,5 +26,5 @@ typedef NS_ENUM(NSInteger, GOOGSTYPE){
 @property(nonatomic,strong)NSArray *productArr;
 @property(nonatomic,strong)NSString *navStr;
 @property(nonatomic,assign)NSInteger orderType;
-
+@property(nonatomic,strong)NSString *presaleTime;
 @end

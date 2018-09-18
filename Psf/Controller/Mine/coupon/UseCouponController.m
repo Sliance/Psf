@@ -8,6 +8,7 @@
 
 #import "UseCouponController.h"
 #import "MyCouponCell.h"
+#import "CouponServiceApi.h"
 
 @interface UseCouponController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -71,7 +72,21 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.titlelabel];
      [self.view addSubview:self.titleBtn];
-   
+    [self reloadData];
+}
+-(void)reloadData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+//    req.couponType = type;
+    __weak typeof(self)weakself = self;
+    [[CouponServiceApi share]fillOrderCouponWithParam:req response:^(id response) {
+        
+    }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

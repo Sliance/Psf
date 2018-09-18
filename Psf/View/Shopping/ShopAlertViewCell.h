@@ -25,5 +25,5 @@
 @property(nonatomic,strong)CartProductModel *model;
 @property(nonatomic, strong)NSString *time;
 @property(nonatomic,strong)NSArray *dataArr;
-@property(nonatomic,copy)void (^submitBlock)(NSArray*);
+@property(nonatomic,copy)void (^sureBlock)(NSArray*,NSString*);
 @end

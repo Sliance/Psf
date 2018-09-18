@@ -196,12 +196,26 @@
         
     }
 }
+-(void)setPresaleTime:(NSString *)presaleTime{
+    _presaleTime = presaleTime;
+}
 -(void)setDate:(NSString *)date{
-    NSDate *now = [[[NSDate alloc]init] dateByAddingDays:1];
+    
+    NSDate *now;
+    if (_presaleTime) {
+        now = [NSDate dateWithString:_presaleTime format:@"yyyy-MM-dd"];
+        
+    }else{
+        now = [[[NSDate alloc]init] dateByAddingDays:1];
+        
+    }
+   
     NSInteger nowmonth = [now month];
     NSInteger nowday = [now  day];
     NSInteger nowweek = [now weekday];
     NSString* nowweekstr = [self changeWeek:nowweek];
+    
+    
     NSString *nowstr = [NSString stringWithFormat:@"%ld月%ld日|%@ %@",nowmonth,nowday,nowweekstr,date];
     self.dateLabel.text = nowstr;
 }

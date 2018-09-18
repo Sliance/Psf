@@ -36,8 +36,8 @@
         make.bottom.equalTo(self.priceLabel.mas_bottom);
     }];
     
-    self.shareBtn.frame = CGRectMake(SCREENWIDTH-32, 15, 17, 17);
-    self.soldLabel.frame = CGRectMake(SCREENWIDTH-15-100, self.shareBtn.ctBottom+49, 100, 21);
+    self.shareBtn.frame = CGRectMake(SCREENWIDTH-45, 15, 32, 32);
+    self.soldLabel.frame = CGRectMake(SCREENWIDTH-15-100, self.shareBtn.ctBottom+41, 100, 21);
     
     self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
     self.weightLabel.textColor =  DSColorFromHex(0xFF4C4D);
@@ -112,9 +112,9 @@
         make.width.mas_equalTo(SCREENWIDTH-50);
     }];
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-15);
-        make.top.equalTo(self).offset(11);
-        make.width.height.mas_equalTo(21);
+        make.right.equalTo(self).offset(-5);
+        make.top.equalTo(self).offset(0);
+        make.width.height.mas_equalTo(32);
     }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
@@ -123,7 +123,7 @@
     }];
     [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-15);
-        make.top.equalTo(self.shareBtn.mas_bottom).offset(10);
+        make.top.equalTo(self.shareBtn.mas_bottom);
         
     }];
     [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {

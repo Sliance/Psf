@@ -45,5 +45,5 @@ typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
 @property(nonatomic,strong)OrderDetailRes *ordermodel;
 
 @property(nonatomic,strong)NSString *date;
-
+@property(nonatomic,strong)NSString *presaleTime;
 @end

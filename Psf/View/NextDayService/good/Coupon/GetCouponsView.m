@@ -114,7 +114,7 @@
     __weak typeof(self) _weakSelf = self;
     [cell setGetBlock:^(NSInteger index) {
         if ([_weakSelf.delegate respondsToSelector:@selector(getCouponViewWithIndex:)]) {
-            [_weakSelf.delegate getCouponViewWithIndex:index];
+            [_weakSelf.delegate getCouponViewWithIndex:indexPath.row];
         }
     }];
     return cell;

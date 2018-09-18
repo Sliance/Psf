@@ -13,7 +13,7 @@
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)UIButton *nowBtn;
-@property(nonatomic,strong)UIButton *nextBtn;
+//@property(nonatomic,strong)UIButton *nextBtn;
 @property(nonatomic,strong)UIView *bgview;
 @property(nonatomic,strong)UIView *leftview;
 @property(nonatomic,strong)UIView *yinview;
@@ -26,4 +26,5 @@
 @property(nonatomic,strong)UIButton *cancleBtn;
 @property(nonatomic,copy)void(^cancleBlock)(NSString*,NSString*,NSString*);
 @property(nonatomic,strong)NSArray *datearr;
+@property(nonatomic,strong)NSString *nextDate;
 @end

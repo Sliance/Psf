@@ -74,7 +74,7 @@
 -(FillOrderBottomView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[FillOrderBottomView alloc]init];
-        _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
+//        _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight]);
         [_bottomView.remindBtn addTarget:self action:@selector(pressRemind) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomView;
@@ -120,6 +120,11 @@
     [self.view addSubview:self.bottomView];
    
     [self.view addSubview:self.dateView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.height.mas_equalTo([self tabBarHeight]);
+    }];
     _type = 1;
 //    _payType = 0;
     [self.headView setGoodtype:CLAIMGOODSTYPEVISIT];
@@ -129,6 +134,7 @@
         if (index ==1) {
             weakSelf.calculateModel.expressEnable = YES;
             [weakSelf calculatePrice:weakSelf.calculateModel];
+            [weakSelf.headView setPresaleTime:weakSelf.presaleTime];
             [weakSelf.headView setGoodtype:CLAIMGOODSTYPEVISIT];
             weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
              [weakSelf.headView setModel:weakSelf.leftModel];
@@ -205,6 +211,9 @@
     }
     [self showInfo:[userInfo objectForKey:@"strMsg"]];
 }
+-(void)setPresaleTime:(NSString *)presaleTime{
+    _presaleTime = presaleTime;
+}
 -(void)setGoodstype:(GOOGSTYPE )goodstype{
     _goodstype = goodstype;
 //    if (_goodstype ==GOOGSTYPEPresale) {
@@ -236,13 +245,7 @@
 }
 -(void)setNavStr:(NSString *)navStr{
     _navStr = navStr;
-    if ([navStr isEqualToString:@"shop"]) {
-         if (@available(iOS 11.0, *)) {
-         }else{
-             self.tableview.frame =  CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight]);
-              _bottomView.frame = CGRectMake(0, SCREENHEIGHT-[self tabBarHeight]-[self navHeightWithHeight], SCREENWIDTH, [self tabBarHeight]);
-         }
-    }
+    
 }
 -(void)setGooddetail:(GoodDetailRes *)gooddetail{
     _gooddetail = gooddetail;
@@ -295,8 +298,14 @@
             weakself.calculateModel.saleOrderDistributionStartTime = next;
             weakself.calculateModel.saleOrderDistributionEndTime = end ;
             [weakself calculatePrice:weakself.calculateModel];
-            [self.dateView setDatearr:weakself.timeArr];
-            [self.headView setDate:time];
+            if (self.goodstype ==GOOGSTYPEPresale) {
+                [weakself.dateView setNextDate:weakself.presaleTime];
+                [weakself.dateView setDatearr:weakself.timeArr];
+            }else{
+              [weakself.dateView setDatearr:weakself.timeArr];
+            }
+            [weakself.headView setPresaleTime:weakself.presaleTime];
+            [weakself.headView setDate:time];
         }
     }];
 }
@@ -813,8 +822,8 @@
             if (self.couponArr.count ==0) {
                 cell.hidden = YES;
             }else{
-                cell.textLabel.text = @"优惠券：暂无可用";
-                cell.detailTextLabel.text = @"0张";
+                cell.textLabel.text = @"优惠券：";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu张",(unsigned long)self.couponArr.count];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
         }else if(indexPath.row ==4) {
@@ -906,8 +915,10 @@
         if (indexPath.row ==0) {
             UseCouponController *useVC = [[UseCouponController alloc]init];
             [self.navigationController pushViewController:useVC animated:YES];
-        }
-        if (indexPath.row ==2) {
+        }else if (indexPath.section ==1){
+            UseCouponController *couponVC = [[UseCouponController alloc]init];
+            [self.navigationController pushViewController:couponVC animated:YES];
+        }else if (indexPath.row ==2) {
             InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];
             
             [invoiceVC setPlacemodel:self.placemodel];

@@ -14,7 +14,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+//        self.backgroundColor = [UIColor whiteColor];
         [self setLayout];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressClose)];
         [self.yinBgview addGestureRecognizer:tap];
@@ -130,8 +130,9 @@
         [cell setDataArr:self.model.nextDayProductList];
     }
     __weak typeof(self)weakself = self;
-    [cell setSubmitBlock:^(NSArray *arr) {
-        weakself.submitBlock(arr);
+    [cell setSureBlock:^(NSArray *arr,NSString*time) {
+        weakself.submitBlock(arr,time);
+        
     }];
     return cell;
 }

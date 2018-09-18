@@ -189,6 +189,7 @@
         _countField.font = [UIFont systemFontOfSize:12];
         _countField.textAlignment = NSTextAlignmentCenter;
         _countField.text = @"2";
+        _countField.enabled = NO;
         _countField.delegate = self;
     }
     return _countField;

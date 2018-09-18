@@ -96,14 +96,20 @@ static NSString *cellIds = @"NextCollectionViewCell";
         weakself.shopAlertView.hidden = YES;
         
     }];
-    [self.shopAlertView setSubmitBlock:^(NSArray *arr) {
+    [self.shopAlertView setSubmitBlock:^(NSArray *arr,NSString*time) {
          weakself.tabBarController.tabBar.hidden = NO;
         
          weakself.shopAlertView.hidden = YES;
         FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
         fillVC.hidesBottomBarWhenPushed = YES;
         [fillVC setOrderType:1];
-        [fillVC setGoodstype:GOOGSTYPENormal];
+        if (time.length>0) {
+            [fillVC setPresaleTime:time];
+             [fillVC setGoodstype:GOOGSTYPEPresale];
+        }else{
+             [fillVC setGoodstype:GOOGSTYPENormal];
+        }
+       
         [fillVC setProductArr:arr];
         [fillVC setResult:weakself.result];
         [weakself.navigationController pushViewController:fillVC animated:YES];
@@ -240,6 +246,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
+        [weakself jieSuanData];
     }];
 }
 -(void)guessLikeList{
