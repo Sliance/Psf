@@ -917,6 +917,7 @@
             [self.navigationController pushViewController:useVC animated:YES];
         }else if (indexPath.section ==1){
             UseCouponController *couponVC = [[UseCouponController alloc]init];
+            [couponVC setProductArr:_productArr];
             [self.navigationController pushViewController:couponVC animated:YES];
         }else if (indexPath.row ==2) {
             InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];

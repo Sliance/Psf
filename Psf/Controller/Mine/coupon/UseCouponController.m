@@ -74,6 +74,9 @@
      [self.view addSubview:self.titleBtn];
     [self reloadData];
 }
+-(void)setProductArr:(NSArray *)productArr{
+    _productArr = productArr;
+}
 -(void)reloadData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -82,7 +85,7 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
-//    req.couponType = type;
+    req.saleOrderProductList = _productArr;
     __weak typeof(self)weakself = self;
     [[CouponServiceApi share]fillOrderCouponWithParam:req response:^(id response) {
         

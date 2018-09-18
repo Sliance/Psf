@@ -566,9 +566,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     if (indexPath.section ==0) {
         CartProductModel *model = _dataArr[indexPath.row];
+        [detailVC setErpProductId:model.erpProductId];
         [detailVC setProductID:model.productId];
     }else if (indexPath.section ==2){
         StairCategoryListRes *model = _likeArr[indexPath.row];
+         [detailVC setErpProductId:model.erpProductId];
          [detailVC setProductID:model.productId];
     }
     if (self.footView.hidden ==YES) {
@@ -599,11 +601,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [Arr addObject:model];
         }
     }
-    [fillVC setOrderType:1];
-    [fillVC setGoodstype:GOOGSTYPENormal];
-    [fillVC setProductArr:Arr];
-    [fillVC setResult:self.result];
-    [self.navigationController pushViewController:fillVC animated:YES];
+     if (Arr.count>0) {
+         [fillVC setOrderType:1];
+         [fillVC setGoodstype:GOOGSTYPENormal];
+         [fillVC setProductArr:Arr];
+         [fillVC setResult:self.result];
+         [self.navigationController pushViewController:fillVC animated:YES];
+     }else{
+         [self showInfo:@"请选择结算商品"];
+     }
+
   }
 }
 - (void)didReceiveMemoryWarning {

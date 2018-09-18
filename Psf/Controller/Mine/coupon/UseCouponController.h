@@ -9,5 +9,8 @@
 #import "BaseViewController.h"
 
 @interface UseCouponController : BaseViewController
+@property(nonatomic,strong)NSArray *productArr;
+
+
 
 @end

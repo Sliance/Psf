@@ -17,6 +17,7 @@
 @property(nonatomic,assign)NSInteger cartProductIsActive;
 ///
 @property(nonatomic,assign)NSInteger productId;
+@property(nonatomic,assign)NSInteger erpProductId;
 ///
 @property(nonatomic,copy)NSNumber *productImageId;
 ///

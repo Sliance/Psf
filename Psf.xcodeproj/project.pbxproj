@@ -1289,7 +1289,6 @@
 				88503638213E569E00C85389 /* NSString+Path.m */,
 				88503635213E569000C85389 /* NSData+Ext.h */,
 				88503636213E569000C85389 /* NSData+Ext.m */,
-				88671894212D08B800D861AD /* BindMobileController.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -2698,6 +2697,7 @@
 		88D9283D211078B10001B2E3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				88671894212D08B800D861AD /* BindMobileController.m */,
 				88D9285321107A680001B2E3 /* SettingPassWordController.h */,
 				88D9285421107A680001B2E3 /* SettingPassWordController.m */,
 				88566E002112994600B6C38D /* ChangePasswordController.h */,

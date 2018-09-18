@@ -120,11 +120,11 @@
             [cell setDataArr:self.model.cartProductList];
         
     }else if(indexPath.section ==1){
-        for (NSString *key in self.model.preSaleProductList) {
-            NSArray *arr = [self.model.preSaleProductList objectForKey:key];
-            [cell setTime:key];
-            [cell setDataArr:arr];
-        }
+        NSArray *timearr = [NSArray array];
+        timearr = self.model.preSaleProductList.allKeys;
+         [cell setTime:timearr[indexPath.row]];
+        NSArray *arr = [self.model.preSaleProductList objectForKey:timearr[indexPath.row]];
+        [cell setDataArr:arr];
         
     }else if(indexPath.section ==2){
         [cell setDataArr:self.model.nextDayProductList];
