@@ -15,6 +15,8 @@
 @property(nonatomic,strong)UILabel *titlelabel;
 @property(nonatomic,strong)UIButton *titleBtn;
 @property(nonatomic,strong)NSArray *dataArr;
+@property(nonatomic,assign)BOOL isSelected;
+
 
 @end
 
@@ -53,6 +55,11 @@
 }
 -(void)pressBtn:(UIButton*)sender{
     sender.selected = !sender.selected;
+    _isSelected = sender.selected;
+    if (sender.selected ==YES) {
+        self.chooseBlock(@"");
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -72,31 +79,19 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.titlelabel];
      [self.view addSubview:self.titleBtn];
-    [self reloadData];
+    
 }
 -(void)setProductArr:(NSArray *)productArr{
     _productArr = productArr;
+    [self.tableview reloadData];
 }
--(void)reloadData{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    
-    req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"1.0.0";
-    req.platform = @"ios";
-    req.saleOrderProductList = _productArr;
-    __weak typeof(self)weakself = self;
-    [[CouponServiceApi share]fillOrderCouponWithParam:req response:^(id response) {
-        
-    }];
-}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return self.productArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -114,10 +109,14 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    CouponListRes *model = self.productArr[indexPath.row];
+    [cell setModel:model];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     CouponListRes *model = self.productArr[indexPath.row];
+    self.chooseBlock(model.memberCouponId);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

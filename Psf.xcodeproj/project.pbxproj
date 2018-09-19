@@ -2697,7 +2697,6 @@
 		88D9283D211078B10001B2E3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				88671894212D08B800D861AD /* BindMobileController.m */,
 				88D9285321107A680001B2E3 /* SettingPassWordController.h */,
 				88D9285421107A680001B2E3 /* SettingPassWordController.m */,
 				88566E002112994600B6C38D /* ChangePasswordController.h */,
@@ -2710,6 +2709,7 @@
 				88D92842211079760001B2E3 /* PassWordLoginController.m */,
 				88D9283F211078E70001B2E3 /* LoginViewController.h */,
 				88D9283E211078E70001B2E3 /* LoginViewController.m */,
+				88671894212D08B800D861AD /* BindMobileController.m */,
 				88671893212D08B800D861AD /* BindMobileController.h */,
 			);
 			path = Login;

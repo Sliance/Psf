@@ -13,5 +13,5 @@
 @property(nonatomic,assign)NSInteger productID;
 
 @property(nonatomic,strong)NSString *navStr;
-@property(nonatomic,assign)NSInteger erpProductId;
+@property(nonatomic,copy)NSString* erpProductId;
 @end

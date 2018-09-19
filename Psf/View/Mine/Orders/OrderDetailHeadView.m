@@ -184,7 +184,7 @@
             self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 40);
        [self setCornerLayout];
        
-        self.typeLabel.text = @"次日达";
+        self.typeLabel.text = @"配送时间";
         self.dateLabel.hidden = NO;
     }else if(goodtype == CLAIMGOODSTYPEONESELF){
         self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 0);
@@ -295,7 +295,7 @@
         }
         self.typeLabel.text = @"门店自提";
     }else if (ordermodel.saleOrderReceiveType ==1){
-        self.typeLabel.text = @"次日达";
+        self.typeLabel.text = @"配送时间";
         self.titleLabel.text = ordermodel.saleOrderReceiveName;
         self.phoneLabel.text = ordermodel.saleOrderReceiveMobile;
         self.morenLabel.hidden = YES;

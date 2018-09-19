@@ -11,6 +11,7 @@
 @interface UseCouponController : BaseViewController
 @property(nonatomic,strong)NSArray *productArr;
 
+@property(nonatomic,copy)void (^chooseBlock)(NSString*);
 
 
 @end

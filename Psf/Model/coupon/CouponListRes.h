@@ -16,7 +16,7 @@
 ///优惠券生效时间
 @property(nonatomic,assign)NSInteger couponValidTime;
 ///优惠券会员编号
-@property(nonatomic,assign)NSInteger memberCouponId;
+@property(nonatomic,copy)NSString* memberCouponId;
 
 ///优惠券图片路径
 @property(nonatomic,copy)NSString* couponImagePath;

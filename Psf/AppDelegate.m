@@ -227,11 +227,7 @@
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-//    if (!result) {
-//        // 其他如支付等SDK的回调
-//    }
-//    return result;
+
     return [WXApi handleOpenURL:url delegate:self];
 }
 //微信代理方法

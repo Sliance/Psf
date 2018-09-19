@@ -136,7 +136,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.text = @"次日达配送时间";
+        _titleLabel.text = @"配送时间";
         _titleLabel.textColor = DSColorFromHex(0x474747);
         _titleLabel.font = [UIFont systemFontOfSize:15];
     }

@@ -105,7 +105,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [fillVC setOrderType:1];
         if (time.length>0) {
             [fillVC setPresaleTime:time];
-             [fillVC setGoodstype:GOOGSTYPEPresale];
+             [fillVC setGoodstype:GOOGSTYPENormal];
         }else{
              [fillVC setGoodstype:GOOGSTYPENormal];
         }

@@ -168,7 +168,12 @@
     }];
     [self.headView setDateBlock:^(NSInteger index) {
         if (weakSelf.type ==1) {
-            weakSelf.dateView.hidden = NO;
+            
+            if (self.timeArr.count ==0) {
+                [weakSelf showInfo:@"暂时无法配送"];
+            }else{
+               weakSelf.dateView.hidden = NO;
+            }
             
         }
     }];
@@ -284,6 +289,14 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
+    if (self.presaleTime.length>0) {
+        req.time = self.presaleTime;
+    }else{
+        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+        NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
+        req.time = next;
+    }
+    
     [[OrderServiceApi share]getDeliveryTimeWithParam:req response:^(id response) {
         if ([response[@"code"]integerValue] ==200) {
             [weakself.timeArr removeAllObjects];
@@ -402,6 +415,7 @@
 
 -(void)calculateNormal:(CalculateReq*)req{
     __weak typeof(self)weakself = self;
+    
     [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
         if (response) {
             weakself.resModel = [[CalculateThePriceRes alloc]init];
@@ -567,6 +581,7 @@
         req.productList = self.dataArr;
         
     }
+    req.couponId = self.calculateModel.couponId;
      [self placeNormalOrder:req];
 }
 
@@ -822,8 +837,14 @@
             if (self.couponArr.count ==0) {
                 cell.hidden = YES;
             }else{
-                cell.textLabel.text = @"优惠券：";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu张",(unsigned long)self.couponArr.count];
+                
+                if (self.calculateModel.couponId.length>0) {
+                    cell.textLabel.text = [NSString stringWithFormat:@"优惠券：￥%@",self.resModel.saleOrderCouponAmount];
+                    cell.detailTextLabel.text = @"使用";
+                }else{
+                    cell.textLabel.text = @"优惠券";
+                   cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu张",(unsigned long)self.couponArr.count];
+                }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
         }else if(indexPath.row ==4) {
@@ -913,11 +934,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==1) {
         if (indexPath.row ==0) {
-            UseCouponController *useVC = [[UseCouponController alloc]init];
-            [self.navigationController pushViewController:useVC animated:YES];
+//            UseCouponController *useVC = [[UseCouponController alloc]init];
+//            [self.navigationController pushViewController:useVC animated:YES];
         }else if (indexPath.section ==1){
             UseCouponController *couponVC = [[UseCouponController alloc]init];
-            [couponVC setProductArr:_productArr];
+            [couponVC setProductArr:self.couponArr];
+            [couponVC setChooseBlock:^(NSString *coupon) {
+                self.calculateModel.couponId = coupon;
+                [self calculatePrice:self.calculateModel];
+                [self.tableview reloadData];
+            }];
             [self.navigationController pushViewController:couponVC animated:YES];
         }else if (indexPath.row ==2) {
             InvoiceViewController *invoiceVC = [[InvoiceViewController alloc]init];

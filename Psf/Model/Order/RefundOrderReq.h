@@ -32,7 +32,7 @@
 @property(nonatomic,copy)NSString *platform;
 ///
 @property(nonatomic,copy)NSString *timestamp;
-
+@property(nonatomic,copy)NSString *time;
 
 //测试
 @property(nonatomic,assign)NSInteger refundId;

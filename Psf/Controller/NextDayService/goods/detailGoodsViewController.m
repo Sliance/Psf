@@ -498,7 +498,7 @@
     _productID = productID;
     
 }
--(void)setErpProductId:(NSInteger)erpProductId{
+-(void)setErpProductId:(NSString*)erpProductId{
     _erpProductId = erpProductId;
 }
 -(void)reloadGoodDetail{
@@ -847,7 +847,7 @@
     
     [message setThumbImage:bgimageview.image];
     WXWebpageObject *webpage = [WXWebpageObject object];
-    webpage.webpageUrl = [NSString stringWithFormat:@"http://share.imdtlab.com:20516/#/?erpStoreId=%@&erpProductId=%ld&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,(long)self.erpProductId,(long)self.result.productId];
+    webpage.webpageUrl = [NSString stringWithFormat:@"http://share.imdtlab.com:20516/#/?erpStoreId=%@&erpProductId=%@d&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,self.erpProductId,(long)self.result.productId];
 //    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
     message.mediaObject = webpage;
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
