@@ -78,5 +78,14 @@
 //是否截单
 @property(nonatomic,assign)BOOL preSaleIsComplete;
 
-
+///是否预售
+@property(nonatomic,assign)BOOL productIsPreSale;
+///是否次日达
+@property(nonatomic,assign)BOOL productIsSaleNextDay;
+///是否促销
+@property(nonatomic,assign)BOOL productIsSalePromotion;
+///是否团购
+@property(nonatomic,assign)BOOL productIsGroupon;
+///是否满减
+@property(nonatomic,assign)BOOL productIsWard;
 @end

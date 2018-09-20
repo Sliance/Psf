@@ -83,7 +83,9 @@
                     animations:^{
                         self.headView.frame = CGRectMake(30, 30+[self navHeightWithHeight], SCREENWIDTH-60, 308);
                         self.payView.frame = CGRectMake(15, 70+[self navHeightWithHeight], SCREENWIDTH-30, 358);
+                        
                     } completion:^(BOOL finished) {
+                        self.headView.yinView.hidden = NO;
                     }];
     
 }
@@ -96,7 +98,9 @@
                     animations:^{
                         self.headView.frame = CGRectMake(15, 10+[self navHeightWithHeight], SCREENWIDTH-30, 308);
                         self.payView.frame = CGRectMake(15, 328+[self navHeightWithHeight], SCREENWIDTH-30, 358);
+                        self.headView.yinView.hidden = YES;
                     } completion:^(BOOL finished) {
+                        
                     }];
   
 }

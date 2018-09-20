@@ -296,7 +296,16 @@
         NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
         req.time = next;
     }
-    
+    id model = [_dataArr firstObject];
+    if ([model isKindOfClass:[CartProductModel class]]) {
+        CartProductModel *cardmodel = [_dataArr firstObject];
+        req.productIsPreSale = cardmodel.productIsPreSale;
+        req.productIsSaleNextDay = cardmodel.productIsSaleNextDay;
+    }else{
+        GoodDetailRes *goodmodel =  [_dataArr firstObject];
+        req.productIsPreSale = goodmodel.productIsPreSale;
+        req.productIsSaleNextDay = goodmodel.productIsSaleNextDay;
+    }
     [[OrderServiceApi share]getDeliveryTimeWithParam:req response:^(id response) {
         if ([response[@"code"]integerValue] ==200) {
             [weakself.timeArr removeAllObjects];

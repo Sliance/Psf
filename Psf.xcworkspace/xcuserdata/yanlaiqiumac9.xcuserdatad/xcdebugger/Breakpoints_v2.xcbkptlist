@@ -276,7 +276,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-                  timestampString = "559122192.7985179"
+                  timestampString = "559131828.731711"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "525"
@@ -291,7 +291,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-                  timestampString = "559122192.800287"
+                  timestampString = "559131828.733263"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "526"
@@ -306,7 +306,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-                  timestampString = "559122192.802156"
+                  timestampString = "559131828.7347929"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "525"
@@ -339,7 +339,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "559122192.808365"
+                  timestampString = "559131828.7397341"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "82"
@@ -354,7 +354,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "559122192.810197"
+                  timestampString = "559131828.741251"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "83"
@@ -369,7 +369,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "559122192.81194"
+                  timestampString = "559131828.7427779"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "82"
@@ -385,28 +385,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Psf/View/Shopping/ShopAlertView.m"
-            timestampString = "558960276.119828"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559046178.09761"
+            timestampString = "559134117.452531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "-calculateNormal:"
             landmarkType = "7">
             <Locations>
@@ -418,11 +402,11 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "559122192.8225141"
+                  timestampString = "559131828.750719"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "419"
-                  endingLineNumber = "419"
+                  startingLineNumber = "428"
+                  endingLineNumber = "428"
                   offsetFromSymbolStart = "56">
                </Location>
                <Location
@@ -433,26 +417,26 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "559122192.824669"
+                  timestampString = "559131828.7523659"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
+                  startingLineNumber = "429"
+                  endingLineNumber = "429"
                   offsetFromSymbolStart = "47">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.365"
+                  symbolName = "__destroy_helper_block_.378"
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "559122192.826956"
+                  timestampString = "559131828.753879"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "419"
-                  endingLineNumber = "419"
+                  startingLineNumber = "428"
+                  endingLineNumber = "428"
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
@@ -481,7 +465,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Network/ApiService/ShopServiceApi.m"
-            timestampString = "559118883.512688"
+            timestampString = "559128452.306653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
@@ -513,11 +497,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559046178.098067"
+            timestampString = "559134117.452675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "841"
-            endingLineNumber = "841"
+            startingLineNumber = "850"
+            endingLineNumber = "850"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -529,11 +513,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559046178.098302"
+            timestampString = "559134117.452724"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "944"
-            endingLineNumber = "944"
+            startingLineNumber = "953"
+            endingLineNumber = "953"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -545,11 +529,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559046178.09851"
+            timestampString = "559134117.4527659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "387"
+            endingLineNumber = "387"
             landmarkName = "-calculatePrice:"
             landmarkType = "7">
          </BreakpointContent>
@@ -577,11 +561,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559046199.032107"
+            timestampString = "559134117.452834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "585"
-            endingLineNumber = "585"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
             landmarkName = "-placeOrder"
             landmarkType = "7">
          </BreakpointContent>
@@ -609,7 +593,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
-            timestampString = "559115891.5338269"
+            timestampString = "559134117.452902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "275"
@@ -632,6 +616,85 @@
             endingLineNumber = "596"
             landmarkName = "-pressSubmitBtn:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
+            timestampString = "559134117.452973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "-getDeliveryTime"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Psf/Controller/ShoppingCart/FillOrderViewController.m"
+            timestampString = "559134117.453014"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "-getDeliveryTime"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FillOrderViewController getDeliveryTime]"
+                  moduleName = "Psf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
+                  timestampString = "559132084.83293"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "1565">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__42-[FillOrderViewController getDeliveryTime]_block_invoke"
+                  moduleName = "Psf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
+                  timestampString = "559132084.835817"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "310"
+                  endingLineNumber = "310"
+                  offsetFromSymbolStart = "54">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.311"
+                  moduleName = "Psf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yanlaiqiumac9/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
+                  timestampString = "559132084.837541"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

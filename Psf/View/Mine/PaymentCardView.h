@@ -14,7 +14,7 @@
 @property(nonatomic,strong)UIImageView*cardImage;
 @property(nonatomic,strong)UILabel*titleLabel;
 
-@property(nonatomic,strong)UILabel*cardLabel;
+@property(nonatomic,strong)UIButton*cardLabel;
 @property(nonatomic,strong)UILabel*detailLabel;
-
+@property(nonatomic,strong)UIButton*yanBtn;
 @end
