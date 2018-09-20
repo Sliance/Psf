@@ -60,6 +60,9 @@
 		88534C3F20E64C8300D6F43C /* FillOrderTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88534C3E20E64C8300D6F43C /* FillOrderTypeView.m */; };
 		88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E6B210963C800997B32 /* RechargeRuleModel.m */; };
 		88535E7D2109ACE900997B32 /* LoginReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 88535E7C2109ACE900997B32 /* LoginReq.m */; };
+		88547EA3215371420092D15E /* MembershipCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88547EA2215371420092D15E /* MembershipCardController.m */; };
+		88547EA6215372DB0092D15E /* CardHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88547EA5215372DB0092D15E /* CardHeadView.m */; };
+		88547EA9215372F30092D15E /* PaymentCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88547EA8215372F30092D15E /* PaymentCardView.m */; };
 		8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A401210AC2D3002C1395 /* AfterSalesViewController.m */; };
 		8854A405210AD918002C1395 /* PlaceOrderReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 8854A404210AD918002C1395 /* PlaceOrderReq.m */; };
 		88566DFF2112954600B6C38D /* AccountBindController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88566DFE2112954600B6C38D /* AccountBindController.m */; };
@@ -494,6 +497,12 @@
 		88535E6B210963C800997B32 /* RechargeRuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeRuleModel.m; sourceTree = "<group>"; };
 		88535E7B2109ACE900997B32 /* LoginReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginReq.h; sourceTree = "<group>"; };
 		88535E7C2109ACE900997B32 /* LoginReq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginReq.m; sourceTree = "<group>"; };
+		88547EA1215371420092D15E /* MembershipCardController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MembershipCardController.h; sourceTree = "<group>"; };
+		88547EA2215371420092D15E /* MembershipCardController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MembershipCardController.m; sourceTree = "<group>"; };
+		88547EA4215372DB0092D15E /* CardHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardHeadView.h; sourceTree = "<group>"; };
+		88547EA5215372DB0092D15E /* CardHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardHeadView.m; sourceTree = "<group>"; };
+		88547EA7215372F30092D15E /* PaymentCardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentCardView.h; sourceTree = "<group>"; };
+		88547EA8215372F30092D15E /* PaymentCardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentCardView.m; sourceTree = "<group>"; };
 		8854A400210AC2D3002C1395 /* AfterSalesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AfterSalesViewController.h; sourceTree = "<group>"; };
 		8854A401210AC2D3002C1395 /* AfterSalesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AfterSalesViewController.m; sourceTree = "<group>"; };
 		8854A403210AD918002C1395 /* PlaceOrderReq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceOrderReq.h; sourceTree = "<group>"; };
@@ -1698,6 +1707,10 @@
 				888E71A920E0F97C00BFBAFF /* message */,
 				882F52E3211AD8640030A949 /* RefundfootView.h */,
 				882F52E4211AD8640030A949 /* RefundfootView.m */,
+				88547EA4215372DB0092D15E /* CardHeadView.h */,
+				88547EA5215372DB0092D15E /* CardHeadView.m */,
+				88547EA7215372F30092D15E /* PaymentCardView.h */,
+				88547EA8215372F30092D15E /* PaymentCardView.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2144,6 +2157,8 @@
 			children = (
 				888630B2212BE3D900B89080 /* ScanQrCodeController.h */,
 				888630B3212BE3D900B89080 /* ScanQrCodeController.m */,
+				88547EA1215371420092D15E /* MembershipCardController.h */,
+				88547EA2215371420092D15E /* MembershipCardController.m */,
 			);
 			path = QrCode;
 			sourceTree = "<group>";
@@ -3054,6 +3069,7 @@
 				88566E022112994600B6C38D /* ChangePasswordController.m in Sources */,
 				88566E432112C35400B6C38D /* TZPhotoPickerController.m in Sources */,
 				88D8939720D26C2F007E3C41 /* PsfTabBarItem.m in Sources */,
+				88547EA3215371420092D15E /* MembershipCardController.m in Sources */,
 				88566E4E2112C35400B6C38D /* NSBundle+TZImagePicker.m in Sources */,
 				8850C0F52105B26B00BF8F88 /* OrderListRes.m in Sources */,
 				88D893A220D26DD6007E3C41 /* ShoppingCartController.m in Sources */,
@@ -3141,6 +3157,7 @@
 				888E719020E0CAA300BFBAFF /* VTMenuBar.m in Sources */,
 				88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */,
 				88600BDA20D890FF0098CF10 /* ZSSortSelectorView.m in Sources */,
+				88547EA6215372DB0092D15E /* CardHeadView.m in Sources */,
 				88D8935E20D25C41007E3C41 /* ViewController.m in Sources */,
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
 				8858ACEB214F57F2003A7957 /* PresaleListRes.m in Sources */,
@@ -3209,6 +3226,7 @@
 				88566E8F211460C400B6C38D /* SpellGroupListController.m in Sources */,
 				88636D1720E21958006CE5D8 /* HeadimageTableViewCell.m in Sources */,
 				8866206B2100892D00C7923D /* MineServiceApi.m in Sources */,
+				88547EA9215372F30092D15E /* PaymentCardView.m in Sources */,
 				888D66D020E9C7EA0007D471 /* NextSelectorView.m in Sources */,
 				8866206F210096AD00C7923D /* MineInformationReq.m in Sources */,
 				88566E162112A8FB00B6C38D /* UIImage+Resize.m in Sources */,

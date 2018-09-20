@@ -21,6 +21,8 @@
 #import "CustomFootView.h"
 #import "ChoosePayTypeView.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "MineViewController.h"
+
 @interface AllOrdersController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -259,11 +261,20 @@
         if (response) {
             if ([response[@"code"] integerValue] ==200) {
                 if ([response[@"data"][@"productType"] isEqualToString:@"normal"]) {
+                    
                     self.tabBarController.selectedIndex = 1;
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[MineViewController class]]) {
+                             [self.navigationController popToViewController:controller animated:YES];
+                        }
+                    }
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
-                    detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
-                    [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
-                    [self.navigationController pushViewController:detailVC animated:YES];
+                    self.tabBarController.selectedIndex = 1;
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[MineViewController class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                        }
+                    }
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];

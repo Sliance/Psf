@@ -13,8 +13,11 @@
 @property(nonatomic,strong)UIButton *headbtn;
 @property(nonatomic,strong)UILabel *nameLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
+@property(nonatomic,strong)UIButton *vbtn;
+@property(nonatomic,strong)UIButton *cardbtn;
+
 @property (nonatomic, copy) void(^skipBlock)(NSInteger);
 @property(nonatomic,strong)MineInformationReq *result;
 @property(nonatomic,copy)void (^tologinBlock)(void);
-
+@property(nonatomic,copy)void (^cardBlock)(void);
 @end

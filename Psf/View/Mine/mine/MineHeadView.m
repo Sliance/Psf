@@ -20,6 +20,21 @@
     }
     return _headbtn;
 }
+-(UIButton *)vbtn{
+    if (!_vbtn) {
+        _vbtn = [[UIButton alloc]init];
+        [_vbtn setBackgroundImage:[UIImage imageNamed:@"v_mine_icon"] forState:UIControlStateNormal];
+    }
+    return _vbtn;
+}
+-(UIButton *)cardbtn{
+    if (!_cardbtn) {
+        _cardbtn = [[UIButton alloc]init];
+        [_cardbtn addTarget:self action:@selector(pressCardBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_cardbtn setBackgroundImage:[UIImage imageNamed:@"huiyuan_card_icon"] forState:UIControlStateNormal];
+    }
+    return _cardbtn;
+}
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc]init];
@@ -49,20 +64,32 @@
     [self addSubview:self.headbtn];
     [self addSubview:self.nameLabel];
     [self addSubview:self.lineLabel];
+    [self addSubview:self.vbtn];
+    [self addSubview:self.cardbtn];
     [self.headbtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self).offset(31);
+        make.left.equalTo(self).offset(15);
+        make.top.equalTo(self).offset(15);
         make.width.height.mas_equalTo(70);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.top.equalTo(self.headbtn.mas_bottom).offset(15);
+        make.left.equalTo(self.headbtn.mas_right).offset(10);
+        make.top.equalTo(self.headbtn.mas_top).offset(10);
        
+    }];
+    [self.vbtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headbtn.mas_right).offset(10);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(8);
+        
+    }];
+    [self.cardbtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
+        make.centerY.equalTo(self.headbtn);
+        
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(24);
+        make.bottom.equalTo(self);
         make.height.mas_equalTo(5);
         
     }];
@@ -70,7 +97,9 @@
 -(void)pressBtn:(UIButton*)sender{
     self.skipBlock(sender.tag);
 }
-
+-(void)pressCardBtn:(UIButton*)sender{
+    self.cardBlock();
+}
 -(void)setResult:(MineInformationReq *)result{
     _result = result;
     UIImageView *image = [[UIImageView alloc]init];

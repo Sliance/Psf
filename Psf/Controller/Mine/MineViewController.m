@@ -24,6 +24,8 @@
 #import "OrderServiceApi.h"
 #import "ScanQrCodeController.h"
 #import "CustomFootView.h"
+#import "MembershipCardController.h"
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)NSArray *listArr;
@@ -48,7 +50,7 @@
 }
 -(MineHeadView *)headView{
     if (!_headView) {
-        _headView = [[MineHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 167)];
+        _headView = [[MineHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 108)];
     }
     return _headView;
 }
@@ -81,6 +83,7 @@
         }
          [self requestData];
     }
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -117,6 +120,12 @@
         LoginViewController *loginVC = [[LoginViewController alloc]init];
         loginVC.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:loginVC animated:YES];
+    }];
+    [self.headView setCardBlock:^{
+        MembershipCardController *cardVC = [[MembershipCardController alloc]init];
+        cardVC.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:cardVC animated:YES];
+        
     }];
     [self.footView setSkipMineBlock:^(NSInteger index) {
         if ([UserCacheBean share].userInfo.token.length<1) {

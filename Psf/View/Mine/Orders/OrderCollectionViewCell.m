@@ -283,6 +283,7 @@
         {
             _statusLabel.text = @"取消";
             [self updatePayBtn];
+            _payBtn.hidden = YES;
             [_payBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
             [_payBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
             [_payBtn setTitle:@"再次购买" forState:UIControlStateNormal];

@@ -37,5 +37,6 @@
 - (void)wxTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///充值是否开启 
 - (void)openTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///会员卡付款码
+- (void)paymentCodeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

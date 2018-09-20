@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, GOOGSTYPE){
     GOOGSTYPEGroup ,//团购购买
     GOOGSTYPESingle,//团购单独购买
     GOOGSTYPEPresale , //预售
-
+    GOOGSTYPENextday , //次日达
 };
 @interface FillOrderViewController : BaseViewController
 @property(nonatomic,strong)ShoppingListRes *result;//正常

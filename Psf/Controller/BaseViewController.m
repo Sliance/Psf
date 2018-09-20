@@ -121,7 +121,7 @@
 
 
 - (void)initBaseUI {
-    [self setTitle:@"犁小农"];
+    [self setTitle:@""];
 }
 -(void)setNavWithTitle:(NSString *)navtitle{
     UILabel *navlabel = [[UILabel alloc]init];
