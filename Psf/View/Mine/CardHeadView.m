@@ -88,7 +88,7 @@
 -(UIImageView *)cardImage{
     if (!_cardImage) {
         _cardImage = [[UIImageView alloc]init];
-        _cardImage.image = [CreatQRCodeAndBarCodeFromLeon generateBarCode:@"1238479786843" size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+       
         _cardImage.userInteractionEnabled = YES;
     }
     return _cardImage;
@@ -123,7 +123,7 @@
         _cardLabel = [[UILabel alloc]init];
         _cardLabel.font = [UIFont systemFontOfSize:15];
         _cardLabel.textColor = DSColorFromHex(0x464646);
-        _cardLabel.text = @"卡号：1238479786843";
+       
         _cardLabel.textAlignment = NSTextAlignmentLeft;
         
     }
@@ -142,5 +142,9 @@
     return _detailLabel;
 }
 
-
+-(void)setErpCustomerNo:(NSString *)erpCustomerNo{
+    _erpCustomerNo = erpCustomerNo;
+     _cardLabel.text = [NSString stringWithFormat:@"卡号：%@",erpCustomerNo];
+     _cardImage.image = [CreatQRCodeAndBarCodeFromLeon generateBarCode:erpCustomerNo size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+}
 @end

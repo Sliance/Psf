@@ -124,6 +124,7 @@
     [self.headView setCardBlock:^{
         MembershipCardController *cardVC = [[MembershipCardController alloc]init];
         cardVC.hidesBottomBarWhenPushed = YES;
+        [cardVC setErpCustomerNo:weakSelf.result.erpCustomerNo];
         [weakSelf.navigationController pushViewController:cardVC animated:YES];
         
     }];

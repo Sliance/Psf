@@ -135,6 +135,11 @@
 }
 -(void)pressYan:(UIButton*)sender{
     sender.selected = !sender.selected;
+    if (sender.selected ==YES) {
+        _detailLabel.text = [NSString stringWithFormat:@"账户余额   %@元",_money];
+    }else{
+        _detailLabel.text = @"账户余额   ****元";
+    }
 }
 
 
@@ -143,4 +148,9 @@
     _cardImage.image = [CreatQRCodeAndBarCodeFromLeon generateBarCode:payCode size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
     [_cardLabel setTitle:payCode forState:UIControlStateSelected];
 }
+-(void)setMoney:(NSString *)money{
+    _money= money;
+}
+
+
 @end

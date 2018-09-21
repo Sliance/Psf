@@ -18,6 +18,6 @@
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong)UIButton *yanBtn;
 @property(nonatomic,strong)NSString *payCode;
-
+@property(nonatomic,strong)NSString *money;
 
 @end

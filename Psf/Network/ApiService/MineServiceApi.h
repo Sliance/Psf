@@ -39,4 +39,7 @@
 - (void)openTopUpWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///会员卡付款码
 - (void)paymentCodeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///轮询付款结果
+- (void)observePayStatusWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 @end

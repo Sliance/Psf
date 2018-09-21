@@ -72,4 +72,6 @@
 ///充值规则编号
 @property(nonatomic,copy)NSString *memberRechargeRuleId;
 @property(nonatomic,copy)NSString* erpProductId;
+///erp的会员编号
+@property(nonatomic,copy)NSString*erpCustomerNo;
 @end

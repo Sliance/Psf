@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface MembershipCardController : BaseViewController
-
+@property(nonatomic,copy)NSString* erpCustomerNo;
 @end

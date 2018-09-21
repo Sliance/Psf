@@ -34,5 +34,6 @@
 @property(nonatomic,copy)NSString*platform;
 ///
 @property(nonatomic,copy)NSString*timestamp;
-
+///会员编号
+@property(nonatomic,copy)NSString* erpCustomerNo;
 @end

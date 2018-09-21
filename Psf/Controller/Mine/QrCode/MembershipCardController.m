@@ -10,12 +10,13 @@
 #import "CardHeadView.h"
 #import "PaymentCardView.h"
 #import "MineServiceApi.h"
+#import "PaySuccessController.h"
 
 @interface MembershipCardController ()
 @property(nonatomic,strong)UIImageView *bgImage;
 @property(nonatomic,strong)CardHeadView *headView;
 @property(nonatomic,strong)PaymentCardView *payView;
-
+@property(nonatomic,strong)NSTimer *timer;
 @end
 
 @implementation MembershipCardController
@@ -55,7 +56,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-
+    [self requestData];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -73,10 +74,38 @@
     UISwipeGestureRecognizer *swipeDown =[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeDownAction:)];
     swipeDown.direction =UISwipeGestureRecognizerDirectionDown;
     [self.payView addGestureRecognizer:swipeDown];
-    [self requestData];
+    
     
 }
-
+-(void)setErpCustomerNo:(NSString *)erpCustomerNo{
+    _erpCustomerNo = erpCustomerNo;
+    [self.headView setErpCustomerNo:erpCustomerNo];
+}
+-(void)obserceResult{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.erpCustomerNo = _erpCustomerNo;
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]observePayStatusWithParam:req response:^(id response) {
+       
+        if ([response count]>0) {
+        
+            PaySuccessController *successVC = [[PaySuccessController alloc]init];
+            PlaceOrderRes *model = [[PlaceOrderRes alloc]init];
+            model.saleOrderId = response[@"saleOrderId"];
+            successVC.result = model;;
+                [weakself.navigationController pushViewController:successVC animated:YES];
+        
+        }
+    }];
+}
+-(void)timerAction{
+    [self obserceResult];
+}
 -(void)requestData{
      StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -91,7 +120,13 @@
         if (response) {
             NSString *code = response[@"data"][@"payCode"];
             [weakself.payView setPayCode:code];
+            [weakself.payView setMoney:response[@"data"][@"memberBalance"]];
         }
+//        weakself.timer= [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+//        [[NSRunLoop mainRunLoop] addTimer:weakself.timer forMode:NSDefaultRunLoopMode];
+//        [weakself.timer setFireDate:[NSDate distantPast]];
+        [self obserceResult];
+       
     }];
 }
 -(void)swipeAction:(UISwipeGestureRecognizer *)swipe

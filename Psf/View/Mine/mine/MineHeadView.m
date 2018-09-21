@@ -111,12 +111,24 @@
     [image sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
     
     if([UserCacheBean share].userInfo.token.length<1){
-        self.nameLabel.text = @"登录/注册";
+        self.nameLabel.text = @"点击登录";
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tologin)];
         self.nameLabel.userInteractionEnabled = YES;
         [self.nameLabel addGestureRecognizer:tap];
+
+        
     }else{
        self.nameLabel.text = result.memberNickName;
+        
+    }
+    if (result.erpCustomerNo.length>0) {
+        self.vbtn.hidden = NO;
+        self.cardbtn.hidden = NO;
+    }else{
+        
+        
+        self.vbtn.hidden = YES;
+        self.cardbtn.hidden = YES;
     }
 }
 -(void)tologin{

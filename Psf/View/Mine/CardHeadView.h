@@ -18,5 +18,5 @@
 @property(nonatomic,strong)UILabel*cardLabel;
 @property(nonatomic,strong)UILabel*detailLabel;
 @property(nonatomic,strong)UIView*yinView;
-
+@property(nonatomic,copy)NSString* erpCustomerNo;
 @end
