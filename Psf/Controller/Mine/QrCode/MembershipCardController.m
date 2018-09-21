@@ -62,6 +62,10 @@
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
+    if ([self.timer  isValid]) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,7 +97,10 @@
     [[MineServiceApi share]observePayStatusWithParam:req response:^(id response) {
        
         if ([response count]>0) {
-        
+            if ([weakself.timer  isValid]) {
+                [weakself.timer invalidate];
+                weakself.timer = nil;
+            }
             PaySuccessController *successVC = [[PaySuccessController alloc]init];
             PlaceOrderRes *model = [[PlaceOrderRes alloc]init];
             model.saleOrderId = response[@"saleOrderId"];
@@ -122,10 +129,10 @@
             [weakself.payView setPayCode:code];
             [weakself.payView setMoney:response[@"data"][@"memberBalance"]];
         }
-//        weakself.timer= [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
-//        [[NSRunLoop mainRunLoop] addTimer:weakself.timer forMode:NSDefaultRunLoopMode];
-//        [weakself.timer setFireDate:[NSDate distantPast]];
-        [self obserceResult];
+        weakself.timer= [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:weakself.timer forMode:NSDefaultRunLoopMode];
+        [weakself.timer setFireDate:[NSDate distantPast]];
+       
        
     }];
 }
