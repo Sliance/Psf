@@ -9,6 +9,7 @@
 #import "MembershipCardController.h"
 #import "CardHeadView.h"
 #import "PaymentCardView.h"
+#import "MineServiceApi.h"
 
 @interface MembershipCardController ()
 @property(nonatomic,strong)UIImageView *bgImage;
@@ -72,7 +73,26 @@
     UISwipeGestureRecognizer *swipeDown =[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeDownAction:)];
     swipeDown.direction =UISwipeGestureRecognizerDirectionDown;
     [self.payView addGestureRecognizer:swipeDown];
+    [self requestData];
     
+}
+
+-(void)requestData{
+     StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]paymentCodeWithParam:req response:^(id response) {
+        if (response) {
+            NSString *code = response[@"data"][@"payCode"];
+            [weakself.payView setPayCode:code];
+        }
+    }];
 }
 -(void)swipeAction:(UISwipeGestureRecognizer *)swipe
 {

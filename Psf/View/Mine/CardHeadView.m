@@ -110,7 +110,7 @@
         _nameLabel = [[UILabel alloc]init];
         _nameLabel.font = [UIFont systemFontOfSize:18];
         _nameLabel.textColor = DSColorFromHex(0x464646);
-        _nameLabel.text = @"陈景峰";
+        _nameLabel.text = [UserCacheBean share].userInfo.memberNickName;
         _nameLabel.textAlignment = NSTextAlignmentRight;
         
     }

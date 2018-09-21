@@ -79,7 +79,7 @@
 -(UIImageView *)vImage{
     if (!_vImage) {
         _vImage = [[UIImageView alloc]init];
-        _vImage.image = [CreatQRCodeAndBarCodeFromLeon qrImageWithString:@"12345677655" size:CGSizeMake(160, 160) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+        
         _vImage.userInteractionEnabled = YES;
     }
     return _vImage;
@@ -87,7 +87,7 @@
 -(UIImageView *)cardImage{
     if (!_cardImage) {
         _cardImage = [[UIImageView alloc]init];
-        _cardImage.image = [CreatQRCodeAndBarCodeFromLeon generateBarCode:@"1238479786843" size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+        
         _cardImage.userInteractionEnabled = YES;
     }
     return _cardImage;
@@ -103,7 +103,7 @@
         _cardLabel.titleLabel.font = [UIFont systemFontOfSize:15];
         [_cardLabel setTitle:@"点击可查看付款码数字" forState:UIControlStateNormal];
         [_cardLabel setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
-        [_cardLabel addTarget:self action:@selector(pressCard) forControlEvents:UIControlEventTouchUpInside];
+        [_cardLabel addTarget:self action:@selector(pressCard:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cardLabel;
 }
@@ -130,10 +130,17 @@
     return _yanBtn;
 }
 
--(void)pressCard{
-    
+-(void)pressCard:(UIButton*)sender{
+    sender.selected = !sender.selected;
 }
 -(void)pressYan:(UIButton*)sender{
     sender.selected = !sender.selected;
+}
+
+
+-(void)setPayCode:(NSString *)payCode{
+    _vImage.image = [CreatQRCodeAndBarCodeFromLeon qrImageWithString:payCode size:CGSizeMake(160, 160) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+    _cardImage.image = [CreatQRCodeAndBarCodeFromLeon generateBarCode:payCode size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
+    [_cardLabel setTitle:payCode forState:UIControlStateSelected];
 }
 @end
