@@ -14,4 +14,8 @@
 @property(nonatomic,strong)UIButton *locBtn;
 @property(nonatomic,strong)UIButton *searchBtn;
 @property(nonatomic,strong)UILabel *lineLabel;
+
+
+@property(nonatomic,strong)NSString *store;
+
 @end

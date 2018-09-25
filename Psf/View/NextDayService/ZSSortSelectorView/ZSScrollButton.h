@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZSConfig.h"
+
 @protocol ZSScrollButtonDelegate
 
 @optional

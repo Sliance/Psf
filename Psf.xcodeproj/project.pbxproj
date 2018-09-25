@@ -348,6 +348,8 @@
 		88A2B43920F731A5007F338A /* ZHMapAroundInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A2B43720F731A4007F338A /* ZHMapAroundInfoViewController.xib */; };
 		88A2B43C20F73238007F338A /* ZHMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43B20F73238007F338A /* ZHMapView.m */; };
 		88A2B43F20F732A7007F338A /* ZHPlaceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A2B43E20F732A7007F338A /* ZHPlaceInfoModel.m */; };
+		88D0F5B62159D285008394E3 /* StoreGoodsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D0F5B52159D285008394E3 /* StoreGoodsController.m */; };
+		88D0F5B9215A00DB008394E3 /* StoreGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D0F5B8215A00DB008394E3 /* StoreGoodsCell.m */; };
 		88D8935B20D25C41007E3C41 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D8935A20D25C41007E3C41 /* AppDelegate.m */; };
 		88D8935E20D25C41007E3C41 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D8935D20D25C41007E3C41 /* ViewController.m */; };
 		88D8936120D25C41007E3C41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D8935F20D25C41007E3C41 /* Main.storyboard */; };
@@ -1049,6 +1051,10 @@
 		88A2B43B20F73238007F338A /* ZHMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMapView.m; sourceTree = "<group>"; };
 		88A2B43D20F732A6007F338A /* ZHPlaceInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPlaceInfoModel.h; sourceTree = "<group>"; };
 		88A2B43E20F732A7007F338A /* ZHPlaceInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPlaceInfoModel.m; sourceTree = "<group>"; };
+		88D0F5B42159D285008394E3 /* StoreGoodsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreGoodsController.h; sourceTree = "<group>"; };
+		88D0F5B52159D285008394E3 /* StoreGoodsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreGoodsController.m; sourceTree = "<group>"; };
+		88D0F5B7215A00DB008394E3 /* StoreGoodsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreGoodsCell.h; sourceTree = "<group>"; };
+		88D0F5B8215A00DB008394E3 /* StoreGoodsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreGoodsCell.m; sourceTree = "<group>"; };
 		88D8935620D25C41007E3C41 /* Psf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Psf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D8935920D25C41007E3C41 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		88D8935A20D25C41007E3C41 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2518,6 +2524,15 @@
 			path = MyCoupon;
 			sourceTree = "<group>";
 		};
+		88D0F5B32159D251008394E3 /* StoreGoods */ = {
+			isa = PBXGroup;
+			children = (
+				88D0F5B42159D285008394E3 /* StoreGoodsController.h */,
+				88D0F5B52159D285008394E3 /* StoreGoodsController.m */,
+			);
+			path = StoreGoods;
+			sourceTree = "<group>";
+		};
 		88D8934D20D25C41007E3C41 = {
 			isa = PBXGroup;
 			children = (
@@ -2635,6 +2650,7 @@
 		88D8939820D26CF0007E3C41 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				88D0F5B32159D251008394E3 /* StoreGoods */,
 				886DB905212E529300CF8C64 /* BusinessCooperation */,
 				88D9281C211030790001B2E3 /* PreSale */,
 				88534C3020E63B6C00D6F43C /* group */,
@@ -2690,6 +2706,8 @@
 				88D9281721102E000001B2E3 /* ZYProGressView.m */,
 				88D9281921102E510001B2E3 /* PreSaleListCell.h */,
 				88D9281A21102E510001B2E3 /* PreSaleListCell.m */,
+				88D0F5B7215A00DB008394E3 /* StoreGoodsCell.h */,
+				88D0F5B8215A00DB008394E3 /* StoreGoodsCell.m */,
 			);
 			path = PreSale;
 			sourceTree = "<group>";
@@ -3095,6 +3113,7 @@
 				88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */,
 				888AC7F320FC854E00587F88 /* GroupBuyView.m in Sources */,
 				8871B8B220DB702700DAA5D6 /* NSBundle+PYSearchExtension.m in Sources */,
+				88D0F5B9215A00DB008394E3 /* StoreGoodsCell.m in Sources */,
 				88566E222112C31E00B6C38D /* TYUploadImageView.m in Sources */,
 				88600BF820D8D16E0098CF10 /* ZJSegmentStyle.m in Sources */,
 				88566E422112C35400B6C38D /* TZPhotoPreviewCell.m in Sources */,
@@ -3175,6 +3194,7 @@
 				88600BD120D890B80098CF10 /* ZSDotView.m in Sources */,
 				8871B83A20DB40B700DAA5D6 /* ZSURLResponse.m in Sources */,
 				88D9284F21107A070001B2E3 /* ResetPassFirstController.m in Sources */,
+				88D0F5B62159D285008394E3 /* StoreGoodsController.m in Sources */,
 				8871B8AF20DB702700DAA5D6 /* UIColor+PYSearchExtension.m in Sources */,
 				888B17E1211EF3B300501322 /* RSA.m in Sources */,
 				8871B8AE20DB702700DAA5D6 /* PYSearchSuggestionViewController.m in Sources */,

@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor whiteColor];
         _width = frame.size.width;
         _height = frame.size.height;
-        _width = 47;
+        _width = 80;
         count = @"";
         [self addSubview:self.titleLbl];
         [self addSubview:self.countLbl];
@@ -46,10 +46,10 @@
 
 - (void)changeStatus:(BOOL)sender {
     if (sender) {
-        self.titleLbl.textColor = [UIColor redColor];
-        self.lineIV.hidden = NO;
+        self.titleLbl.textColor = DSColorFromHex(0xFF4C4D);
+        self.lineIV.hidden = YES;
     }else{
-        self.titleLbl.textColor = [UIColor blackColor];
+        self.titleLbl.textColor = DSColorFromHex(0x464646);
         self.lineIV.hidden = YES;
     }
 }
@@ -66,8 +66,8 @@
     if (!_titleLbl) {
         _titleLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, 1, _width, _height-1)];
         _titleLbl.textAlignment = NSTextAlignmentCenter;
-        _titleLbl.font = [UIFont systemFontOfSize:16];
-        _titleLbl.textColor = [UIColor blackColor];
+        _titleLbl.font = [UIFont systemFontOfSize:14];
+        _titleLbl.textColor = DSColorFromHex(0x464646);
         
     }
     return _titleLbl;

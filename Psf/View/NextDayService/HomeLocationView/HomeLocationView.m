@@ -63,4 +63,14 @@
     }
     return _lineLabel;
 }
+
+-(void)setStore:(NSString *)store{
+    _store = store;
+    if (store.length>0) {
+        _locImg.hidden = YES;
+        _searchBtn.frame = CGRectMake(15, 5, SCREENWIDTH-30, 36);
+        _searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2);
+        _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2-20);
+    }
+}
 @end

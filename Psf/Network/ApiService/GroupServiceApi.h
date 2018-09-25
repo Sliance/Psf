@@ -38,5 +38,10 @@
 - (void)getPresalePriceWithParam:(CalculateReq *) req response:(responseModel) responseModel;
 ///预售下单
 - (void)savePresaleWithParam:(PlaceOrderReq *) req response:(responseModel) responseModel;
+///获取门店分类列表
+- (void)getStoreSortWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///获取门店商品列表
+- (void)StoreGoodListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 
 @end

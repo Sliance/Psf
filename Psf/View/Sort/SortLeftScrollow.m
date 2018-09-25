@@ -47,8 +47,8 @@
             
         }
         [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-        StairCategoryRes*model =dataArr[i];
-        btn.sortLabel.text = model.productCategoryName;
+//        StairCategoryRes*model =dataArr[i];
+        btn.sortLabel.text = dataArr[i];
         btn.tag = i+100;
         [self.bgScrollow addSubview:btn];
         _bgScrollow.contentSize = CGSizeMake(0, 52*dataArr.count+10);

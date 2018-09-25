@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *detailDataArr;
 @property(nonatomic,assign)NSInteger headIndex;
+
 @end
 static NSString *cellId = @"SortCollectionViewCell";
 @implementation SortViewController

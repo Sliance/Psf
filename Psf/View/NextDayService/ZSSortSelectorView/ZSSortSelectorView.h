@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ZSSortSelectorView;
+
 @protocol ZSSortSelectorViewDelegate <NSObject>
 - (void)chooseButtonType:(NSInteger )type;
 @end
@@ -16,7 +17,8 @@
 
 @property (nonatomic, assign) id<ZSSortSelectorViewDelegate> delegate;
 @property (nonatomic , strong) NSArray *dataArr;//数据源
+@property(nonatomic,copy)void(^selectedBlock)(BOOL);
 
-
-
+@property (nonatomic , strong) UIButton *rightBtn;
+@property (nonatomic , assign) NSInteger currentPage;
 @end

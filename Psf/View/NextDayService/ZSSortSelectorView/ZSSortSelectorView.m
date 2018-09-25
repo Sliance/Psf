@@ -9,7 +9,7 @@
 #import "ZSSortSelectorView.h"
 #import "ZSScrollButton.h"
 
-@interface ZSSortSelectorView ()<ZSSortSelectorViewDelegate>
+@interface ZSSortSelectorView ()<ZSSortSelectorViewDelegate,ZSScrollButtonDelegate>
 {
     CGFloat _width;
     CGFloat _height;
@@ -18,16 +18,18 @@
 
 @property (nonatomic , strong) UIButton *leftBtn;
 
-@property (nonatomic , strong) UIButton *rightBtn;
 
-@property (nonatomic , assign) NSInteger currentPage;
+
+
 
 @property (nonatomic , strong) NSMutableArray *buttonArr;
 
 
 
 @end
+
 @implementation ZSSortSelectorView
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _width = frame.size.width;
@@ -88,7 +90,8 @@
     if (!_rightBtn) {
         _rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(_width-40, 0, 40, _height)];
         [_rightBtn setImage:[UIImage imageNamed:@"down_icon"] forState:UIControlStateNormal];
-        [_rightBtn addTarget:self action:@selector(increase) forControlEvents:UIControlEventTouchUpInside];
+        [_rightBtn setImage:[UIImage imageNamed:@"up_icon"] forState:UIControlStateSelected];
+        [_rightBtn addTarget:self action:@selector(increase:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightBtn;
 }
@@ -101,13 +104,18 @@
     }
     
 }
+-(void)setCurrentPage:(NSInteger)currentPage{
+    _currentPage = currentPage;
+    [self updateStatus];
+}
 
-- (void)increase {
-    if (_currentPage<_dataArr.count-1) {
-        _currentPage++;
-        [self updateStatus];
-    }
-    
+- (void)increase:(UIButton*)sender{
+//    if (_currentPage<_dataArr.count-1) {
+//        _currentPage++;
+//        [self updateStatus];
+//    }
+    sender.selected = !sender.selected;
+    self.selectedBlock(sender.selected);
 }
 
 - (void)updateStatus {

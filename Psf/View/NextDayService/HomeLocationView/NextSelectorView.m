@@ -13,7 +13,7 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-        [self addSubview:self.titleLabel];
+//        [self addSubview:self.titleLabel];
         [self addSubview:self.rightButton];
         self.backgroundColor = [UIColor whiteColor];
     }
@@ -44,11 +44,13 @@
 }
 -(void)setDataArr:(NSMutableArray *)dataArr{
     _dataArr = dataArr;
+    _BtnArr = [NSMutableArray array];
     for (int i = 0; i<dataArr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        StairCategoryRes *model = dataArr[i];
-        [btn setTitle:model.productCategoryName forState:UIControlStateNormal];
-        btn.frame = CGRectMake(30+i%4*SCREENWIDTH/4-75/4, i/4*35+40, SCREENWIDTH/4-75/4, 25);
+//        StairCategoryRes *model = dataArr[i];
+//        [btn setTitle:model.productCategoryName forState:UIControlStateNormal];
+         [btn setTitle:dataArr[i] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(i%3*(SCREENWIDTH-75-40)/3+i%3*10+10, i/3*35, (SCREENWIDTH-75-40)/3, 25);
         [btn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [btn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -60,7 +62,23 @@
         [btn addTarget:self action:@selector(pressChoose:) forControlEvents:UIControlEventTouchUpInside];
         [btn.layer setBorderColor:DSColorMake(180, 180, 180).CGColor];
         [self addSubview:btn];
+        [_BtnArr addObject:btn];
     }
+}
+-(void)setCurrentPage:(NSInteger)currentPage{
+    _currentPage = currentPage;
+    for (UIButton *btn in self.BtnArr) {
+        if (btn.tag == currentPage) {
+            btn.selected = YES;
+           
+            [btn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
+            _tmpBtn = btn;
+        }else{
+            [btn.layer setBorderColor:DSColorFromHex(0x474747).CGColor];
+            btn.selected = NO;
+        }
+    }
+    
 }
 -(void)pressChoose:(UIButton *)sender{
     sender.selected = !sender.selected;

@@ -15,4 +15,6 @@
 @property(nonatomic,copy)void(^pressUpBlock)(NSInteger);
 @property(nonatomic,copy)void(^chooseBlock)(NSInteger);
 @property(nonatomic,strong)UIButton *tmpBtn;
+@property(nonatomic,strong)NSMutableArray *BtnArr;
+@property(nonatomic,assign)NSInteger currentPage;
 @end

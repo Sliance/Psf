@@ -20,6 +20,9 @@
 #import "PresaleSController.h"
 #import "CustomFootView.h"
 #import "NextDayListController.h"
+#import "StoreGoodsController.h"
+
+
 @interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITableView *tableview;
@@ -228,8 +231,10 @@
         NextDayListController *nextVC= [[NextDayListController alloc]init];
         nextVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else{
-        [self showInfo:@"正在开发中，敬请期待"];
+    }else if(indexPath.row ==2){
+        StoreGoodsController *storeVC= [[StoreGoodsController alloc]init];
+        storeVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:storeVC animated:YES];
         
     }
    

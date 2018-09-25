@@ -717,7 +717,7 @@
     if(section ==0){
         return self.dataArr.count;
     }else if (section ==1){
-        return 8;
+        return 9;
     }
     return 2;
 }
@@ -893,6 +893,8 @@
                  }
             }
             
+        }else if (indexPath.row ==8){
+            cell.textLabel.text = @"备注";
         }
     }else if (indexPath.section ==2){
         static NSString *identify = @"PointAmountCell";
@@ -945,7 +947,7 @@
         if (indexPath.row ==0) {
 //            UseCouponController *useVC = [[UseCouponController alloc]init];
 //            [self.navigationController pushViewController:useVC animated:YES];
-        }else if (indexPath.section ==1){
+        }else if (indexPath.row ==1){
             UseCouponController *couponVC = [[UseCouponController alloc]init];
             [couponVC setProductArr:self.couponArr];
             [couponVC setChooseBlock:^(NSString *coupon) {
