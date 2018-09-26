@@ -62,7 +62,7 @@
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(24);
+        make.bottom.equalTo(self);
         make.height.mas_equalTo(5);
         
     }];
