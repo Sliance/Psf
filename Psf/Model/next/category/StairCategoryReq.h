@@ -75,4 +75,6 @@
 @property(nonatomic,copy)NSString* erpProductId;
 ///erp的会员编号
 @property(nonatomic,copy)NSString*erpCustomerNo;
+///称重重量（加购物车用）
+@property(nonatomic,copy)NSString*saleOrderProductWeight;
 @end
