@@ -8,7 +8,7 @@
 
 #import "ZSSortSelectorView.h"
 #import "ZSScrollButton.h"
-
+#import "StairCategoryRes.h"
 @interface ZSSortSelectorView ()<ZSSortSelectorViewDelegate,ZSScrollButtonDelegate>
 {
     CGFloat _width;
@@ -51,9 +51,10 @@
 - (void)setDataArr:(NSArray *)dataArr {
     _dataArr =dataArr;
     [_buttonArr removeAllObjects];
-    _mainView.contentSize = CGSizeMake(_dataArr.count*(_width-80)/3, _height);
+    _mainView.contentSize = CGSizeMake(_dataArr.count*100+100, _height);
     for (int i=0; i<_dataArr.count; i++) {
-        ZSScrollButton *btn = [[ZSScrollButton alloc]initWithFrame:CGRectMake(i*(_width-80)/3, 0, (_width-80)/3, _height) miantitle:_dataArr[i] count:[NSString stringWithFormat:@"33"]];
+        StairCategoryRes *model = dataArr[i];
+        ZSScrollButton *btn = [[ZSScrollButton alloc]initWithFrame:CGRectMake(i*100, 0, 100, _height) miantitle:model.productCategoryName count:[NSString stringWithFormat:@"33"]];
         btn.tag = i+33;
         if (!i) {
             [btn changeStatus:YES];

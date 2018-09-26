@@ -47,8 +47,8 @@
             
         }
         [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-//        StairCategoryRes*model =dataArr[i];
-        btn.sortLabel.text = dataArr[i];
+        StairCategoryRes*model =dataArr[i];
+        btn.sortLabel.text = model.productCategoryName;
         btn.tag = i+100;
         [self.bgScrollow addSubview:btn];
         _bgScrollow.contentSize = CGSizeMake(0, 52*dataArr.count+10);
@@ -56,13 +56,7 @@
 }
 
 -(void)pressBtn:(SortBtn*)sender{
-//    for (int i = 0; i < _dataArr.count; i++) {
-//        SortBtn *btn = (SortBtn *)[[sender superview]viewWithTag:100 + i];
-//        btn.selectedLabel.hidden = YES;
-//        btn.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
-//        btn.sortLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
-//        [btn setSelected:NO];
-//    }
+
     
     if (_tmpBtn == nil){
         sender.selected = YES;

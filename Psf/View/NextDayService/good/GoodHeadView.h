@@ -23,7 +23,8 @@
 @property(nonatomic,strong)UILabel *weightLabel;
 ///已售数量
 @property(nonatomic,strong)UILabel *soldLabel;
-
+///类型
+@property(nonatomic,strong)UILabel *typeLabel;
 @property(nonatomic,strong)GoodDetailRes *model;
 ///拼团、预售
 @property(nonatomic,strong)UIView *groupView;

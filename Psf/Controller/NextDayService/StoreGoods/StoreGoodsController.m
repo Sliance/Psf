@@ -19,6 +19,7 @@
 @interface StoreGoodsController ()<SortLeftScrollowDelegate,PYSearchViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,ZSSortSelectorViewDelegate>
 @property(nonatomic,strong)SortLeftScrollow *sortLeftView;
 @property(nonatomic,strong)NSMutableArray *sortArr;
+@property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)HomeLocationView *locView;
 @property(nonatomic,strong)ZSSortSelectorView *selectorView;
@@ -84,11 +85,9 @@
     [self.view addSubview:self.selectorView];
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.selShowView];
-    _sortArr = [NSMutableArray arrayWithObjects:@"新鲜水果",@"杨桃荔枝",@"樱桃",@"蓝莓草莓",@"柑橘橙柚", nil];
-    [self.sortLeftView setDataArr:_sortArr];
-    [self.selectorView setDataArr:_sortArr];
-    [self.selShowView setDataArr:_sortArr];
-    self.selShowView.frame = CGRectMake(75, [self navHeightWithHeight]+85, SCREENWIDTH-75, _sortArr.count/3*35+35);
+    _sortArr = [NSMutableArray array];
+    _dataArr = [NSMutableArray array];
+    
     __weak typeof(self)weakself = self;
     [self.selectorView setSelectedBlock:^(BOOL selected) {
         if (selected ==YES) {
@@ -115,9 +114,45 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
+    __weak typeof(self)weakself = self;
     [[GroupServiceApi share]getStoreSortWithParam:req response:^(id response) {
-        
+        if (response) {
+            [weakself.sortArr removeAllObjects];
+            [weakself.sortArr addObjectsFromArray:response];
+            [weakself.sortLeftView setDataArr:weakself.sortArr];
+
+            StairCategoryRes *model = [response firstObject];
+            [weakself requestGoodList:model.productCategoryId];
+        }
     }];
+}
+
+-(void)requestGoodList:(NSString*)parentId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityName = @"上海市";
+    req.productCategoryId = parentId;
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]StoreGoodListWithParam:req response:^(id response) {
+        if (response) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.selectorView setDataArr:weakself.dataArr];
+            [weakself.selShowView setDataArr:weakself.dataArr];
+            weakself.selShowView.frame = CGRectMake(75, [self navHeightWithHeight]+85, SCREENWIDTH-75, weakself.dataArr.count/3*35+35);
+            [weakself.tableview reloadData];
+        }
+    }];
+}
+#pragma mark--SortLeftScrollowDelegate
+-(void)selectedSortIndex:(NSInteger)index{
+    StairCategoryRes *model =_sortArr[index];
+    [self requestGoodList:model.productCategoryId];
+    
 }
 -(void)chooseButtonType:(NSInteger)type{
     self.tableview.contentOffset = CGPointMake(0, type*115*5+type*24);
@@ -127,10 +162,11 @@
 }
     
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return _dataArr.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    StairCategoryRes *model = _dataArr[section];
+    return model.productList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 115;
@@ -139,15 +175,22 @@
     return 24;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH-75, 24)];
+    headView.backgroundColor = [UIColor whiteColor];
+    for (UIView *views in headView.subviews) {
+        if ([views isKindOfClass:[UILabel class]]) {
+            [views removeFromSuperview];
+        }
+    }
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREENWIDTH-95, 24)];
     label.backgroundColor = DSColorFromHex(0xFAFAFA);
-    label.text = [NSString stringWithFormat:@"   %@",_sortArr[section]];
+    StairCategoryRes *model = _dataArr[section];
+    label.text = [NSString stringWithFormat:@"   %@",model.productCategoryName];
     label.textColor = DSColorFromHex(0xA3A3A3);
     label.font = [UIFont systemFontOfSize:12];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH-75, 24)];
-    view.backgroundColor = [UIColor whiteColor];
-    [view addSubview:label];
-    return view;
+    
+    [headView addSubview:label];
+    return headView;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identify = @"StoreGoodsCell";

@@ -24,7 +24,14 @@
     [self addSubview:self.weightLabel];
     [self addSubview:self.soldLabel];
     [self addSubview:self.shareBtn];
-    self.nameLabel.frame = CGRectMake(15, 15, SCREENWIDTH-50, 17);
+    if ([_model.productType isEqualToString:@"nextDay"]){
+        [self addSubview:self.typeLabel];
+        self.typeLabel.frame = CGRectMake(15, 13, 45, 20);
+        self.nameLabel.frame = CGRectMake(65, 15, SCREENWIDTH-50-self.typeLabel.ctWidth, 17);
+    }else{
+        self.nameLabel.frame = CGRectMake(15, 15, SCREENWIDTH-50, 17);
+    }
+    
     self.contentLabel.frame = CGRectMake(15, self.nameLabel.ctBottom+11, SCREENWIDTH-30, 15);
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
@@ -199,6 +206,19 @@
         _buyerLabel.text = @"";
     }
     return _buyerLabel;
+}
+-(UILabel *)typeLabel{
+    if (!_typeLabel) {
+        _typeLabel  = [[UILabel alloc]init];
+        _typeLabel.textColor = [UIColor whiteColor];
+        _typeLabel.font = [UIFont systemFontOfSize:12];
+        _typeLabel.backgroundColor =DSColorFromHex(0xFF4C4D);
+        [_typeLabel.layer setCornerRadius:10];
+        [_typeLabel.layer setMasksToBounds:YES];
+        _typeLabel.text = @"次日达";
+        _typeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _typeLabel;
 }
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
@@ -393,7 +413,7 @@
     }else if ([model.productType isEqualToString:@"nextDay"]){
         [self setCornerLayoutNormal];
         _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
-        _nameLabel.text = [NSString stringWithFormat:@"[次日达]%@",model.productName];
+        _nameLabel.text = model.productName;
     }
     
     _contentLabel.text = model.productTitle;

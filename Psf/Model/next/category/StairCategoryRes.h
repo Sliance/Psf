@@ -12,7 +12,7 @@
 
 @interface StairCategoryRes : NSObject
 ///
-@property(nonatomic,assign)NSInteger productCategoryId;
+@property(nonatomic,copy)NSString* productCategoryId;
 ///图片
 @property(nonatomic,copy)NSString *productCategoryImagePath;
 @property(nonatomic,copy)NSString *productCategoryBannerImagePath;

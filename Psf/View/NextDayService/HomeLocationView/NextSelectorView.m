@@ -45,11 +45,16 @@
 -(void)setDataArr:(NSMutableArray *)dataArr{
     _dataArr = dataArr;
     _BtnArr = [NSMutableArray array];
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
+     self.backgroundColor = [UIColor whiteColor];
     for (int i = 0; i<dataArr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        StairCategoryRes *model = dataArr[i];
-//        [btn setTitle:model.productCategoryName forState:UIControlStateNormal];
-         [btn setTitle:dataArr[i] forState:UIControlStateNormal];
+        StairCategoryRes *model = dataArr[i];
+        [btn setTitle:model.productCategoryName forState:UIControlStateNormal];
         btn.frame = CGRectMake(i%3*(SCREENWIDTH-75-40)/3+i%3*10+10, i/3*35, (SCREENWIDTH-75-40)/3, 25);
         [btn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [btn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];

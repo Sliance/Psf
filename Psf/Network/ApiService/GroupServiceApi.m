@@ -297,9 +297,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-//                NSArray *result = [PresaleListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                NSArray *result = [StairCategoryRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {
@@ -324,9 +324,9 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-//                NSArray *result = [PresaleListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                NSArray *result = [StairCategoryRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
                 if (responseModel) {
-                    responseModel(dicResponse);
+                    responseModel(result);
                 }
             }else {
                 if (responseModel) {

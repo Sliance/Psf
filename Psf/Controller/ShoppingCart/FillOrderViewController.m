@@ -46,7 +46,7 @@
 @property(nonatomic,strong)PlaceOrderRes *resultmodel;
 @property(nonatomic,assign)NSInteger type;
 @property(nonatomic,assign)NSInteger payType;
-
+@property(nonatomic,strong)UITextField *markField;
 @end
 
 @implementation FillOrderViewController
@@ -190,8 +190,15 @@
     self.tableview.tableFooterView = footView;
      [ZSNotification addWeixinPayResultNotification:self action:@selector(weixinPay:)];
     [ZSNotification addAlipayPayResultNotification:self action:@selector(AlipayPay:)];
+    
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
+}
+-(void)hideKeyBoard{
+    
+    [self.markField resignFirstResponder];
+}
 #pragma mark-支付回调通知
 
 -(void)weixinPay:(NSNotification *)notifi{
@@ -591,6 +598,7 @@
         
     }
     req.couponId = self.calculateModel.couponId;
+    req.saleOrderRemark = _markField.text;
      [self placeNormalOrder:req];
 }
 
@@ -895,6 +903,17 @@
             
         }else if (indexPath.row ==8){
             cell.textLabel.text = @"备注";
+            for (UIView *view in cell.subviews) {
+                if ([view isKindOfClass:[UITextField class]]) {
+                    [view removeFromSuperview];
+                }
+            }
+            UITextField *field = [[UITextField alloc]initWithFrame:CGRectMake(70, 0, SCREENWIDTH-85, 45)];
+            field.placeholder = @"可以告诉我您的特殊要求";
+            field.textAlignment = NSTextAlignmentRight;
+            field.font = [UIFont systemFontOfSize:15];
+            _markField = field;
+            [cell addSubview:field];
         }
     }else if (indexPath.section ==2){
         static NSString *identify = @"PointAmountCell";
