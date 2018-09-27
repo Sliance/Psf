@@ -26,6 +26,7 @@
 #import "PresaleGoodBottomView.h"
 #import "GroupBuyView.h"
 #import "PresaleBuyView.h"
+#import "StoreGoodsBuyView.h"
 
 #import "FillOrderViewController.h"
 #import "SpellGroupListController.h"
@@ -62,9 +63,12 @@
 @property(nonatomic,strong)GoodDetailRes *resmodel;
 @property (strong, nonatomic) UIWebView *webView;
 @property(strong,nonatomic)EvaluateListRes *evaRes;
-@property(nonatomic,strong)NSMutableArray *groupArr;
+
 @property(nonatomic,strong)GroupBuyView *groupBuyView;
 @property(nonatomic,strong)PresaleBuyView *presaleBuyView;
+@property(nonatomic,strong)StoreGoodsBuyView *storeBuyView;
+
+@property(nonatomic,strong)NSMutableArray *groupArr;
 @property(nonatomic,strong)NSMutableArray *couponArr;
 
 
@@ -162,6 +166,16 @@
     }
     return _presaleBuyView;
 }
+-(StoreGoodsBuyView *)storeBuyView{
+    if (!_storeBuyView) {
+        _storeBuyView = [[StoreGoodsBuyView alloc]init];
+        _storeBuyView.hidden = YES;
+        _storeBuyView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
+        
+        [_storeBuyView setHeight:[self tabBarHeight]];
+    }
+    return _storeBuyView;
+}
 -(ZSCycleScrollView *)cycleScroll{
     if (!_cycleScroll) {
         _cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 375)];
@@ -235,7 +249,7 @@
     [self.bgscrollow addSubview:self.tourDiyView];
     
     [self.bgscrollow addSubview:self.webView];
-    
+    [self.view addSubview:self.storeBuyView];
    __weak typeof(self) _weakSelf = self;
     [self.tourDiyView setPressAllBlock:^(NSInteger index) {
         SpellGroupListController *spellVC = [[SpellGroupListController alloc]init];
@@ -716,6 +730,7 @@
             [self.presaleBuyView setModel:self.result];
             [self.view addSubview:self.presaleBuyView];
         }
+        
         
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
         if (self.groupArr.count ==0) {

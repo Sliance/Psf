@@ -28,6 +28,7 @@
 		88484D8920EB5CD300400D16 /* GroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8820EB5CD300400D16 /* GroupCollectionViewCell.m */; };
 		88484D8C20EB5D7D00400D16 /* GroupHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8B20EB5D7D00400D16 /* GroupHeadView.m */; };
 		88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88484D8E20EB81FA00400D16 /* AboutViewController.m */; };
+		88496548215CB0180042A7D8 /* StoreGoodsBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88496547215CB0180042A7D8 /* StoreGoodsBuyView.m */; };
 		88503630213E549000C85389 /* DPSwizzledMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850362C213E548F00C85389 /* DPSwizzledMethod.m */; };
 		88503631213E549000C85389 /* DPTextViewVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 8850362E213E549000C85389 /* DPTextViewVerify.m */; };
 		88503634213E567200C85389 /* NSString+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 88503632213E567100C85389 /* NSString+Ext.m */; };
@@ -434,6 +435,8 @@
 		88484D8B20EB5D7D00400D16 /* GroupHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupHeadView.m; sourceTree = "<group>"; };
 		88484D8D20EB81FA00400D16 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		88484D8E20EB81FA00400D16 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		88496546215CB0180042A7D8 /* StoreGoodsBuyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreGoodsBuyView.h; sourceTree = "<group>"; };
+		88496547215CB0180042A7D8 /* StoreGoodsBuyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreGoodsBuyView.m; sourceTree = "<group>"; };
 		8850362C213E548F00C85389 /* DPSwizzledMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSwizzledMethod.m; sourceTree = "<group>"; };
 		8850362D213E548F00C85389 /* DPTextViewVerify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTextViewVerify.h; sourceTree = "<group>"; };
 		8850362E213E549000C85389 /* DPTextViewVerify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTextViewVerify.m; sourceTree = "<group>"; };
@@ -1274,6 +1277,8 @@
 				88534C2820E609BD00D6F43C /* GoodCollectionViewCell.m */,
 				88747E8D20EE34D0000BC993 /* GoodBottomView.h */,
 				88747E8E20EE34D0000BC993 /* GoodBottomView.m */,
+				88496546215CB0180042A7D8 /* StoreGoodsBuyView.h */,
+				88496547215CB0180042A7D8 /* StoreGoodsBuyView.m */,
 			);
 			path = good;
 			sourceTree = "<group>";
@@ -3069,6 +3074,7 @@
 				8871B88720DB489600DAA5D6 /* UserBaseInfoModel.m in Sources */,
 				888E717B20E0C49200BFBAFF /* DataManager.m in Sources */,
 				88566E832114035600B6C38D /* SexPickerTool.m in Sources */,
+				88496548215CB0180042A7D8 /* StoreGoodsBuyView.m in Sources */,
 				8881BF352118242100F6A0CD /* UIPlaceHolderTextView.m in Sources */,
 				8850363A213E569E00C85389 /* NSString+Path.m in Sources */,
 				887706D22122D9DF00CD7697 /* PresaleHomeController.m in Sources */,
