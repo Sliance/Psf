@@ -108,7 +108,7 @@
 -(GoodBottomView *)normalBView{
     if (!_normalBView) {
         _normalBView = [[GoodBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENHEIGHT, [self tabBarHeight])];
-        
+        _normalBView.hidden = YES;
         
     }
     return _normalBView;
@@ -249,6 +249,7 @@
     [self.bgscrollow addSubview:self.tourDiyView];
     
     [self.bgscrollow addSubview:self.webView];
+    [self.view addSubview:self.normalBView];
     [self.view addSubview:self.storeBuyView];
    __weak typeof(self) _weakSelf = self;
     [self.tourDiyView setPressAllBlock:^(NSInteger index) {
@@ -281,7 +282,10 @@
     }];
     [self.normalBView setPressAddBlock:^{
         if ([UserCacheBean share].userInfo.token.length>0) {
-            
+            if (_weakSelf.result.productStyle ==1) {
+                _weakSelf.storeBuyView.hidden = NO;
+                _weakSelf.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+            }else{
             if (_weakSelf.result.productSkuList.count>1) {
                 _weakSelf.presaleBuyView.hidden = NO;
                 [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
@@ -290,7 +294,7 @@
                 ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
                 [_weakSelf addShopCount:model];
             }
-            
+        }
         }else{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
             message:@"" preferredStyle:UIAlertControllerStyleAlert];
@@ -506,6 +510,13 @@
         NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",@"400-821-6094"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
      }];
+    [self.storeBuyView setTapBlock:^{
+        _weakSelf.storeBuyView.hidden = YES;
+    }];
+    [self.storeBuyView setSubmitBlock:^(NSString *weight, GoodDetailRes *detailmodel, StairCategoryListRes *resmodel) {
+        _weakSelf.storeBuyView.hidden = YES;
+        [_weakSelf addShopCount:detailmodel];
+    }];
 }
 
 -(void)setProductID:(NSInteger )productID{
@@ -724,7 +735,7 @@
     
     if([self.result.productType isEqualToString:@"normal"]){//正常
         [self requestCoupon];
-        [self.view addSubview:self.normalBView];
+        self.normalBView.hidden = NO;
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
             [self.presaleBuyView setModel:self.result];
@@ -760,7 +771,7 @@
       [self.view addSubview:self.presaleBuyView];
     }else if([self.result.productType isEqualToString:@"nextDay"]){//次日达
         [self requestCoupon];
-        [self.view addSubview:self.normalBView];
+        self.normalBView.hidden = NO;
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
             [self.presaleBuyView setModel:self.result];
@@ -768,7 +779,7 @@
         }
     }else{//满减
          [self requestCoupon];
-         [self.view addSubview:self.normalBView];
+        self.normalBView.hidden = NO;
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
             [self.presaleBuyView setModel:self.result];

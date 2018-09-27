@@ -26,7 +26,7 @@
 @property(nonatomic,copy)NSString *productUnit;
 ///重量
 @property(nonatomic,copy)NSString *productWeight;
-///0、称重，其他、计数的
+///0，计数，1.称重，2.69码(计数
 @property(nonatomic,assign)NSInteger productStyle;
 
 @end

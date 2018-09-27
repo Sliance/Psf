@@ -41,8 +41,8 @@
         [_countField.layer setBorderWidth:0.5];
         _countField.font = [UIFont systemFontOfSize:12];
         _countField.keyboardType = UIKeyboardTypeNumberPad;
-        _countField.textAlignment = NSTextAlignmentRight;
-        _countField.text = @"1";
+        _countField.textAlignment = NSTextAlignmentCenter;
+        _countField.text = @"";
     }
     return _countField;
 }

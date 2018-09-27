@@ -23,6 +23,8 @@
 @property(nonatomic,strong)NSString *latitude;
 ///经度
 @property(nonatomic,strong)NSString *longitude;
+///默认称重
+@property(nonatomic,strong)NSString *productDefaultWeight;
 
 ///市
 @property(nonatomic,strong)NSString *city;

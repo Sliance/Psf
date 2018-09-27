@@ -77,4 +77,6 @@
 @property(nonatomic,copy)NSString*erpCustomerNo;
 ///称重重量（加购物车用）
 @property(nonatomic,copy)NSString*saleOrderProductWeight;
+
+@property(nonatomic,copy)NSString *businessParamKey;
 @end

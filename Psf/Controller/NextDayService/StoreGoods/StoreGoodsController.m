@@ -17,6 +17,7 @@
 #import "NextServiceApi.h"
 #import "detailGoodsViewController.h"
 #import "StoreGoodsBuyView.h"
+#import "ShopServiceApi.h"
 
 @interface StoreGoodsController ()<SortLeftScrollowDelegate,PYSearchViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,ZSSortSelectorViewDelegate>
 @property(nonatomic,strong)SortLeftScrollow *sortLeftView;
@@ -119,13 +120,42 @@
         weakself.storeBuyView.hidden = YES;
     }];
     [self.storeBuyView setSubmitBlock:^(NSString *weight, GoodDetailRes *detailmodel, StairCategoryListRes *resmodel) {
-        
+        weakself.storeBuyView.hidden = YES;
+        [weakself addShopCount:resmodel];
     }];
     
     [self requestSort];
     
 }
-
+-(void)addShopCount:(StairCategoryListRes *)model{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.productId = model.productId;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.productSkuId = @"";
+    req.productQuantity = 1;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        
+        if (response!= nil) {
+            [weakself showInfo:response[@"message"]];
+        }
+       
+    }];
+}
 -(void)requestSort{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -222,7 +252,9 @@
     [cell setModel:res];
     __weak typeof(self)weakself = self;
     [cell setAddBlock:^(StairCategoryListRes *model) {
-        if (model.productStyle==0) {
+        if (model.productStyle==1) {
+            [weakself.storeBuyView setCatemodel:model];
+            weakself.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
             weakself.storeBuyView.hidden = NO;
         }
     }];

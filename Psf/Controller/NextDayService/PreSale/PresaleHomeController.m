@@ -100,7 +100,22 @@
             
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
+            [weakself getDefautWeight];
             [weakself.tableview reloadData];
+        }
+    }];
+}
+-(void)getDefautWeight{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"";
+    req.platform = @"ios";
+    req.businessParamKey = @"productDefaultWeight";
+    [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
+        if (response) {
+            [UserCacheBean share].userInfo.productDefaultWeight = response[@"data"][@"businessParamValue"];
         }
     }];
 }
@@ -156,10 +171,8 @@
    
 //     [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"11"]];
-    
-    
-    
     self.navigationController.navigationBar.hidden = YES;
+    [self getErp];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -191,7 +204,7 @@
     CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
     self.tableview.tableFooterView = footView;
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
-    [self getErp];
+    
 }
 -(void)location:(NSNotification *)notifi{
     

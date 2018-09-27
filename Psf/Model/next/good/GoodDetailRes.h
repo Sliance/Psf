@@ -22,6 +22,8 @@
 @property(nonatomic,copy)NSNumber *productPrice;
 ///
 @property(nonatomic,copy)NSString *productUnit;
+///0，计数，1.称重，2.69码(计数
+@property(nonatomic,assign)NSInteger productStyle;
 ///
 //@property(nonatomic,copy)NSNumber *productWeight;
 @property(nonatomic,copy)NSString *productImagePath;
