@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "StairCategoryListRes.h"
 
 @interface StoreGoodsCell : BaseTableViewCell
 @property(nonatomic,strong)UIImageView *headImage;
@@ -16,5 +17,9 @@
 @property(nonatomic,strong)UILabel *weightLabel;
 
 @property(nonatomic,strong)UIButton *addBtn;
+
+@property(nonatomic,strong)StairCategoryListRes *model;
+@property(nonatomic,copy)void (^addBlock)(StairCategoryListRes *);
+
 
 @end

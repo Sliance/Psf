@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface StairCategoryListRes : NSObject
+
+
 @property(nonatomic,copy)NSString* erpProductId;
 ///
 @property(nonatomic,assign)NSInteger productId;
@@ -23,6 +25,8 @@
 ///单位
 @property(nonatomic,copy)NSString *productUnit;
 ///重量
-//@property(nonatomic,assign)NSNumber *productWeight;
+@property(nonatomic,copy)NSString *productWeight;
+///0、称重，其他、计数的
+@property(nonatomic,assign)NSInteger productStyle;
 
 @end

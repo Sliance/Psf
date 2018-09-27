@@ -126,6 +126,17 @@
     }];
 }
 -(void)pressAddBtn{
+    self.addBlock(_model);
+}
+
+-(void)setModel:(StairCategoryListRes *)model{
+    _model = model;
+    self.titleLabel.text = model.productName;
+    self.detailLabel.text = model.productTitle;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+    self.weightLabel.text = model.productUnit;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     
 }
 @end

@@ -15,6 +15,7 @@
 #import "ZSSortSelectorView.h"
 #import "NextSelectorView.h"
 #import "NextServiceApi.h"
+#import "detailGoodsViewController.h"
 
 @interface StoreGoodsController ()<SortLeftScrollowDelegate,PYSearchViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,ZSSortSelectorViewDelegate>
 @property(nonatomic,strong)SortLeftScrollow *sortLeftView;
@@ -62,7 +63,7 @@
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(75, [self navHeightWithHeight]+85, SCREENWIDTH-75, SCREENHEIGHT) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(75, [self navHeightWithHeight]+85, SCREENWIDTH-75, SCREENHEIGHT-85-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = [UIColor clearColor];
@@ -198,9 +199,52 @@
     if (!cell) {
         cell = [[StoreGoodsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
+    StairCategoryRes *model = _dataArr[indexPath.section];
+    StairCategoryListRes *res = model.productList[indexPath.row];
+    [cell setModel:res];
+    [cell setAddBlock:^(StairCategoryListRes *model) {
+        if (model.productStyle==0) {
+            UIAlertController *addAlertVC = [UIAlertController alertControllerWithTitle:@"请填写所需规格" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            
+            //创建两个textFiled输入框
+            [addAlertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = @"请输入规格";
+            }];
+            
+            
+            //创建取消事件(按钮)
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            //添加 取消事件 到 弹窗界面
+            [addAlertVC addAction:cancelAction];
+            
+            
+            //创建 确认按钮(事件) 并添加到弹窗界面
+            
+            __block UITextField *textTF = [[UITextField alloc] init];
+            UIAlertAction *confirmAction =[UIAlertAction actionWithTitle:@"加购物车" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                //        textTF = [addAlertVC.view viewWithTag:100];
+                //        _label.text = textTF.text;//接收输入框内容
+//                _label.text = addAlertVC.textFields.firstObject.text;
+                
+            }];
+            //添加确定按钮(事件)到弹窗![这里写图片描述](https://img-blog.csdn.net/20160603135306384)
+            [addAlertVC addAction:confirmAction];
+            
+            
+            //模态显示一个弹框  注意: UIAlterController只能通过模态形式进行弹出,不能使用push
+            [self.navigationController presentViewController:addAlertVC animated:NO completion:nil];
+        }
+    }];
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
+    StairCategoryRes *model = _dataArr[indexPath.section];
+    StairCategoryListRes *res = model.productList[indexPath.row];
+    [vc setErpProductId:res.erpProductId];
+    [vc setProductID:res.productId];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(void)didClickCancel:(PYSearchViewController *)searchViewController{
     [self.navigationController popViewControllerAnimated:YES];
 }

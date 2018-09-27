@@ -51,6 +51,11 @@
 - (void)setDataArr:(NSArray *)dataArr {
     _dataArr =dataArr;
     [_buttonArr removeAllObjects];
+    for (UIView *view in _mainView.subviews) {
+        if ([view isKindOfClass:[ZSScrollButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
     _mainView.contentSize = CGSizeMake(_dataArr.count*100+100, _height);
     for (int i=0; i<_dataArr.count; i++) {
         StairCategoryRes *model = dataArr[i];

@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor whiteColor];
         _width = frame.size.width;
         _height = frame.size.height;
-        _width = 80;
+        
         count = @"";
         [self addSubview:self.titleLbl];
         [self addSubview:self.countLbl];
