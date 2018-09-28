@@ -132,9 +132,9 @@
             [btn changeStatus:NO];
         }
     }
-    if ([self.delegate respondsToSelector:@selector(chooseButtonType:)]) {
-        [self.delegate chooseButtonType:_currentPage];
-    }
+//    if ([self.delegate respondsToSelector:@selector(chooseButtonType:)]) {
+//        [self.delegate chooseButtonType:_currentPage];
+//    }
     if (_currentPage>=0&&_currentPage<_dataArr.count-2) {
         CGFloat current =_currentPage*(_width-80)/3;
         _mainView.contentOffset = CGPointMake(current, 0);

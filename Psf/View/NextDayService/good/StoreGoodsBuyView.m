@@ -33,15 +33,24 @@
     }
     return _buyLabel;
 }
-
+-(UILabel *)totalLabel{
+    if (!_totalLabel) {
+        _totalLabel = [[UILabel alloc]init];
+        _totalLabel.text = @"该重量价格";
+        _totalLabel.textColor = DSColorFromHex(0x464646);
+        _totalLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _totalLabel;
+}
 -(UITextField *)countField{
     if (!_countField) {
         _countField = [[UITextField alloc]init];
         [_countField.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
         [_countField.layer setBorderWidth:0.5];
-        _countField.font = [UIFont systemFontOfSize:12];
+        _countField.font = [UIFont systemFontOfSize:15];
         _countField.keyboardType = UIKeyboardTypeNumberPad;
         _countField.textAlignment = NSTextAlignmentCenter;
+        _countField.textColor = DSColorFromHex(0x464646);
         _countField.text = @"";
         _countField.maxPoint = 2;
     }
@@ -86,7 +95,7 @@
         _contentLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _contentLabel.textColor = DSColorFromHex(0x464646);
         _contentLabel.text = @"kg";
-        _countField.delegate = self;
+        
     }
     return _contentLabel;
 }
@@ -103,7 +112,7 @@
 -(UILabel *)totalPriceLabel{
     if (!_totalPriceLabel) {
         _totalPriceLabel = [[UILabel alloc]init];
-        _totalPriceLabel.textAlignment = NSTextAlignmentLeft;
+        _totalPriceLabel.textAlignment = NSTextAlignmentRight;
         _totalPriceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _totalPriceLabel.textColor = DSColorFromHex(0xFF4C4D);
         _totalPriceLabel.text = @"￥0";
@@ -130,7 +139,7 @@
     [self.BGview addSubview:self.contentLabel];
     [self.BGview addSubview:self.priceLabel];
     [self.BGview addSubview:self.totalPriceLabel];
-    
+    [self.BGview addSubview:self.totalLabel];
 }
 -(void)setHeight:(NSInteger )height{
     _height = height;
@@ -146,7 +155,7 @@
     
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.BGview);
-        make.bottom.equalTo(self.submitBtn.mas_top).offset(-33);
+        make.top.equalTo(self.headImage.mas_bottom).offset(20);
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(26);
     }];
@@ -162,17 +171,26 @@
         make.height.mas_equalTo(26);
         
     }];
+    [self.totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.BGview).offset(15);
+        make.top.equalTo(self.buyLabel.mas_bottom).offset(5);
+        make.height.mas_equalTo(26);
+    }];
     [self.totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.buyLabel.mas_right).offset(15);
-        make.centerY.equalTo(self.contentLabel);
+        make.right.equalTo(self.BGview).offset(-15);
+        make.centerY.equalTo(self.totalLabel);
         make.height.mas_equalTo(26);
         
     }];
+    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_right).offset(15);
+        make.bottom.equalTo(self.headImage.mas_bottom);
+    }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressTap)];
     [self.yinBGview addGestureRecognizer:tap];
-    self.headImage.frame = CGRectMake(15, 10, 90, 90);
-    self.nameLabel.frame = CGRectMake(109, 20, SCREENWIDTH-114, 15);
-    self.priceLabel.frame = CGRectMake(109, 50, SCREENWIDTH-114, 15);
+    self.headImage.frame = CGRectMake(15, 15, 90, 90);
+    self.nameLabel.frame = CGRectMake(120, 20, SCREENWIDTH-114, 15);
+    
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 

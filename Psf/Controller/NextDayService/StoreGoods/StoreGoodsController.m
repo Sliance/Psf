@@ -244,6 +244,7 @@
     label.font = [UIFont systemFontOfSize:12];
     
     [headView addSubview:label];
+   
     return headView;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -265,6 +266,7 @@
             [weakself addShopCount:model Quantity:@"1"];
         }
     }];
+    
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -274,6 +276,14 @@
     [vc setErpProductId:res.erpProductId];
     [vc setProductID:res.productId];
     [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    CGPoint point = scrollView.contentOffset;
+//
+//        NSInteger index = point.y/(115*5+24);
+//        self.selectorView.currentPage = index;
+//        self.selShowView.currentPage = index;
+    
 }
 -(void)didClickCancel:(PYSearchViewController *)searchViewController{
     [self.navigationController popViewControllerAnimated:YES];
