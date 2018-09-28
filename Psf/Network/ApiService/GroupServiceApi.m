@@ -317,7 +317,7 @@
 }
 ///获取门店商品列表
 - (void)StoreGoodListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/category/mobile/v1/list/store/product";
+    NSString *url = @"/lxn/product/category/mobile/v1/list/store/product/category";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
