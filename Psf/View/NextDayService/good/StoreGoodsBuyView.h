@@ -23,6 +23,7 @@
 @property(nonatomic,strong)UILabel *contentLabel;
 ///物品价格
 @property(nonatomic,strong)UILabel *priceLabel;
+@property(nonatomic,strong)UILabel *totalPriceLabel;
 @property(nonatomic,strong)UIButton *submitBtn;
 
 @property(nonatomic,copy)void(^submitBlock)(NSString*,GoodDetailRes *,StairCategoryListRes *);

@@ -90,6 +90,7 @@
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.sortLeftView];
@@ -120,14 +121,18 @@
         weakself.storeBuyView.hidden = YES;
     }];
     [self.storeBuyView setSubmitBlock:^(NSString *weight, GoodDetailRes *detailmodel, StairCategoryListRes *resmodel) {
+        if ([weight doubleValue]<[[UserCacheBean share].userInfo.productDefaultWeight doubleValue]) {
+            [weakself showInfo:[NSString stringWithFormat:@"重量不能低于%@",[UserCacheBean share].userInfo.productDefaultWeight]];
+            return ;
+        }
         weakself.storeBuyView.hidden = YES;
-        [weakself addShopCount:resmodel];
+        [weakself addShopCount:resmodel Quantity:weight];
     }];
     
     [self requestSort];
     
 }
--(void)addShopCount:(StairCategoryListRes *)model{
+-(void)addShopCount:(StairCategoryListRes *)model  Quantity:(NSString*)quantity{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -146,7 +151,7 @@
     req.cityId = @"310100";
     req.cityName = @"上海市";
     req.productSkuId = @"";
-    req.productQuantity = 1;
+    req.productQuantity = quantity;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         
@@ -256,6 +261,8 @@
             [weakself.storeBuyView setCatemodel:model];
             weakself.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
             weakself.storeBuyView.hidden = NO;
+        }else{
+            [weakself addShopCount:model Quantity:@"1"];
         }
     }];
     return cell;

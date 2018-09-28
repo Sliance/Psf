@@ -121,8 +121,8 @@ static NSString *cellId = @"GoodCollectionViewCell";
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.titleLabel.text = model.productName;
     self.weightLabel.text = model.productUnit;
-    NSString *price = [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*model.productQuantity];
-    NSString *string = [NSString stringWithFormat:@"共%ld件，商品金额%@",(long)model.productQuantity,price];
+    NSString *price = [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]];
+    NSString *string = [NSString stringWithFormat:@"共%@件，商品金额%@",model.productQuantity,price];
     NSRange rang = [string rangeOfString:price];
     NSMutableAttributedString *attributStr = [[NSMutableAttributedString alloc]initWithString:string];
     [attributStr addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:rang];
@@ -141,8 +141,8 @@ static NSString *cellId = @"GoodCollectionViewCell";
     CGFloat totalprice= 0.00;
     NSInteger count = 0;
     for (CartProductModel *model in _dataArr) {
-        totalprice = totalprice+[model.productStorePrice doubleValue]*model.productQuantity;
-        count = count+model.productQuantity;
+        totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue];
+        count = count+[model.productQuantity doubleValue];
     }
     
     NSString *price = [NSString stringWithFormat:@"￥%.2f",totalprice];

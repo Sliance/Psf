@@ -100,8 +100,8 @@
     
 }
 -(void)setModel:(ShoppingListRes *)model{
-    self.titleLabel.text = [NSString stringWithFormat:@"已选(%ld)",model.productActiveQuantity];
-    [self.submitBtn setTitle:[NSString stringWithFormat:@"结算(%ld)",model.productActiveQuantity] forState:UIControlStateNormal];
+    self.titleLabel.text = [NSString stringWithFormat:@"已选(%@)",model.productActiveQuantity];
+    [self.submitBtn setTitle:[NSString stringWithFormat:@"结算(%@)",model.productActiveQuantity] forState:UIControlStateNormal];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.cartPayAmount];
     self.chooseBtn.selected = model.cartIsActive;
 }

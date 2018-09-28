@@ -216,7 +216,7 @@
         [_subBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0x707070).CGColor];
     }
-    _model.productQuantity = [_countField.text integerValue];
+    _model.productQuantity = _countField.text ;
     self.addBlock(_model);
     
 }
@@ -227,7 +227,7 @@
         
         [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
         [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
-        _model.productQuantity =0;
+        _model.productQuantity = @"0";
     }else{
         count = count-1;
         _countField.text = [NSString stringWithFormat:@"%ld",(long)count];
@@ -235,7 +235,7 @@
             [_subBtn setTitleColor:DSColorFromHex(0xB4B4B4) forState:UIControlStateNormal];
             [_subBtn.layer setBorderColor:DSColorFromHex(0xB4B4B4).CGColor];
         }
-         _model.productQuantity = [_countField.text integerValue];
+         _model.productQuantity = _countField.text;
     }
    
     self.addBlock(_model);
@@ -283,7 +283,7 @@
     }
     
     self.weightLabel.text = model.productUnit;
-    self.countField.text = [NSString stringWithFormat:@"%ld",(long)model.productQuantity];
+    self.countField.text = model.productQuantity;
     if (_goodtype ==TYPELOSE) {
         self.chooseBtn.selected = NO;
     }else{
@@ -292,7 +292,7 @@
    
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    _model.productQuantity = [textField.text integerValue];
+    _model.productQuantity = textField.text ;
     self.addBlock(_model);
     return [textField resignFirstResponder];
 }

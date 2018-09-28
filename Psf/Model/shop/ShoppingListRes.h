@@ -29,9 +29,9 @@
 //次日达普通商品
 @property(nonatomic,strong)NSArray *nextDayProductList;
 ///商品总数量
-@property(nonatomic,assign)NSInteger productQuantity;
+@property(nonatomic,copy)NSString* productQuantity;
 ///商品选中数量
-@property(nonatomic,assign)NSInteger productActiveQuantity;
+@property(nonatomic,copy)NSString* productActiveQuantity;
 
 
 @end

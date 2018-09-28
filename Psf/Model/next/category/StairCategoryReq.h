@@ -41,7 +41,7 @@
 ///商品规格编号
 @property(nonatomic,copy)NSString *productSkuId;
 ///商品数量
-@property(nonatomic,assign)NSInteger productQuantity;
+@property(nonatomic,copy)NSString* productQuantity;
 ///
 @property(nonatomic,assign)NSInteger pageIndex;
 ///

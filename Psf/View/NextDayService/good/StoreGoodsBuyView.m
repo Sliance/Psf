@@ -43,6 +43,7 @@
         _countField.keyboardType = UIKeyboardTypeNumberPad;
         _countField.textAlignment = NSTextAlignmentCenter;
         _countField.text = @"";
+        _countField.maxPoint = 2;
     }
     return _countField;
 }
@@ -85,6 +86,7 @@
         _contentLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _contentLabel.textColor = DSColorFromHex(0x464646);
         _contentLabel.text = @"kg";
+        _countField.delegate = self;
     }
     return _contentLabel;
 }
@@ -97,6 +99,16 @@
         _priceLabel.text = @"￥0";
     }
     return _priceLabel;
+}
+-(UILabel *)totalPriceLabel{
+    if (!_totalPriceLabel) {
+        _totalPriceLabel = [[UILabel alloc]init];
+        _totalPriceLabel.textAlignment = NSTextAlignmentLeft;
+        _totalPriceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+        _totalPriceLabel.textColor = DSColorFromHex(0xFF4C4D);
+        _totalPriceLabel.text = @"￥0";
+    }
+    return _totalPriceLabel;
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -117,7 +129,7 @@
     [self.BGview addSubview:self.nameLabel];
     [self.BGview addSubview:self.contentLabel];
     [self.BGview addSubview:self.priceLabel];
-    
+    [self.BGview addSubview:self.totalPriceLabel];
     
 }
 -(void)setHeight:(NSInteger )height{
@@ -148,27 +160,48 @@
         make.left.equalTo(self.BGview).offset(15);
         make.centerY.equalTo(self.contentLabel);
         make.height.mas_equalTo(26);
-        make.width.mas_equalTo(SCREENWIDTH/2);
+        
     }];
-    
+    [self.totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.buyLabel.mas_right).offset(15);
+        make.centerY.equalTo(self.contentLabel);
+        make.height.mas_equalTo(26);
+        
+    }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressTap)];
     [self.yinBGview addGestureRecognizer:tap];
     self.headImage.frame = CGRectMake(15, 10, 90, 90);
     self.nameLabel.frame = CGRectMake(109, 20, SCREENWIDTH-114, 15);
     self.priceLabel.frame = CGRectMake(109, 50, SCREENWIDTH-114, 15);
-    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
-
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
 -(void)pressSubmit{
     self.submitBlock(_countField.text,_model,_catemodel);
 }
 -(void)pressTap{
     self.tapBlock();
 }
+- (void)textFiledTextChange:(NSNotification *)noti{
+    
+    if (_model) {
+        self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[_countField.text doubleValue]*[_model.productPrice doubleValue]];
+    }else if (_catemodel){
+        self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[_countField.text doubleValue]*[_catemodel.productPrice doubleValue]];
+    }
+    
+}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     _countField.text = textField.text;
-    
+    if (_model) {
+        self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[_countField.text doubleValue]*[_model.productPrice doubleValue]];
+    }else if (_catemodel){
+        self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[_countField.text doubleValue]*[_catemodel.productPrice doubleValue]];
+    }
     return [textField resignFirstResponder];
 }
 
@@ -178,6 +211,8 @@
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/%@",model.productPrice,model.productUnit];
+    _countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"%.2f",[_countField.text doubleValue]*[model.productPrice doubleValue]];
 }
 -(void)setCatemodel:(StairCategoryListRes *)catemodel{
     _catemodel = catemodel;
@@ -185,6 +220,8 @@
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = catemodel.productName;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/%@",catemodel.productPrice,catemodel.productUnit];
+    _countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[_countField.text doubleValue]*[catemodel.productPrice doubleValue]];
 }
 
 

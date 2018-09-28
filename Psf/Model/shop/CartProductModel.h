@@ -28,7 +28,7 @@
 @property(nonatomic,copy)NSString *productPrice;
 @property(nonatomic,copy)NSString * productStorePrice;
 ///
-@property(nonatomic,assign)NSInteger productQuantity;
+@property(nonatomic,copy)NSString* productQuantity;
 ///
 @property(nonatomic,assign)NSInteger productSkuId;
 ///
@@ -54,7 +54,7 @@
 ///
 @property(nonatomic,assign)NSInteger productIsOnSale;
 ///
-@property(nonatomic,assign)NSInteger saleOrderProductQty;
+@property(nonatomic,copy)NSString* saleOrderProductQty;
 ///
 @property(nonatomic,assign)NSInteger saleOrderProductId;
 ///

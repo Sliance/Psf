@@ -526,7 +526,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         __weak typeof(self)weakself = self;
         [cell setAddBlock:^(CartProductModel* req) {
             
-            if (req.productQuantity ==0 ) {
+            if ([req.productQuantity isEqualToString:@"0"] ) {
                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"确定删除该商品"
                                                                                message:@"" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件

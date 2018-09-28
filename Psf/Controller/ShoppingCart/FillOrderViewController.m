@@ -573,7 +573,7 @@
         for (CartProductModel *model in self.productArr) {
             if (model.productQuantity) {
                 model.saleOrderProductQty = model.productQuantity;
-                req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + model.productQuantity ;
+                req.saleOrderTotalQuantity = req.saleOrderTotalQuantity + [model.productQuantity doubleValue];
                 [arr addObject:model];
             }
         }
