@@ -145,7 +145,7 @@
         _groupBuyView.hidden = YES;
         
         
-             _groupBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+             _groupBuyView.frame = CGRectMake(0,0, SCREENWIDTH, SCREENHEIGHT);
     
          [_groupBuyView setHeight:[self tabBarHeight]];
     }
@@ -155,7 +155,7 @@
     if (!_presaleBuyView) {
         _presaleBuyView = [[PresaleBuyView alloc]init];
         _presaleBuyView.hidden = YES;
-            _presaleBuyView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT);
+            _presaleBuyView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         
         [_presaleBuyView setHeight:[self tabBarHeight]];
     }
