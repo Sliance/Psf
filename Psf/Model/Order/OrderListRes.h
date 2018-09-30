@@ -51,6 +51,34 @@
 @property(nonatomic,copy)NSString* saleOrderType;
 
 @property(nonatomic,copy)NSString *memberId;
+///余额退款
+@property(nonatomic,copy)NSString *saleOrderRefundApproverbReturnBalance;
+///退货类型(0，仅退款 1、退款退货)
+@property(nonatomic,assign)NSInteger saleOrderRefundType;
+///退货原因
+@property(nonatomic,copy)NSString *saleOrderRefundReason;
+///
+@property(nonatomic,copy)NSString *productImagePath;
+///退款金额
+@property(nonatomic,copy)NSString *saleOrderRefundAmount;
+///微信退款
+@property(nonatomic,copy)NSString *saleOrderRefundApproveReturnWxpay;
+///退货编号
+@property(nonatomic,copy)NSString *saleOrderRefundId;
+///审核意见
+@property(nonatomic,copy)NSString *saleOrderRefundApproveReason;
+///审核结果
+@property(nonatomic,copy)NSString *saleOrderRefundApproverResult;
+///积分退还
+@property(nonatomic,copy)NSString *saleOrderRefundApproveReturnPoint;
+///优惠券退还
+@property(nonatomic,copy)NSString *saleOrderRefundApproveReturnCoupon;
+///退货状态
+@property(nonatomic,copy)NSString *saleOrderRefundStatus;
+///审核/退款时间
+@property(nonatomic,assign)NSInteger systemUpdateTime;
+
+
 
 
 

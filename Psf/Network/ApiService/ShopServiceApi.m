@@ -281,7 +281,7 @@
                 }
             }else {
                 if (responseModel) {
-                    responseModel(nil);
+                    responseModel(dicResponse);
                 }
             }
         } else {

@@ -13,7 +13,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = DSColorFromHex(0xF0F0F0);
+        self.backgroundColor = [UIColor whiteColor];
         [self setCornerLayout];
     }
     return self;

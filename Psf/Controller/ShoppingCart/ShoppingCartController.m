@@ -70,7 +70,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ShoppingCollectionViewCell class] forCellWithReuseIdentifier:cellId];
     [self.collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellIds];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = DSColorFromHex(0xF0F0F0);
     [self.view addSubview:self.collectionView];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
@@ -105,7 +105,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         [fillVC setOrderType:1];
         if (time.length>0) {
             [fillVC setPresaleTime:time];
-             [fillVC setGoodstype:GOOGSTYPENormal];
+             [fillVC setGoodstype:GOOGSTYPEPresale];
         }else{
              [fillVC setGoodstype:GOOGSTYPENormal];
         }
@@ -459,7 +459,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==2) {
-        return CGSizeMake(SCREENWIDTH, 70);
+        return CGSizeMake(SCREENWIDTH, SCREENHEIGHT);
     }
     return CGSizeMake(SCREENWIDTH, 0);
 }
@@ -597,14 +597,22 @@ static NSString *cellIds = @"NextCollectionViewCell";
     FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
     fillVC.hidesBottomBarWhenPushed = YES;
     NSMutableArray *Arr = [NSMutableArray array];
+     GOOGSTYPE type = GOOGSTYPENormal;
     for (CartProductModel *model in self.result.cartProductList) {
         if (model.cartProductIsActive ==1) {
             [Arr addObject:model];
         }
+        if (model.productIsPreSale==1&&model.cartProductIsActive ==1) {
+            type = GOOGSTYPEPresale;
+        }else if (model.productIsSaleNextDay==1&&model.cartProductIsActive ==1){
+            type = GOOGSTYPENextday;
+        }else{
+            type = GOOGSTYPENormal;
+        }
     }
      if (Arr.count>0) {
          [fillVC setOrderType:1];
-         [fillVC setGoodstype:GOOGSTYPENormal];
+          [fillVC setGoodstype:type];
          [fillVC setProductArr:Arr];
          [fillVC setResult:self.result];
          [self.navigationController pushViewController:fillVC animated:YES];

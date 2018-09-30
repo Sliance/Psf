@@ -7,7 +7,7 @@
 //
 
 #import "DetailsRefundController.h"
-
+#import "OrderServiceApi.h"
 @interface DetailsRefundController ()<UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *bgScrollow;
 @property(nonatomic,strong)UIView *titleView;
@@ -38,6 +38,7 @@
 @property(nonatomic,strong)UILabel *serviceDateLabel;
 @property(nonatomic,strong)UIButton *onlineBtn;
 @property(nonatomic,strong)UIButton *phoneBtn;
+@property(nonatomic,strong)OrderDetailRes *result;
 @end
 
 @implementation DetailsRefundController
@@ -273,6 +274,11 @@
     }
     return _phoneBtn;
 }
+-(void)pressPhone{
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",@"400-821-6094"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.bgScrollow];
@@ -299,7 +305,34 @@
     [self.detailView addSubview:self.numberLabel];
     
 }
-
+-(void)setModel:(OrderListRes *)model{
+    _model = model;
+    
+}
+-(void)requestDetail{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.saleOrderStatus = @"2";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.cityName = @"上海市";
+    req.saleOrderId = _model.saleOrderId;
+    __weak typeof(self)weakself = self;
+    weakself.result = [[OrderDetailRes alloc]init];
+    [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
+        if (response) {
+            weakself.result = response;
+           
+        }
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

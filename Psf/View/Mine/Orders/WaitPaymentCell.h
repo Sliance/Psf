@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, ORDERSTYPE){
     ORDERSTYPEWaitPayment ,//待付款
     ORDERSTYPEWaitDeliver , //待发货
     ORDERSTYPEWaitReceive , //待收货
-    ORDERSTYPEWaitEvaluate //待评价
+    ORDERSTYPEWaitEvaluate ,//待评价
+    ORDERSTYPEWaitRefund //售后
 };
 @interface WaitPaymentCell : BaseTableViewCell
 @property(nonatomic,strong)UIView *bgView;
