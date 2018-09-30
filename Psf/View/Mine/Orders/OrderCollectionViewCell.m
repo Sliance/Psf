@@ -229,7 +229,7 @@
         self.weightLabel.text = model.productUnit;
     self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     self.weightLabel.text = model.productUnit;
-    _countLabel.text = [NSString stringWithFormat:@"X%ld",model.saleOrderProductQty];
+    _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderProductQty];
     if (_ordertype ==2) {
     switch (model.systemStatus) {
         case 0:
@@ -275,6 +275,8 @@
         case 4:
         {
             _statusLabel.text = @"售后中";
+//            [self updatePayBtn];
+//            [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
             _payBtn.hidden = YES;
             _sendBtn.hidden = YES;
         }
@@ -337,7 +339,7 @@
             break;
         case 4:
         {
-            self.refundBlock(_model);
+            self.detailBlock(_model);
         }
             break;
         case 5:

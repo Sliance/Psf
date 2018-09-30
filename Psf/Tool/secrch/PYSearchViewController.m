@@ -1341,6 +1341,7 @@ static NSString *cellId = @"cellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
      StairCategoryListRes *res = self.dataArr[indexPath.row];
+    [vc setErpProductId:res.erpProductId];
     [vc setProductID:res.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

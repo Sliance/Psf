@@ -24,6 +24,7 @@
 #import "PaySuccessController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "ChoosePayTypeView.h"
+#import "DetailsRefundController.h"
 
 @interface OrderDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -597,7 +598,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
             }];
             weakself.payTypeView.hidden = NO;
         }];
-        
+        [cell setDetailBlock:^(CartProductModel * model) {
+            DetailsRefundController *detailVC = [[DetailsRefundController alloc]init];
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }];
         return cell;
     }
     

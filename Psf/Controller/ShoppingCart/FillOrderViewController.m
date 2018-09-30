@@ -598,7 +598,12 @@
         
     }
     req.couponId = self.calculateModel.couponId;
-    req.saleOrderRemark = _markField.text;
+    if (_markField.text.length>0) {
+         req.saleOrderRemark = _markField.text;
+    }else{
+         req.saleOrderRemark = @"";
+    }
+   
      [self placeNormalOrder:req];
 }
 

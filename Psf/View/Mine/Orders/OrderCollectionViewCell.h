@@ -42,4 +42,9 @@
 @property(nonatomic,copy)void (^payBlock)(CartProductModel*);
 //退款
 @property(nonatomic,copy)void (^refundBlock)(CartProductModel*);
+///退款详情
+@property(nonatomic,copy)void (^detailBlock)(CartProductModel*);
+
+
+
 @end

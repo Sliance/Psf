@@ -383,6 +383,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
+        [self jieSuanData];
     }];
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
