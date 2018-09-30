@@ -115,6 +115,7 @@
         [_addBtn setTitle:@"预售已结束" forState:UIControlStateNormal];
         _addBtn.enabled = NO;
         _addShopBtn.hidden = YES;
+        _shopBtn.hidden = YES;
         [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.left.equalTo(self).offset(0);
@@ -128,6 +129,7 @@
         [_addBtn setTitle:@"马上抢购" forState:UIControlStateNormal];
         _addShopBtn.hidden = NO;
         _addBtn.enabled = YES;
+        _shopBtn.hidden = NO;
         [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.left.equalTo(self).offset(98);
