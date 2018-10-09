@@ -35,7 +35,7 @@
         _locBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _locBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_locBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
-        _locBtn.frame = CGRectMake(28, 0, 72, 45);
+        _locBtn.frame = CGRectMake(23, 0, 60, 45);
     }
     return _locBtn;
 }
@@ -46,7 +46,7 @@
         [_searchBtn setTitle:@"请输入商品名称" forState:UIControlStateNormal];
         _searchBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_searchBtn setTitleColor:DSColorFromHex(0x787878) forState:UIControlStateNormal];
-        _searchBtn.frame = CGRectMake(108, 5, SCREENWIDTH-119, 36);
+        _searchBtn.frame = CGRectMake(83, 5, SCREENWIDTH-98, 36);
         _searchBtn.backgroundColor = DSColorFromHex(0xF0F0F0);
         _searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2-119/2);
         _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, SCREENWIDTH/2-119/2-20);

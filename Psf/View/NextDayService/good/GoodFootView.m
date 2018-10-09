@@ -35,7 +35,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
 -(UILabel *)lineLabel{
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc]init];
-        _lineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return _lineLabel;
 }

@@ -115,6 +115,7 @@
     [self addSubview:self.raiseLabel];
     [self addSubview:self.quickLabel];
     [self addSubview:self.presaleLabel];
+    self.backgroundColor = [UIColor whiteColor];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(15);
@@ -123,19 +124,19 @@
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.headImage.mas_bottom).offset(10);
+        make.top.equalTo(self.headImage.mas_bottom).offset(6);
         make.width.mas_equalTo(165);
         
     }];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(3);
         make.width.mas_equalTo(165);
         
     }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.contentLabel.mas_bottom).offset(6);
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(3);
         
     }];
     [self.weightLabel mas_makeConstraints:^(MASConstraintMaker *make) {

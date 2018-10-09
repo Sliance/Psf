@@ -179,8 +179,10 @@
       
         
     }else{
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"”犁小农“想要打开”微信“"
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"“犁小农”想要打开“微信”"
                                                                        message:@"绑定微信后，下次可直接使用该账号登录，免去手机号登录等待验证码的时间，快人一步。" preferredStyle:UIAlertControllerStyleAlert];
+        
+        
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
             [self sendAuthRequest];
             

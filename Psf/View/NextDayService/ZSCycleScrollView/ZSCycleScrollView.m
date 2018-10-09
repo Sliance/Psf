@@ -362,7 +362,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         [self.scrollView removeFromSuperview];//避免重复加载
     }
     [self addSubview:self.scrollView];
-    [self  addSubview:self.collectionView];
+   
     [self setUpPageControll];
 }
 -(void)setImageSize:(CGSize )imageSize{
@@ -572,6 +572,14 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 - (void)setIndex:(NSInteger)index{
     _index = index;
+    if (index ==1) {
+        for (UIView*view in self.subviews) {
+            if ([view isKindOfClass:[UICollectionView class]]) {
+                [view removeFromSuperview];
+            }
+        }
+    }
+    
 }
 -(void)setDataArr:(NSMutableArray *)dataArr{
     _dataArr = dataArr;
@@ -584,6 +592,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 120);
     }else if (_index ==1){
         _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, 0);
+        _collectionView.hidden = YES;
     }else{
         _collectionView.frame = CGRectMake(0,_sendBtn.ctBottom+10, SCREENWIDTH, collectionHeight);
     }

@@ -726,14 +726,15 @@
     
 }
 -(void)reloadData{
-    if ([self.result.productType isEqualToString:@"preSale"]) {
-        self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 179);
-    }else if ([self.result.productType isEqualToString:@"groupon"]){
+     [self.headView setModel:self.result];
+    if ([self.result.productType isEqualToString:@"groupon"]){
         self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 96);
-    }else{
+    }else if([self.result.productType isEqualToString:@"normal"]||[self.result.productType isEqualToString:@"nextDay"]||[self.result.productType isEqualToString:@"reward"]){
         self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 114);
+    }else if ([self.result.productType isEqualToString:@"preSale"]) {
+        self.headView.frame = CGRectMake(0, self.cycleScroll.ctBottom, SCREENWIDTH, 160);
     }
-        [self.headView setModel:self.result];
+    
     
     NSString *html_str = [NSString stringWithFormat:@"<head><style>img{width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.productContent];
     
@@ -747,7 +748,7 @@
             [self.presaleBuyView setModel:self.result];
             [self.view addSubview:self.presaleBuyView];
         }
-        
+         _tourHeight = 0;
         
     }else if ([self.result.productType isEqualToString:@"groupon"]){//团购
         if (self.groupArr.count ==0) {
@@ -763,7 +764,7 @@
          [self.view addSubview:self.groupBView];
         [self.groupBView setModel:self.result];
         [self.footView setPruductId:self.productID];
-        [self reloadHeight];
+       
     [self.view addSubview:self.groupBuyView];
     }else if ([self.result.productType isEqualToString:@"preSale"]){//预售
         [self requestCoupon];
@@ -773,10 +774,11 @@
         [self.presaleBuyView setModel:self.result];
         [self.preBView setPreSaleIsComplete:self.result.preSaleIsComplete];
         [self.footView setPruductId:self.productID];
-         [self reloadHeight];
+        
       [self.view addSubview:self.presaleBuyView];
     }else if([self.result.productType isEqualToString:@"nextDay"]){//次日达
         [self requestCoupon];
+         _tourHeight = 0;
         self.normalBView.hidden = NO;
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
@@ -785,6 +787,7 @@
         }
     }else if([self.result.productType isEqualToString:@"reward"]){//满减
          [self requestCoupon];
+         _tourHeight = 0;
         self.normalBView.hidden = NO;
         if (self.result.productSkuList.count>1) {
             [self.presaleBuyView setType:1];
@@ -792,6 +795,7 @@
             [self.view addSubview:self.presaleBuyView];
         }
     }
+     [self reloadHeight];
     [self.view addSubview:self.couponView];
    
     
