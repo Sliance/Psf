@@ -12,7 +12,8 @@
 + (NSDictionary *)mj_objectClassInArray {
     
     return @{
-             @"saleOrderProductList":@"CartProductModel"
+             @"saleOrderProductList":@"CartProductModel",
+              @"productList":@"CartProductModel"
              };
 }
 @end

@@ -38,7 +38,7 @@
 @property(nonatomic,strong)UILabel *serviceDateLabel;
 @property(nonatomic,strong)UIButton *onlineBtn;
 @property(nonatomic,strong)UIButton *phoneBtn;
-@property(nonatomic,strong)OrderDetailRes *result;
+@property(nonatomic,strong)OrderListRes *result;
 @end
 
 @implementation DetailsRefundController
@@ -85,13 +85,20 @@
     }
     return _detailView;
 }
+-(UIView *)footView{
+    if (!_footView) {
+        _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 515, SCREENWIDTH, 80)];
+        _footView.backgroundColor = [UIColor whiteColor];
+    }
+    return _footView;
+}
 -(UILabel *)toplabel{
     if (!_toplabel) {
         _toplabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 30)];
         _toplabel.textColor = DSColorFromHex(0x63C94B);
         _toplabel.textAlignment = NSTextAlignmentCenter;
         _toplabel.font = [UIFont systemFontOfSize:30];
-        _toplabel.text = @"退款成功";
+        
     }
     return _toplabel;
 }
@@ -101,7 +108,7 @@
         _topdate.textColor = DSColorFromHex(0x464646);
         _topdate.textAlignment = NSTextAlignmentCenter;
         _topdate.font = [UIFont systemFontOfSize:18];
-        _topdate.text = @"2018-09-011 11:17";
+        
     }
     return _topdate;
 }
@@ -111,7 +118,7 @@
         _totallabel.textAlignment = NSTextAlignmentLeft;
         _totallabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _totallabel.textColor = DSColorFromHex(0x464646);
-        _totallabel.text = @"退款总金额";
+        _totallabel.text = @"申请退款金额";
     }
     return _totallabel;
 }
@@ -121,7 +128,7 @@
         _totalamount.textAlignment = NSTextAlignmentRight;
         _totalamount.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _totalamount.textColor = DSColorFromHex(0xFF4C4D);
-        _totalamount.text = @"￥11.8";
+        
     }
     return _totalamount;
 }
@@ -138,7 +145,6 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 60, 75, 75)];
-        _headImage.image = [UIImage imageNamed:@"banner_sort"];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -152,7 +158,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = DSColorFromHex(0x464646);
-        _nameLabel.text = @"榴莲饼";
+       
     }
     return _nameLabel;
 }
@@ -162,7 +168,7 @@
         _countLabel.textAlignment = NSTextAlignmentRight;
         _countLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _countLabel.textColor = DSColorFromHex(0x464646);
-        _countLabel.text = @"X1";
+        
     }
     return _countLabel;
 }
@@ -172,7 +178,7 @@
         _payableLabel.textAlignment = NSTextAlignmentLeft;
         _payableLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _payableLabel.textColor = DSColorFromHex(0x464646);
-        _payableLabel.text = @"￥11.8";
+        
     }
     return _payableLabel;
 }
@@ -189,7 +195,7 @@
         _whylabel.textAlignment = NSTextAlignmentLeft;
         _whylabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _whylabel.textColor = DSColorFromHex(0x464646);
-        _whylabel.text = @"退款原因：测试";
+        
     }
     return _whylabel;
 }
@@ -199,7 +205,7 @@
         _wxlabel.textAlignment = NSTextAlignmentLeft;
         _wxlabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _wxlabel.textColor = DSColorFromHex(0x464646);
-        _wxlabel.text = @"微信退款：￥11.80";
+       
     }
     return _wxlabel;
 }
@@ -209,7 +215,7 @@
         _balancelabel.textAlignment = NSTextAlignmentLeft;
         _balancelabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _balancelabel.textColor = DSColorFromHex(0x464646);
-        _balancelabel.text = @"余额退款：￥0.00";
+        
     }
     return _balancelabel;
 }
@@ -219,7 +225,7 @@
         _dateLabel.textAlignment = NSTextAlignmentLeft;
         _dateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _dateLabel.textColor = DSColorFromHex(0x464646);
-        _dateLabel.text = @"申请时间：2018-09-11 11：04";
+        
     }
     return _dateLabel;
 }
@@ -229,13 +235,13 @@
         _numberLabel.textAlignment = NSTextAlignmentLeft;
         _numberLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _numberLabel.textColor = DSColorFromHex(0x464646);
-        _numberLabel.text = @"申请编号：2018091111044323432";
+       
     }
     return _numberLabel;
 }
 -(UILabel *)serviceDateLabel{
     if (!_serviceDateLabel) {
-        _serviceDateLabel = [[UILabel alloc]init];
+        _serviceDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, SCREENWIDTH-30, 12)];
         _serviceDateLabel.textAlignment = NSTextAlignmentLeft;
         _serviceDateLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _serviceDateLabel.textColor = DSColorFromHex(0x474747);
@@ -246,6 +252,7 @@
 -(UIButton *)onlineBtn{
     if (!_onlineBtn) {
         _onlineBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _onlineBtn.frame = CGRectMake(15, 37, SCREENWIDTH/2-25, 30);
         _onlineBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_onlineBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_onlineBtn setImage:[UIImage imageNamed:@"online_service"] forState:UIControlStateNormal];
@@ -261,6 +268,7 @@
 -(UIButton *)phoneBtn{
     if (!_phoneBtn) {
         _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _phoneBtn.frame = CGRectMake(SCREENWIDTH/2+10, 37, SCREENWIDTH/2-25, 30);
         _phoneBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_phoneBtn setTitleColor:DSColorFromHex(0x464646) forState:UIControlStateNormal];
         [_phoneBtn setImage:[UIImage imageNamed:@"phone_service"] forState:UIControlStateNormal];
@@ -286,6 +294,7 @@
     [self.bgScrollow addSubview:self.priceView];
     [self.bgScrollow addSubview:self.goodsView];
     [self.bgScrollow addSubview:self.detailView];
+    [self.bgScrollow addSubview:self.footView];
     [self.titleView addSubview:self.toplabel];
     [self.titleView addSubview:self.topdate];
     [self.priceView addSubview:self.totallabel];
@@ -304,9 +313,14 @@
     [self.detailView addSubview:self.dateLabel];
     [self.detailView addSubview:self.numberLabel];
     
+    [self.footView addSubview:self.serviceDateLabel];
+    [self.footView addSubview:self.phoneBtn];
+    [self.footView addSubview:self.onlineBtn];
+    
 }
--(void)setModel:(OrderListRes *)model{
+-(void)setModel:(CartProductModel *)model{
     _model = model;
+    [self requestDetail];
     
 }
 -(void)requestDetail{
@@ -323,15 +337,43 @@
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";
-    req.saleOrderId = _model.saleOrderId;
+    req.saleOrderProductId = _model.saleOrderProductId;
     __weak typeof(self)weakself = self;
-    weakself.result = [[OrderDetailRes alloc]init];
-    [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
+    weakself.result = [[OrderListRes alloc]init];
+    [[OrderServiceApi share]getDetailRefundWithParam:req response:^(id response) {
         if (response) {
             weakself.result = response;
-           
+            [weakself reloadData];
         }
     }];
+}
+
+-(void)reloadData{
+    _toplabel.text = self.result.saleOrderRefundApproverResult;
+    CartProductModel *model = [self.result.saleOrderProductList firstObject];
+     _nameLabel.text = model.productName;
+   
+    _payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPayPrice];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    _totalamount.text = [NSString stringWithFormat:@"￥%@",self.result.saleOrderRefundAmount];
+    if (self.result.saleOrderRefundStatus ==0) {
+        self.toplabel.text = @"待审核";
+    }else if (self.result.saleOrderRefundStatus ==1) {
+        self.toplabel.text = @"退款中";
+    }else if (self.result.saleOrderRefundStatus ==2) {
+        self.toplabel.text = @"已退款";
+    }else if (self.result.saleOrderRefundStatus ==3) {
+        self.toplabel.text = @"审核不通过";
+    }
+     _numberLabel.text = [NSString stringWithFormat:@"申请编号：%@",self.result.saleOrderRefundId];
+    _whylabel.text = [NSString stringWithFormat:@"退款原因：%@",self.result.saleOrderRefundReason];
+     _wxlabel.text = [NSString stringWithFormat:@"微信退款：￥%@",self.result.saleOrderRefundApproveReturnWxpay];
+    _balancelabel.text = [NSString stringWithFormat:@"余额退款：￥%@",self.result.saleOrderRefundApproverbReturnBalance];
+    NSString *creatTime = [NSDate cStringFromTimestamp:self.result.systemCreateTime Formatter:@"yyyy-MM-dd HH:mm"];
+    _dateLabel.text = [NSString stringWithFormat:@"申请时间：%@",creatTime];
+    NSString *updateTime = [NSDate cStringFromTimestamp:self.result.systemUpdateTime Formatter:@"yyyy-MM-dd HH:mm"];
+    _topdate.text = updateTime;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

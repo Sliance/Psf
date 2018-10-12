@@ -7,9 +7,9 @@
 //
 
 #import "BaseViewController.h"
-#import "OrderListRes.h"
+#import "CartProductModel.h"
 
 @interface DetailsRefundController : BaseViewController
-@property(nonatomic,strong)OrderListRes *model;
+@property(nonatomic,strong)CartProductModel * model;
 
 @end

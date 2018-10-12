@@ -600,6 +600,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }];
         [cell setDetailBlock:^(CartProductModel * model) {
             DetailsRefundController *detailVC = [[DetailsRefundController alloc]init];
+            [detailVC setModel:model];
             [self.navigationController pushViewController:detailVC animated:YES];
         }];
         return cell;

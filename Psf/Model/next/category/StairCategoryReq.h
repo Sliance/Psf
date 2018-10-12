@@ -79,4 +79,7 @@
 @property(nonatomic,copy)NSString*saleOrderProductWeight;
 
 @property(nonatomic,copy)NSString *businessParamKey;
+
+@property(nonatomic,copy)NSString *saleOrderProductId;
+
 @end

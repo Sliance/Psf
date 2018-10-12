@@ -23,6 +23,8 @@
 ///
 @property(nonatomic,copy)NSString *productImagePath;
 ///
+@property(nonatomic,copy)NSString *productPayPrice;
+///
 @property(nonatomic,copy)NSString *productName;
 ///
 @property(nonatomic,copy)NSString *productPrice;
@@ -56,7 +58,7 @@
 ///
 @property(nonatomic,copy)NSString* saleOrderProductQty;
 ///
-@property(nonatomic,assign)NSInteger saleOrderProductId;
+@property(nonatomic,copy)NSString* saleOrderProductId;
 ///
 @property(nonatomic,copy)NSString *saleOrderId;
 
@@ -74,5 +76,6 @@
 ///是否满减
 @property(nonatomic,assign)BOOL productIsWard;
 
-
+///售后（refund）；正常（normal）
+@property(nonatomic,copy)NSString *saleOrderProductStatus;
 @end

@@ -14,7 +14,7 @@
 ///订单编号
 @property(nonatomic,assign)NSInteger saleOrderId;
 ///订单商品编号
-@property(nonatomic,assign)NSInteger saleOrderProductId;
+@property(nonatomic,copy)NSString* saleOrderProductId;
 ///退货类型
 @property(nonatomic,assign)NSInteger saleOrderRefundType;
 ///退货原因

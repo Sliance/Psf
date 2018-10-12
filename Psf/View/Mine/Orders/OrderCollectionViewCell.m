@@ -274,10 +274,15 @@
             break;
         case 4:
         {
-            _statusLabel.text = @"售后中";
-//            [self updatePayBtn];
-//            [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
-            _payBtn.hidden = YES;
+            
+            if ([model.saleOrderProductStatus isEqualToString:@"normal"]) {
+                    [self updatePayBtn];
+                    [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            }else if([model.saleOrderProductStatus isEqualToString:@"refund"]){
+                    [self updatePayBtn];
+                    [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
+                  _statusLabel.text = @"售后中";
+            }
             _sendBtn.hidden = YES;
         }
             break;
@@ -339,7 +344,12 @@
             break;
         case 4:
         {
-            self.detailBlock(_model);
+            if ([_model.saleOrderProductStatus isEqualToString:@"normal"]) {
+                self.refundBlock(_model);
+            }else if([_model.saleOrderProductStatus isEqualToString:@"refund"]){
+               self.detailBlock(_model);
+            }
+            
         }
             break;
         case 5:

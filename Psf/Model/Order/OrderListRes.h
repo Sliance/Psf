@@ -26,7 +26,7 @@
 ///购买数量
 @property(nonatomic,copy)NSString* saleOrderProductQty;
 ///创建时间
-@property(nonatomic,copy)NSString* systemCreateTime;
+//@property(nonatomic,copy)NSString* systemCreateTime;
 ///积分优惠金额
 @property(nonatomic,copy)NSString* saleOrderCouponAmount;
 ///快递费金额
@@ -51,6 +51,8 @@
 @property(nonatomic,copy)NSString* saleOrderType;
 
 @property(nonatomic,copy)NSString *memberId;
+///退款
+@property(nonatomic,strong)NSArray* productList;
 ///余额退款
 @property(nonatomic,copy)NSString *saleOrderRefundApproverbReturnBalance;
 ///退货类型(0，仅退款 1、退款退货)
@@ -73,10 +75,12 @@
 @property(nonatomic,copy)NSString *saleOrderRefundApproveReturnPoint;
 ///优惠券退还
 @property(nonatomic,copy)NSString *saleOrderRefundApproveReturnCoupon;
-///退货状态
-@property(nonatomic,copy)NSString *saleOrderRefundStatus;
+///退款状态（0、待审核；1、退款中；2、已退款；3、审核不通过）
+@property(nonatomic,assign)NSInteger saleOrderRefundStatus;
 ///审核/退款时间
-@property(nonatomic,assign)NSInteger systemUpdateTime;
+@property(nonatomic,copy)NSString* systemUpdateTime;
+///申请时间
+@property(nonatomic,copy)NSString *systemCreateTime;
 
 
 

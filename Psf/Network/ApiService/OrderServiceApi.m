@@ -419,7 +419,32 @@
     }];
 }
 
-
+///获取退款详情
+- (void)getDetailRefundWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSString *url = @"/lxn/sale/order/refund/mobile/v2/refund";
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                OrderListRes *result = [OrderListRes mj_objectWithKeyValues:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 
 
 @end

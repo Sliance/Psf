@@ -48,5 +48,6 @@
 - (void)ceshirefundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 ///获取配送时间
 -(void)getDeliveryTimeWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
-
+///获取退款详情
+- (void)getDetailRefundWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end
