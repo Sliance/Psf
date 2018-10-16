@@ -282,20 +282,32 @@
     }];
     [self.normalBView setPressAddBlock:^{
         if ([UserCacheBean share].userInfo.token.length>0) {
-            if (_weakSelf.result.productStyle ==1) {
-                _weakSelf.storeBuyView.hidden = NO;
-                _weakSelf.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+            if([_weakSelf.result.productType isEqualToString:@"normal"]){
+                if (_weakSelf.result.productStyle ==1) {
+                    _weakSelf.storeBuyView.hidden = NO;
+                    _weakSelf.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+                }else{
+                    if (_weakSelf.result.productSkuList.count>1) {
+                        _weakSelf.presaleBuyView.hidden = NO;
+                        [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
+                        [_weakSelf.presaleBuyView setType:1];
+                    }else{
+                        ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
+                        [_weakSelf addShopCount:model Quantity:@"1"];
+                    }
+                 }
             }else{
-            if (_weakSelf.result.productSkuList.count>1) {
-                _weakSelf.presaleBuyView.hidden = NO;
-                [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
-                [_weakSelf.presaleBuyView setType:1];
-            }else{
-                ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
-                [_weakSelf addShopCount:model Quantity:@"1"];
+                if (_weakSelf.result.productSkuList.count>1) {
+                    _weakSelf.presaleBuyView.hidden = NO;
+                    [_weakSelf.presaleBuyView.submitBtn setTitle:@"加购物车" forState:UIControlStateNormal];
+                    [_weakSelf.presaleBuyView setType:1];
+                }else{
+                    ProductSkuModel *model = [_weakSelf.result.productSkuList firstObject];
+                    [_weakSelf addShopCount:model Quantity:@"1"];
+                }
             }
-        }
-        }else{
+        
+    }else{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
             message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
@@ -303,7 +315,7 @@
                 }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
                 
-                
+               
             }];
             [alert addAction:defaultAction];
             [alert addAction:cancelAction];
@@ -551,6 +563,7 @@
         if([response isKindOfClass:[GoodDetailRes class]]){
             weakself.result = response;
             weakself.resmodel = response;
+            [weakself.storeBuyView setModel:response];
             NSMutableArray *arr  = [NSMutableArray array];
             for (ImageModel *model in self.result.productImageList) {
                 if (model.productImagePath) {

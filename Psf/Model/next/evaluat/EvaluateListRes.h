@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface EvaluateListRes : NSObject
-@property(nonatomic,copy)NSNumber *rate;
+@property(nonatomic,copy)NSString *rate;
 @property(nonatomic,strong)NSArray *saleOrderProductCommentList;
 @property(nonatomic,assign)NSInteger total;
 @end

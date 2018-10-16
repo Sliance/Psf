@@ -281,7 +281,7 @@
             }else if([model.saleOrderProductStatus isEqualToString:@"refund"]){
                     [self updatePayBtn];
                     [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
-                  _statusLabel.text = @"售后中";
+                  _statusLabel.text = @"售后";
             }
             _sendBtn.hidden = YES;
         }

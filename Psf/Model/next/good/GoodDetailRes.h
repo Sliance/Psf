@@ -19,7 +19,7 @@
 ///商品标题
 @property(nonatomic,copy)NSString *productTitle;
 ///商品价格
-@property(nonatomic,copy)NSNumber *productPrice;
+@property(nonatomic,copy)NSString *productPrice;
 ///
 @property(nonatomic,copy)NSString *productUnit;
 ///0，计数，1.称重，2.69码(计数
@@ -50,7 +50,7 @@
 ///满减生效时间
 @property(nonatomic,copy)NSString *rewardValidTime;
 ///团购价格
-@property(nonatomic,copy)NSNumber *grouponPrice;
+@property(nonatomic,copy)NSString *grouponPrice;
 ///预售生效时间
 @property(nonatomic,copy)NSString *preSaleValidTime;
 ///满减过期时间
