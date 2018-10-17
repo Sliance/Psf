@@ -247,7 +247,12 @@
         {
             _statusLabel.text = @"待发货";
             [self updatePayBtn];
-            [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            if ([self.saleOrderPayType isEqualToString:@"5"]) {
+                _payBtn.hidden = YES;
+            }else{
+                _payBtn.hidden = NO;
+                [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            }
             _sendBtn.hidden = YES;
 //            _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
         }
@@ -256,8 +261,12 @@
         {
             _statusLabel.text = @"待收货";
                 [self updatePayBtn];
+            if ([self.saleOrderPayType isEqualToString:@"5"]) {
+                _payBtn.hidden = YES;
+            }else{
+                _payBtn.hidden = NO;
                 [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
-           
+            }
             _sendBtn.hidden = YES;
 
         }
@@ -267,14 +276,15 @@
             _statusLabel.text = @"交易成功";
             _sendBtn.hidden = YES;
             [self updatePayBtn];
-           
+            _payBtn.hidden = NO;
             [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
+            
 
         }
             break;
         case 4:
         {
-            
+            _payBtn.hidden = NO;
             if ([model.saleOrderProductStatus isEqualToString:@"normal"]) {
                     [self updatePayBtn];
                     [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
@@ -298,6 +308,7 @@
             break;
         case 6:
         {
+            _payBtn.hidden = NO;
             _statusLabel.text = @"已完成";
             [self updatePayBtn];
             [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
@@ -305,6 +316,7 @@
             break;
         case 7:
         {
+            _payBtn.hidden = NO;
             _statusLabel.text = @"门店已收货";
             [self updatePayBtn];
             [_payBtn setTitle:@"退款" forState:UIControlStateNormal];
@@ -370,5 +382,8 @@
         default:
             break;
     }
+}
+-(void)setSaleOrderPayType:(NSString *)saleOrderPayType{
+    _saleOrderPayType = saleOrderPayType;
 }
 @end

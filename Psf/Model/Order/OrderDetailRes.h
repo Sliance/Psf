@@ -117,5 +117,6 @@
 
 ///下单时间
 @property(nonatomic,copy)NSString *systemCreateTime;
-
+///付款方式 1, 微信小程序 2,微信APP支付 3,支付宝支付 4,账户余额支付 5,线下支付
+@property(nonatomic,copy)NSString *saleOrderPayType;
 @end

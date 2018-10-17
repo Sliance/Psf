@@ -61,6 +61,10 @@
 //余额
 @property(nonatomic,strong)UILabel *balanaceLabel;
 @property(nonatomic,strong)UILabel *detailBalanceLabel;
+
+@property(nonatomic,strong)UILabel *deliveryStartLabel;
+@property(nonatomic,strong)UILabel *deliveryEndLabel;
+
 ///订单状态
 @property(nonatomic,assign)ORDERSTYPE ordertype;
 

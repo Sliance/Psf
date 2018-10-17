@@ -444,9 +444,9 @@
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[AddressServiceApi share]pickUpSingleDefaultAddresWithParam:req response:^(id response) {
-        weakself.calculateModel.usePointIs = YES;
+        weakself.calculateModel.usePointIs = NO;
         weakself.calculateModel.productList = weakself.dataArr;
-        weakself.calculateModel.useIsBalance = YES;
+        weakself.calculateModel.useIsBalance = NO;
         weakself.calculateModel.expressEnable = YES;
         if (response) {
             weakself.storemodel = response;
@@ -803,8 +803,8 @@
             if (self.calculateModel) {
                 cell.yuEswitch.selected = self.calculateModel.usePointIs;
             }else{
-                cell.yuEswitch.selected = YES;
-                self.calculateModel.usePointIs = YES;
+                cell.yuEswitch.selected = NO;
+                self.calculateModel.usePointIs = NO;
             }
             
         }else if(indexPath.row ==6) {
@@ -817,8 +817,8 @@
             if (self.calculateModel) {
                 cell.yuEswitch.selected = self.calculateModel.useIsBalance;
             }else{
-                cell.yuEswitch.selected = YES;
-                self.calculateModel.useIsBalance = YES;
+                cell.yuEswitch.selected = NO;
+                self.calculateModel.useIsBalance = NO;
             }
             
         }

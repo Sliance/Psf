@@ -311,6 +311,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"取消订单成功！"];
                 [self requestDetail];
+            }else{
+                [weakself showInfo:response[@"message"]];
             }
         }
     }];
@@ -501,9 +503,19 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==0) {
         if ([self.result.saleOrderType isEqualToString:@"preSale"]) {
-            return CGSizeMake(SCREENWIDTH, 440);
+            if (self.result.saleOrderReceiveType ==0) {
+                return CGSizeMake(SCREENWIDTH, 475);
+            } else {
+                return CGSizeMake(SCREENWIDTH, 535);
+            }
+            
         }else{
-         return CGSizeMake(SCREENWIDTH, 415);
+            if (self.result.saleOrderReceiveType ==0) {
+                 return CGSizeMake(SCREENWIDTH, 450);
+            } else {
+                 return CGSizeMake(SCREENWIDTH, 510);
+            }
+        
         }
     }
     return CGSizeMake(SCREENWIDTH, 0);
@@ -522,9 +534,19 @@ static NSString *cellIds = @"NextCollectionViewCell";
         if (indexPath.section ==0) {
             NSInteger height;
             if ([self.result.saleOrderType isEqualToString:@"preSale"]) {
-                height = 440;
+                if (self.result.saleOrderReceiveType ==0) {
+                    height = 475;
+                } else {
+                    height = 535;
+                }
+                
             }else{
-                height = 415;
+                if (self.result.saleOrderReceiveType ==0) {
+                     height = 450;
+                } else {
+                     height = 510;
+                }
+               
             }
             OrderDetailFootView*footViews = [[OrderDetailFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, height)];
             [footViews setOrdertype:_ordertype];
@@ -569,7 +591,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NextCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIds forIndexPath:indexPath];
     OrderCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    [cell setSaleOrderPayType:self.result.saleOrderPayType];
     if (indexPath.section ==0) {
         CartProductModel *ordermodel = self.result.saleOrderProductList[indexPath.row];
         ordermodel.systemStatus = self.result.saleOrderStatus;

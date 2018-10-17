@@ -113,8 +113,11 @@
         case 1:
         {
            
-            
-            [_remindBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                [_remindBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+            }else{
+                [_remindBtn setTitle:@"提醒发货" forState:UIControlStateNormal];
+            }
             _sendBtn.hidden = YES;
             
         }
@@ -125,8 +128,12 @@
            
                 [_remindBtn setTitle:@"自提码" forState:UIControlStateNormal];
            
-           
-            _sendBtn.hidden = YES;
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                [_sendBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+                _sendBtn.hidden = NO;
+            }else{
+                _sendBtn.hidden = YES;
+            }
           
         }
             break;
@@ -134,8 +141,11 @@
         {
             
             _sendBtn.hidden = YES;
-            [_remindBtn setTitle:@"评价" forState:UIControlStateNormal];
-            
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                [_remindBtn setTitle:@"退款" forState:UIControlStateNormal];
+            }else{
+                [_remindBtn setTitle:@"评价" forState:UIControlStateNormal];
+            }
            
         }
             break;
@@ -188,30 +198,37 @@
     switch (_status.saleOrderStatus) {
         case 0:
         {
-            
-            self.payBlock(_status);
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                self.cancleBlock(_status);
+            }else{
+              self.payBlock(_status);
+            }
             
         }
             break;
         case 1:
         {
             
-            
-            self.remindBlock(_status);
-            
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                self.cancleBlock(_status);
+            }else{
+               self.remindBlock(_status);
+            }
         }
             break;
         case 2:
         {
-            self.zitiBlock(_status);
             
+                self.zitiBlock(_status);
         }
             break;
         case 3:
         {
-            
-            self.evaBlock(_status);
-            
+            if ([_status.saleOrderPayType isEqualToString:@"5"]) {
+                self.refundBlock(_status);
+            }else{
+                self.evaBlock(_status);
+            }
             
         }
             break;
@@ -247,7 +264,7 @@
     }
 }
 -(void)pressSend{
-    if (_status.saleOrderStatus ==0) {
+    if (_status.saleOrderStatus ==0||_status.saleOrderStatus ==2) {
         self.cancleBlock(_status);
     }
 }

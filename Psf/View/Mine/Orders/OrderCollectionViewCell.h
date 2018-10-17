@@ -35,6 +35,7 @@
 @property(nonatomic,strong)UIButton *payBtn;
 ///订单状态
 @property(nonatomic,assign)NSInteger ordertype;
+
 @property(nonatomic,strong)CartProductModel *model;
 //再次购买
 @property(nonatomic,copy)void (^buyBlock)(CartProductModel*);
@@ -44,7 +45,8 @@
 @property(nonatomic,copy)void (^refundBlock)(CartProductModel*);
 ///退款详情
 @property(nonatomic,copy)void (^detailBlock)(CartProductModel*);
-
+///付款方式
+@property(nonatomic,copy)NSString *saleOrderPayType;
 
 
 @end
