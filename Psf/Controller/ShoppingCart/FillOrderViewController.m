@@ -89,7 +89,7 @@
 -(OrderDetailHeadView *)headView{
     if (!_headView) {
         _headView = [[OrderDetailHeadView alloc]init];
-        _headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
+        _headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
     }
     return _headView;
 }
@@ -125,7 +125,7 @@
         make.bottom.equalTo(self.view);
         make.height.mas_equalTo([self tabBarHeight]);
     }];
-    _type = 1;
+    _type = 2;
 //    _payType = 0;
     [self.headView setGoodtype:CLAIMGOODSTYPEVISIT];
     __weak typeof(self) weakSelf = self;
@@ -271,7 +271,7 @@
     [_dataArr removeAllObjects];
     [_dataArr addObject:gooddetail];
     [_tableview reloadData];
-    [self reloadLeftAddress];
+    [self pickUpStoreData];
 }
 -(void)setSkumodel:(ProductSkuModel *)skumodel{
     _skumodel = skumodel;
@@ -290,7 +290,7 @@
     }
     [_dataArr addObjectsFromArray:dataArr];
     [_tableview reloadData];
-    [self reloadLeftAddress];
+    [self pickUpStoreData];
 }
 -(void)setResult:(ShoppingListRes *)result{
     
@@ -369,13 +369,13 @@
         if (response!=nil) {
             weakself.leftModel = [[ChangeAddressReq alloc]init];
             weakself.leftModel = response;
-            [weakself.headView setModel:weakself.leftModel];
+//              [weakself.headView setModel:weakself.leftModel];
         
         }else{
-             weakself.headView.centerLabel.hidden = NO;
+//             weakself.headView.centerLabel.hidden = NO;
         }
        
-        [self fetchCoupon];
+        [self getDeliveryTime];
     }];
 }
 
@@ -393,7 +393,7 @@
             [weakself.couponArr removeAllObjects];
             [weakself.couponArr addObjectsFromArray:response];
         }
-         [weakself pickUpStoreData];
+         [weakself reloadLeftAddress];
     }];
 }
 -(void)calculatePrice:(CalculateReq*)req{
@@ -451,15 +451,15 @@
         if (response) {
             weakself.storemodel = response;
 //            if (weakself.goodstype ==GOOGSTYPEPresale) {
-//                weakself.type =2;
-//                weakself.calculateModel.expressEnable = NO;
-//                
-//                [weakself.headView setGoodtype:CLAIMGOODSTYPEONESELF];
-//                [weakself.headView setStoremodel:self.storemodel];
+                weakself.type =2;
+                weakself.calculateModel.expressEnable = NO;
+            
+                [weakself.headView setGoodtype:CLAIMGOODSTYPEONESELF];
+                [weakself.headView setStoremodel:self.storemodel];
 //            }
         }
-       
-        [self getDeliveryTime];
+        [self fetchCoupon];
+        
         
     }];
 }

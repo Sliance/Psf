@@ -43,7 +43,7 @@
         _kanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_kanBtn setTitle:@"送货上门" forState:UIControlStateNormal];
         [_kanBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
-        _kanBtn.selected = YES;
+        _kanBtn.selected = NO;
         [_kanBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         _kanBtn.tag = 1;
         [_kanBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,6 +58,7 @@
         [_reBtn setTitleColor:DSColorFromHex(0x474747) forState:UIControlStateNormal];
         [_reBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
         _reBtn.tag = 2;
+        _reBtn.selected = YES;
         [_reBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         _reBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
@@ -67,6 +68,7 @@
     if (!_kanLabel) {
         _kanLabel = [[UILabel alloc]init];
         _kanLabel.backgroundColor = DSColorFromHex(0xFF4C4D);
+        _kanLabel.hidden = YES;
     }
     return _kanLabel;
 }
@@ -74,12 +76,12 @@
     if (!_reLabel) {
         _reLabel = [[UILabel alloc]init];
         _reLabel.backgroundColor = DSColorFromHex(0xFF4C4D);
-        _reLabel.hidden = YES;
+        _reLabel.hidden = NO;
     }
     return _reLabel;
 }
 -(void)pressBtn:(UIButton*)sender{
-    _kanBtn.selected = NO;
+    _reBtn.selected = NO;
     if (_tmpBtn == nil){
         sender.selected = YES;
         _tmpBtn = sender;

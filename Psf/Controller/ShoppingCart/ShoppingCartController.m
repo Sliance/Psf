@@ -581,7 +581,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
     
- if(self.jisuanmodel.cartProductList.count>0&&[self.jisuanmodel.preSaleProductList count]>0) {
+if(self.jisuanmodel.cartProductList.count>0&&[self.jisuanmodel.preSaleProductList count]>0) {
      self.tabBarController.tabBar.hidden = YES;
      self.shopAlertView.hidden = NO;
  }else if(self.jisuanmodel.cartProductList.count>0&&self.jisuanmodel.nextDayProductList.count>0){

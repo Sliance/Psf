@@ -1323,7 +1323,7 @@ static NSString *cellId = @"cellId";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(165, 300);
+    return CGSizeMake(SCREENWIDTH/2-45/2, SCREENWIDTH/2-45/2+75);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

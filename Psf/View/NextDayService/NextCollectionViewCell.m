@@ -119,19 +119,19 @@
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(15);
-        make.width.height.mas_equalTo(165);
+        make.width.height.mas_equalTo(SCREENWIDTH/2-45/2);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
         make.top.equalTo(self.headImage.mas_bottom).offset(6);
-        make.width.mas_equalTo(165);
+        make.width.mas_equalTo(SCREENWIDTH/2-45/2);
         
     }];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(3);
-        make.width.mas_equalTo(165);
+        make.width.mas_equalTo(SCREENWIDTH/2-45/2);
         
     }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
