@@ -375,15 +375,15 @@
 }
 
 -(CGFloat)navHeightWithHeight{
-    if(SCREENHEIGHT == 812){
-        return  88
-        ;
+    NSLog(@"###%f",SCREENHEIGHT);
+    if(SCREENHEIGHT == 896||SCREENHEIGHT == 812){
+        return  88;
     }else{
         return 64;
     }
 }
 -(CGFloat)tabBarHeight{
-    if(SCREENHEIGHT == 812){
+    if(SCREENHEIGHT == 896||SCREENHEIGHT == 812){
         return  83;
     }else{
         return 49;

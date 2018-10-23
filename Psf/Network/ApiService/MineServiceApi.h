@@ -42,4 +42,5 @@
 ///轮询付款结果
 - (void)observePayStatusWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 
+
 @end

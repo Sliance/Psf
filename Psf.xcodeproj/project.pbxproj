@@ -360,6 +360,7 @@
 		88D9284F21107A070001B2E3 /* ResetPassFirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9284E21107A070001B2E3 /* ResetPassFirstController.m */; };
 		88D9285221107A440001B2E3 /* ResetPassSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285021107A440001B2E3 /* ResetPassSecondController.m */; };
 		88D9285521107A680001B2E3 /* SettingPassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285421107A680001B2E3 /* SettingPassWordController.m */; };
+		890D55A5217EF1CB009B33B2 /* IntegralRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */; };
 		89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EE17F021787772005AFE05 /* AlipaySDK.framework */; };
 		89EE17F321787772005AFE05 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EE17F121787772005AFE05 /* AlipaySDK.bundle */; };
 		F12F7D8E4C5A37613F4C2609 /* libPods-Psf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */; };
@@ -1078,6 +1079,8 @@
 		88D9285121107A440001B2E3 /* ResetPassSecondController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPassSecondController.h; sourceTree = "<group>"; };
 		88D9285321107A680001B2E3 /* SettingPassWordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPassWordController.h; sourceTree = "<group>"; };
 		88D9285421107A680001B2E3 /* SettingPassWordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPassWordController.m; sourceTree = "<group>"; };
+		890D55A3217EF1CB009B33B2 /* IntegralRulesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralRulesController.h; sourceTree = "<group>"; };
+		890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegralRulesController.m; sourceTree = "<group>"; };
 		89EE17F021787772005AFE05 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		89EE17F121787772005AFE05 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2227,6 +2230,8 @@
 				88484D7620EB069A00400D16 /* RechargeViewController.m */,
 				88484D7B20EB38A900400D16 /* MyIntegralController.h */,
 				88484D7C20EB38A900400D16 /* MyIntegralController.m */,
+				890D55A3217EF1CB009B33B2 /* IntegralRulesController.h */,
+				890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */,
 			);
 			path = wallet;
 			sourceTree = "<group>";
@@ -2866,6 +2871,7 @@
 				888D66D720E9FA970007D471 /* GroupTableViewCell.m in Sources */,
 				8881BF3821182A5A00F6A0CD /* FillEvaluateCell.m in Sources */,
 				8857031C20FED5F9002BCDC9 /* OrderServiceApi.m in Sources */,
+				890D55A5217EF1CB009B33B2 /* IntegralRulesController.m in Sources */,
 				88747E8520EDFA7C000BC993 /* FillEvaluateController.m in Sources */,
 				88590B7520E4707500F51BC5 /* OrderDetailBottomView.m in Sources */,
 				888630AE212BA25700B89080 /* CreatQRCodeAndBarCodeFromLeon.m in Sources */,

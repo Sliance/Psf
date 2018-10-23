@@ -12,6 +12,7 @@
 #import "RechargeViewController.h"
 #import "MyIntegralController.h"
 #import "MineServiceApi.h"
+#import "IntegralRulesController.h"
 
 @interface MineWalletViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -64,6 +65,7 @@
      [self.view addSubview:self.tableview];
     self.resultDic = [NSMutableDictionary dictionary];
     [self topUp];
+    [self setRightButtonWithIcon:[UIImage imageNamed:@"jifen_rule"]];
 }
 -(void)topUp{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -180,7 +182,10 @@
     }
    
 }
-
+-(void)didRightClick{
+    IntegralRulesController *ruleVC = [[IntegralRulesController alloc]init];
+    [self.navigationController pushViewController:ruleVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
