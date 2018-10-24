@@ -129,8 +129,12 @@
         [weakself addShopCount:resmodel Quantity:weight];
     }];
     
-    [self requestSort];
     
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestSort];
 }
 -(void)addShopCount:(StairCategoryListRes *)model  Quantity:(NSString*)quantity{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
