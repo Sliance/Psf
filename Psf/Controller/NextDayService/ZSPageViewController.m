@@ -17,7 +17,7 @@
 #import "GroupViewController.h"
 #import "RechargeViewController.h"
 #import "NextServiceApi.h"
-#import "PresaleController.h"
+#import "PresaleSController.h"
 #import "GroupServiceApi.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
@@ -262,7 +262,7 @@ static NSString *cellId = @"cellId";
     if (self.selectedIndex ==0) {
 
         if (index==0) {
-            PresaleController *groupVC = [[PresaleController alloc]init];
+            PresaleSController *groupVC = [[PresaleSController alloc]init];
             groupVC.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:groupVC animated:YES];
         }else if (index ==1){

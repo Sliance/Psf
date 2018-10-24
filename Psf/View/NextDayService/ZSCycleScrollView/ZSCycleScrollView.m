@@ -78,7 +78,7 @@ static NSString *cellId = @"SortCollectionViewCell";
         [self addSubview:self.supportBtn];
         [self addSubview:self.returnBtn];
         [self addSubview:self.sendBtn];
-        [self addSubview:self.collectionView];
+        [self.scrollView addSubview:self.collectionView];
         self.userInteractionEnabled = YES;
        
     }
