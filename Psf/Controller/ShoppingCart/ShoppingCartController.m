@@ -285,7 +285,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.platform = @"ios";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]settlementListWithParam:req response:^(id response) {
-        if (response) {
+        if ([response isKindOfClass:[ShoppingListRes class]]){
             weakself.jisuanmodel = [[ShoppingListRes alloc]init];
             weakself.jisuanmodel = response;
             [weakself.shopAlertView setModel:weakself.jisuanmodel];

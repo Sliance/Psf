@@ -1632,7 +1632,6 @@
 			children = (
 				88D9281521102DE10001B2E3 /* PreSale */,
 				888D66D420E9FA790007D471 /* Group */,
-				88534C1A20E5C74500D6F43C /* good */,
 				88636D2420E24C01006CE5D8 /* Evaluate */,
 				88636D0220E1E22C006CE5D8 /* address */,
 				88600BBB20D8903B0098CF10 /* ZSCycleScrollView */,
@@ -1979,8 +1978,8 @@
 				8871B89B20DB64C400DAA5D6 /* NextServiceApi.h */,
 				8871B89C20DB64C400DAA5D6 /* NextServiceApi.m */,
 				885303C820F4B4D1009807B2 /* ShopServiceApi.h */,
-				885303C920F4B4D1009807B2 /* ShopServiceApi.m */,
 				886427A120F6FA9B006A160E /* AddressServiceApi.h */,
+				885303C920F4B4D1009807B2 /* ShopServiceApi.m */,
 				886427A220F6FA9B006A160E /* AddressServiceApi.m */,
 				8868035920F83C5900BFC1BC /* CouponServiceApi.h */,
 				8868035A20F83C5900BFC1BC /* CouponServiceApi.m */,
@@ -2209,6 +2208,7 @@
 		888D66D420E9FA790007D471 /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				88534C1A20E5C74500D6F43C /* good */,
 				888D66D520E9FA970007D471 /* GroupTableViewCell.h */,
 				888D66D620E9FA970007D471 /* GroupTableViewCell.m */,
 				88484D8720EB5CD300400D16 /* GroupCollectionViewCell.h */,
@@ -3277,7 +3277,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DNLYQ8TZ35;
+				DEVELOPMENT_TEAM = GH8DJURR96;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Psf/Tool/UMSocial",
@@ -3338,7 +3338,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DNLYQ8TZ35;
+				DEVELOPMENT_TEAM = GH8DJURR96;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Psf/Tool/UMSocial",

@@ -225,6 +225,8 @@
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"发送验证码成功"];
+            }else{
+                [weakself showInfo:response[@"message"]];
             }
         }
     }];
