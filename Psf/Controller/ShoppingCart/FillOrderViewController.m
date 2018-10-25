@@ -136,7 +136,7 @@
             [weakSelf calculatePrice:weakSelf.calculateModel];
             [weakSelf.headView setPresaleTime:weakSelf.presaleTime];
             [weakSelf.headView setGoodtype:CLAIMGOODSTYPEVISIT];
-            weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 165);
+            weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
              [weakSelf.headView setModel:weakSelf.leftModel];
         }else if (index ==2){
             weakSelf.calculateModel.expressEnable = NO;

@@ -181,7 +181,7 @@
 -(void)setGoodtype:(CLAIMGOODSTYPE)goodtype{
     _goodtype = goodtype;
     if (goodtype == CLAIMGOODSTYPEVISIT) {
-            self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 40);
+            self.ciriLabel.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, 0);
        [self setCornerLayout];
        
         self.typeLabel.text = @"配送时间";
