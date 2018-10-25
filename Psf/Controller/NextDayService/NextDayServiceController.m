@@ -140,7 +140,7 @@ static NSString * const cellID = @"cellID";
     if (!_seclectorView) {
         _seclectorView = [[NextSelectorView alloc]init];
         _seclectorView.hidden = YES;
-        _seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, 130);
+        _seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+45+40, SCREENWIDTH, 130);
     }
     return _seclectorView;
 }
@@ -312,9 +312,12 @@ static NSString * const cellID = @"cellID";
 #pragma mark - VTMagicViewDelegate
 - (void)magicView:(VTMagicView *)magicView viewDidAppear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
     _selectedIndex = pageIndex;
-    StairCategoryRes *model = _dataArr[pageIndex];
-    [viewController setSelectedIndex:pageIndex];
-    [viewController setModel:model];
+    if (_dataArr.count>0) {
+        StairCategoryRes *model = _dataArr[pageIndex];
+        [viewController setSelectedIndex:pageIndex];
+        [viewController setModel:model];
+    }
+   
 }
 
 - (void)magicView:(VTMagicView *)magicView viewDidDisappear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
@@ -391,7 +394,7 @@ static NSString * const cellID = @"cellID";
             [weakself.magicView reloadMenuTitles];
             [weakself.magicView reloadDataToPage:0];
             [weakself.seclectorView setDataArr:weakself.dataArr];
-            weakself.seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+45, SCREENWIDTH, (weakself.dataArr.count/4+1)*35+40);
+            weakself.seclectorView.frame = CGRectMake(0, [self navHeightWithHeight]+40+40, SCREENWIDTH, (weakself.dataArr.count/4+1)*35+40);
         }
     }];
 }

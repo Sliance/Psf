@@ -194,7 +194,7 @@ static NSString *cellId = @"cellId";
     req.couponType = @"allProduct";
     req.userLongitude = [UserCacheBean share].userInfo.longitude;
     req.userLatitude = [UserCacheBean share].userInfo.latitude;
-    req.productId = model.productCategoryId;
+    req.productId = [model.productCategoryId integerValue];
     req.pageIndex = 1;
     req.pageSize = @"4";
     req.productCategoryParentId = model.productCategoryParentId;
@@ -344,7 +344,7 @@ static NSString *cellId = @"cellId";
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(165, 260);
+    return CGSizeMake(SCREENWIDTH/2-45/2, 260);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

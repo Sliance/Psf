@@ -111,7 +111,7 @@
     [image sd_setImageWithURL:[NSURL URLWithString:result.memberAvatarPath]];
     
     if([UserCacheBean share].userInfo.token.length<1){
-        self.nameLabel.text = @"点击登录";
+        self.nameLabel.text = @"登录注册";
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tologin)];
         self.nameLabel.userInteractionEnabled = YES;
         [self.nameLabel addGestureRecognizer:tap];

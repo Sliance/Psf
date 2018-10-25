@@ -573,11 +573,9 @@ static NSString *cellId = @"SortCollectionViewCell";
 - (void)setIndex:(NSInteger)index{
     _index = index;
     if (index ==1) {
-        for (UIView*view in self.subviews) {
-            if ([view isKindOfClass:[UICollectionView class]]) {
-                [view removeFromSuperview];
-            }
-        }
+        self.collectionView.hidden = YES;
+    }else{
+        self.collectionView.hidden = NO;
     }
     
 }
@@ -611,7 +609,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 5, 0, 0);
+    return UIEdgeInsetsMake(0, -5, 0, 0);
     
 }
 
@@ -623,7 +621,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(70, 100);
+    return CGSizeMake(70, SCREENWIDTH/5);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
