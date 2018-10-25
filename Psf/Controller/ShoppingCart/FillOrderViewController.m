@@ -251,7 +251,9 @@
         self.typeView.hidden = NO;
         [self.view addSubview:self.typeView];
         self.tableview.frame = CGRectMake(0,46+[self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-46-[self navHeightWithHeight]);
-        
+    if (_goodstype ==GOOGSTYPENextday) {
+        [self.bottomView.remindBtn setTitle:@"去确认" forState:UIControlStateNormal];
+    }
 //    }
     
 }

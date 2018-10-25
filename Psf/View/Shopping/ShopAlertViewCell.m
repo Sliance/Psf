@@ -101,7 +101,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
         [self addSubview:self.submitBtn];
         [self addSubview:self.collectionView];
          self.dateLabel.frame = CGRectMake(15, 15, SCREENWIDTH-30, 15);
-        self.submitBtn.frame = CGRectMake(SCREENWIDTH-75, 29, 60, 24);
+        self.submitBtn.frame = CGRectMake(SCREENWIDTH-80, 29, 65, 24);
          self.totalLabel.frame = CGRectMake(15, 15+self.dateLabel.ctBottom,SCREENWIDTH-80, 15);
     }
     return self;

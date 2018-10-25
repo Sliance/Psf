@@ -18,7 +18,7 @@
 
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,strong)ShoppingListRes *model;
-@property(nonatomic,copy)void (^submitBlock)(NSArray*,NSString*);
+@property(nonatomic,copy)void (^submitBlock)(NSArray*,NSString*,NSInteger);
 
 
 

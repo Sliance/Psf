@@ -96,18 +96,22 @@ static NSString *cellIds = @"NextCollectionViewCell";
         weakself.shopAlertView.hidden = YES;
         
     }];
-    [self.shopAlertView setSubmitBlock:^(NSArray *arr,NSString*time) {
+    [self.shopAlertView setSubmitBlock:^(NSArray *arr,NSString*time,NSInteger section) {
          weakself.tabBarController.tabBar.hidden = NO;
         
          weakself.shopAlertView.hidden = YES;
         FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
         fillVC.hidesBottomBarWhenPushed = YES;
         [fillVC setOrderType:1];
-        if (time.length>0) {
+        if (section==1) {
             [fillVC setPresaleTime:time];
              [fillVC setGoodstype:GOOGSTYPEPresale];
-        }else{
+        }else if(section ==0){
+            
              [fillVC setGoodstype:GOOGSTYPENormal];
+        }else if(section ==2){
+            
+            [fillVC setGoodstype:GOOGSTYPENextday];
         }
        
         [fillVC setProductArr:arr];

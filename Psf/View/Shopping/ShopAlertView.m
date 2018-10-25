@@ -128,10 +128,11 @@
         
     }else if(indexPath.section ==2){
         [cell setDataArr:self.model.nextDayProductList];
+        [cell.submitBtn setTitle:@"确认订单" forState:UIControlStateNormal];
     }
     __weak typeof(self)weakself = self;
     [cell setSureBlock:^(NSArray *arr,NSString*time) {
-        weakself.submitBlock(arr,time);
+        weakself.submitBlock(arr,time,indexPath.section);
         
     }];
     return cell;
