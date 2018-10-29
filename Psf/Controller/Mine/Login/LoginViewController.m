@@ -10,7 +10,7 @@
 #import "LoginServiceApi.h"
 #import "PassWordLoginController.h"
 #import "SettingPassWordController.h"
-
+#import "NextServiceApi.h"
 
 #import "WXApi.h"
 #import "BindMobileController.h"
@@ -127,6 +127,7 @@
         _wechartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_wechartBtn setImage:[UIImage imageNamed:@"wechart_login"] forState:UIControlStateNormal];
         [_wechartBtn addTarget:self action:@selector(getAuthWithUserInfoFromWechat) forControlEvents:UIControlEventTouchUpInside];
+        _wechartBtn.hidden = YES;
     }
     return _wechartBtn;
 }
@@ -162,6 +163,7 @@
         _loginLabel.textAlignment = NSTextAlignmentCenter;
         _loginLabel.textColor = DSColorFromHex(0x787878);
         _loginLabel.font = [UIFont systemFontOfSize:10];
+        _loginLabel.hidden = YES;
     }
     return _loginLabel;
 }
@@ -169,6 +171,7 @@
     if (!_leftLineLabel) {
         _leftLineLabel = [[UILabel alloc]init];
         _leftLineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+        _leftLineLabel.hidden = YES;
     }
     return _leftLineLabel;
 }
@@ -176,6 +179,7 @@
     if (!_rightlineLabel) {
         _rightlineLabel = [[UILabel alloc]init];
         _rightlineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+        _rightlineLabel.hidden = YES;
     }
     return _rightlineLabel;
 }
@@ -188,6 +192,7 @@
     }
    
     [self setTitle:@""];
+    [self iswechart];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -316,7 +321,33 @@
    
     [ZSNotification addWeixinLoginResultNotification:self action:@selector(weChartLgin:)];
 }
-
+-(void)iswechart{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = @"";
+    req.version = @"";
+    req.platform = @"ios";
+    req.businessParamKey = @"loginIsWebchat";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
+        if (response) {
+            NSInteger  isopen= [response[@"data"][@"businessParamValue"] integerValue];
+            if (isopen ==0) {
+                weakself.wechartBtn.hidden = YES;
+                weakself.loginLabel.hidden = YES;
+                weakself.leftLineLabel.hidden = YES;
+                weakself.rightlineLabel.hidden = YES;
+            }else{
+                weakself.wechartBtn.hidden = NO;
+                weakself.loginLabel.hidden = NO;
+                weakself.leftLineLabel.hidden = NO;
+                weakself.rightlineLabel.hidden = NO;
+            }
+            
+        }
+    }];
+}
 -(void)weChartLgin:(NSNotification *)noti{
     NSDictionary *userInfo = [noti userInfo];
     if ([[userInfo objectForKey:@"type"] isEqualToString:@"login"]) {

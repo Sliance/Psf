@@ -118,13 +118,14 @@
     if (indexPath.section ==0) {
         
             [cell setDataArr:self.model.cartProductList];
-        
+        [cell.submitBtn setTitle:@"结算" forState:UIControlStateNormal];
     }else if(indexPath.section ==1){
         NSArray *timearr = [NSArray array];
         timearr = self.model.preSaleProductList.allKeys;
          [cell setTime:timearr[indexPath.row]];
         NSArray *arr = [self.model.preSaleProductList objectForKey:timearr[indexPath.row]];
         [cell setDataArr:arr];
+        [cell.submitBtn setTitle:@"结算" forState:UIControlStateNormal];
         
     }else if(indexPath.section ==2){
         [cell setDataArr:self.model.nextDayProductList];
