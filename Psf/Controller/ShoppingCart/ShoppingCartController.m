@@ -49,7 +49,6 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 -(ShopAlertView *)shopAlertView{
     if (!_shopAlertView) {
-        _footView.ctTop
         _shopAlertView = [[ShopAlertView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _shopAlertView.hidden = YES;
     }

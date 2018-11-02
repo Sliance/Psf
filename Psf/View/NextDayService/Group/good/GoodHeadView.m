@@ -361,17 +361,17 @@
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
     
-    _nameLabel.text = model.productName;
+    self.nameLabel.text = model.productName;
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
-        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
         self.originLabel.hidden = NO;
         self.lineLabel.hidden = NO;
         [self setCornerLayoutGroup];
         self.originLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
         self.dateLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
         NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(groupTime) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
@@ -380,19 +380,19 @@
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
         
         [self setLauoutPreSale];
-      _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+      self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
         self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
         self.priceLabel.font = [UIFont systemFontOfSize:19];
-        _buyerLabel.text = @"已有人购买";
+        self.buyerLabel.text = @"已有人购买";
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已有%ld人购买",(long)model.preSaleQuantity]];
         [str addAttribute:NSForegroundColorAttributeName value:DSColorFromHex(0xFF4C4D) range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",(long)model.preSaleQuantity].length)];
         [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(2,[NSString stringWithFormat:@"%ld",(long)model.preSaleQuantity].length)];
-        _buyerLabel.attributedText = str;
+        self.buyerLabel.attributedText = str;
         CGFloat progress = (CGFloat)model.preSaleQuantity/model.preSaleLimitQuantity;
         if (model.preSaleLimitQuantity ==0) {
             progress = 0.99;
         }
-        _progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
+        self.progress.progressValue = [NSString stringWithFormat:@"%.2f",progress];
         if (model.preSaleLimitQuantity ==0) {
             self.limitTitleLabel.text = @"无上限";
         }else{
@@ -412,13 +412,13 @@
        [self setCornerLayoutNormal];
     }else if ([model.productType isEqualToString:@"nextDay"]){
         [self setCornerLayoutNormal];
-        _priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
-        _nameLabel.text = model.productName;
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        self.nameLabel.text = model.productName;
     }
     
-    _contentLabel.text = model.productTitle;
-    _weightLabel.text = model.productUnit;
-    _soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
+    self.contentLabel.text = model.productTitle;
+    self.weightLabel.text = model.productUnit;
+    self.soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
     
     
     
