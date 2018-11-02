@@ -15,4 +15,5 @@ platform :ios, '9.0'
   pod "Qiniu", "~> 7.1"
   pod 'WechatOpenSDK'
   pod 'SVProgressHUD'
+  pod 'JPush'
 end

@@ -85,6 +85,16 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key> jpush.cn</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>“犁小农”想访问您的相机，为了帮您扫描二维码和互动等功能</string>

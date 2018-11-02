@@ -2663,6 +2663,9 @@
 					88D8935520D25C41007E3C41 = {
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 0;
 							};
@@ -3276,6 +3279,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Psf/Psf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DNLYQ8TZ35;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3337,6 +3341,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Psf/Psf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DNLYQ8TZ35;
 				FRAMEWORK_SEARCH_PATHS = (

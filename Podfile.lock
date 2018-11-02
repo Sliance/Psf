@@ -18,6 +18,9 @@ PODS:
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
   - HappyDNS (0.3.14)
+  - JCore (1.2.5)
+  - JPush (3.1.1.1):
+    - JCore (~> 1.2.5)
   - Mantle (2.1.0):
     - Mantle/extobjc (= 2.1.0)
   - Mantle/extobjc (2.1.0)
@@ -39,6 +42,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - FMDB (~> 2.7.2)
+  - JPush
   - Mantle
   - Masonry
   - MBProgressHUD (~> 1.0.0)
@@ -55,6 +59,8 @@ SPEC REPOS:
     - AFNetworking
     - FMDB
     - HappyDNS
+    - JCore
+    - JPush
     - Mantle
     - Masonry
     - MBProgressHUD
@@ -70,6 +76,8 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
+  JCore: 14706de2640b25fb77dbd02332696491407f37c9
+  JPush: 25dd9013fbe106082c14f9f30a82364ee98852fb
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -81,6 +89,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 5a74c356b977b09501060c5dd2e95c13a59f46ba
+PODFILE CHECKSUM: e7e225c2c0da5f577a793c48beca60751f423b1c
 
 COCOAPODS: 1.5.3
