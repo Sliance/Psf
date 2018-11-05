@@ -418,7 +418,7 @@
     
     self.contentLabel.text = model.productTitle;
     self.weightLabel.text = model.productUnit;
-    self.soldLabel.text = [NSString stringWithFormat:@"已售%ld",model.productSaleCount];
+    self.soldLabel.text = [NSString stringWithFormat:@"已售%ld",(long)model.productSaleCount];
     
     
     

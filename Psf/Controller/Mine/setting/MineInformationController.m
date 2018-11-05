@@ -22,9 +22,28 @@
 @property(nonatomic,strong)MineInformationReq *result;
 @property(nonatomic,strong)NSMutableArray *imageArr;
 @property(nonatomic,strong)UITextField *nameField;
+@property(nonatomic,strong)SexPickerTool *sexPick;
+@property(nonatomic,strong)DatePickerTool *datePicker;
+
 @end
 
 @implementation MineInformationController
+-(SexPickerTool *)sexPick{
+    if (!_sexPick) {
+        _sexPick = [[SexPickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
+        _sexPick.hidden = YES;
+         [_sexPick setDataSource:nil];
+    }
+    return _sexPick;
+}
+-(DatePickerTool *)datePicker{
+    if (!_datePicker) {
+        _datePicker = [[DatePickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
+        _datePicker.hidden = YES;
+    }
+    return _datePicker;
+}
+
 -(BottomView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[BottomView alloc]init];
@@ -62,6 +81,8 @@
     }
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.bottomView];
+    [self.view addSubview:self.sexPick];
+    [self.view addSubview:self.datePicker];
     _dataArr = @[@"头像",@"昵称",@"性别",@"生日"];
     _imageArr = [NSMutableArray array];
     [self requestData];
@@ -219,37 +240,42 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     __weak typeof(self)weakself = self;
     if (indexPath.row == 0) {
+        [self hideKeyBoard];
         UIActionSheet *leftAction = [[UIActionSheet alloc] initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄照片", @"选择手机中的照片", nil];
         leftAction.tag = 101;
         [leftAction showInView:self.view];
     }else if (indexPath.row ==2){
-        SexPickerTool *sexPick = [[SexPickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
-        [sexPick setDataSource:nil];
-        __block SexPickerTool *blockPicker = sexPick;
-        sexPick.callBlock = ^(NSString *pickDate) {
+        [self hideKeyBoard];
+        self.datePicker.hidden = YES;
+       
+        
+        __weak typeof(self)weakself = self;
+        self.sexPick.callBlock = ^(NSString *pickDate) {
             
             if (pickDate) {
                 weakself.result.memberGender = pickDate;
                 [weakself.tableview reloadData];
             }
             
-            [blockPicker removeFromSuperview];
+            weakself.sexPick.hidden = YES;
         };
-        [self.view addSubview:sexPick];
+        self.sexPick.hidden = NO;
+        
     }else if (indexPath.row ==3){
-        DatePickerTool *datePicker = [[DatePickerTool alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-250, SCREENWIDTH, 250)];
-        __block DatePickerTool *blockPick = datePicker;
-        datePicker.callBlock = ^(NSString *pickDate) {
+        [self hideKeyBoard];
+        self.sexPick.hidden = YES;
+        __weak typeof(self)weakself = self;
+        self.datePicker.callBlock = ^(NSString *pickDate) {
             
             if (pickDate) {
                 weakself.result.memberBirthday = pickDate;
                 [weakself.tableview reloadData];
             }
             
-            [blockPick removeFromSuperview];
+            weakself.datePicker.hidden = YES;
         };
         
-        [self.view addSubview:datePicker];
+        weakself.datePicker.hidden = NO;
     }
 }
 #pragma mark - UIActionSheetDelegate
