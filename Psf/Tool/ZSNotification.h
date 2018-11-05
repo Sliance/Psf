@@ -33,4 +33,9 @@
 
 +(void)addRefreshLocationResultNotification:(id)target action:(SEL)action;
 +(void)postRefreshLocationResultNotification:(NSDictionary *)userInfo;
+//推送
+#define pushRefreshNotification @"pushRefreshNotification"
++(void)addRefreshPushResultNotification:(id)target action:(SEL)action;
++(void)postRefreshPushResultNotification:(NSDictionary *)userInfo;
+
 @end

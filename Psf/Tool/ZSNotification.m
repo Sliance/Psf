@@ -65,4 +65,15 @@
 +(void)postRefreshLocationResultNotification:(NSDictionary *)userInfo{
     [[NSNotificationCenter defaultCenter] postNotificationName:locationRefreshNotification object:nil userInfo:userInfo];
 }
+//推送
+#define pushRefreshNotification @"pushRefreshNotification"
++(void)addRefreshPushResultNotification:(id)target action:(SEL)action{
+    [[NSNotificationCenter defaultCenter] addObserver:target
+                                             selector:action
+                                                 name:pushRefreshNotification
+                                               object:nil];
+}
++(void)postRefreshPushResultNotification:(NSDictionary *)userInfo{
+    [[NSNotificationCenter defaultCenter] postNotificationName:pushRefreshNotification object:nil userInfo:userInfo];
+}
 @end

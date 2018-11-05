@@ -70,6 +70,7 @@
         // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
     [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Optional
     // 获取 IDFA
     // 如需使用 IDFA 功能请添加此代码并在初始化方法的 advertisingIdentifier 参数中填写对应值
@@ -79,7 +80,7 @@
     // init Push
     // notice: 2.1.5 版本的 SDK 新增的注册方法，改成可上报 IDFA，如果没有使用 IDFA 直接传 nil
     // 如需继续使用 pushConfig.plist 文件声明 appKey 等配置内容，请依旧使用 [JPUSHService setupWithOption:launchOptions] 方式初始化。
-    [JPUSHService setupWithOption:launchOptions appKey:@" 31b6584ae62acdbee93b10d2"
+    [JPUSHService setupWithOption:launchOptions appKey:@"31b6584ae62acdbee93b10d2"
                           channel:@""
                  apsForProduction:NO
             advertisingIdentifier:nil];
@@ -102,6 +103,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 // iOS 12 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)){
+    NSDictionary * userInfo = notification.request.content.userInfo;
     if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //从通知界面直接进入应用
     }else{
@@ -124,6 +126,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [ZSNotification postRefreshPushResultNotification:userInfo];
         [JPUSHService handleRemoteNotification:userInfo];
     }
     completionHandler();  // 系统要求执行这个方法
@@ -140,6 +143,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     // Required, For systems with less than or equal to iOS 6
     [JPUSHService handleRemoteNotification:userInfo];
+}
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+   
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 -(void)refreshloc{
      [self.locationManagers startUpdatingLocation];
@@ -470,10 +478,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    
-}
+
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

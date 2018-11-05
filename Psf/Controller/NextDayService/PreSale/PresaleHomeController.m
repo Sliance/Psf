@@ -204,8 +204,21 @@
     CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
     self.tableview.tableFooterView = footView;
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
-    
+    [ZSNotification addRefreshPushResultNotification:self action:@selector(refreshPushResult:)];
 }
+-(void)refreshPushResult:(NSNotification *)notifi{
+    NSDictionary *userInfo = [notifi userInfo];
+    if ([[userInfo objectForKey:@"iosUrl"] isEqualToString:@"preSale"]) {
+        PresaleSController *detailVC = [[PresaleSController alloc]init];
+        detailVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else if ([[userInfo objectForKey:@"iosUrl"] isEqualToString:@"nextDay"]){
+        NextDayListController *nextVC= [[NextDayListController alloc]init];
+        nextVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
+}
+    
 -(void)location:(NSNotification *)notifi{
     
     
