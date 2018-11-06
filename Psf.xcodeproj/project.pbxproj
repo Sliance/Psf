@@ -296,7 +296,6 @@
 		888B1781211E77D300501322 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 888B1780211E77D300501322 /* libc++.tbd */; };
 		888B1783211E77F900501322 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888B1782211E77F900501322 /* ImageIO.framework */; };
 		888B1785211E780700501322 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888B1784211E780700501322 /* Photos.framework */; };
-		888B17D1211EEF4600501322 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 888B17CE211EEF4600501322 /* libWeChatSDK.a */; };
 		888B17D4211EF22700501322 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 888B17D3211EF22700501322 /* WXApiManager.m */; };
 		888B17D7211EF2FA00501322 /* RandomKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 888B17D6211EF2FA00501322 /* RandomKey.m */; };
 		888B17DF211EF3B300501322 /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 888B17DA211EF3B100501322 /* AES.m */; };
@@ -946,8 +945,6 @@
 		888B1780211E77D300501322 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		888B1782211E77F900501322 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		888B1784211E780700501322 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		888B17CE211EEF4600501322 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		888B17CF211EEF4600501322 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		888B17D2211EF22700501322 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		888B17D3211EF22700501322 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		888B17D5211EF2FA00501322 /* RandomKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomKey.h; sourceTree = "<group>"; };
@@ -1107,7 +1104,6 @@
 				888B1785211E780700501322 /* Photos.framework in Frameworks */,
 				888B1783211E77F900501322 /* ImageIO.framework in Frameworks */,
 				89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */,
-				888B17D1211EEF4600501322 /* libWeChatSDK.a in Frameworks */,
 				888B177D211E778500501322 /* libsqlite3.tbd in Frameworks */,
 				8871B8E220DBB93E00DAA5D6 /* libsqlite3.0.tbd in Frameworks */,
 				8871B8DE20DBB92300DAA5D6 /* Security.framework in Frameworks */,
@@ -2187,8 +2183,6 @@
 				888B17E2211EF42F00501322 /* Common */,
 				888B17D2211EF22700501322 /* WXApiManager.h */,
 				888B17D3211EF22700501322 /* WXApiManager.m */,
-				888B17CE211EEF4600501322 /* libWeChatSDK.a */,
-				888B17CF211EEF4600501322 /* WXApi.h */,
 				888B17D5211EF2FA00501322 /* RandomKey.h */,
 				888B17D6211EF2FA00501322 /* RandomKey.m */,
 			);
