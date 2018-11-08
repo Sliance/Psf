@@ -750,7 +750,7 @@
     
     
     NSString *html_str = [NSString stringWithFormat:@"<head><style>img{width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.productContent];
-    
+  
     [self.webView loadHTMLString:html_str baseURL:nil];
     
     if([self.result.productType isEqualToString:@"normal"]){//正常

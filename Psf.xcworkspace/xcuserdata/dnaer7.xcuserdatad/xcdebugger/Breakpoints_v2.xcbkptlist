@@ -26,7 +26,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "563195427.985226"
+                  timestampString = "563276340.609724"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "717"
@@ -41,7 +41,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "563195427.9938999"
+                  timestampString = "563276340.611292"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "718"
@@ -139,69 +139,6 @@
             endingLineNumber = "105"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Psf/View/NextDayService/Group/good/GoodHeadView.m"
-            timestampString = "563103581.895484"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "-setLauoutPreSale"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[GoodHeadView setLauoutPreSale]"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/View/NextDayService/Group/good/GoodHeadView.m"
-                  timestampString = "563195428.1520621"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "1063">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__32-[GoodHeadView setLauoutPreSale]_block_invoke"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/View/NextDayService/Group/good/GoodHeadView.m"
-                  timestampString = "563195428.1546119"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "19">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.128"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/View/NextDayService/Group/good/GoodHeadView.m"
-                  timestampString = "563195428.156249"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -361,22 +298,6 @@
             startingLineNumber = "218"
             endingLineNumber = "218"
             landmarkName = "-refreshPushResult:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Psf/View/NextDayService/Group/good/GoodHeadView.m"
-            timestampString = "563103581.895728"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
-            landmarkName = "-setModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
