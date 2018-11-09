@@ -70,8 +70,8 @@
     nextNavController.tabBarItem = nextItem;
     [self adjustNavigationUI:nextNavController];
     //分类
-    StoreGoodsController *sortController = [[StoreGoodsController alloc] init];
-//        NextDayServiceController *sortController = [[NextDayServiceController alloc] init];
+    SortViewController *sortController = [[SortViewController alloc] init];
+    
     UINavigationController *sortNavController = [[UINavigationController alloc] initWithRootViewController:sortController];
     sortController.navigationController.navigationBar.translucent = YES;
     sortNavController.tabBarItem = sortItem;
