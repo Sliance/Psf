@@ -182,7 +182,8 @@
 }
 ///获取预售、团购banner
 - (void)getPreAndGroupBannerWithParam:(GroupModelReq *) req response:(responseModel) responseModel{
-    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+//    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+     req.erpStoreId = @"181";
     NSString *url = @"/lxn/product/banner/mobile/v1/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {

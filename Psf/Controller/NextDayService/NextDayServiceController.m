@@ -52,6 +52,7 @@ static NSString * const cellID = @"cellID";
         _autoSwitch = 0 != self.tabBarController.selectedIndex;
     _menuList = [NSMutableArray array];
     _dataArr = [NSMutableArray array];
+    [UserCacheBean share].userInfo.erpStoreId = @"181";
     [self requestData:@""];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -103,11 +104,11 @@ static NSString * const cellID = @"cellID";
     }];
    
     
-    [ZSNotification addLocationResultNotification:self action:@selector(location:)];
+//    [ZSNotification addLocationResultNotification:self action:@selector(location:)];
 }
 -(void)location:(NSNotification *)notifi{
-    NSDictionary *userInfo = [notifi userInfo];
-    [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
+//    NSDictionary *userInfo = [notifi userInfo];
+//    [_locView.locBtn setTitle:[userInfo objectForKey:@"address"] forState:UIControlStateNormal];
 }
 -(void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
@@ -149,6 +150,7 @@ static NSString * const cellID = @"cellID";
         _locView = [[HomeLocationView alloc]init];
         _locView.frame = CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, 45);
         [_locView.searchBtn addTarget:self action:@selector(pressSearch:) forControlEvents:UIControlEventTouchUpInside];
+        [_locView.locBtn setTitle:@"上海市" forState:UIControlStateNormal];
         [_locView.locBtn addTarget:self action:@selector(pressHomeLocation:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _locView;
@@ -240,10 +242,10 @@ static NSString * const cellID = @"cellID";
 }
 ///定位
 -(void)pressHomeLocation:(UIButton*)sender {
-//    [self showToast:@"目前仅支持上海区域"];
-    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
-    cityViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:cityViewController animated:YES];
+    [self showToast:@"目前仅支持上海区域"];
+//    ChooseAddressViewController *cityViewController = [[ChooseAddressViewController alloc] init];
+//    cityViewController.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:cityViewController animated:YES];
 }
 #pragma mark - JFCityViewControllerDelegate
 
@@ -311,7 +313,7 @@ static NSString * const cellID = @"cellID";
 
 #pragma mark - VTMagicViewDelegate
 - (void)magicView:(VTMagicView *)magicView viewDidAppear:(__kindof UIViewController *)viewController atPage:(NSUInteger)pageIndex {
-    _selectedIndex = pageIndex;
+                 _selectedIndex = pageIndex;
     if (_dataArr.count>0) {
         StairCategoryRes *model = _dataArr[pageIndex];
         [viewController setSelectedIndex:pageIndex];

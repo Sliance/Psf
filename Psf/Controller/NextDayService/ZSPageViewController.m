@@ -18,6 +18,7 @@
 #import "RechargeViewController.h"
 #import "NextServiceApi.h"
 #import "PresaleSController.h"
+#import "PresaleController.h"
 #import "GroupServiceApi.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
@@ -43,7 +44,7 @@ static NSString *cellId = @"cellId";
 -(ZSCycleScrollView *)cycleScroll{
     if (!_cycleScroll) {
         _cycleScroll = [[ZSCycleScrollView alloc] initWithFrame:CGRectZero];
-        _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, 200);
+        _cycleScroll.imageSize = CGSizeMake(SCREENWIDTH, SCREENWIDTH*200/375);
         _cycleScroll.delegate =self;
         [_cycleScroll setIndex:0];
         
@@ -262,7 +263,7 @@ static NSString *cellId = @"cellId";
     if (self.selectedIndex ==0) {
 
         if (index==0) {
-            PresaleSController *groupVC = [[PresaleSController alloc]init];
+            PresaleController *groupVC = [[PresaleController alloc]init];
             groupVC.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:groupVC animated:YES];
         }else if (index ==1){
