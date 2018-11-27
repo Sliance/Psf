@@ -27,6 +27,8 @@
 ///
 @property(nonatomic,copy)NSString *productName;
 ///
+@property(nonatomic,assign)NSInteger productStyle;
+///
 @property(nonatomic,copy)NSString *productPrice;
 @property(nonatomic,copy)NSString * productStorePrice;
 ///

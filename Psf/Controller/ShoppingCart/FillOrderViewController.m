@@ -284,11 +284,13 @@
     NSMutableArray *dataArr = [[NSMutableArray alloc]init];
     [dataArr removeAllObjects];
     for (CartProductModel *model  in productArr) {
+        model.saleOrderProductQty = model.productQuantity;
         if (model.productIsOnSale ==1) {
             [dataArr addObject:model];
         }else{
             
         }
+        
     }
     [_dataArr addObjectsFromArray:dataArr];
     [_tableview reloadData];

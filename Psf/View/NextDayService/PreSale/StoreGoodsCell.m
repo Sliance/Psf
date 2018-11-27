@@ -131,7 +131,16 @@
 
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
-    self.titleLabel.text = model.productName;
+    
+    if (model.productStyle ==1) {
+        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
+            self.titleLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+        }else{
+            self.titleLabel.text = model.productName;
+        }
+    }else{
+        self.titleLabel.text = model.productName;
+    }
     self.detailLabel.text = model.productTitle;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
     self.weightLabel.text = model.productUnit;

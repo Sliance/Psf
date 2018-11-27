@@ -116,6 +116,21 @@
     [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
         if (response) {
             [UserCacheBean share].userInfo.productDefaultWeight = response[@"data"][@"businessParamValue"];
+            [self getDefautDes];
+        }
+    }];
+}
+-(void)getDefautDes{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"";
+    req.platform = @"ios";
+    req.businessParamKey = @"productDefaultWeightSuffixDesc";
+    [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
+        if (response) {
+            [UserCacheBean share].userInfo.productDefaultDes = response[@"data"][@"businessParamValue"];
         }
     }];
 }

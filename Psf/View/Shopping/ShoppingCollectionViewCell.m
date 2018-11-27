@@ -278,12 +278,23 @@
     _model = model;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    self.nameLabel.text = model.productName;
-    if (model.productStorePrice) {
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+    if (model.productStyle ==1) {
+        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
+            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+        }else{
+            self.nameLabel.text = model.productName;
+        }
+    }else{
+        self.nameLabel.text = model.productName;
     }
     
-    self.weightLabel.text = model.productUnit;
+    if (model.productStorePrice) {
+        double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+        self.priceLabel.text = productPrice;
+    }
+    
+//    self.weightLabel.text = model.productUnit;
     self.countField.text = model.productQuantity;
     if (_goodtype ==TYPELOSE) {
         self.chooseBtn.selected = NO;

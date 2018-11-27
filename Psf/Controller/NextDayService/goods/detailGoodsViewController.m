@@ -284,8 +284,12 @@
         if ([UserCacheBean share].userInfo.token.length>0) {
             if([_weakSelf.result.productType isEqualToString:@"normal"]){
                 if (_weakSelf.result.productStyle ==1) {
-                    _weakSelf.storeBuyView.hidden = NO;
+//                    _weakSelf.storeBuyView.hidden = NO;
                     _weakSelf.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+                    GoodDetailRes *model = _weakSelf.result;
+                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                    model.productPrice = [NSString stringWithFormat:@"%.2f",price];
+                    [_weakSelf addShopCount:model Quantity:@"1"];
                 }else{
                     if (_weakSelf.result.productSkuList.count>1) {
                         _weakSelf.presaleBuyView.hidden = NO;

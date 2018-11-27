@@ -25,7 +25,8 @@
 @property(nonatomic,strong)NSString *longitude;
 ///默认称重
 @property(nonatomic,strong)NSString *productDefaultWeight;
-
+///默认名字后描述
+@property(nonatomic,strong)NSString *productDefaultDes;
 ///市
 @property(nonatomic,strong)NSString *city;
 ///区

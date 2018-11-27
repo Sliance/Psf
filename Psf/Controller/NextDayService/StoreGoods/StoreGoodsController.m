@@ -261,7 +261,10 @@
         if (model.productStyle==1) {
             [weakself.storeBuyView setCatemodel:model];
             weakself.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
-            weakself.storeBuyView.hidden = NO;
+//            weakself.storeBuyView.hidden = NO;
+            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+             model.productPrice = [NSString stringWithFormat:@"%.2f",price];
+             [weakself addShopCount:model Quantity:@"1"];
         }else{
             [weakself addShopCount:model Quantity:@"1"];
         }

@@ -361,10 +361,20 @@
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
     
-    self.nameLabel.text = model.productName;
+    
+    if (model.productStyle ==1) {
+        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
+            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+        }else{
+            self.nameLabel.text = model.productName;
+        }
+    }else{
+        self.nameLabel.text = model.productName;
+    }
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
         self.originLabel.hidden = NO;

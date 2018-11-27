@@ -141,18 +141,39 @@
     _model = model;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    self.nameLabel.text = model.productName;
-    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-    self.weightLabel.text = model.productUnit;
+    if (_model.productStyle ==1) {
+        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
+            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+        }else{
+            self.nameLabel.text = _model.productName;
+        }
+    }else{
+        self.nameLabel.text = _model.productName;
+    }
+    
+    double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+    self.payableLabel.text = productPrice;
     self.countLabel.text = [NSString stringWithFormat:@"X%@",model.productQuantity];
 }
 -(void)setRes:(GoodDetailRes *)res{
     _res = res;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,res.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    self.nameLabel.text = res.productName;
-    self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.productPrice];
-    self.weightLabel.text = res.productUnit;
+    if (_model.productStyle ==1) {
+        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
+            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+        }else{
+            self.nameLabel.text = _model.productName;
+        }
+    }else{
+        self.nameLabel.text = _model.productName;
+    }
+    
+    double price = [res.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+    self.payableLabel.text = productPrice;
+
     self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.saleOrderProductQty];
 }
 @end
