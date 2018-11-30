@@ -289,9 +289,14 @@
     }
     
     if (model.productStorePrice) {
-        double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-        self.priceLabel.text = productPrice;
+        if (model.productStyle ==1) {
+            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+            self.priceLabel.text = productPrice;
+        }else{
+            self.priceLabel.text = model.productStorePrice;
+        }
+            
     }
     
 //    self.weightLabel.text = model.productUnit;
