@@ -85,8 +85,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.view.backgroundColor = [UIColor whiteColor];
-        [self setTitle:@"门店商品"];
         
+        [self setTitle:@"门店商品"];
+    
     }
     return self;
 }
@@ -129,8 +130,13 @@
         [weakself addShopCount:resmodel Quantity:weight];
     }];
     
-    [self requestSort];
+   
     
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UIBarButtonItem*leftItem=[[UIBarButtonItem alloc]initWithTitle:@""style:(UIBarButtonItemStylePlain)target:self action:nil];self.navigationItem.leftBarButtonItem=leftItem;
+     [self requestSort];
 }
 -(void)addShopCount:(StairCategoryListRes *)model  Quantity:(NSString*)quantity{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -278,6 +284,7 @@
     StairCategoryListRes *res = model.productList[indexPath.row];
     [vc setErpProductId:res.erpProductId];
     [vc setProductID:res.productId];
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{

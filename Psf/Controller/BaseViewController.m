@@ -148,6 +148,7 @@
 }
 
 - (void)setLeftButtonWithIcon:(UIImage *) image {
+    
     UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
     [self.navigationItem setLeftBarButtonItem:leftBar];
     [leftBar setTintColor:[UIColor lightGrayColor]];
