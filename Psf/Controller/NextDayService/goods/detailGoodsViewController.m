@@ -40,7 +40,7 @@
 #import "PresaleHomeController.h"
 #import "NextDayServiceController.h"
 #import "MineViewController.h"
-
+#import "StoreGoodsController.h"
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
     NSInteger _tourHeight;
@@ -315,7 +315,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
             message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 3;
                 }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
                 
@@ -332,11 +332,11 @@
             if ([controller isKindOfClass:[ShoppingCartController class]]) {
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
             }else if ([controller isKindOfClass:[PresaleHomeController class]]){
-                _weakSelf.tabBarController.selectedIndex = 1;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
-            }else if ([controller isKindOfClass:[SortViewController class]]){
-                _weakSelf.tabBarController.selectedIndex = 1;
+            }else if ([controller isKindOfClass:[StoreGoodsController class]]){
+                _weakSelf.tabBarController.selectedIndex = 2;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
             }
@@ -361,7 +361,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 3;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     
                     if ([controller isKindOfClass:[NextDayServiceController class]]) {
@@ -413,11 +413,11 @@
             if ([controller isKindOfClass:[ShoppingCartController class]]) {
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
             }else if ([controller isKindOfClass:[PresaleHomeController class]]){
-                _weakSelf.tabBarController.selectedIndex = 1;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
             }else if ([controller isKindOfClass:[SortViewController class]]){
-                _weakSelf.tabBarController.selectedIndex = 1;
+                _weakSelf.tabBarController.selectedIndex = 2;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
             }
@@ -452,7 +452,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 3;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     
                     if ([controller isKindOfClass:[NextDayServiceController class]]) {
@@ -496,7 +496,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 2;
+                _weakSelf.tabBarController.selectedIndex = 3;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     if ([controller isKindOfClass:[PresaleHomeController class]]) {
                         [_weakSelf.navigationController popToViewController:controller animated:YES];
