@@ -275,6 +275,7 @@
     }else if(indexPath.row ==2){
         StoreGoodsController *storeVC= [[StoreGoodsController alloc]init];
         storeVC.hidesBottomBarWhenPushed = YES;
+        [storeVC setType:@"home"];
         [self.navigationController pushViewController:storeVC animated:YES];
         
     }

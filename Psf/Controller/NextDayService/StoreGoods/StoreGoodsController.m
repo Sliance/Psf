@@ -135,8 +135,19 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    UIBarButtonItem*leftItem=[[UIBarButtonItem alloc]initWithTitle:@""style:(UIBarButtonItemStylePlain)target:self action:nil];self.navigationItem.leftBarButtonItem=leftItem;
+    if(_type.length>0){
+        UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_back"] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
+        [self.navigationItem setLeftBarButtonItem:leftBar];
+    }else{
+        UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
+        [self.navigationItem setLeftBarButtonItem:leftBar];
+    }
      [self requestSort];
+}
+-(void)setType:(NSString *)type{
+    _type = type;
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_back"] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
+    [self.navigationItem setLeftBarButtonItem:leftBar];
 }
 -(void)addShopCount:(StairCategoryListRes *)model  Quantity:(NSString*)quantity{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
