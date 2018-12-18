@@ -84,6 +84,9 @@
                           channel:@""
                  apsForProduction:NO
             advertisingIdentifier:nil];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
     return YES;
 }
 //请在 AppDelegate.m 实现该回调方法并添加回调方法中的代码
