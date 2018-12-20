@@ -900,7 +900,7 @@
     
     [message setThumbImage:bgimageview.image];
     WXWebpageObject *webpage = [WXWebpageObject object];
-    webpage.webpageUrl = [NSString stringWithFormat:@" http://xcxb.lxnong.com/share/index.html?erpStoreId=%@&erpProductId=%@&productId=%d",[UserCacheBean share].userInfo.erpStoreId,self.erpProductId,self.result.productId];
+    webpage.webpageUrl = [NSString stringWithFormat:@" http://xcxb.lxnong.com/share/index.html?erpStoreId=%@&erpProductId=%@&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,self.erpProductId,(long)self.result.productId];
 //    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
     message.mediaObject = webpage;
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
