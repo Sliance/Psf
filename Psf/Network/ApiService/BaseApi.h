@@ -10,6 +10,9 @@
 #import "ZSAPIProxy.h"
 #import "UserCacheBean.h"
 #import "ZSConfig.h"
+
+#define topics_url  @"/lxn/subject/mobile/v1/list/subject/info"
+
 typedef void(^responseModel)(id response);
 @interface BaseApi : NSObject
 + (void)requestAccountInfoModel:(responseModel ) response;

@@ -21,15 +21,22 @@
 #import "CustomFootView.h"
 #import "NextDayListController.h"
 #import "StoreGoodsController.h"
+#import "HomeHeadView.h"
+#import "HomeSubHeadView.h"
+#import "NextCollectionViewCell.h"
+#import "BusinessCooperationController.h"
+#import "RechargeViewController.h"
+#import "TopicsController.h"
 
 
-@interface PresaleHomeController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
+@interface PresaleHomeController ()<UICollectionViewDelegate, UICollectionViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
-@property(nonatomic,strong)UITableView *tableview;
+@property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *bannerArr;
 @property(nonatomic,strong)HomeLocationView *locView;
 @end
-
+static NSString *cellId = @"cellId";
 @implementation PresaleHomeController
 -(HomeLocationView *)locView{
     if (!_locView) {
@@ -48,16 +55,18 @@
     }
     return _headImage;
 }
--(UITableView *)tableview{
-    if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight]+1, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-45) style:UITableViewStylePlain];
-        _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
-        _tableview.separatorColor = [UIColor whiteColor];
-        _tableview.delegate = self;
-        _tableview.dataSource = self;
-        
+-(UICollectionView *)collectionView{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.itemSize = CGSizeMake(165, 165);
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT*10) collectionViewLayout:layout];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        [_collectionView registerClass:[NextCollectionViewCell class] forCellWithReuseIdentifier:cellId];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     }
-    return _tableview;
+    return _collectionView;
 }
 
 -(void)getPresaleList{
@@ -80,29 +89,30 @@
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
            
-            [weakself.tableview reloadData];
+            [weakself.collectionView reloadData];
         }
     }];
 }
 
--(void)getBanner:(NSString*)type{
-    GroupModelReq *req = [[GroupModelReq alloc]init];
+
+-(void)requestBanner{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
+    req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.productBannerPosition = @"index";
+    req.subjectPosition = @"index_banner";
     __weak typeof(self)weakself = self;
-    [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
-        if (response!= nil) {
-            
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
-            [weakself getDefautWeight];
-            [weakself.tableview reloadData];
+    [[NextServiceApi share]requestBannerWithParam:req response:^(id response) {
+        if (response) {
+            [weakself.bannerArr removeAllObjects];
+            [weakself.bannerArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
         }
+        [weakself getDefautWeight];
     }];
 }
 -(void)getDefautWeight{
@@ -132,6 +142,27 @@
         if (response) {
             [UserCacheBean share].userInfo.productDefaultDes = response[@"data"][@"businessParamValue"];
         }
+        [self reloadTuiJian];
+    }];
+}
+-(void)reloadTuiJian{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.subjectId = @"1014434389965922306";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestHomeLoadWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
+        
     }];
 }
 -(void)getErp{
@@ -169,7 +200,7 @@
                 [weakself.locView.locBtn setTitle:response[@"data"][@"storeName"] forState:UIControlStateNormal];
             }
         }
-        [self getBanner:@"index"];
+        [self requestBanner];
     }];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -183,17 +214,12 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
-//     [self adjustNavigationUI:self.navigationController];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@"11"]];
     self.navigationController.navigationBar.hidden = YES;
     [self getErp];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-//
-//    [self adjustNavigationUI:self.navigationController];
-   
   self.navigationController.navigationBar.hidden = NO;
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -204,20 +230,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      _dataArr = [NSMutableArray array];
+    _bannerArr = [NSMutableArray array];
     if (@available(iOS 11.0, *)) {
-        _tableview.contentInsetAdjustmentBehavior = NO;
-        self.tableview.frame= CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-1-[self tabBarHeight]);
+        _collectionView.contentInsetAdjustmentBehavior = NO;
+        self.collectionView.frame= CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-1-[self tabBarHeight]);
     } else {
         
-        self.tableview.frame = CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-1);
+        self.collectionView.frame = CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-[self tabBarHeight]-1);
         self.navigationController.navigationBar.translucent = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    [self.view addSubview:self.tableview];
+    [self.view addSubview:self.collectionView];
     [self.view addSubview:self.locView];
-   
-    CustomFootView *footView = [[CustomFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-    self.tableview.tableFooterView = footView;
     [ZSNotification addLocationResultNotification:self action:@selector(location:)];
     [ZSNotification addRefreshPushResultNotification:self action:@selector(refreshPushResult:)];
 }
@@ -240,47 +264,7 @@
     [self getErp];
     
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _dataArr.count;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 277*SCREENWIDTH/375+50+10;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identify = @"HomeTableViewCell";
-    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
-    if (!cell) {
-        cell = [[HomeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    GroupBannerModel *model = _dataArr[indexPath.row];
-    [cell setModel:model];
-  
 
-    return cell;
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row ==0) {
-        PresaleSController *detailVC = [[PresaleSController alloc]init];
-        detailVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:detailVC animated:YES];
-    }else if (indexPath.row ==1){
-        NextDayListController *nextVC= [[NextDayListController alloc]init];
-        nextVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row ==2){
-        StoreGoodsController *storeVC= [[StoreGoodsController alloc]init];
-        storeVC.hidesBottomBarWhenPushed = YES;
-        [storeVC setType:@"home"];
-        [self.navigationController pushViewController:storeVC animated:YES];
-        
-    }
-   
-}
 
 -(void)didClickCancel:(PYSearchViewController *)searchViewController{
     [self.navigationController popViewControllerAnimated:YES];
@@ -364,19 +348,124 @@
         cityViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cityViewController animated:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    return self.dataArr.count;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+        SubjectCategoryModel *model = self.dataArr[section];
+        return model.subjectCategoryProductList.count;
+}
+//设置每个item的UIEdgeInsets
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 15, 0, 15);
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//设置每个item水平间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return -10;
 }
-*/
+
+//设置每个item的尺寸
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(165, 260);
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+       NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+       cell.addBtn.hidden = NO;
+        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [cell setModel:res];
+    [cell setAddBlock:^{
+        
+    }];
+    return cell;
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if (section ==0) {
+        return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
+    }
+    return CGSizeMake(SCREENWIDTH, 120*SCREENWIDTH/375+50);
+}
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
+    
+    
+    for (UIView *view in headerView.subviews) {
+        if ([view isKindOfClass:[UIView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    SubjectCategoryModel *model = self.dataArr[indexPath.section];
+    if (indexPath.section ==0) {
+        HomeHeadView* validView = [[HomeHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160)];
+        NSMutableArray*arr = [[NSMutableArray alloc]init];
+        for (SubjectModel*model in self.bannerArr) {
+            if (model.subjectTopImagePath) {
+                [arr addObject:model.subjectTopImagePath];
+            }
+        }
+        [validView.cycleScroll setImageUrlGroups:arr];
+        [validView setModel:model];
+        [headerView addSubview:validView];
+        __weak typeof(self)weakself = self;
+        [validView setSelected:^(NSInteger index) {
+            if (index ==0) {
+                PresaleSController*VC = [[PresaleSController alloc]init];
+                VC.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:VC animated:YES];
+            }else if (index ==1){
+                BusinessCooperationController*VC = [[BusinessCooperationController alloc]init];
+                VC.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:VC animated:YES];
+            }else if (index ==2){
+                RechargeViewController*VC = [[RechargeViewController alloc]init];
+                VC.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:VC animated:YES];
+            }else if (index ==3){
+                
+            }
+            
+        }];
+        [validView setImageBlock:^(NSInteger index) {
+            TopicsController *vc = [[TopicsController alloc]init];
+            SubjectModel*model = weakself.bannerArr[index];
+            [vc setSubjectId:model.subjectId];
+            vc.hidesBottomBarWhenPushed = YES;
+            [weakself.navigationController pushViewController:vc animated:YES];
+        }];
+    }else{
+        HomeSubHeadView*subView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 120*SCREENWIDTH/375+50)];
+        [subView setModel:model];
+        [headerView addSubview:subView];
+        
+    }
+  
+    return headerView;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+        detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
+        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+        StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [vc setProductID:res.productId];
+        vc.hidesBottomBarWhenPushed = YES;
+       [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+
+
+
+
 
 @end

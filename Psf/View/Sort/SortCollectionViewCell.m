@@ -20,8 +20,8 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc]init];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
-        _nameLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
+        _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+        _nameLabel.textColor = DSColorFromHex(0x474747);
         _nameLabel.text = @"";
     }
     return _nameLabel;
@@ -39,12 +39,12 @@
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self);
-        make.width.height.mas_equalTo(imageHeight);
+//        make.width.height.mas_equalTo(imageHeight);
         
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.headImage.mas_left);
-        make.top.equalTo(self.headImage.mas_bottom);
+        make.centerX.equalTo(self.headImage);
+        make.top.equalTo(self.headImage.mas_bottom).mas_equalTo(14);
         make.width.mas_equalTo(imageHeight);
         
     }];

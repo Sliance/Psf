@@ -75,9 +75,9 @@ static NSString *cellId = @"SortCollectionViewCell";
     self = [super initWithFrame:frame];
     if (self) {
         [self initial];
-        [self addSubview:self.supportBtn];
-        [self addSubview:self.returnBtn];
-        [self addSubview:self.sendBtn];
+//        [self addSubview:self.supportBtn];
+//        [self addSubview:self.returnBtn];
+//        [self addSubview:self.sendBtn];
         [self addSubview:self.collectionView];
         self.userInteractionEnabled = YES;
        
@@ -370,7 +370,7 @@ static NSString *cellId = @"SortCollectionViewCell";
     self.supportBtn.frame = CGRectMake(0, _imageSize.height+10, SCREENWIDTH/3, 15);
     self.returnBtn.frame = CGRectMake(SCREENWIDTH/3, _imageSize.height+10, SCREENWIDTH/3, 15);
     self.sendBtn.frame = CGRectMake(SCREENWIDTH/3*2, _imageSize.height+10, SCREENWIDTH/3, 15);
-    self.collectionView.frame = CGRectMake(0, self.sendBtn.ctBottom+10, SCREENWIDTH, 120);
+    self.collectionView.frame = CGRectMake(0, _imageSize.height+30, SCREENWIDTH, 120);
 }
 - (void)setUpScrollViewContent{
     [self setUpScrollView];
@@ -430,7 +430,7 @@ static NSString *cellId = @"SortCollectionViewCell";
     }
     
     // 默认从序号1位置放第1页 ，序号0位置位置放第4页
-    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.frame.size.width,0,self.scrollView.frame.size.width,self.scrollView.frame.size.height) animated:NO];
+    [self.scrollView scrollRectToVisible:CGRectMake(self.scrollView.frame.size.width,0,self.scrollView.frame.size.width,_imageSize.height) animated:NO];
     
     // 添加手势，来处理点击事件
 //    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
@@ -483,7 +483,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    _scrollView.frame = CGRectMake(0, 0, self.width, self.height);
+    _scrollView.frame = CGRectMake(0, 0, SCREENWIDTH, _imageSize.height);
     
     
     CGSize size = [_pageControl sizeForNumberOfPages:self.imagesGroup.count];
@@ -503,7 +503,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 #pragma mark - UIScrollView
 -(UIScrollView*)scrollView{
     if (!_scrollView) {
-        _scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, _imageSize.height)];
         _scrollView.backgroundColor = [UIColor clearColor];
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -602,7 +602,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (_index ==0) {
-        return 5;
+        return 4;
     }else if (_index ==1){
         return 0;
     }
@@ -611,7 +611,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 5, 0, 0);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
     
 }
 
@@ -623,22 +623,16 @@ static NSString *cellId = @"SortCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(70, 100);
+    return CGSizeMake(SCREENWIDTH/4, 100);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SortCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    NSArray *imageArr = @[@"presell_next",@"group_next",@"pay_next",@"invite_next",@"cooperat_icon"];
-    NSArray *Arr = @[@"预售",@"团购",@"充值",@"邀请好友",@"企业合作"];
-    
-    if (_index ==0) {
+    NSArray *imageArr = @[@"hot_home",@"group_next",@"pay_next",@"qian_home"];
+    NSArray *Arr = @[@"预售",@"企业购",@"充值",@"签到"];
         collectcell.headImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
         collectcell.nameLabel.text = Arr[indexPath.row];
-    }else{
-        StairCategoryRes *model = _dataArr[indexPath.row];
-        [collectcell setModel:model];
-    }
-    [collectcell setImageHeight:50];
+    [collectcell setImageHeight:70];
     collectcell.nameLabel.font = [UIFont systemFontOfSize:12];
     return collectcell;
 }

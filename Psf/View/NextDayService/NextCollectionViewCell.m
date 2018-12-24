@@ -13,7 +13,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -27,7 +27,7 @@
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _nameLabel.textColor = [UIColor colorWithRed:70.0001/255.0 green:70.0001/255.0 blue:70.0001/255.0 alpha:1];
-        _nameLabel.text = @"澳洲牛腱子";
+        _nameLabel.text = @"";
     }
     return _nameLabel;
 }
@@ -37,7 +37,7 @@
         _contentLabel.textAlignment = NSTextAlignmentLeft;
         _contentLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _contentLabel.textColor = [UIColor colorWithRed:119.001/255.0 green:119.001/255.0 blue:119.001/255.0 alpha:1];
-        _contentLabel.text = @"澳大利亚牧场直供，精选优质";
+        _contentLabel.text = @"";
     }
     return _contentLabel;
 }
@@ -57,7 +57,7 @@
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         _priceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:15];
         _priceLabel.textColor = [UIColor colorWithRed:255/255.0 green:75.9977/255.0 blue:77.0024/255.0 alpha:1];
-        _priceLabel.text = @"￥99.8";
+        _priceLabel.text = @"";
     }
     return _priceLabel;
 }
@@ -67,7 +67,7 @@
         _weightLabel.textAlignment = NSTextAlignmentLeft;
         _weightLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
         _weightLabel.textColor = [UIColor colorWithRed:255/255.0 green:75.9977/255.0 blue:77.0024/255.0 alpha:1];
-        _weightLabel.text = @"/250g";
+        _weightLabel.text = @"";
     }
     return _weightLabel;
 }
@@ -81,7 +81,7 @@
         [_raiseLabel.layer setMasksToBounds:YES];
         _raiseLabel.textColor = [UIColor whiteColor];
         _raiseLabel.hidden = YES;
-        _raiseLabel.text = @"加价购";
+        _raiseLabel.text = @"";
     }
     return _raiseLabel;
 }
@@ -95,9 +95,18 @@
         [_quickLabel.layer setCornerRadius:1];
         [_quickLabel.layer setMasksToBounds:YES];
         _quickLabel.textColor = [UIColor whiteColor];
-        _quickLabel.text = @"爆款";
+        _quickLabel.text = @"";
     }
     return _quickLabel;
+}
+-(UIButton *)addBtn{
+    if (!_addBtn) {
+        _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addBtn setImage:[UIImage imageNamed:@"add_next"] forState:UIControlStateNormal];
+        [_addBtn addTarget:self action:@selector(pressAdd) forControlEvents:UIControlEventTouchUpInside];
+        _addBtn.hidden = YES;
+    }
+    return _addBtn;
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -115,6 +124,7 @@
     [self addSubview:self.raiseLabel];
     [self addSubview:self.quickLabel];
     [self addSubview:self.presaleLabel];
+    [self addSubview:self.addBtn];
     self.backgroundColor = [UIColor whiteColor];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
@@ -161,6 +171,10 @@
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(18);
     }];
+    [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+    }];
 }
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
@@ -168,8 +182,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
-    self.weightLabel.text = model.productUnit;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+//    self.weightLabel.text = model.productUnit;
 }
 -(void)setGroupmodel:(GroupListRes *)groupmodel{
     _groupmodel = groupmodel;
@@ -186,5 +200,8 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.grouponPrice];
     }
     self.weightLabel.text = groupmodel.productUnit;
+}
+-(void)pressAdd{
+    self.addBlock();
 }
 @end

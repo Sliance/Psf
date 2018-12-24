@@ -14,6 +14,7 @@
 #import "SubjectCategoryModel.h"
 #import "SubjectModel.h"
 #import "FillEvaluateReq.h"
+#import "TopicsListRes.h"
 
 
 @interface NextServiceApi : BaseApi
@@ -56,5 +57,8 @@
 
 ///获取默认称重
 - (void)getDefaultWeightWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///专题
+- (void)getTopicListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
 
 @end

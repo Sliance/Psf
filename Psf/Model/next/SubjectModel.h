@@ -10,7 +10,7 @@
 
 @interface SubjectModel : NSObject
 ///
-@property(nonatomic,assign)NSInteger subjectId;
+@property(nonatomic,copy)NSString* subjectId;
 ///
 @property(nonatomic,copy)NSString *subjectImagePath;
 ///

@@ -30,5 +30,9 @@
 @property(nonatomic,strong)UILabel *quickLabel;
 @property(nonatomic,strong)StairCategoryListRes *model;
 @property(nonatomic,strong)GroupListRes *groupmodel;
+@property(nonatomic,strong)UIButton*addBtn;
+
+@property(nonatomic,copy)void(^addBlock)(void);
+
 
 @end

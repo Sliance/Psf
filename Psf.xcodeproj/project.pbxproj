@@ -360,6 +360,11 @@
 		88D9285221107A440001B2E3 /* ResetPassSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285021107A440001B2E3 /* ResetPassSecondController.m */; };
 		88D9285521107A680001B2E3 /* SettingPassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D9285421107A680001B2E3 /* SettingPassWordController.m */; };
 		890D55A5217EF1CB009B33B2 /* IntegralRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */; };
+		8975944421D0CA0200E6030F /* TopicsListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944321D0CA0200E6030F /* TopicsListRes.m */; };
+		8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944721D0DA0800E6030F /* TopicTopCell.m */; };
+		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
+		89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */; };
+		89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07621CB9E7200FEE6AD /* TopicsController.m */; };
 		89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EE17F021787772005AFE05 /* AlipaySDK.framework */; };
 		89EE17F321787772005AFE05 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EE17F121787772005AFE05 /* AlipaySDK.bundle */; };
 		F12F7D8E4C5A37613F4C2609 /* libPods-Psf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */; };
@@ -1078,6 +1083,16 @@
 		88D9285421107A680001B2E3 /* SettingPassWordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPassWordController.m; sourceTree = "<group>"; };
 		890D55A3217EF1CB009B33B2 /* IntegralRulesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralRulesController.h; sourceTree = "<group>"; };
 		890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegralRulesController.m; sourceTree = "<group>"; };
+		8975944221D0CA0200E6030F /* TopicsListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicsListRes.h; sourceTree = "<group>"; };
+		8975944321D0CA0200E6030F /* TopicsListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsListRes.m; sourceTree = "<group>"; };
+		8975944621D0DA0800E6030F /* TopicTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicTopCell.h; sourceTree = "<group>"; };
+		8975944721D0DA0800E6030F /* TopicTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicTopCell.m; sourceTree = "<group>"; };
+		89C3A06E21CB6C4300FEE6AD /* HomeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeadView.h; sourceTree = "<group>"; };
+		89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeadView.m; sourceTree = "<group>"; };
+		89C3A07121CB853900FEE6AD /* HomeSubHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSubHeadView.h; sourceTree = "<group>"; };
+		89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSubHeadView.m; sourceTree = "<group>"; };
+		89C3A07521CB9E7200FEE6AD /* TopicsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicsController.h; sourceTree = "<group>"; };
+		89C3A07621CB9E7200FEE6AD /* TopicsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsController.m; sourceTree = "<group>"; };
 		89EE17F021787772005AFE05 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		89EE17F121787772005AFE05 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2260,6 +2275,8 @@
 				888E717820E0C49100BFBAFF /* MenuInfo.m */,
 				88635DE220FDE6130012AE77 /* SubjectModel.h */,
 				88635DE320FDE6130012AE77 /* SubjectModel.m */,
+				8975944221D0CA0200E6030F /* TopicsListRes.h */,
+				8975944321D0CA0200E6030F /* TopicsListRes.m */,
 			);
 			path = next;
 			sourceTree = "<group>";
@@ -2490,6 +2507,8 @@
 		88D8939820D26CF0007E3C41 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				89C3A07421CB9E5500FEE6AD /* Topics */,
+				89C3A06D21CB6C2300FEE6AD /* View */,
 				88D0F5B32159D251008394E3 /* StoreGoods */,
 				886DB905212E529300CF8C64 /* BusinessCooperation */,
 				88D9281C211030790001B2E3 /* PreSale */,
@@ -2585,6 +2604,36 @@
 				88671893212D08B800D861AD /* BindMobileController.h */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		8975944521D0D9DC00E6030F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8975944621D0DA0800E6030F /* TopicTopCell.h */,
+				8975944721D0DA0800E6030F /* TopicTopCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89C3A06D21CB6C2300FEE6AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89C3A06E21CB6C4300FEE6AD /* HomeHeadView.h */,
+				89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */,
+				89C3A07121CB853900FEE6AD /* HomeSubHeadView.h */,
+				89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89C3A07421CB9E5500FEE6AD /* Topics */ = {
+			isa = PBXGroup;
+			children = (
+				8975944521D0D9DC00E6030F /* View */,
+				89C3A07521CB9E7200FEE6AD /* TopicsController.h */,
+				89C3A07621CB9E7200FEE6AD /* TopicsController.m */,
+			);
+			path = Topics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2831,7 +2880,9 @@
 				8871B85520DB424A00DAA5D6 /* UserCurrentLocationManager.m in Sources */,
 				8850C0F12105882200BF8F88 /* StoreAddressCell.m in Sources */,
 				8850E57C214B868F00825E93 /* ShopAlertView.m in Sources */,
+				89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */,
 				886A9ED220ECD52E000503D2 /* MessageViewController.m in Sources */,
+				8975944421D0CA0200E6030F /* TopicsListRes.m in Sources */,
 				8871B8CA20DBB29200DAA5D6 /* JFCityHeaderView.m in Sources */,
 				8871B86220DB441000DAA5D6 /* ImageUtils.m in Sources */,
 				88935A79213CE36800C0386A /* CustomFootView.m in Sources */,
@@ -2882,6 +2933,8 @@
 				8871B89720DB639C00DAA5D6 /* BaseApi.m in Sources */,
 				88534C1D20E5C76700D6F43C /* GoodHeadView.m in Sources */,
 				88566E472112C35400B6C38D /* TZImageCropManager.m in Sources */,
+				8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */,
+				89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */,
 				8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */,
 				88534C2020E5D2E900D6F43C /* EvaluateListHeadView.m in Sources */,
 				8871B8B320DB702700DAA5D6 /* PYSearchViewController.m in Sources */,
@@ -2937,6 +2990,7 @@
 				88566E1B2112AD6600B6C38D /* NSString+RTStyle.m in Sources */,
 				88534C3920E6401600D6F43C /* FillOrderTableViewCell.m in Sources */,
 				8860DA5920D9EB97009E53B0 /* SortCollectionViewCell.m in Sources */,
+				89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */,
 				8868036820F87AB000BFC1BC /* GroupModelReq.m in Sources */,
 				8860DA7220DA24A7009E53B0 /* MineTableViewCell.m in Sources */,
 				88600BD220D890B80098CF10 /* ZSScrollViewCell.m in Sources */,
