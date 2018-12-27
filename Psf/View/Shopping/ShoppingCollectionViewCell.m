@@ -294,7 +294,7 @@
             NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
             self.priceLabel.text = productPrice;
         }else{
-            self.priceLabel.text = model.productStorePrice;
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
         }
             
     }

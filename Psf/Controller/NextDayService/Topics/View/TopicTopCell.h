@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel*priceLabel;
 @property(nonatomic,strong)UIButton*goBtn;
 @property(nonatomic,strong)StairCategoryListRes *model;
-
+@property(nonatomic,copy)void (^goBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

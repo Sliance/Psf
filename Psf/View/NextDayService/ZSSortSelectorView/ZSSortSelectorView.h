@@ -21,4 +21,6 @@
 
 @property (nonatomic , strong) UIButton *rightBtn;
 @property (nonatomic , assign) NSInteger currentPage;
+@property (nonatomic , assign)BOOL isShow;
+
 @end

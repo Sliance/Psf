@@ -49,6 +49,7 @@
         [_goBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _goBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_goBtn.layer setCornerRadius:2];
+        [_goBtn addTarget:self action:@selector(pressGo) forControlEvents:UIControlEventTouchUpInside];
     }
     return _goBtn;
 }
@@ -89,12 +90,23 @@
     }
     return self;
 }
-
+-(void)pressGo{
+    self.goBlock();
+}
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
     NSString*url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.subjectProductImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.productName;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+    if (model.productPrice) {
+        if (model.productStyle ==1) {
+            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+            self.priceLabel.text = productPrice;
+        }else{
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        }
+        
+    }
 }
 @end

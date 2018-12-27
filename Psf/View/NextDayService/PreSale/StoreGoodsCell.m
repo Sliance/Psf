@@ -30,7 +30,7 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"niu"];
+        _headImage.image = [UIImage imageNamed:@""];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -44,7 +44,7 @@
         _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textColor = DSColorFromHex(0x464646);
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.text = @"山东烟台红富士苹果";
+        _titleLabel.text = @"";
     }
     return _titleLabel;
 }
@@ -54,7 +54,7 @@
         _detailLabel.font = [UIFont systemFontOfSize:12];
         _detailLabel.textColor = DSColorFromHex(0x777777);
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        _detailLabel.text = @"酥脆多汁，香甜可口";
+        _detailLabel.text = @"";
     }
     return _detailLabel;
 }
@@ -64,7 +64,7 @@
         _priceLabel.font = [UIFont systemFontOfSize:15];
         _priceLabel.textColor = DSColorFromHex(0xFF4C4D);
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        _priceLabel.text = @"￥12/";
+        _priceLabel.text = @"";
     }
     return _priceLabel;
 }
@@ -74,7 +74,7 @@
         _weightLabel.font = [UIFont systemFontOfSize:12];
         _weightLabel.textColor = DSColorFromHex(0xFF4C4D);
         _weightLabel.textAlignment = NSTextAlignmentLeft;
-        _weightLabel.text = @"250g";
+        _weightLabel.text = @"";
     }
     return _weightLabel;
 }
@@ -146,7 +146,7 @@
     }
     self.detailLabel.text = model.productTitle;
     
-    self.weightLabel.text = model.productUnit;
+//    self.weightLabel.text = model.productUnit;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     

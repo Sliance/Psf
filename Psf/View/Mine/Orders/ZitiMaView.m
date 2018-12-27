@@ -110,10 +110,11 @@
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
     req.saleOrderId = _saleOrderId;
+    __weak typeof(self)weakself = self;
     [[OrderServiceApi share]getZiTiWithParam:req response:^(id response) {
         if (response) {
-            NSString *url = [NSString stringWithFormat:@"%@%@",DPHOST,response[@"filePath"]];
-            [self.codeimage sd_setImageWithURL:[NSURL URLWithString:url]];
+            NSString*str = response[@"content"];
+             weakself.codeimage.image = [CreatQRCodeAndBarCodeFromLeon qrImageWithString:str size:CGSizeMake(SCREENWIDTH-30, 80) color:[UIColor blackColor] backGroundColor:[UIColor whiteColor]];
         }
     }];
 }

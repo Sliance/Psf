@@ -14,6 +14,7 @@
     return @{
              @"subjectTopProductList" : @"StairCategoryListRes",
              @"subjectCustomCategoryList":@"SubjectCategoryModel",
+             @"subjectCategoryList":@"SubjectCategoryModel",
              };
 }
 @end

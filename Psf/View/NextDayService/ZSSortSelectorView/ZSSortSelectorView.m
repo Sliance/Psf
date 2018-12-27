@@ -59,12 +59,14 @@
     _mainView.contentSize = CGSizeMake(_dataArr.count*100+100, _height);
     for (int i=0; i<_dataArr.count; i++) {
         StairCategoryRes *model = dataArr[i];
-        ZSScrollButton *btn = [[ZSScrollButton alloc]initWithFrame:CGRectMake(i*100, 0, 100, _height) miantitle:model.productCategoryName count:[NSString stringWithFormat:@"33"]];
+        ZSScrollButton *btn = [[ZSScrollButton alloc]initWithFrame:CGRectMake(i*80, 0, 80, _height) miantitle:model.productCategoryName count:[NSString stringWithFormat:@"33"]];
+        [btn setIsShow:_isShow];
         btn.tag = i+33;
         if (!i) {
             [btn changeStatus:YES];
         }
         btn.delegate = self;
+        
         [_buttonArr addObject:btn];
         [_mainView addSubview:btn];
     }
@@ -157,5 +159,7 @@
     }
     
 }
-
+-(void)setIsShow:(BOOL)isShow{
+    _isShow = isShow;
+}
 @end

@@ -157,7 +157,7 @@
             NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
             self.payableLabel.text = productPrice;
         }else{
-            self.payableLabel.text = model.productStorePrice;
+            self.payableLabel.text =  [NSString stringWithFormat:@"￥%@",model.productStorePrice];
         }
         
     }
@@ -179,7 +179,16 @@
     
     double price = [res.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
     NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-    self.payableLabel.text = productPrice;
+    if (res.productPrice) {
+        if (res.productStyle ==1) {
+            double price = [res.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+            self.payableLabel.text = productPrice;
+        }else{
+            self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.productPrice];
+        }
+        
+    }
 
     self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.saleOrderProductQty];
 }

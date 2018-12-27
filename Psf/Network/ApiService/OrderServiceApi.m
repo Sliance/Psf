@@ -314,7 +314,7 @@
 }
 ///自提码
 - (void)getZiTiWithParam:(UnifiedOrderReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v1/user/qrcode";
+    NSString *url = @"/lxn/sale/order/mobile/v2/user/qrcode";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

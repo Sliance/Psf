@@ -21,4 +21,7 @@
 - (void)changeStatus:(BOOL)sender;
 
 @property (nonatomic , weak) id<ZSScrollButtonDelegate>delegate;
+
+@property (nonatomic , assign)BOOL isShow;
+
 @end

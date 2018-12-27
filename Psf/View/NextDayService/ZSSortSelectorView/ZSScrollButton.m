@@ -7,11 +7,12 @@
 //
 
 #import "ZSScrollButton.h"
+
 @interface ZSScrollButton()
 {
     CGFloat _width;
     CGFloat _height;
-    BOOL _isShow;
+   
 }
 
 @property (nonatomic , strong) UILabel *titleLbl;//文本
@@ -47,10 +48,10 @@
 - (void)changeStatus:(BOOL)sender {
     if (sender) {
         self.titleLbl.textColor = DSColorFromHex(0xFF4C4D);
-        self.lineIV.hidden = YES;
+        self.lineIV.hidden = !_isShow;
     }else{
         self.titleLbl.textColor = DSColorFromHex(0x464646);
-        self.lineIV.hidden = YES;
+        self.lineIV.hidden = _isShow;
     }
 }
 
@@ -88,11 +89,14 @@
 
 - (UIImageView *)lineIV {
     if (!_lineIV) {
-        _lineIV = [[UIImageView alloc]initWithFrame:CGRectMake(0, _height-2, _width, 2)];
+        _lineIV = [[UIImageView alloc]initWithFrame:CGRectMake(15, _height-2, _width-30, 2)];
         _lineIV.backgroundColor = [UIColor redColor];
         _lineIV.hidden = YES;
     }
     return _lineIV;
 }
-
+-(void)setIsShow:(BOOL)isShow{
+    _isShow = isShow;
+    _lineIV.hidden = !isShow;
+}
 @end

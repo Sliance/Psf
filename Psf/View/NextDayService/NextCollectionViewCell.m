@@ -182,7 +182,17 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+    
+    if (model.productPrice) {
+        if (model.productStyle ==1) {
+            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+            self.priceLabel.text = productPrice;
+        }else{
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        }
+        
+    }
 //    self.weightLabel.text = model.productUnit;
 }
 -(void)setGroupmodel:(GroupListRes *)groupmodel{

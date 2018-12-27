@@ -27,7 +27,7 @@
 #import "BusinessCooperationController.h"
 #import "RechargeViewController.h"
 #import "TopicsController.h"
-
+#import "ShopServiceApi.h"
 
 @interface PresaleHomeController ()<UICollectionViewDelegate, UICollectionViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -201,6 +201,35 @@ static NSString *cellId = @"cellId";
             }
         }
         [self requestBanner];
+    }];
+}
+-(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.productId =  productId ;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.productSkuId = @"";
+    req.productQuantity = quantity;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        
+        if (response!= nil) {
+            [weakself showInfo:response[@"message"]];
+        }
+        
     }];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -383,8 +412,9 @@ static NSString *cellId = @"cellId";
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
         [cell setModel:res];
+    __weak typeof(self)weakSelf = self;
     [cell setAddBlock:^{
-        
+        [weakSelf addShopCountQuantity:@"1" productId:res.productId];
     }];
     return cell;
 }
@@ -411,7 +441,7 @@ static NSString *cellId = @"cellId";
         NSMutableArray*arr = [[NSMutableArray alloc]init];
         for (SubjectModel*model in self.bannerArr) {
             if (model.subjectTopImagePath) {
-                [arr addObject:model.subjectTopImagePath];
+                [arr addObject:model.subjectImagePath];
             }
         }
         [validView.cycleScroll setImageUrlGroups:arr];
@@ -439,7 +469,7 @@ static NSString *cellId = @"cellId";
         [validView setImageBlock:^(NSInteger index) {
             TopicsController *vc = [[TopicsController alloc]init];
             SubjectModel*model = weakself.bannerArr[index];
-            [vc setSubjectId:model.subjectId];
+            [vc setModel:model];
             vc.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:vc animated:YES];
         }];

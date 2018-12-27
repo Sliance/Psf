@@ -373,7 +373,16 @@
     }
     if([model.productType isEqualToString:@"normal"]){//正常
         [self setCornerLayoutNormal];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        if (model.productPrice) {
+            if (model.productStyle ==1) {
+                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.priceLabel.text = productPrice;
+            }else{
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+            }
+            
+        }
         
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
@@ -390,7 +399,16 @@
     }else if ([model.productType isEqualToString:@"preSale"]){//预售
         
         [self setLauoutPreSale];
-      self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        if (model.productPrice) {
+            if (model.productStyle ==1) {
+                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.priceLabel.text = productPrice;
+            }else{
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+            }
+            
+        }
         self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
         self.priceLabel.font = [UIFont systemFontOfSize:19];
         self.buyerLabel.text = @"已有人购买";
@@ -422,12 +440,21 @@
        [self setCornerLayoutNormal];
     }else if ([model.productType isEqualToString:@"nextDay"]){
         [self setCornerLayoutNormal];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productPrice];
+        if (model.productPrice) {
+            if (model.productStyle ==1) {
+                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.priceLabel.text = productPrice;
+            }else{
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+            }
+            
+        }
         self.nameLabel.text = model.productName;
     }
     
     self.contentLabel.text = model.productTitle;
-    self.weightLabel.text = model.productUnit;
+//    self.weightLabel.text = model.productUnit;
     self.soldLabel.text = [NSString stringWithFormat:@"已售%ld",(long)model.productSaleCount];
     
     

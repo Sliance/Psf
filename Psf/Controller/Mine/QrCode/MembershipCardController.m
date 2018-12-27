@@ -43,7 +43,7 @@
 -(PaymentCardView *)payView{
     if (!_payView) {
         _payView = [[PaymentCardView alloc]init];
-        _payView.frame = CGRectMake(15, 328+[self navHeightWithHeight], SCREENWIDTH-30, 358);
+        _payView.frame = CGRectMake(15, SCREENHEIGHT-100, SCREENWIDTH-30, 358);
         _payView.backgroundColor = [UIColor whiteColor];
         [_payView.layer setCornerRadius:2];
         _payView.userInteractionEnabled = YES;
@@ -57,9 +57,11 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self requestData];
+    [[UIScreen mainScreen] setBrightness:1];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [[UIScreen mainScreen] setBrightness:0.5];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
     if ([self.timer  isValid]) {
@@ -159,7 +161,7 @@
                        options:UIViewAnimationOptionTransitionNone
                     animations:^{
                         self.headView.frame = CGRectMake(15, 10+[self navHeightWithHeight], SCREENWIDTH-30, 308);
-                        self.payView.frame = CGRectMake(15, 328+[self navHeightWithHeight], SCREENWIDTH-30, 358);
+                        self.payView.frame = CGRectMake(15, SCREENHEIGHT-100, SCREENWIDTH-30, 358);
                         self.headView.yinView.hidden = YES;
                     } completion:^(BOOL finished) {
                         
