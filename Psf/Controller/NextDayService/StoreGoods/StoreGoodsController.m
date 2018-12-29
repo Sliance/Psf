@@ -35,6 +35,7 @@
     if (!_selectorView) {
         _selectorView = [[ZSSortSelectorView alloc]initWithFrame:CGRectMake(75,  [self navHeightWithHeight]+45, SCREENWIDTH-75, 40)];
         _selectorView.delegate = self;
+        [_selectorView setIsShow:NO];
     }
     return _selectorView;
 }
@@ -222,11 +223,13 @@
 #pragma mark--SortLeftScrollowDelegate
 -(void)selectedSortIndex:(NSInteger)index{
     StairCategoryRes *model =_sortArr[index];
+    [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self requestGoodList:model.productCategoryId];
     
 }
 -(void)chooseButtonType:(NSInteger)type{
-    self.tableview.contentOffset = CGPointMake(0, type*115*5+type*24);
+//    self.tableview.contentOffset = CGPointMake(0, type*115*5+type*24);
+    [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:type] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self.selShowView setCurrentPage:type];
     self.selShowView.hidden = YES;
     self.selectorView.rightBtn.selected = NO;
@@ -275,16 +278,32 @@
     [cell setModel:res];
     __weak typeof(self)weakself = self;
     [cell setAddBlock:^(StairCategoryListRes *model) {
-        if (model.productStyle==1) {
-            [weakself.storeBuyView setCatemodel:model];
-            weakself.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
-//            weakself.storeBuyView.hidden = NO;
-            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-             model.productPrice = [NSString stringWithFormat:@"%.2f",price];
-             [weakself addShopCount:model Quantity:@"1"];
+        if ([UserCacheBean share].userInfo.token.length>0) {
+            if (model.productStyle==1) {
+                [weakself.storeBuyView setCatemodel:model];
+                weakself.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
+                //            weakself.storeBuyView.hidden = NO;
+                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                model.productPrice = [NSString stringWithFormat:@"%.2f",price];
+                [weakself addShopCount:model Quantity:@"1"];
+            }else{
+                [weakself addShopCount:model Quantity:@"1"];
+            }
         }else{
-            [weakself addShopCount:model Quantity:@"1"];
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                weakself.tabBarController.selectedIndex = 3;
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [weakself presentViewController:alert animated:YES completion:nil];
         }
+        
     }];
     
     return cell;

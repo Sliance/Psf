@@ -25,6 +25,8 @@
 -(UIImageView *)headimage{
     if (!_headimage) {
         _headimage = [[UIImageView alloc]init];
+        [_headimage.layer setMasksToBounds:YES];
+//        [_headimage.layer setCornerRadius:50];
         
     }
     return _headimage;
@@ -45,7 +47,8 @@
         [self addSubview:self.headimage];
         [self addSubview:self.titleLabel];
         [self.headimage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self);
+            make.left.equalTo(self).offset(0);
+            make.right.equalTo(self).offset(-0);
             make.top.equalTo(self).offset(200*SCREENWIDTH/375+110);
             make.height.mas_equalTo(120*SCREENWIDTH/375);
         }];

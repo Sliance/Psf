@@ -48,10 +48,14 @@
 - (void)changeStatus:(BOOL)sender {
     if (sender) {
         self.titleLbl.textColor = DSColorFromHex(0xFF4C4D);
-        self.lineIV.hidden = !_isShow;
+        if (_isShow == NO) {
+           self.lineIV.hidden = !_isShow;
+        }else{
+         self.lineIV.hidden = !_isShow;
+        }
     }else{
         self.titleLbl.textColor = DSColorFromHex(0x464646);
-        self.lineIV.hidden = _isShow;
+        self.lineIV.hidden = !_isShow;
     }
 }
 
@@ -97,6 +101,10 @@
 }
 -(void)setIsShow:(BOOL)isShow{
     _isShow = isShow;
-    _lineIV.hidden = !isShow;
+    if (_isShow ==NO) {
+        _lineIV.hidden = YES;
+    }else{
+    _lineIV.hidden = NO;
+    }
 }
 @end

@@ -414,7 +414,23 @@ static NSString *cellId = @"cellId";
         [cell setModel:res];
     __weak typeof(self)weakSelf = self;
     [cell setAddBlock:^{
-        [weakSelf addShopCountQuantity:@"1" productId:res.productId];
+        if ([UserCacheBean share].userInfo.token.length>0) {
+             [weakSelf addShopCountQuantity:@"1" productId:res.productId];
+        }else{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                           message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                weakSelf.tabBarController.selectedIndex = 3;
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [weakSelf presentViewController:alert animated:YES completion:nil];
+        }
+       
     }];
     return cell;
 }
