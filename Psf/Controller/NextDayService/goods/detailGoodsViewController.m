@@ -567,6 +567,7 @@
         if([response isKindOfClass:[GoodDetailRes class]]){
             weakself.result = response;
             weakself.resmodel = response;
+            
             [weakself.storeBuyView setModel:response];
             NSMutableArray *arr  = [NSMutableArray array];
             for (ImageModel *model in self.result.productImageList) {
@@ -900,7 +901,8 @@
     
     [message setThumbImage:bgimageview.image];
     WXWebpageObject *webpage = [WXWebpageObject object];
-    webpage.webpageUrl = [NSString stringWithFormat:@"http://xcxb.lxnong.com/share/index.html?erpStoreId=%@&erpProductId=%@&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,self.erpProductId,(long)self.result.productId];
+    NSString*url =[NSString stringWithFormat:@"http://xcxb.lxnong.com/share/index.html#/?erpStoreId=%@&erpProductId=%@&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,self.result.erpProductId,(long)self.result.productId];
+    webpage.webpageUrl = url;
 //    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
     message.mediaObject = webpage;
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];

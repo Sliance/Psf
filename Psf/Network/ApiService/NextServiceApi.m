@@ -132,7 +132,7 @@
 ///获取爆款商品列表
 -(void)requestHotListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/product/mobile/v1/hot/list";
+    NSString *url = @"/lxn/member/search/mobile/v1/hot/list";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {

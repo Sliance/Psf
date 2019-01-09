@@ -362,9 +362,11 @@
 		890D55A5217EF1CB009B33B2 /* IntegralRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */; };
 		8975944421D0CA0200E6030F /* TopicsListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944321D0CA0200E6030F /* TopicsListRes.m */; };
 		8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944721D0DA0800E6030F /* TopicTopCell.m */; };
+		8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */; };
 		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
 		89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */; };
 		89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07621CB9E7200FEE6AD /* TopicsController.m */; };
+		89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2E4A021D78D6D0012A249 /* SignInController.m */; };
 		89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EE17F021787772005AFE05 /* AlipaySDK.framework */; };
 		89EE17F321787772005AFE05 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EE17F121787772005AFE05 /* AlipaySDK.bundle */; };
 		F12F7D8E4C5A37613F4C2609 /* libPods-Psf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */; };
@@ -1087,12 +1089,16 @@
 		8975944321D0CA0200E6030F /* TopicsListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsListRes.m; sourceTree = "<group>"; };
 		8975944621D0DA0800E6030F /* TopicTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicTopCell.h; sourceTree = "<group>"; };
 		8975944721D0DA0800E6030F /* TopicTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicTopCell.m; sourceTree = "<group>"; };
+		8991D3C821E5C8D3001B6A09 /* OrderRuleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRuleController.h; sourceTree = "<group>"; };
+		8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRuleController.m; sourceTree = "<group>"; };
 		89C3A06E21CB6C4300FEE6AD /* HomeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeadView.h; sourceTree = "<group>"; };
 		89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeadView.m; sourceTree = "<group>"; };
 		89C3A07121CB853900FEE6AD /* HomeSubHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSubHeadView.h; sourceTree = "<group>"; };
 		89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSubHeadView.m; sourceTree = "<group>"; };
 		89C3A07521CB9E7200FEE6AD /* TopicsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicsController.h; sourceTree = "<group>"; };
 		89C3A07621CB9E7200FEE6AD /* TopicsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsController.m; sourceTree = "<group>"; };
+		89D2E49F21D78D6D0012A249 /* SignInController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInController.h; sourceTree = "<group>"; };
+		89D2E4A021D78D6D0012A249 /* SignInController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInController.m; sourceTree = "<group>"; };
 		89EE17F021787772005AFE05 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		89EE17F121787772005AFE05 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1448,6 +1454,8 @@
 				8857EA9120E3A93400D7E167 /* OrderDetailViewController.m */,
 				886CA0C9215F24F800203C76 /* DetailsRefundController.h */,
 				886CA0CA215F24F800203C76 /* DetailsRefundController.m */,
+				8991D3C821E5C8D3001B6A09 /* OrderRuleController.h */,
+				8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */,
 			);
 			path = orders;
 			sourceTree = "<group>";
@@ -2457,6 +2465,7 @@
 		88D8938F20D26A4F007E3C41 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8991D3C721E5C0FC001B6A09 /* Circle */,
 				88600BDB20D893BE0098CF10 /* Sort */,
 				88D893A320D26DE0007E3C41 /* Mine */,
 				88D8939F20D26D9A007E3C41 /* ShoppingCart */,
@@ -2615,6 +2624,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8991D3C721E5C0FC001B6A09 /* Circle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Circle;
+			sourceTree = "<group>";
+		};
 		89C3A06D21CB6C2300FEE6AD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2632,6 +2648,8 @@
 				8975944521D0D9DC00E6030F /* View */,
 				89C3A07521CB9E7200FEE6AD /* TopicsController.h */,
 				89C3A07621CB9E7200FEE6AD /* TopicsController.m */,
+				89D2E49F21D78D6D0012A249 /* SignInController.h */,
+				89D2E4A021D78D6D0012A249 /* SignInController.m */,
 			);
 			path = Topics;
 			sourceTree = "<group>";
@@ -3009,6 +3027,7 @@
 				8860DA5320D9DF66009E53B0 /* SortBtn.m in Sources */,
 				88535E6C210963C800997B32 /* RechargeRuleModel.m in Sources */,
 				888AC7F320FC854E00587F88 /* GroupBuyView.m in Sources */,
+				8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */,
 				8871B8B220DB702700DAA5D6 /* NSBundle+PYSearchExtension.m in Sources */,
 				88D0F5B9215A00DB008394E3 /* StoreGoodsCell.m in Sources */,
 				88566E222112C31E00B6C38D /* TYUploadImageView.m in Sources */,
@@ -3069,6 +3088,7 @@
 				888D66DB20EA34FE0007D471 /* MineWalletViewController.m in Sources */,
 				88503630213E549000C85389 /* DPSwizzledMethod.m in Sources */,
 				8871B8CE20DBB29200DAA5D6 /* JFButton.m in Sources */,
+				89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */,
 				88566E862114035600B6C38D /* DatePickerTool.m in Sources */,
 				888E719020E0CAA300BFBAFF /* VTMenuBar.m in Sources */,
 				88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */,

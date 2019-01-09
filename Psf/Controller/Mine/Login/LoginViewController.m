@@ -32,6 +32,9 @@
 
 @property(nonatomic,strong)UILabel* leftLineLabel;
 @property(nonatomic,strong)UILabel *rightlineLabel;
+@property(nonatomic,strong)NSTimer* timer;
+@property(nonatomic,assign)NSInteger count;
+
 @end
 
 @implementation LoginViewController
@@ -84,7 +87,7 @@
 -(UIButton *)sendCodeBtn{
     if (!_sendCodeBtn) {
         _sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        _sendCodeBtn.enabled = NO;
         _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
         [_sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         [_sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -371,9 +374,11 @@
 }
 //
 - (void)textFiledTextChange:(NSNotification *)noti{
-    if (_phoneField.text.length>0) {
+    if (_phoneField.text.length>0&&(self.count==0||self.count<0)) {
+        self.sendCodeBtn.enabled = YES;
         [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
     }else if (_phoneField.text.length==0) {
+        self.sendCodeBtn.enabled = NO;
         [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
     }
@@ -437,11 +442,35 @@
    
 }
 -(void)pressCode:(UIButton*)sender{
+    self.count = 60;
+    self.sendCodeBtn.enabled = NO;
+    // 加1个定时器
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeDown) userInfo: nil repeats:YES];
     [self sendCode];
 }
 -(void)pressFinishBtn:(UIButton*)sender{
     [self goToLogin];
 }
+- (void)timeDown
+{
+    if (self.count != 1){
+        
+        self.count -=1;
+        self.sendCodeBtn.enabled = NO;
+        [self.sendCodeBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        self.sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
+        [self.sendCodeBtn setTitle:[NSString stringWithFormat:@"%ld", (long)self.count] forState:UIControlStateNormal];
+        
+    } else {
+        
+        self.sendCodeBtn.enabled = YES;
+        [self.sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
+        [self.sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+        [self.timer invalidate];
+    }
+    
+}
+
 -(void)pressPassWord{
     PassWordLoginController *passVC = [[PassWordLoginController alloc]init];
     passVC.hidesBottomBarWhenPushed = YES;

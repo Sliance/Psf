@@ -18,6 +18,8 @@
     if (!_webview) {
         _webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _webview.delegate = self;
+        _webview.scrollView.showsHorizontalScrollIndicator = NO;
+        _webview.scrollView.showsVerticalScrollIndicator = NO;
     }
     return _webview;
 }

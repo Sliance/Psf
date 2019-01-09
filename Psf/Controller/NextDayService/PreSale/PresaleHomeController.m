@@ -28,6 +28,7 @@
 #import "RechargeViewController.h"
 #import "TopicsController.h"
 #import "ShopServiceApi.h"
+#import "SignInController.h"
 
 @interface PresaleHomeController ()<UICollectionViewDelegate, UICollectionViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -303,7 +304,7 @@ static NSString *cellId = @"cellId";
 }
 #pragma mark--Action
 -(void)pressSearch:(UIButton*)sender{
-    NSMutableArray *hotSeaches = [NSMutableArray array];
+    
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -317,10 +318,11 @@ static NSString *cellId = @"cellId";
     req.pageSize = @"10";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
+        NSMutableArray *hotSeaches = [[NSMutableArray alloc]init];
         [hotSeaches removeAllObjects];
         for (GoodDetailRes *model in response) {
-            if (model.productName) {
-                [hotSeaches addObject:model.productName];
+            if (model.memberSearchKey) {
+                [hotSeaches addObject:model.memberSearchKey];
             }
         }
         PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"请输入商品名称", @"搜索编程语言") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
@@ -474,11 +476,44 @@ static NSString *cellId = @"cellId";
                 VC.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:VC animated:YES];
             }else if (index ==2){
-                RechargeViewController*VC = [[RechargeViewController alloc]init];
-                VC.hidesBottomBarWhenPushed = YES;
-                [weakself.navigationController pushViewController:VC animated:YES];
-            }else if (index ==3){
                 
+                if ([UserCacheBean share].userInfo.token.length>0) {
+                    RechargeViewController*VC = [[RechargeViewController alloc]init];
+                    VC.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:VC animated:YES];
+                }else{
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                                   message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                        weakself.tabBarController.selectedIndex = 3;
+                    }];
+                    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                        
+                        
+                    }];
+                    [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
+                    [weakself presentViewController:alert animated:YES completion:nil];
+                }
+            }else if (index ==3){
+                if ([UserCacheBean share].userInfo.token.length>0) {
+                    SignInController *signVC = [[SignInController alloc]init];
+                    signVC.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:signVC animated:YES];
+                }else{
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
+                                                                                   message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
+                        weakself.tabBarController.selectedIndex = 3;
+                    }];
+                    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
+                        
+                        
+                    }];
+                    [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
+                    [weakself presentViewController:alert animated:YES completion:nil];
+                }
             }
             
         }];

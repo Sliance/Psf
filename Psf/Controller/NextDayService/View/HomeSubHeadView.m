@@ -13,7 +13,8 @@
 -(UIImageView *)headimage{
     if (!_headimage) {
         _headimage = [[UIImageView alloc]init];
-        
+        [_headimage.layer setCornerRadius:6];
+        [_headimage.layer setMasksToBounds:YES];
     }
     return _headimage;
 }
@@ -32,7 +33,8 @@
         [self addSubview:self.headimage];
         [self addSubview:self.titleLabel];
         [self.headimage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self);
+            make.left.equalTo(self).offset(15);
+            make.right.equalTo(self).offset(-15);
             make.top.equalTo(self).offset(0);
             make.height.mas_equalTo(120*SCREENWIDTH/375);
         }];

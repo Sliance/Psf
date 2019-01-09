@@ -133,9 +133,9 @@
 }
 - (void)setRightButtonWithTitle:(NSString *) title  {
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(didRightClick)];
-    [rightBar setTintColor:[UIColor whiteColor]];
-    [rightBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
-    [rightBar setTitlePositionAdjustment:UIOffsetMake(-10, 0) forBarMetrics:UIBarMetricsDefault];
+    [rightBar setTintColor:DSColorFromHex(0x969696)];
+    [rightBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
+    [rightBar setTitlePositionAdjustment:UIOffsetMake(10, 0) forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setRightBarButtonItem:rightBar];
     [self adjustNavigationUI:self.navigationController];
 }

@@ -172,7 +172,7 @@
         make.height.mas_equalTo(18);
     }];
     [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-15);
+        make.right.equalTo(self.headImage.mas_right);
         make.bottom.equalTo(self.priceLabel.mas_bottom);
     }];
 }

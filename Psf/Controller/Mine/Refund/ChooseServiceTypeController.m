@@ -9,6 +9,7 @@
 #import "ChooseServiceTypeController.h"
 #import "SureOrderTableViewCell.h"
 #import "RefundViewController.h"
+#import "OrderRuleController.h"
 
 @interface ChooseServiceTypeController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -44,6 +45,12 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.view addSubview:self.tableview];
+     [self setRightButtonWithIcon:[UIImage imageNamed:@"jifen_rule"]];
+}
+-(void)didRightClick{
+    OrderRuleController*ruleVC = [[OrderRuleController alloc]init];
+    [ruleVC setType:1];
+    [self.navigationController pushViewController:ruleVC animated:YES];
 }
 -(void)setCarmodel:(CartProductModel *)carmodel{
     _carmodel = carmodel;

@@ -20,6 +20,8 @@
         _bgscrollow = [[UIScrollView alloc]init];
         _bgscrollow.delegate = self;
         _bgscrollow.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        _bgscrollow.showsHorizontalScrollIndicator = NO;
+        _bgscrollow.showsVerticalScrollIndicator = NO;
     }
     return _bgscrollow;
 }

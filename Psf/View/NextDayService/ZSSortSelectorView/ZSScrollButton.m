@@ -49,13 +49,18 @@
     if (sender) {
         self.titleLbl.textColor = DSColorFromHex(0xFF4C4D);
         if (_isShow == NO) {
-           self.lineIV.hidden = !_isShow;
+           self.lineIV.hidden = YES;
         }else{
          self.lineIV.hidden = !_isShow;
         }
     }else{
         self.titleLbl.textColor = DSColorFromHex(0x464646);
-        self.lineIV.hidden = !_isShow;
+        if (_isShow == NO) {
+            self.lineIV.hidden = YES;
+        }else{
+            self.lineIV.hidden = _isShow;
+        }
+        
     }
 }
 
@@ -104,7 +109,7 @@
     if (_isShow ==NO) {
         _lineIV.hidden = YES;
     }else{
-    _lineIV.hidden = NO;
+       _lineIV.hidden = NO;
     }
 }
 @end

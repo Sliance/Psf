@@ -167,7 +167,7 @@
     cell.addBtn.hidden = NO;
     StairCategoryListRes *res;
     if (indexPath.section ==1) {
-       model = self.result.subjectCustomCategoryList[self.chooseIndex];
+       model = self.result.subjectCategoryList[self.chooseIndex];
       res = model.subjectCategoryProductList[indexPath.row];
         [cell setModel:res];
         

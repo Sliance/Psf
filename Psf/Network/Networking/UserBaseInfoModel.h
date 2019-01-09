@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *memberNickName;
 @property(nonatomic,strong)NSString *memberAvatarPath;
 @property(nonatomic,strong)NSString *memberMobile;
+
 @property(nonatomic,strong)NSString *openid;
 ///角色(0.门店管理员，1、仓管、2普通)
 @property(nonatomic,strong)NSString *roleId;

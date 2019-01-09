@@ -13,6 +13,7 @@
 #import "WaitDeliverController.h"
 #import "WaitReceiveController.h"
 #import "WaitEvaluateController.h"
+#import "OrderRuleController.h"
 
 @interface BaseOrdersController ()
 @property (nonatomic, strong)  NSArray *menuList;
@@ -45,6 +46,7 @@
     [self addNotification];
     [self generateTestData];
     [self.magicView reloadData];
+    [self setRightButtonWithIcon:[UIImage imageNamed:@"jifen_rule"]];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,6 +60,11 @@
 -(void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
     [self.magicView reloadDataToPage:selectedIndex];
+}
+-(void)didRightClick{
+    OrderRuleController*ruleVC = [[OrderRuleController alloc]init];
+    [ruleVC setType:0];
+    [self.navigationController pushViewController:ruleVC animated:YES];
 }
 #pragma mark - NSNotification
 - (void)addNotification {
