@@ -27,7 +27,24 @@
 #define DSColorFromHex(rgb)     [UIColor colorWithRed:((float)((rgb & 0xFF0000) >> 16))/255.0 green:((float)((rgb & 0xFF00) >> 8))/255.0 blue:((float)(rgb & 0xFF))/255.0 alpha:1.0]
 #define DSColorAlphaFromHex(rgb,a)     [UIColor colorWithRed:((float)((rgb & 0xFF0000) >> 16))/255.0 green:((float)((rgb & 0xFF00) >> 8))/255.0 blue:((float)(rgb & 0xFF))/255.0 alpha:a]
 #define DSNavi  [UIColor whiteColor] //navigation的颜色
+/**
+ *  自适应大小
+ */
+#define AUTOLAYOUTSIZE(size) (SCREENWIDTH / 375.0 * size)
+/**
+ *  弱引用
+ */
 
+#define WEAKSELF typeof(self) __weak weakSelf = self;
+#define STRONGSELF typeof(self) __strong strongSelf = self;
+
+#define TopStatuHeight        [[UIApplication sharedApplication] statusBarFrame].size.height
+// 适配iPhone x 底栏高度
+ #define TabbarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+// 适配iPhone x 导航高度
+#define NavitionbarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?88:64)
+// 适配iPhone x 导航高度
+#define BottomSafebarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?34:0)
 
 #import "UIView+CTExtensions.h"
 #import <UIImageView+WebCache.h>
@@ -43,4 +60,6 @@
 #import "ZSNotification.h"
 #import <MJRefresh.h>
 #import "DPTextViewVerify.h"
+#import "UILabel+String.h"
+
 #endif /* ZSConfig_h */

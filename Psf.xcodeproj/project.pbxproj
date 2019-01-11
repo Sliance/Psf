@@ -369,6 +369,16 @@
 		89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2E4A021D78D6D0012A249 /* SignInController.m */; };
 		89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EE17F021787772005AFE05 /* AlipaySDK.framework */; };
 		89EE17F321787772005AFE05 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EE17F121787772005AFE05 /* AlipaySDK.bundle */; };
+		89F6E61921E82509009FE14D /* CircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E61421E82509009FE14D /* CircleController.m */; };
+		89F6E62A21E8251E009FE14D /* CircleNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62021E8251E009FE14D /* CircleNavView.m */; };
+		89F6E62B21E8251E009FE14D /* LMHWaterFallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */; };
+		89F6E62C21E8251E009FE14D /* CircleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62421E8251E009FE14D /* CircleListCell.m */; };
+		89F6E62D21E8251E009FE14D /* CircleListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62721E8251E009FE14D /* CircleListRes.m */; };
+		89F6E62E21E8251E009FE14D /* CircleCategaryRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62821E8251E009FE14D /* CircleCategaryRes.m */; };
+		89F6E63121E82817009FE14D /* CircleServiseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62F21E82817009FE14D /* CircleServiseApi.m */; };
+		89F6E63421E82868009FE14D /* HomeReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63221E82868009FE14D /* HomeReq.m */; };
+		89F6E63721E828BE009FE14D /* BaseModelReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63621E828BE009FE14D /* BaseModelReq.m */; };
+		89F6E63B21E82927009FE14D /* UILabel+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63921E82926009FE14D /* UILabel+String.m */; };
 		F12F7D8E4C5A37613F4C2609 /* libPods-Psf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */; };
 /* End PBXBuildFile section */
 
@@ -1101,6 +1111,26 @@
 		89D2E4A021D78D6D0012A249 /* SignInController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInController.m; sourceTree = "<group>"; };
 		89EE17F021787772005AFE05 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		89EE17F121787772005AFE05 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		89F6E61321E82509009FE14D /* CircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleController.h; sourceTree = "<group>"; };
+		89F6E61421E82509009FE14D /* CircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleController.m; sourceTree = "<group>"; };
+		89F6E61F21E8251E009FE14D /* LMHWaterFallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMHWaterFallLayout.h; sourceTree = "<group>"; };
+		89F6E62021E8251E009FE14D /* CircleNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNavView.m; sourceTree = "<group>"; };
+		89F6E62121E8251E009FE14D /* CircleListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListCell.h; sourceTree = "<group>"; };
+		89F6E62221E8251E009FE14D /* CircleNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNavView.h; sourceTree = "<group>"; };
+		89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMHWaterFallLayout.m; sourceTree = "<group>"; };
+		89F6E62421E8251E009FE14D /* CircleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListCell.m; sourceTree = "<group>"; };
+		89F6E62621E8251E009FE14D /* CircleCategaryRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCategaryRes.h; sourceTree = "<group>"; };
+		89F6E62721E8251E009FE14D /* CircleListRes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListRes.m; sourceTree = "<group>"; };
+		89F6E62821E8251E009FE14D /* CircleCategaryRes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCategaryRes.m; sourceTree = "<group>"; };
+		89F6E62921E8251E009FE14D /* CircleListRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListRes.h; sourceTree = "<group>"; };
+		89F6E62F21E82817009FE14D /* CircleServiseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleServiseApi.m; sourceTree = "<group>"; };
+		89F6E63021E82817009FE14D /* CircleServiseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleServiseApi.h; sourceTree = "<group>"; };
+		89F6E63221E82868009FE14D /* HomeReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeReq.m; sourceTree = "<group>"; };
+		89F6E63321E82868009FE14D /* HomeReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeReq.h; sourceTree = "<group>"; };
+		89F6E63521E828BD009FE14D /* BaseModelReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModelReq.h; sourceTree = "<group>"; };
+		89F6E63621E828BE009FE14D /* BaseModelReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModelReq.m; sourceTree = "<group>"; };
+		89F6E63921E82926009FE14D /* UILabel+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+String.m"; sourceTree = "<group>"; };
+		89F6E63A21E82927009FE14D /* UILabel+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+String.h"; sourceTree = "<group>"; };
 		C7DA3AD4FC66101EC2D0EE88 /* libPods-Psf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F701B417A868FA3649622D /* Pods-Psf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psf/Pods-Psf.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1952,6 +1982,7 @@
 		8871B86720DB454800DAA5D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				89F6E63821E82912009FE14D /* UILabel */,
 				8850362B213E546F00C85389 /* UITextField */,
 				888630AB212BA23B00B89080 /* BarCode */,
 				88566E612112C77000B6C38D /* ViewController */,
@@ -1994,6 +2025,8 @@
 			children = (
 				8871B89520DB639C00DAA5D6 /* BaseApi.h */,
 				8871B89620DB639C00DAA5D6 /* BaseApi.m */,
+				89F6E63521E828BD009FE14D /* BaseModelReq.h */,
+				89F6E63621E828BE009FE14D /* BaseModelReq.m */,
 				8871B89B20DB64C400DAA5D6 /* NextServiceApi.h */,
 				8871B89C20DB64C400DAA5D6 /* NextServiceApi.m */,
 				885303C820F4B4D1009807B2 /* ShopServiceApi.h */,
@@ -2010,6 +2043,8 @@
 				8866206A2100892D00C7923D /* MineServiceApi.m */,
 				88828D9121114D6200E366D6 /* LoginServiceApi.h */,
 				88828D9221114D6200E366D6 /* LoginServiceApi.m */,
+				89F6E63021E82817009FE14D /* CircleServiseApi.h */,
+				89F6E62F21E82817009FE14D /* CircleServiseApi.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -2627,6 +2662,10 @@
 		8991D3C721E5C0FC001B6A09 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				89F6E62521E8251E009FE14D /* Model */,
+				89F6E61D21E8251E009FE14D /* View */,
+				89F6E61321E82509009FE14D /* CircleController.h */,
+				89F6E61421E82509009FE14D /* CircleController.m */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
@@ -2652,6 +2691,49 @@
 				89D2E4A021D78D6D0012A249 /* SignInController.m */,
 			);
 			path = Topics;
+			sourceTree = "<group>";
+		};
+		89F6E61D21E8251E009FE14D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89F6E61E21E8251E009FE14D /* Demo */,
+				89F6E61F21E8251E009FE14D /* LMHWaterFallLayout.h */,
+				89F6E62021E8251E009FE14D /* CircleNavView.m */,
+				89F6E62121E8251E009FE14D /* CircleListCell.h */,
+				89F6E62221E8251E009FE14D /* CircleNavView.h */,
+				89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */,
+				89F6E62421E8251E009FE14D /* CircleListCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89F6E61E21E8251E009FE14D /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		89F6E62521E8251E009FE14D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				89F6E62621E8251E009FE14D /* CircleCategaryRes.h */,
+				89F6E62821E8251E009FE14D /* CircleCategaryRes.m */,
+				89F6E62921E8251E009FE14D /* CircleListRes.h */,
+				89F6E62721E8251E009FE14D /* CircleListRes.m */,
+				89F6E63321E82868009FE14D /* HomeReq.h */,
+				89F6E63221E82868009FE14D /* HomeReq.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		89F6E63821E82912009FE14D /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				89F6E63A21E82927009FE14D /* UILabel+String.h */,
+				89F6E63921E82926009FE14D /* UILabel+String.m */,
+			);
+			path = UILabel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2851,6 +2933,7 @@
 				88636D2020E2364B006CE5D8 /* DefaultAddressFootView.m in Sources */,
 				8860DA7820DA5070009E53B0 /* MineFootView.m in Sources */,
 				88600BF620D8D16E0098CF10 /* UIView+ZJFrame.m in Sources */,
+				89F6E63421E82868009FE14D /* HomeReq.m in Sources */,
 				8871B85620DB424A00DAA5D6 /* NSString+Hash.m in Sources */,
 				8871B89320DB4EC800DAA5D6 /* UserDefaultCashe.m in Sources */,
 				885303C720F4B455009807B2 /* EmptyShoppingHeadView.m in Sources */,
@@ -2870,7 +2953,9 @@
 				888D66E520EA3DED0007D471 /* TradingDetailCell.m in Sources */,
 				8863E3622106D26700648841 /* OrderDetailRes.m in Sources */,
 				88D9281B21102E510001B2E3 /* PreSaleListCell.m in Sources */,
+				89F6E62E21E8251E009FE14D /* CircleCategaryRes.m in Sources */,
 				888E715C20E079DD00BFBAFF /* ChooseCityHeadView.m in Sources */,
+				89F6E62C21E8251E009FE14D /* CircleListCell.m in Sources */,
 				888D66DF20EA36540007D471 /* MineWalletCell.m in Sources */,
 				88534C1920E5C67800D6F43C /* GoodEvaluateView.m in Sources */,
 				8868035B20F83C5900BFC1BC /* CouponServiceApi.m in Sources */,
@@ -2908,6 +2993,7 @@
 				888E719D20E0EC8E00BFBAFF /* ChooseAddressViewController.m in Sources */,
 				888B17D7211EF2FA00501322 /* RandomKey.m in Sources */,
 				8871B86120DB441000DAA5D6 /* FilePathManager.m in Sources */,
+				89F6E63721E828BE009FE14D /* BaseModelReq.m in Sources */,
 				88747AE5212AC0B70058ED5B /* PlaceOrderRes.m in Sources */,
 				88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
@@ -2953,14 +3039,17 @@
 				88566E472112C35400B6C38D /* TZImageCropManager.m in Sources */,
 				8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */,
 				89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */,
+				89F6E62B21E8251E009FE14D /* LMHWaterFallLayout.m in Sources */,
 				8854A402210AC2D3002C1395 /* AfterSalesViewController.m in Sources */,
 				88534C2020E5D2E900D6F43C /* EvaluateListHeadView.m in Sources */,
 				8871B8B320DB702700DAA5D6 /* PYSearchViewController.m in Sources */,
 				8871B88320DB484100DAA5D6 /* CLNetworkingManager.m in Sources */,
+				89F6E62A21E8251E009FE14D /* CircleNavView.m in Sources */,
 				88600BF520D8D16E0098CF10 /* ZJContentView.m in Sources */,
 				88534C3C20E6491F00D6F43C /* FillOrderBottomView.m in Sources */,
 				888E719220E0CAA300BFBAFF /* VTContentView.m in Sources */,
 				885F407C20DCCD72009F04D6 /* LikeShopHeadView.m in Sources */,
+				89F6E61921E82509009FE14D /* CircleController.m in Sources */,
 				886427A320F6FA9B006A160E /* AddressServiceApi.m in Sources */,
 				88237994212432F9005BC550 /* PaySuccessController.m in Sources */,
 				8866206821005DC500C7923D /* NSDate+Add.m in Sources */,
@@ -2986,6 +3075,7 @@
 				8850363A213E569E00C85389 /* NSString+Path.m in Sources */,
 				887706D22122D9DF00CD7697 /* PresaleHomeController.m in Sources */,
 				88600BDE20D893DF0098CF10 /* SortViewController.m in Sources */,
+				89F6E62D21E8251E009FE14D /* CircleListRes.m in Sources */,
 				888B17E0211EF3B300501322 /* MD5.m in Sources */,
 				88534C2C20E614ED00D6F43C /* GetCouponsView.m in Sources */,
 				88635DE420FDE6130012AE77 /* SubjectModel.m in Sources */,
@@ -2998,6 +3088,7 @@
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
+				89F6E63121E82817009FE14D /* CircleServiseApi.m in Sources */,
 				88566E022112994600B6C38D /* ChangePasswordController.m in Sources */,
 				88566E432112C35400B6C38D /* TZPhotoPickerController.m in Sources */,
 				88D8939720D26C2F007E3C41 /* PsfTabBarItem.m in Sources */,
@@ -3035,6 +3126,7 @@
 				88566E422112C35400B6C38D /* TZPhotoPreviewCell.m in Sources */,
 				8868036520F85D9400BFC1BC /* GroupListRes.m in Sources */,
 				88484D8620EB5BDA00400D16 /* DetailGroupController.m in Sources */,
+				89F6E63B21E82927009FE14D /* UILabel+String.m in Sources */,
 				88D8939B20D26D3D007E3C41 /* BaseViewController.m in Sources */,
 				88600BFA20D8D16E0098CF10 /* ZJCollectionView.m in Sources */,
 				88534C2920E609BD00D6F43C /* GoodCollectionViewCell.m in Sources */,

@@ -323,7 +323,7 @@
     if (self.presaleTime.length>0) {
         req.time = self.presaleTime;
     }else{
-        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+        NSDate *date = [[[NSDate alloc]init]dateByAddingDays:0];
         NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
         req.time = next;
     }
@@ -342,7 +342,7 @@
             [weakself.timeArr removeAllObjects];
             [weakself.timeArr addObjectsFromArray:response[@"data"]];
             NSString *time = [weakself.timeArr firstObject];
-            NSDate *date = [[[NSDate alloc]init]dateByAddingDays:1];
+            NSDate *date = [[[NSDate alloc]init]dateByAddingDays:0];
             NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
             NSArray *arr = [time componentsSeparatedByString:@"-"];
             NSString *end = [NSString stringWithFormat:@"%@ %@",next,arr[1]];

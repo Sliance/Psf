@@ -206,7 +206,7 @@
         now = [NSDate dateWithString:_presaleTime format:@"yyyy-MM-dd"];
         
     }else{
-        now = [[[NSDate alloc]init] dateByAddingDays:1];
+        now = [[[NSDate alloc]init] dateByAddingDays:0];
         
     }
    

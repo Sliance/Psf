@@ -16,6 +16,7 @@
 #import "PrefixHeader.pch"
 #import "PresaleHomeController.h"
 #import "StoreGoodsController.h"
+#import "CircleController.h"
 
 @interface PsfTabBarController ()<UITabBarControllerDelegate>
 

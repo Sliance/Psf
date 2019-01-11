@@ -75,10 +75,10 @@
         now = [NSDate dateWithString:_nextDate format:@"yyyy-MM-dd"];
        
     }else{
-       now = [[[NSDate alloc]init] dateByAddingDays:1];
+       now = [[[NSDate alloc]init] dateByAddingDays:0];
     
     }
-    NSDate *yesterday = [now dateByAddingDays:1];
+    NSDate *yesterday = [now dateByAddingDays:0];
     NSInteger nowmonth = [now month];
     NSInteger nowday = [now  day];
     NSInteger nowweek = [now weekday];
@@ -212,7 +212,7 @@
     NSString *end;
     NSArray *all = [_tmpBtn.titleLabel.text componentsSeparatedByString:@"-"];
     if (_leftBtn ==_nowBtn) {
-        now = [[[NSDate alloc]init]dateByAddingDays:1];
+        now = [[[NSDate alloc]init]dateByAddingDays:0];
         start = [now stringWithFormat:@"yyyy-MM-dd"];
         end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
         start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];
@@ -249,7 +249,7 @@
     NSString *end;
     NSArray *all = [_tmpBtn.titleLabel.text componentsSeparatedByString:@"-"];
     if (_leftBtn ==_nowBtn) {
-        now = [[[NSDate alloc]init]dateByAddingDays:1];
+        now = [[[NSDate alloc]init]dateByAddingDays:0];
         start = [now stringWithFormat:@"yyyy-MM-dd"];
         end= [NSString stringWithFormat:@"%@ %@:00",start,[all lastObject]];
         start = [NSString stringWithFormat:@"%@ %@:00",start,[all firstObject]];

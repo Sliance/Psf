@@ -12,6 +12,10 @@
 #import "ZSConfig.h"
 ///专题详情
 #define topics_url  @"/lxn/subject/mobile/v1/list/subject/info"
+///圈子分类
+#define circle_sort_list   @"/ypc/topic/category/mobile/v1/list"
+///圈子分类下列表
+#define circle_list   @"/lxn/epicure/mobile/v1/linked/product/list"
 
 typedef void(^responseModel)(id response);
 @interface BaseApi : NSObject
