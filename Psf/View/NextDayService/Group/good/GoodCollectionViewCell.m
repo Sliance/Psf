@@ -85,4 +85,11 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
 }
+-(void)setRecipeModel:(CircleListRes *)recipeModel{
+    _recipeModel = recipeModel;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,recipeModel.epicureImgPath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.nameLabel.text = recipeModel.epicureName;
+    self.priceLabel.text = @"";
+}
 @end

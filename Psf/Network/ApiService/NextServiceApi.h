@@ -15,6 +15,8 @@
 #import "SubjectModel.h"
 #import "FillEvaluateReq.h"
 #import "TopicsListRes.h"
+#import "CircleListRes.h"
+#import "DetailRecipeRes.h"
 
 
 @interface NextServiceApi : BaseApi
@@ -59,6 +61,11 @@
 - (void)getDefaultWeightWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///专题
 - (void)getTopicListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///菜谱(商品详情)
+- (void)getRecipeListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///菜谱(主模块)
+- (void)getHomeRecipeListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///菜谱详情
+- (void)getDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 
 @end

@@ -80,4 +80,6 @@
 
 ///售后（refund）；正常（normal）
 @property(nonatomic,copy)NSString *saleOrderProductStatus;
+@property(nonatomic,copy)NSString *ingredientsCategoryId;
+
 @end

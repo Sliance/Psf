@@ -27,6 +27,7 @@
 #import "GroupBuyView.h"
 #import "PresaleBuyView.h"
 #import "StoreGoodsBuyView.h"
+#import "GoodRecipesView.h"
 
 #import "FillOrderViewController.h"
 #import "SpellGroupListController.h"
@@ -35,24 +36,28 @@
 #import "ShoppingCartController.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import "ZSCycleScrollView.h"
 
 #import "ServiceViewController.h"
 #import "PresaleHomeController.h"
 #import "NextDayServiceController.h"
 #import "MineViewController.h"
 #import "StoreGoodsController.h"
+#import "DetailRecipeController.h"
+
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
     NSInteger _tourHeight;
     NSInteger _evaHeight;
+   
 }
 
 @property(nonatomic,strong)UIScrollView *bgscrollow;
 @property(nonatomic,strong)ZSCycleScrollView *cycleScroll;
-
 @property(nonatomic,strong)GoodEvaluateView *evaView;
 @property(nonatomic,strong)GoodHeadView *headView;
 @property(nonatomic,strong)GoodFootView *footView;
+@property(nonatomic,strong)GoodRecipesView *recipeView;
 @property(nonatomic,strong)GetCouponsCellView *couponCell;
 @property(nonatomic,strong)GetCouponsView *couponView;
 @property(nonatomic,strong)TourDiyGooddetailView *tourDiyView;
@@ -70,7 +75,7 @@
 
 @property(nonatomic,strong)NSMutableArray *groupArr;
 @property(nonatomic,strong)NSMutableArray *couponArr;
-
+@property(nonatomic,assign)NSInteger recipeHeight;
 
 @end
 
@@ -100,10 +105,23 @@
 }
 -(GoodFootView *)footView{
     if (!_footView) {
-        _footView = [[GoodFootView alloc]init];
+        _footView = [[GoodFootView alloc]initWithFrame:CGRectMake(SCREENHEIGHT, 0, SCREENWIDTH, 10)];
         _footView.hidden = YES;
     }
     return _footView;
+}
+-(GoodRecipesView *)recipeView{
+    if (!_recipeView) {
+        _recipeView = [[GoodRecipesView alloc]initWithFrame:CGRectMake(SCREENHEIGHT, 0, SCREENWIDTH, 0)];
+        WEAKSELF;
+        [_recipeView setSelectedCollect:^(NSString * str) {
+            DetailRecipeController *detailVC = [[DetailRecipeController alloc]init];
+            detailVC.hidesBottomBarWhenPushed = YES;
+            [detailVC setEpicureId:str];
+            [weakSelf.navigationController pushViewController:detailVC animated:YES];
+        }];
+    }
+    return _recipeView;
 }
 -(GoodBottomView *)normalBView{
     if (!_normalBView) {
@@ -244,6 +262,7 @@
     [self.bgscrollow addSubview:self.cycleScroll];
     [self.bgscrollow addSubview:self.headView];
     [self.bgscrollow addSubview:self.evaView];
+    [self.bgscrollow addSubview:self.recipeView];
     [self.bgscrollow addSubview:self.footView];
     [self.bgscrollow addSubview:self.couponCell];
     [self.bgscrollow addSubview:self.tourDiyView];
@@ -625,9 +644,35 @@
             }
             self.couponCell.detailLabel.text = title;
         }
-        [weakself.footView setPruductId:weakself.productID];
-         [self reloadHeight];
+        [weakself requestRecipeData];
 
+    }];
+}
+-(void)requestRecipeData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.appId = @"993335466657415169";
+    req.cityName = @"上海市";
+    req.cityId = @"310100";
+    req.timestamp = @"0";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.sign = @"ffc18def63af3916f4d39165697f228f";
+    req.productId = self.productID;
+    WEAKSELF;
+    [[NextServiceApi share]getRecipeListWithParam:req response:^(id response) {
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        [arr addObjectsFromArray:response];
+        if (arr.count>0) {
+            [weakSelf.recipeView setDataArr:arr];
+            weakSelf.recipeHeight = 220;
+        }else{
+            weakSelf.recipeHeight = 0;
+        }
+        [weakSelf.footView setPruductId:weakSelf.productID];
+        [self reloadHeight];
     }];
 }
 -(void)requestEvaluate{
@@ -815,10 +860,8 @@
     }
      [self reloadHeight];
     [self.view addSubview:self.couponView];
-   
-    
-    
 }
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, self.webView.scrollView.contentSize.height);
     _bgscrollow.contentSize = CGSizeMake(0, self.webView.ctBottom+100);
@@ -843,11 +886,19 @@
         _evaHeight = 50+[GoodEvaluateView getCellHeightWithData:self.evaRes];
         _evaView.hidden = NO;
     }
+    
     self.tourDiyView.frame = CGRectMake(0, self.headView.ctBottom, SCREENWIDTH, _tourHeight);
     self.couponCell.frame = CGRectMake(0, self.tourDiyView.ctBottom, SCREENWIDTH, _couponHeight);
     self.evaView.frame = CGRectMake(0, self.couponCell.ctBottom, SCREENWIDTH, _evaHeight);
+    if (self.recipeHeight ==0) {
+        self.recipeView.frame = CGRectMake(0, self.evaView.ctBottom, SCREENWIDTH, 0);
+        self.recipeView.hidden = YES;
+    }else{
+        self.recipeView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 220);
+        self.recipeView.hidden = NO;
+    }
     
-    self.footView.frame = CGRectMake(0, self.evaView.ctBottom+5, SCREENWIDTH, 253);
+    self.footView.frame = CGRectMake(0, self.recipeView.ctBottom+5, SCREENWIDTH, 253);
     self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, 100);
     if (self.result.productContent.length<1) {
         self.webView.frame = CGRectMake(0, self.footView.ctBottom, SCREENWIDTH, 50);

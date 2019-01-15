@@ -40,6 +40,7 @@
     self.tabBarController.tabBar.translucent = NO;//去掉透明
     PsfTabBarItem *nextItem;
     PsfTabBarItem *sortItem;
+    PsfTabBarItem *recipeItem;
     PsfTabBarItem *shopItem;
     PsfTabBarItem *mineItem;
    
@@ -56,6 +57,9 @@
     sortItem = [[PsfTabBarItem alloc]initWithTitle:@"即时达" image:[UIImage imageNamed:@"sort_icon_selected"] selectedImage:[UIImage imageNamed:@"sort_icon_selected"]];
     sortItem.image = [[UIImage imageNamed:@"sort_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     sortItem.selectedImage = [UIImage imageNamed:@"sort_icon_selected"];
+    recipeItem = [[PsfTabBarItem alloc]initWithTitle:@"菜谱" image:[UIImage imageNamed:@"recipe_selected"] selectedImage:[UIImage imageNamed:@"recipe_selected"]];
+    recipeItem.image = [[UIImage imageNamed:@"recipe_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    recipeItem.selectedImage = [UIImage imageNamed:@"recipe_selected"];
     shopItem = [[PsfTabBarItem alloc]initWithTitle:@"购物车" image:[UIImage imageNamed:@"shopping_icon_selected"] selectedImage:[UIImage imageNamed:@"shopping_icon_selected"]];
     shopItem.image = [[UIImage imageNamed:@"shopping_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     shopItem.selectedImage = [UIImage imageNamed:@"shopping_icon_selected"];
@@ -76,7 +80,12 @@
     sortController.navigationController.navigationBar.translucent = NO;
     sortNavController.tabBarItem = sortItem;
     [self adjustNavigationUI:sortNavController];
-   
+    //菜谱
+    CircleController *circleController = [[CircleController alloc] init];
+    UINavigationController *circleNavController = [[UINavigationController alloc] initWithRootViewController:circleController];
+    circleController.navigationController.navigationBar.translucent = NO;
+    circleNavController.tabBarItem = recipeItem;
+    [self adjustNavigationUI:circleNavController];
     
     //购物车
     ShoppingCartController *shopController = [[ShoppingCartController alloc] init];
@@ -93,7 +102,7 @@
     myNavController.tabBarItem = mineItem;
     [self adjustNavigationUI:myNavController];
     
-    self.viewControllers = @[nextNavController,sortNavController,shopNavController, myNavController];
+    self.viewControllers = @[nextNavController,sortNavController,circleNavController,shopNavController, myNavController];
     [self.tabBar setBackgroundColor:[UIColor clearColor]];
     self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
@@ -144,6 +153,8 @@
     } else if (tabBarController.selectedIndex == 2) {
         self.currentIndex = tabBarController.selectedIndex;
     } else if (tabBarController.selectedIndex == 3) {
+        self.currentIndex = tabBarController.selectedIndex;
+    }else if (tabBarController.selectedIndex == 4) {
         self.currentIndex = tabBarController.selectedIndex;
     }
 }

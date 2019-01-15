@@ -8,13 +8,12 @@
 
 #import "CircleController.h"
 #import "CircleNavView.h"
-#import "CircleServiseApi.h"
+#import "NextServiceApi.h"
 #import "CircleListCell.h"
 #import "LMHWaterFallLayout.h"
+#import "DetailRecipeController.h"
 
-
-
-@interface CircleController ()<LMHWaterFallLayoutDeleaget,UICollectionViewDataSource>
+@interface CircleController ()<LMHWaterFallLayoutDeleaget,UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property(nonatomic,strong)NSMutableArray *sortArr;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -34,7 +33,7 @@
         // 创建collectionView
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, NavitionbarHeight, SCREENWIDTH, SCREENHEIGHT-NavitionbarHeight) collectionViewLayout:waterFallLayout];
         _collectionView.backgroundColor = DSColorFromHex(0xF0F0F0);
-        
+        _collectionView.delegate = self;
         _collectionView.dataSource = self;
         // 注册
         [_collectionView registerClass:[CircleListCell class] forCellWithReuseIdentifier:NSStringFromClass([CircleListCell class])];
@@ -44,31 +43,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
+    self.dataArr = [[NSMutableArray alloc]init];
+    
 }
-
-
-
-
-
--(void)requestData:(NSString*)categaryId{
-    HomeReq *req = [[HomeReq alloc]init];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
+    [self.navigationItem setLeftBarButtonItem:leftBar];
+    [self requestData];
+}
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.view.backgroundColor = [UIColor whiteColor];
+        
+        [self setTitle:@"菜谱"];
+        
+    }
+    return self;
+}
+-(void)requestData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
-    req.appId = @"111557561165794302";
+    req.appId = @"993335466657415169";
     req.cityName = @"上海市";
     req.cityId = @"310100";
     req.timestamp = @"0";
-//    req.storeId = [UserCacheBean share].userInfo.storeId;
-    req.topicCategoryId = categaryId;
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     req.pageIndex = 1;
-    req.pageSize = @"8";
+    req.pageSize = @"10";
+    req.sign = @"ffc18def63af3916f4d39165697f228f";
     WEAKSELF;
-    [[CircleServiseApi share]getCircleListWithParam:req response:^(id response) {
+    [[NextServiceApi share]getHomeRecipeListWithParam:req response:^(id response) {
         if (response) {
             
-            [weakSelf.dataArr removeAllObjects];
-            [weakSelf.dataArr addObjectsFromArray:response];
-           
+            if (self.dataArr.count==0) {
+                [weakSelf.dataArr removeAllObjects];
+                [weakSelf.dataArr addObjectsFromArray:response];
+                [weakSelf.collectionView reloadData];
+            }
             
         }
     }];
@@ -104,6 +118,13 @@
     }
     return cell;
 }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DetailRecipeController *detailVC = [[DetailRecipeController alloc]init];
+    CircleListRes *model =self.dataArr[indexPath.item];
+    detailVC.hidesBottomBarWhenPushed = YES;
+    [detailVC setEpicureId:model.epicureId];
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 #pragma mark  - <LMHWaterFallLayoutDeleaget>
 - (CGFloat)waterFallLayout:(LMHWaterFallLayout *)waterFallLayout heightForItemAtIndexPath:(NSUInteger)indexPath itemWidth:(CGFloat)itemWidth{
     
@@ -123,6 +144,5 @@
     return 2;
     
 }
-
 
 @end

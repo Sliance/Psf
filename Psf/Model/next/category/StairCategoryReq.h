@@ -81,5 +81,7 @@
 @property(nonatomic,copy)NSString *businessParamKey;
 
 @property(nonatomic,copy)NSString *saleOrderProductId;
+@property(nonatomic,copy)NSString *sign;
+@property(nonatomic,copy)NSString *epicureId;
 
 @end

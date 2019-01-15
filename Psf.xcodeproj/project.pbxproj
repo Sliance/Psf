@@ -367,6 +367,13 @@
 		89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */; };
 		89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07621CB9E7200FEE6AD /* TopicsController.m */; };
 		89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2E4A021D78D6D0012A249 /* SignInController.m */; };
+		89E009F121EDAFDD00662FEA /* GoodRecipesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F021EDAFDD00662FEA /* GoodRecipesView.m */; };
+		89E009F421EDC43900662FEA /* DetailRecipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F321EDC43900662FEA /* DetailRecipeController.m */; };
+		89E009F721EDC70500662FEA /* DetailRecipeRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F621EDC70500662FEA /* DetailRecipeRes.m */; };
+		89E009FA21EDC97200662FEA /* EpicureProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F921EDC97200662FEA /* EpicureProductModel.m */; };
+		89E009FD21EDCB8E00662FEA /* DetailRecipeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009FC21EDCB8D00662FEA /* DetailRecipeHeadView.m */; };
+		89E00A0021EDCE9100662FEA /* DetailRecipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009FF21EDCE9100662FEA /* DetailRecipeCell.m */; };
+		89E00A0321EDCEFD00662FEA /* DetailRecipeProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E00A0221EDCEFD00662FEA /* DetailRecipeProductCell.m */; };
 		89EE17F221787772005AFE05 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EE17F021787772005AFE05 /* AlipaySDK.framework */; };
 		89EE17F321787772005AFE05 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89EE17F121787772005AFE05 /* AlipaySDK.bundle */; };
 		89F6E61921E82509009FE14D /* CircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E61421E82509009FE14D /* CircleController.m */; };
@@ -375,7 +382,6 @@
 		89F6E62C21E8251E009FE14D /* CircleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62421E8251E009FE14D /* CircleListCell.m */; };
 		89F6E62D21E8251E009FE14D /* CircleListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62721E8251E009FE14D /* CircleListRes.m */; };
 		89F6E62E21E8251E009FE14D /* CircleCategaryRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62821E8251E009FE14D /* CircleCategaryRes.m */; };
-		89F6E63121E82817009FE14D /* CircleServiseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E62F21E82817009FE14D /* CircleServiseApi.m */; };
 		89F6E63421E82868009FE14D /* HomeReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63221E82868009FE14D /* HomeReq.m */; };
 		89F6E63721E828BE009FE14D /* BaseModelReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63621E828BE009FE14D /* BaseModelReq.m */; };
 		89F6E63B21E82927009FE14D /* UILabel+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E63921E82926009FE14D /* UILabel+String.m */; };
@@ -1109,6 +1115,20 @@
 		89C3A07621CB9E7200FEE6AD /* TopicsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsController.m; sourceTree = "<group>"; };
 		89D2E49F21D78D6D0012A249 /* SignInController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInController.h; sourceTree = "<group>"; };
 		89D2E4A021D78D6D0012A249 /* SignInController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInController.m; sourceTree = "<group>"; };
+		89E009EF21EDAFDD00662FEA /* GoodRecipesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodRecipesView.h; sourceTree = "<group>"; };
+		89E009F021EDAFDD00662FEA /* GoodRecipesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodRecipesView.m; sourceTree = "<group>"; };
+		89E009F221EDC43900662FEA /* DetailRecipeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailRecipeController.h; sourceTree = "<group>"; };
+		89E009F321EDC43900662FEA /* DetailRecipeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailRecipeController.m; sourceTree = "<group>"; };
+		89E009F521EDC70500662FEA /* DetailRecipeRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailRecipeRes.h; sourceTree = "<group>"; };
+		89E009F621EDC70500662FEA /* DetailRecipeRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailRecipeRes.m; sourceTree = "<group>"; };
+		89E009F821EDC97200662FEA /* EpicureProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpicureProductModel.h; sourceTree = "<group>"; };
+		89E009F921EDC97200662FEA /* EpicureProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EpicureProductModel.m; sourceTree = "<group>"; };
+		89E009FB21EDCB8D00662FEA /* DetailRecipeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailRecipeHeadView.h; sourceTree = "<group>"; };
+		89E009FC21EDCB8D00662FEA /* DetailRecipeHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailRecipeHeadView.m; sourceTree = "<group>"; };
+		89E009FE21EDCE9100662FEA /* DetailRecipeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailRecipeCell.h; sourceTree = "<group>"; };
+		89E009FF21EDCE9100662FEA /* DetailRecipeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailRecipeCell.m; sourceTree = "<group>"; };
+		89E00A0121EDCEFD00662FEA /* DetailRecipeProductCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailRecipeProductCell.h; sourceTree = "<group>"; };
+		89E00A0221EDCEFD00662FEA /* DetailRecipeProductCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailRecipeProductCell.m; sourceTree = "<group>"; };
 		89EE17F021787772005AFE05 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		89EE17F121787772005AFE05 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		89F6E61321E82509009FE14D /* CircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleController.h; sourceTree = "<group>"; };
@@ -1123,8 +1143,6 @@
 		89F6E62721E8251E009FE14D /* CircleListRes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListRes.m; sourceTree = "<group>"; };
 		89F6E62821E8251E009FE14D /* CircleCategaryRes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCategaryRes.m; sourceTree = "<group>"; };
 		89F6E62921E8251E009FE14D /* CircleListRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListRes.h; sourceTree = "<group>"; };
-		89F6E62F21E82817009FE14D /* CircleServiseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleServiseApi.m; sourceTree = "<group>"; };
-		89F6E63021E82817009FE14D /* CircleServiseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleServiseApi.h; sourceTree = "<group>"; };
 		89F6E63221E82868009FE14D /* HomeReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeReq.m; sourceTree = "<group>"; };
 		89F6E63321E82868009FE14D /* HomeReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeReq.h; sourceTree = "<group>"; };
 		89F6E63521E828BD009FE14D /* BaseModelReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModelReq.h; sourceTree = "<group>"; };
@@ -1695,6 +1713,7 @@
 				88635DE620FDE8610012AE77 /* TuiJianView.m */,
 				887081DE2133979B0083E540 /* HomeTableViewCell.h */,
 				887081DF2133979B0083E540 /* HomeTableViewCell.m */,
+				89E009EB21EDADFD00662FEA /* recipe */,
 			);
 			path = NextDayService;
 			sourceTree = "<group>";
@@ -2043,8 +2062,6 @@
 				8866206A2100892D00C7923D /* MineServiceApi.m */,
 				88828D9121114D6200E366D6 /* LoginServiceApi.h */,
 				88828D9221114D6200E366D6 /* LoginServiceApi.m */,
-				89F6E63021E82817009FE14D /* CircleServiseApi.h */,
-				89F6E62F21E82817009FE14D /* CircleServiseApi.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -2666,6 +2683,8 @@
 				89F6E61D21E8251E009FE14D /* View */,
 				89F6E61321E82509009FE14D /* CircleController.h */,
 				89F6E61421E82509009FE14D /* CircleController.m */,
+				89E009F221EDC43900662FEA /* DetailRecipeController.h */,
+				89E009F321EDC43900662FEA /* DetailRecipeController.m */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
@@ -2693,25 +2712,40 @@
 			path = Topics;
 			sourceTree = "<group>";
 		};
+		89E009EB21EDADFD00662FEA /* recipe */ = {
+			isa = PBXGroup;
+			children = (
+				89E009EF21EDAFDD00662FEA /* GoodRecipesView.h */,
+				89E009F021EDAFDD00662FEA /* GoodRecipesView.m */,
+			);
+			path = recipe;
+			sourceTree = "<group>";
+		};
 		89F6E61D21E8251E009FE14D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				89F6E61E21E8251E009FE14D /* Demo */,
-				89F6E61F21E8251E009FE14D /* LMHWaterFallLayout.h */,
-				89F6E62021E8251E009FE14D /* CircleNavView.m */,
 				89F6E62121E8251E009FE14D /* CircleListCell.h */,
-				89F6E62221E8251E009FE14D /* CircleNavView.h */,
-				89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */,
 				89F6E62421E8251E009FE14D /* CircleListCell.m */,
+				89F6E62221E8251E009FE14D /* CircleNavView.h */,
+				89F6E62021E8251E009FE14D /* CircleNavView.m */,
+				89F6E61E21E8251E009FE14D /* detail */,
+				89F6E61F21E8251E009FE14D /* LMHWaterFallLayout.h */,
+				89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		89F6E61E21E8251E009FE14D /* Demo */ = {
+		89F6E61E21E8251E009FE14D /* detail */ = {
 			isa = PBXGroup;
 			children = (
+				89E009FB21EDCB8D00662FEA /* DetailRecipeHeadView.h */,
+				89E009FC21EDCB8D00662FEA /* DetailRecipeHeadView.m */,
+				89E009FE21EDCE9100662FEA /* DetailRecipeCell.h */,
+				89E009FF21EDCE9100662FEA /* DetailRecipeCell.m */,
+				89E00A0121EDCEFD00662FEA /* DetailRecipeProductCell.h */,
+				89E00A0221EDCEFD00662FEA /* DetailRecipeProductCell.m */,
 			);
-			path = Demo;
+			path = detail;
 			sourceTree = "<group>";
 		};
 		89F6E62521E8251E009FE14D /* Model */ = {
@@ -2723,6 +2757,10 @@
 				89F6E62721E8251E009FE14D /* CircleListRes.m */,
 				89F6E63321E82868009FE14D /* HomeReq.h */,
 				89F6E63221E82868009FE14D /* HomeReq.m */,
+				89E009F521EDC70500662FEA /* DetailRecipeRes.h */,
+				89E009F621EDC70500662FEA /* DetailRecipeRes.m */,
+				89E009F821EDC97200662FEA /* EpicureProductModel.h */,
+				89E009F921EDC97200662FEA /* EpicureProductModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3028,6 +3066,7 @@
 				88590B7520E4707500F51BC5 /* OrderDetailBottomView.m in Sources */,
 				888630AE212BA25700B89080 /* CreatQRCodeAndBarCodeFromLeon.m in Sources */,
 				888630B4212BE3D900B89080 /* ScanQrCodeController.m in Sources */,
+				89E009F121EDAFDD00662FEA /* GoodRecipesView.m in Sources */,
 				885F407620DCCD0C009F04D6 /* ValidShopHeadView.m in Sources */,
 				8871B88D20DB4B0000DAA5D6 /* NSString+MD5Addition.m in Sources */,
 				888E71AC20E0F9B700BFBAFF /* MessageTableViewCell.m in Sources */,
@@ -3065,6 +3104,7 @@
 				88566E1E2112AEF900B6C38D /* AgentImageBaseModel.m in Sources */,
 				885F408620DCFCBA009F04D6 /* NavgationView.m in Sources */,
 				88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */,
+				89E00A0321EDCEFD00662FEA /* DetailRecipeProductCell.m in Sources */,
 				888E719420E0CAA300BFBAFF /* UIColor+VTMagic.m in Sources */,
 				888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */,
 				8871B88720DB489600DAA5D6 /* UserBaseInfoModel.m in Sources */,
@@ -3088,7 +3128,6 @@
 				8857EA9220E3A93400D7E167 /* OrderDetailViewController.m in Sources */,
 				888E719920E0E4ED00BFBAFF /* UIView+CTExtensions.m in Sources */,
 				888E717C20E0C49200BFBAFF /* MenuInfo.m in Sources */,
-				89F6E63121E82817009FE14D /* CircleServiseApi.m in Sources */,
 				88566E022112994600B6C38D /* ChangePasswordController.m in Sources */,
 				88566E432112C35400B6C38D /* TZPhotoPickerController.m in Sources */,
 				88D8939720D26C2F007E3C41 /* PsfTabBarItem.m in Sources */,
@@ -3120,6 +3159,7 @@
 				888AC7F320FC854E00587F88 /* GroupBuyView.m in Sources */,
 				8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */,
 				8871B8B220DB702700DAA5D6 /* NSBundle+PYSearchExtension.m in Sources */,
+				89E009F721EDC70500662FEA /* DetailRecipeRes.m in Sources */,
 				88D0F5B9215A00DB008394E3 /* StoreGoodsCell.m in Sources */,
 				88566E222112C31E00B6C38D /* TYUploadImageView.m in Sources */,
 				88600BF820D8D16E0098CF10 /* ZJSegmentStyle.m in Sources */,
@@ -3183,8 +3223,10 @@
 				89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */,
 				88566E862114035600B6C38D /* DatePickerTool.m in Sources */,
 				888E719020E0CAA300BFBAFF /* VTMenuBar.m in Sources */,
+				89E00A0021EDCE9100662FEA /* DetailRecipeCell.m in Sources */,
 				88797F9C20F3162D0044A527 /* StairCategoryListRes.m in Sources */,
 				88600BDA20D890FF0098CF10 /* ZSSortSelectorView.m in Sources */,
+				89E009FD21EDCB8E00662FEA /* DetailRecipeHeadView.m in Sources */,
 				88547EA6215372DB0092D15E /* CardHeadView.m in Sources */,
 				88D8935E20D25C41007E3C41 /* ViewController.m in Sources */,
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
@@ -3192,6 +3234,7 @@
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
 				88671890212CFAC500D861AD /* ZSNotification.m in Sources */,
+				89E009F421EDC43900662FEA /* DetailRecipeController.m in Sources */,
 				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
 				88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,
@@ -3245,6 +3288,7 @@
 				8871B88420DB484100DAA5D6 /* CLImageModel.m in Sources */,
 				888AC7ED20FC7A2700587F88 /* DetailSortHeadView.m in Sources */,
 				886A9ED820ECDEDB000503D2 /* LogisticsListController.m in Sources */,
+				89E009FA21EDC97200662FEA /* EpicureProductModel.m in Sources */,
 				8871B89D20DB64C400DAA5D6 /* NextServiceApi.m in Sources */,
 				88600BD020D890B80098CF10 /* ZSAbstractDotView.m in Sources */,
 				8871B84920DB419A00DAA5D6 /* NSArray+TYAFNetworking.m in Sources */,

@@ -64,26 +64,25 @@
 
 -(void)setModel:(CircleListRes *)model{
     _model = model;
-    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.topicImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.epicureImgPath];
     
-    self.contentLabel.text = model.topicContent;
-    self.titleLabel.text = model.memberNickname;
+    self.contentLabel.text = model.epicureName;
+   
     
-   [self.memberImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.memberAvatarPath]]];
+//   [self.memberImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.memberAvatarPath]]];
     
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         WEAKSELF;
         weakSelf.headImage.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, image.size.height*(SCREENWIDTH/2-15)/image.size.width);
         
         
-        if ([self.contentLabel getHeightLineWithString:model.topicContent withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]>55) {
+        if ([self.contentLabel getHeightLineWithString:model.epicureName withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]>55) {
             weakSelf.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, 55);
         }else{
-            weakSelf.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, [self.contentLabel getHeightLineWithString:model.topicContent withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]);
+            weakSelf.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, [self.contentLabel getHeightLineWithString:model.epicureName withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]);
         }
-        weakSelf.memberImage.frame = CGRectMake(10, weakSelf.contentLabel.ctBottom+10, 24, 24);
-        weakSelf.titleLabel.frame = CGRectMake(weakSelf.memberImage.ctRight+5, weakSelf.contentLabel.ctBottom+10,[weakSelf.titleLabel sizeWithText:model.memberNickname font:[UIFont systemFontOfSize:12]].width , 24);
-        weakSelf.bgView.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, weakSelf.memberImage.ctBottom+15);
+        
+        weakSelf.bgView.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, weakSelf.contentLabel.ctBottom+15);
         if (model.height>0) {
             
         }else{
@@ -97,7 +96,7 @@
 }
 +(CGFloat)getHeight:(CircleListRes *)model{
     CGFloat height = 0;
-    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.topicImagePath];
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.epicureImgPath];
     
     UIImageView*image=[[UIImageView alloc]init];
     __block typeof(height)weakheight = height;
@@ -105,7 +104,7 @@
             weakheight += image.size.height*(SCREENWIDTH/2-15)/image.size.width;
     }];
     UILabel *content = [[UILabel alloc]init];
-    weakheight+= 10+[content getHeightLineWithString:model.topicContent withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3];
+    weakheight+= 10+[content getHeightLineWithString:model.epicureName withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3];
     weakheight+= 49;
     return weakheight;
 }

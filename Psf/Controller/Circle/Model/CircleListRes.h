@@ -12,33 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CircleListRes : NSObject
 ///
-@property(nonatomic,copy)NSString *memberAvatarPath;
+@property(nonatomic,copy)NSString *epicureId;
 ///
-@property(nonatomic,copy)NSString *wasLiked;
+@property(nonatomic,copy)NSString *epicureImgPath;
 ///
-@property(nonatomic,copy)NSString *topicForwardCount;
+@property(nonatomic,copy)NSString *epicureName;
 ///
-@property(nonatomic,copy)NSString *topicMediaJsonList;
+@property(nonatomic,copy)NSString *memberWasLiked;
 ///
-@property(nonatomic,copy)NSString *topicImagePath;
-///
-@property(nonatomic,copy)NSString *topicBookCount;
-///
-@property(nonatomic,copy)NSString *topicLikeCount;
-///
-@property(nonatomic,copy)NSString *topicId;
-///
-@property(nonatomic,copy)NSString *topicContent;
-///
-@property(nonatomic,copy)NSString *topicCategoryId;
-///
-@property(nonatomic,copy)NSString *systemCreateTime;
-///
-@property(nonatomic,copy)NSString *topicCommentCount;
-///
-@property(nonatomic,copy)NSString *memberNickname;
-///
-@property(nonatomic,copy)NSString *memberId;
+@property(nonatomic,copy)NSString *totalLike;
 ///
 @property(nonatomic,assign)CGFloat height;
 
