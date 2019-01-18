@@ -18,7 +18,7 @@
 @property(nonatomic,strong)NSMutableArray *sortArr;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *controllersArr;
-
+@property(nonatomic,assign)NSInteger pageIndex;
 
 
 @end
@@ -27,8 +27,7 @@
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         // 创建布局
-        LMHWaterFallLayout * waterFallLayout = [[LMHWaterFallLayout alloc]init];
-        waterFallLayout.delegate = self;
+        UICollectionViewFlowLayout * waterFallLayout = [[UICollectionViewFlowLayout alloc]init];
         
         // 创建collectionView
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, NavitionbarHeight, SCREENWIDTH, SCREENHEIGHT-NavitionbarHeight) collectionViewLayout:waterFallLayout];
@@ -50,6 +49,7 @@
     [super viewWillAppear:animated];
     UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
     [self.navigationItem setLeftBarButtonItem:leftBar];
+    self.pageIndex = 1;
     [self requestData];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -62,6 +62,15 @@
     }
     return self;
 }
+/**
+ *  上拉刷新
+ */
+-(void)footerRefreshing
+{
+    
+    self.pageIndex++;
+    [self requestData];
+}
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.token = [UserCacheBean share].userInfo.token;
@@ -71,18 +80,32 @@
     req.cityId = @"310100";
     req.timestamp = @"0";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    req.pageIndex = 1;
+    req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
     req.sign = @"ffc18def63af3916f4d39165697f228f";
     WEAKSELF;
     [[NextServiceApi share]getHomeRecipeListWithParam:req response:^(id response) {
         if (response) {
             
-            if (self.dataArr.count==0) {
+            if (self.pageIndex ==1) {
                 [weakSelf.dataArr removeAllObjects];
                 [weakSelf.dataArr addObjectsFromArray:response];
-                [weakSelf.collectionView reloadData];
+                
+            }else{
+                [weakSelf.dataArr addObjectsFromArray:response];
+                [weakSelf.collectionView.mj_header endRefreshing];
+                [weakSelf.collectionView.mj_footer endRefreshing];
             }
+            
+           
+            if ([response count] < 10) {
+                [weakSelf.collectionView.mj_footer removeFromSuperview];
+                
+            }
+            else{
+                weakSelf.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakSelf refreshingAction:@selector(footerRefreshing)];
+            }
+            [weakSelf.collectionView reloadData];
             
         }
     }];
@@ -96,7 +119,18 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataArr.count;
 }
-
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(SCREENWIDTH/2-30/2, SCREENWIDTH/2-30/2);
+}
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, 10, 10, 10);
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 0;
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 5;
+}
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     CircleListCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CircleListCell class]) forIndexPath:indexPath];

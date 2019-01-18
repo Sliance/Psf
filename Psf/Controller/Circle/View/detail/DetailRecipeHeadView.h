@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)DetailRecipeRes *model;
-
+@property(nonatomic,copy)void(^heighrBlock)(CGFloat);
 
 @end
 

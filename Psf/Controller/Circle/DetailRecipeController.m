@@ -62,6 +62,11 @@
     self.tableview.tableHeaderView = self.headView;
     self.tableview.tableFooterView = self.footView;
     [self.footView addSubview:self.webView];
+    WEAKSELF;
+    [self.headView setHeighrBlock:^(CGFloat height) {
+        weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, height);
+    }];
+    
    
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{

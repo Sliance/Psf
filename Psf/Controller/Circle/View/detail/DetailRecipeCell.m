@@ -24,6 +24,7 @@ static NSString *cellId = @"DetailRecipeProductCell";
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0,SCREENWIDTH-30, 40)];
+        _titleLabel.textColor = DSColorFromHex(0x464646);
         _titleLabel.font = [UIFont systemFontOfSize:16];
         
     }
@@ -98,7 +99,8 @@ static NSString *cellId = @"DetailRecipeProductCell";
 }
 -(void)setModel:(EpicureProductModel *)model{
     _model = model;
-    self.titleLabel.text = model.ingredientsCategoryName;
+    self.titleLabel.text = [NSString stringWithFormat:@"- %@",model.ingredientsCategoryName];
     [self.collectionView reloadData];
 }
+
 @end
