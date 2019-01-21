@@ -140,6 +140,8 @@
         if (response) {
             weakSelf.allModel = response;
             weakSelf.bottomView.collectBtn.selected = weakSelf.allModel.memberWasCollection;
+            [weakSelf.bottomView.collectBtn setTitle:weakSelf.allModel.totalCollection forState:UIControlStateNormal];
+            [weakSelf.bottomView.collectBtn setIconInTopWithSpacing:5];
         }
     }];
 }
@@ -192,6 +194,7 @@
         }else{
             [weakSelf showInfo:response[@"message"]];
         }
+        [weakSelf getAllData];
     }];
 }
 

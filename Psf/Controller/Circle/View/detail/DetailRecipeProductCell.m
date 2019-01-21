@@ -54,12 +54,27 @@
     }
     return _addBtn;
 }
+-(UILabel *)notLabel{
+    if (!_notLabel) {
+        _notLabel = [[UILabel alloc]init];
+        _notLabel.backgroundColor = DSColorAlphaFromHex(0x000000, 0.5);
+        _notLabel.text = @"已下架";
+        _notLabel.font = [UIFont systemFontOfSize:15];
+        _notLabel.textColor = [UIColor whiteColor];
+        _notLabel.textAlignment = NSTextAlignmentCenter;
+        [_notLabel.layer setCornerRadius:11];
+        [_notLabel.layer setMasksToBounds:YES];
+        _notLabel.hidden = YES;
+    }
+    return _notLabel;
+}
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.bgView];
         [self.bgView addSubview:self.titleLabel];
         [self.bgView addSubview:self.headImage];
+        [self.headImage addSubview:self.notLabel];
         [self.bgView addSubview:self.priceLabel];
         [self.bgView addSubview:self.addBtn];
         [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -73,6 +88,12 @@
             make.top.equalTo(self.bgView);
             make.width.mas_equalTo(80);
             make.height.mas_equalTo(80);
+        }];
+        [self.notLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(65);
+            make.height.mas_equalTo(22);
+            make.centerX.equalTo(self.headImage);
+            make.centerY.equalTo(self.headImage);
         }];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImage.mas_right).offset(10);
@@ -95,7 +116,17 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.titleLabel.text = model.productName;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+    if (model.productIsOnSale ==NO) {
+        self.notLabel.hidden = NO;
+        if (model.productStorePrice.length>0) {
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+        }else{
+            self.priceLabel.text = @"";
+        }
+        self.addBtn.hidden = YES;
+    }else{
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+    }
 }
 -(void)pressAdd{
     [self addShopCountQuantity:@"1" productId:self.model.productId];

@@ -13,9 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RecipeCollectModel : NSObject
 @property(nonatomic,assign)BOOL memberWasCollection;
 @property(nonatomic,assign)BOOL memberWasLiked;
-@property(nonatomic,assign)NSInteger totalCommentNum;
-@property(nonatomic,assign)NSInteger totalForwardCount;
-@property(nonatomic,assign)NSInteger totalLike;
+@property(nonatomic,strong)NSString* totalCollection;
+@property(nonatomic,strong)NSString* totalCommentNum;
+@property(nonatomic,strong)NSString* totalForwardCount;
+@property(nonatomic,strong)NSString* totalLike;
 
 @end
 

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *priceLabel;
 @property(nonatomic,strong)UIButton *addBtn;
+@property(nonatomic,strong)UILabel *notLabel;
 @property(nonatomic,strong)CartProductModel*model;
 
 

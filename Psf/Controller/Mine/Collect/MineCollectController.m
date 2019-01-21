@@ -117,7 +117,7 @@
     return self.dataArr.count;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(SCREENWIDTH/2-30/2, SCREENWIDTH/2-30/2);
+    return CGSizeMake(SCREENWIDTH/2-30/2, 120*(SCREENWIDTH/2-15)/172.5+55);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     return UIEdgeInsetsMake(0, 10, 10, 10);

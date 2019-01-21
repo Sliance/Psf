@@ -26,12 +26,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "569748272.696931"
+                  timestampString = "569753696.322953"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "719"
                   endingLineNumber = "719"
-                  offsetFromSymbolStart = "89">
+                  offsetFromSymbolStart = "108">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "569748272.698386"
+                  timestampString = "569753696.324378"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "720"
                   endingLineNumber = "720"
-                  offsetFromSymbolStart = "51">
+                  offsetFromSymbolStart = "48">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -260,7 +260,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.202305"
+            timestampString = "569755759.037985"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "310"
@@ -276,7 +276,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.202459"
+            timestampString = "569755759.038061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "290"
@@ -292,7 +292,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.202544"
+            timestampString = "569755759.038113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "372"
@@ -308,7 +308,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.202606"
+            timestampString = "569755759.03816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "506"
@@ -340,12 +340,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "569748272.75656"
+                  timestampString = "569753696.485653"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "667"
                   endingLineNumber = "667"
-                  offsetFromSymbolStart = "56">
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -355,12 +355,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "569748272.758173"
+                  timestampString = "569753696.487087"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "668"
                   endingLineNumber = "668"
-                  offsetFromSymbolStart = "47">
+                  offsetFromSymbolStart = "48">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -370,12 +370,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/ShoppingCart/FillOrderViewController.m"
-                  timestampString = "569748272.759954"
+                  timestampString = "569753696.48849"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "667"
                   endingLineNumber = "667"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -467,7 +467,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/PreSale/PresaleHomeController.m"
-            timestampString = "569233006.44187"
+            timestampString = "569755759.0384541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
@@ -515,7 +515,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.203315"
+            timestampString = "569755759.038625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "562"
@@ -611,7 +611,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.203835"
+            timestampString = "569755759.038871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "946"
@@ -627,7 +627,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.203989"
+            timestampString = "569755759.038973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "956"
@@ -675,7 +675,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204159"
+            timestampString = "569755759.039095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "900"
@@ -691,7 +691,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204222"
+            timestampString = "569755759.039171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "667"
@@ -739,12 +739,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "569748272.827335"
+                  timestampString = "569753696.557512"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "489"
                   endingLineNumber = "489"
-                  offsetFromSymbolStart = "109">
+                  offsetFromSymbolStart = "132">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -754,12 +754,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "569748272.829286"
+                  timestampString = "569753696.55961"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "490"
                   endingLineNumber = "490"
-                  offsetFromSymbolStart = "47">
+                  offsetFromSymbolStart = "56">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -769,12 +769,12 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Network/ApiService/NextServiceApi.m"
-                  timestampString = "569748272.830685"
+                  timestampString = "569753696.561085"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "489"
                   endingLineNumber = "489"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -786,7 +786,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204412"
+            timestampString = "569755759.039331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "854"
@@ -802,7 +802,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204468"
+            timestampString = "569755759.039418"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "845"
@@ -818,7 +818,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204525"
+            timestampString = "569755759.039531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "836"
@@ -834,7 +834,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204581"
+            timestampString = "569755759.039598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "897"
@@ -850,7 +850,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/NextDayService/goods/detailGoodsViewController.m"
-            timestampString = "569238519.204636"
+            timestampString = "569755759.039668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "894"
@@ -865,77 +865,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Psf/Controller/Circle/View/detail/DetailRecipeCell.m"
-            timestampString = "569240400.868808"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Psf/Controller/Circle/DetailRecipeController.m"
-            timestampString = "569748806.625172"
+            timestampString = "569755759.039727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-getAllData"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DetailRecipeController getAllData]"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569745037.4691271"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "719">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[DetailRecipeController getAllData]_block_invoke"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569745037.470585"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.158"
-                  moduleName = "Psf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569745037.471998"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -945,11 +882,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Psf/Controller/Circle/DetailRecipeController.m"
-            timestampString = "569748806.625282"
+            timestampString = "569755759.039804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "-pressCollect:"
             landmarkType = "7">
             <Locations>
@@ -961,7 +898,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569748272.853465"
+                  timestampString = "569753700.065634"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -976,7 +913,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569748272.854894"
+                  timestampString = "569753700.066981"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "189"
@@ -991,7 +928,7 @@
                   moduleName = "Psf"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dnaer7/Documents/%E5%85%AC%E5%8F%B8/Psf/Psf/Controller/Circle/DetailRecipeController.m"
-                  timestampString = "569748272.8563319"
+                  timestampString = "569753700.068303"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -1023,13 +960,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Psf/Controller/Circle/View/CircleListCell.m"
-            timestampString = "569748806.625396"
+            filePath = "Psf/Network/ApiService/NextServiceApi.m"
+            timestampString = "569753747.390341"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "-setModel:"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
+            landmarkName = "-shareDetailRecipeWithParam:response:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

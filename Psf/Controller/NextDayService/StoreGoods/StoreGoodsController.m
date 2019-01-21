@@ -293,7 +293,7 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                weakself.tabBarController.selectedIndex = 3;
+                weakself.tabBarController.selectedIndex = 4;
             }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {//响应事件
                 
