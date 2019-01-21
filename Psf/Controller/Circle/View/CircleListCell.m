@@ -21,7 +21,8 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc] init];
-//        _headImage.contentMode = UIViewContentModeScaleAspectFill;
+        _headImage.contentMode = UIViewContentModeScaleAspectFill;
+        _headImage.clipsToBounds = YES;
     }
     return _headImage;
 }
@@ -64,32 +65,37 @@
 
 -(void)setModel:(CircleListRes *)model{
     _model = model;
-    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.epicureImgPath];
+    NSString *url ;
+    NSString*name;
     
-    self.contentLabel.text = model.epicureName;
-   
     
-//   [self.memberImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.memberAvatarPath]]];
+    if (model.epicureName.length>0) {
+        name = model.epicureName;
+        url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.epicureImgPath];
+    }else if (model.articleName.length>0){
+        name = model.articleName;
+        url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.articleImgPath];
+    }
+    self.contentLabel.text = name;
+    self.headImage.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, 120*(SCREENWIDTH/2-15)/172.5);
+    
+    if ([self.contentLabel getHeightLineWithString:name withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]>55) {
+        self.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, 55);
+    }else{
+        self.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, [self.contentLabel getHeightLineWithString:name withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]);
+    }
+    self.bgView.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, self.contentLabel.ctBottom+15);
+    if (model.height>0) {
+        
+    }else{
+        if (self.heightBlock) {
+            self.heightBlock(self.bgView.ctBottom);
+        }
+    }
     
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         WEAKSELF;
-        weakSelf.headImage.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, image.size.height*(SCREENWIDTH/2-15)/image.size.width);
         
-        
-        if ([self.contentLabel getHeightLineWithString:model.epicureName withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]>55) {
-            weakSelf.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, 55);
-        }else{
-            weakSelf.contentLabel.frame = CGRectMake(10, self.headImage.ctBottom+10, SCREENWIDTH/2-35, [self.contentLabel getHeightLineWithString:model.epicureName withWidth:SCREENWIDTH/2-35 withFont:[UIFont systemFontOfSize:15] lineSpacing:3]);
-        }
-        
-        weakSelf.bgView.frame = CGRectMake(0, 0, SCREENWIDTH/2-15, weakSelf.contentLabel.ctBottom+15);
-        if (model.height>0) {
-            
-        }else{
-         if (weakSelf.heightBlock) {
-            weakSelf.heightBlock(weakSelf.bgView.ctBottom);
-         }
-        }
     }];
     
     

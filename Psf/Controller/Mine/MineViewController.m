@@ -25,6 +25,7 @@
 #import "ScanQrCodeController.h"
 #import "CustomFootView.h"
 #import "MembershipCardController.h"
+#import "MineCollectController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -173,11 +174,11 @@
             [weakself requestorderData];
             if ([weakself.result.memberRoleType integerValue] ==2) {
                 //@"\U0000e908",
-                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e909",@"\U0000e906"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"设置"];
+                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"collect_mine",@"set_mine"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的收藏",@"设置"];
             }else{
-                weakself.listArr = @[@"\U0000e904",@"\U0000e90a",@"\U0000e909",@"\U0000e906",@"\U0000e905"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"设置",@"扫码入口"];
+                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"collect_mine",@"set_mine",@"qr_mine"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的收藏",@"设置",@"扫码入口"];
             }
             [weakself.tableview reloadData];
         }
@@ -236,8 +237,7 @@
     if (indexPath.section ==0) {
         cell.detailLabel.text = @"全部订单";
     }else{
-        cell.titleLabel.text = _listArr[indexPath.row];
-        cell.titleLabel.textColor = DSColorFromHex(0x969696);
+        cell.titleLabel.image = [UIImage imageNamed:_listArr[indexPath.row]];
         cell.detailLabel.text = _dataArr[indexPath.row];
     }
     [cell setIndex:indexPath.row];
@@ -269,13 +269,7 @@
                     [self.navigationController pushViewController:addressVC animated:YES];
                 }
                 break;
-//            case 2:
-//            {
-//                MessageCenterController *messageVC = [[MessageCenterController alloc]init];
-//                messageVC.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:messageVC animated:YES];
-//            }
-//                break;
+
             case 2:
             {
                 MyCouponController *couponVC = [[MyCouponController alloc]init];
@@ -284,7 +278,7 @@
             }
                 break;
             
-            case 3:
+            case 4:
             {
                 SettingViewController *setVC = [[SettingViewController alloc]init];
                 setVC.hidesBottomBarWhenPushed = YES;
@@ -298,13 +292,21 @@
                 [self.navigationController pushViewController:walletVC animated:YES];
             }
                 break;
-            case 4:
+                case 3:
+            {
+                MineCollectController *walletVC = [[MineCollectController alloc]init];
+                walletVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:walletVC animated:YES];
+            }
+            break;
+            case 5:
             {
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 ScanQrCodeController *qrVC = [story instantiateViewControllerWithIdentifier:@"ScanQrCodeController"];
                 qrVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:qrVC animated:YES];
             }
+                break;
             default:
                 break;
         }

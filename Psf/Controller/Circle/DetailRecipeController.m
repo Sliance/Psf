@@ -11,10 +11,13 @@
 #import "DetailRecipeHeadView.h"
 #import "DetailRecipeCell.h"
 #import "detailGoodsViewController.h"
+#import "RecipeBottomView.h"
 
 @interface DetailRecipeController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>
 @property(nonatomic,strong)DetailRecipeRes *result;
+@property(nonatomic,strong)RecipeCollectModel*allModel;
 @property(nonatomic,strong)DetailRecipeHeadView*headView;
+@property(nonatomic,strong)RecipeBottomView*bottomView;
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)UIWebView*webView;
 @property(nonatomic,strong)UIView*footView;
@@ -37,6 +40,13 @@
         _footView.backgroundColor = [UIColor whiteColor];
     }
     return _footView;
+}
+-(RecipeBottomView *)bottomView{
+    if (!_bottomView) {
+        _bottomView = [[RecipeBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight])];
+        [_bottomView.collectBtn addTarget:self action:@selector(pressCollect:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomView;
 }
 -(UITableView *)tableview{
     if (!_tableview) {
@@ -62,6 +72,7 @@
     self.tableview.tableHeaderView = self.headView;
     self.tableview.tableFooterView = self.footView;
     [self.footView addSubview:self.webView];
+    [self.view addSubview:self.bottomView];
     WEAKSELF;
     [self.headView setHeighrBlock:^(CGFloat height) {
         weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, height);
@@ -107,6 +118,29 @@
             [weakSelf.webView loadHTMLString:html_str baseURL:nil];
         }
         [weakSelf.tableview reloadData];
+        [weakSelf getAllData];
+    }];
+}
+-(void)getAllData{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.appId = @"993335466657415169";
+    req.cityName = @"上海市";
+    req.cityId = @"310100";
+    req.timestamp = @"0";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.sign = @"ffc18def63af3916f4d39165697f228f";
+    req.epicureId = self.epicureId;
+    self.allModel = [[RecipeCollectModel alloc]init];
+    WEAKSELF;
+    [[NextServiceApi share]shareDetailRecipeWithParam:req response:^(id response) {
+        if (response) {
+            weakSelf.allModel = response;
+            weakSelf.bottomView.collectBtn.selected = weakSelf.allModel.memberWasCollection;
+        }
     }];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
@@ -137,4 +171,28 @@
     }];
     return cell;
 }
+-(void)pressCollect:(UIButton*)sender{
+    
+    
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.appId = @"993335466657415169";
+    req.cityName = @"上海市";
+    req.cityId = @"310100";
+    req.timestamp = @"0";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    req.memberCollectionType = @"EPICURE";
+    req.memberCollectionTypeId = self.epicureId;
+    WEAKSELF;
+    [[NextServiceApi share]collectDetailRecipeWithParam:req response:^(id response) {
+        if ([response[@"code"]integerValue] ==200) {
+            sender.selected = !sender.selected;
+            [weakSelf showInfo:response[@"data"][@"message"]];
+        }else{
+            [weakSelf showInfo:response[@"message"]];
+        }
+    }];
+}
+
 @end

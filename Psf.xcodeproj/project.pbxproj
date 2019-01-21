@@ -366,6 +366,10 @@
 		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
 		89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */; };
 		89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07621CB9E7200FEE6AD /* TopicsController.m */; };
+		89C77FCF21F5776900A6FB04 /* RecipeBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C77FCE21F5776900A6FB04 /* RecipeBottomView.m */; };
+		89C77FD321F5908100A6FB04 /* UIButton+DNUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C77FD121F5908100A6FB04 /* UIButton+DNUtility.m */; };
+		89C77FD621F59A4800A6FB04 /* RecipeCollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C77FD521F59A4800A6FB04 /* RecipeCollectModel.m */; };
+		89C77FDA21F59FE800A6FB04 /* MineCollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C77FD921F59FE800A6FB04 /* MineCollectController.m */; };
 		89D2E4A121D78D6D0012A249 /* SignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2E4A021D78D6D0012A249 /* SignInController.m */; };
 		89E009F121EDAFDD00662FEA /* GoodRecipesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F021EDAFDD00662FEA /* GoodRecipesView.m */; };
 		89E009F421EDC43900662FEA /* DetailRecipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E009F321EDC43900662FEA /* DetailRecipeController.m */; };
@@ -1113,6 +1117,14 @@
 		89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSubHeadView.m; sourceTree = "<group>"; };
 		89C3A07521CB9E7200FEE6AD /* TopicsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicsController.h; sourceTree = "<group>"; };
 		89C3A07621CB9E7200FEE6AD /* TopicsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsController.m; sourceTree = "<group>"; };
+		89C77FCD21F5776900A6FB04 /* RecipeBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeBottomView.h; sourceTree = "<group>"; };
+		89C77FCE21F5776900A6FB04 /* RecipeBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipeBottomView.m; sourceTree = "<group>"; };
+		89C77FD121F5908100A6FB04 /* UIButton+DNUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+DNUtility.m"; sourceTree = "<group>"; };
+		89C77FD221F5908100A6FB04 /* UIButton+DNUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+DNUtility.h"; sourceTree = "<group>"; };
+		89C77FD421F59A4800A6FB04 /* RecipeCollectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeCollectModel.h; sourceTree = "<group>"; };
+		89C77FD521F59A4800A6FB04 /* RecipeCollectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipeCollectModel.m; sourceTree = "<group>"; };
+		89C77FD821F59FE800A6FB04 /* MineCollectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCollectController.h; sourceTree = "<group>"; };
+		89C77FD921F59FE800A6FB04 /* MineCollectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCollectController.m; sourceTree = "<group>"; };
 		89D2E49F21D78D6D0012A249 /* SignInController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInController.h; sourceTree = "<group>"; };
 		89D2E4A021D78D6D0012A249 /* SignInController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInController.m; sourceTree = "<group>"; };
 		89E009EF21EDAFDD00662FEA /* GoodRecipesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodRecipesView.h; sourceTree = "<group>"; };
@@ -2001,6 +2013,7 @@
 		8871B86720DB454800DAA5D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				89C77FD021F5906500A6FB04 /* Button */,
 				89F6E63821E82912009FE14D /* UILabel */,
 				8850362B213E546F00C85389 /* UITextField */,
 				888630AB212BA23B00B89080 /* BarCode */,
@@ -2604,6 +2617,7 @@
 		88D893A320D26DE0007E3C41 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				89C77FD721F59FCE00A6FB04 /* Collect */,
 				888630B1212BE39700B89080 /* QrCode */,
 				88D9283D211078B10001B2E3 /* Login */,
 				886A9EC920ECBA89000503D2 /* Refund */,
@@ -2712,6 +2726,24 @@
 			path = Topics;
 			sourceTree = "<group>";
 		};
+		89C77FD021F5906500A6FB04 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				89C77FD221F5908100A6FB04 /* UIButton+DNUtility.h */,
+				89C77FD121F5908100A6FB04 /* UIButton+DNUtility.m */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		89C77FD721F59FCE00A6FB04 /* Collect */ = {
+			isa = PBXGroup;
+			children = (
+				89C77FD821F59FE800A6FB04 /* MineCollectController.h */,
+				89C77FD921F59FE800A6FB04 /* MineCollectController.m */,
+			);
+			path = Collect;
+			sourceTree = "<group>";
+		};
 		89E009EB21EDADFD00662FEA /* recipe */ = {
 			isa = PBXGroup;
 			children = (
@@ -2728,6 +2760,8 @@
 				89F6E62421E8251E009FE14D /* CircleListCell.m */,
 				89F6E62221E8251E009FE14D /* CircleNavView.h */,
 				89F6E62021E8251E009FE14D /* CircleNavView.m */,
+				89C77FCD21F5776900A6FB04 /* RecipeBottomView.h */,
+				89C77FCE21F5776900A6FB04 /* RecipeBottomView.m */,
 				89F6E61E21E8251E009FE14D /* detail */,
 				89F6E61F21E8251E009FE14D /* LMHWaterFallLayout.h */,
 				89F6E62321E8251E009FE14D /* LMHWaterFallLayout.m */,
@@ -2761,6 +2795,8 @@
 				89E009F621EDC70500662FEA /* DetailRecipeRes.m */,
 				89E009F821EDC97200662FEA /* EpicureProductModel.h */,
 				89E009F921EDC97200662FEA /* EpicureProductModel.m */,
+				89C77FD421F59A4800A6FB04 /* RecipeCollectModel.h */,
+				89C77FD521F59A4800A6FB04 /* RecipeCollectModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3032,6 +3068,7 @@
 				888B17D7211EF2FA00501322 /* RandomKey.m in Sources */,
 				8871B86120DB441000DAA5D6 /* FilePathManager.m in Sources */,
 				89F6E63721E828BE009FE14D /* BaseModelReq.m in Sources */,
+				89C77FD621F59A4800A6FB04 /* RecipeCollectModel.m in Sources */,
 				88747AE5212AC0B70058ED5B /* PlaceOrderRes.m in Sources */,
 				88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
@@ -3052,6 +3089,7 @@
 				88566E4B2112C35400B6C38D /* TZTestCell.m in Sources */,
 				8881BF3B21184ADB00F6A0CD /* FillEvaluateReq.m in Sources */,
 				888E719320E0CAA300BFBAFF /* VTMagicView.m in Sources */,
+				89C77FDA21F59FE800A6FB04 /* MineCollectController.m in Sources */,
 				8871B86020DB441000DAA5D6 /* DeviceModel.m in Sources */,
 				88636D0120E1C977006CE5D8 /* ZSPageViewController.m in Sources */,
 				8871B84620DB419A00DAA5D6 /* NSDictionary+TYAFNetworking.m in Sources */,
@@ -3103,6 +3141,7 @@
 				8860DA5F20D9EF74009E53B0 /* SortCollectHeadView.m in Sources */,
 				88566E1E2112AEF900B6C38D /* AgentImageBaseModel.m in Sources */,
 				885F408620DCFCBA009F04D6 /* NavgationView.m in Sources */,
+				89C77FD321F5908100A6FB04 /* UIButton+DNUtility.m in Sources */,
 				88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */,
 				89E00A0321EDCEFD00662FEA /* DetailRecipeProductCell.m in Sources */,
 				888E719420E0CAA300BFBAFF /* UIColor+VTMagic.m in Sources */,
@@ -3235,6 +3274,7 @@
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
 				88671890212CFAC500D861AD /* ZSNotification.m in Sources */,
 				89E009F421EDC43900662FEA /* DetailRecipeController.m in Sources */,
+				89C77FCF21F5776900A6FB04 /* RecipeBottomView.m in Sources */,
 				886AC40D2101EAF900B6F32F /* StoreRes.m in Sources */,
 				88566E5F2112C52000B6C38D /* TYImageAssetModel.m in Sources */,
 				88600BF720D8D16E0098CF10 /* UIViewController+ZJScrollPageController.m in Sources */,

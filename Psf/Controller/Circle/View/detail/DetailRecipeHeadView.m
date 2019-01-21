@@ -38,13 +38,18 @@
     _model = model;
     self.titleLabel.text = model.epicureName;
     NSString*url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.epicureImgPath];
-    
-    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        
-        self.headImage.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENWIDTH*image.size.height/image.size.width);
-        self.titleLabel.frame = CGRectMake(0, self.headImage.ctBottom, SCREENWIDTH, 50);
+    if (model.epicureImgPath.length>0) {
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            
+            self.headImage.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENWIDTH*image.size.height/image.size.width);
+            self.titleLabel.frame = CGRectMake(0, self.headImage.ctBottom, SCREENWIDTH, 50);
+            self.heighrBlock(self.titleLabel.ctBottom);
+        }];
+    }else{
+        self.titleLabel.frame = CGRectMake(0, 0, SCREENWIDTH, 50);
         self.heighrBlock(self.titleLabel.ctBottom);
-    }];
+    }
+    
 }
 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MineTableViewCell : UITableViewCell
-@property(nonatomic,strong)UILabel *titleLabel;
+@property(nonatomic,strong)UIImageView *titleLabel;
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,assign)NSInteger section;

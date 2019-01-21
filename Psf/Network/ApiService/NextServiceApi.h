@@ -17,6 +17,7 @@
 #import "TopicsListRes.h"
 #import "CircleListRes.h"
 #import "DetailRecipeRes.h"
+#import "RecipeCollectModel.h"
 
 
 @interface NextServiceApi : BaseApi
@@ -67,5 +68,11 @@
 - (void)getHomeRecipeListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///菜谱详情
 - (void)getDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///菜谱详情（收藏）
+- (void)collectDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///菜谱详情（收藏、分享、点赞、评论）
+- (void)shareDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///我的收藏
+- (void)mineCollectListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 
 @end

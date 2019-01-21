@@ -1,29 +1,34 @@
 //
-//  CircleController.m
-//  Ypc
+//  MineCollectController.m
+//  Psf
 //
-//  Created by zhangshu on 2018/12/12.
-//  Copyright © 2018 zhangshu. All rights reserved.
+//  Created by zhangshu on 2019/1/21.
+//  Copyright © 2019 zhangshu. All rights reserved.
 //
 
-#import "CircleController.h"
-#import "CircleNavView.h"
+#import "MineCollectController.h"
 #import "NextServiceApi.h"
 #import "CircleListCell.h"
-
 #import "DetailRecipeController.h"
 
-@interface CircleController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface MineCollectController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property(nonatomic,strong)NSMutableArray *sortArr;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *controllersArr;
 @property(nonatomic,assign)NSInteger pageIndex;
 
-
 @end
 
-@implementation CircleController
+@implementation MineCollectController
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setTitle:@"我的收藏"];
+       
+    }
+    return self;
+}
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         // 创建布局
@@ -47,24 +52,13 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStyleDone target:self action:@selector(didLeftClick)];
-    [self.navigationItem setLeftBarButtonItem:leftBar];
-    if (self.dataArr.count ==0) {
-        self.pageIndex = 1;
-        [self requestData]; 
-    }
+
    
+        self.pageIndex = 1;
+        [self requestData];
+    
 }
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.view.backgroundColor = [UIColor whiteColor];
-        
-        [self setTitle:@"菜谱"];
-        
-    }
-    return self;
-}
+
 /**
  *  上拉刷新
  */
@@ -85,9 +79,9 @@
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     req.pageIndex = self.pageIndex;
     req.pageSize = @"10";
-    req.sign = @"ffc18def63af3916f4d39165697f228f";
+    req.memberCollectionType = @"EPICURE";
     WEAKSELF;
-    [[NextServiceApi share]getHomeRecipeListWithParam:req response:^(id response) {
+    [[NextServiceApi share]mineCollectListWithParam:req response:^(id response) {
         if (response) {
             
             if (self.pageIndex ==1) {
@@ -100,7 +94,7 @@
                 [weakSelf.collectionView.mj_footer endRefreshing];
             }
             
-           
+            
             if ([response count] < 10) {
                 [weakSelf.collectionView.mj_footer removeFromSuperview];
                 
@@ -159,8 +153,7 @@
     DetailRecipeController *detailVC = [[DetailRecipeController alloc]init];
     CircleListRes *model =self.dataArr[indexPath.item];
     detailVC.hidesBottomBarWhenPushed = YES;
-    [detailVC setEpicureId:model.epicureId];
+    [detailVC setEpicureId:model.articleId];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
-
 @end

@@ -23,6 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *totalLike;
 ///
 @property(nonatomic,assign)CGFloat height;
+///
+@property(nonatomic,copy)NSString *articleId;
+///
+@property(nonatomic,copy)NSString *articleImgPath;
+///
+@property(nonatomic,copy)NSString *articleName;
 
 @end
 

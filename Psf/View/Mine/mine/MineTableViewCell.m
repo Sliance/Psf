@@ -21,11 +21,10 @@
 
     // Configure the view for the selected state
 }
--(UILabel *)titleLabel{
+-(UIImageView *)titleLabel{
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc]init];
-        _titleLabel.font = [UIFont fontWithName:@"icomoon"size:15];
-        
+        _titleLabel = [[UIImageView alloc]init];
+    
     }
     return _titleLabel;
 }
@@ -65,9 +64,10 @@
     }
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
+       
         make.left.equalTo(self).offset(15);
-        make.height.mas_equalTo(45);
+        make.centerY.equalTo(self);
+        
     }];
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -83,34 +83,6 @@
 }
 -(void)setIndex:(NSInteger)index{
     _index = index;
-    switch (index) {
-        case 0:
-        {
-            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:15];
-        }
-            break;
-        case 1:
-        {
-            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:14];
-        }
-            break;
-        case 2:
-        {
-            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:16];
-        }
-            break;
-        case 3:
-        {
-            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:16];
-        }
-            break;
-        case 4:
-        {
-            _titleLabel.font = [UIFont fontWithName:@"icomoon"size:15];
-        }
-            break;
-        default:
-            break;
-    }
+    
 }
 @end
