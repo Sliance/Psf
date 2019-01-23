@@ -398,13 +398,13 @@ static NSString *cellId = @"cellId";
 //设置每个item水平间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return -10;
+    return 0;
 }
 
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(165, 260);
+    return CGSizeMake(SCREENWIDTH/2-45/2, SCREENWIDTH/2-45/2+90);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -440,8 +440,9 @@ static NSString *cellId = @"cellId";
     if (section ==0) {
         return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
     }
-    return CGSizeMake(SCREENWIDTH, 120*SCREENWIDTH/375+50);
+    return CGSizeMake(SCREENWIDTH, 120*SCREENWIDTH/375+50+20);
 }
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -525,7 +526,7 @@ static NSString *cellId = @"cellId";
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
     }else{
-        HomeSubHeadView*subView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 120*SCREENWIDTH/375+50)];
+        HomeSubHeadView*subView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 120*SCREENWIDTH/375+50)];
         [subView setModel:model];
         [headerView addSubview:subView];
         

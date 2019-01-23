@@ -26,7 +26,8 @@
 @property(nonatomic,copy)NSString *productPayPrice;
 ///
 @property(nonatomic,copy)NSString *productName;
-///
+
+///0，计数，1.称重，2.69码(计数
 @property(nonatomic,assign)NSInteger productStyle;
 ///
 @property(nonatomic,copy)NSString *productPrice;
@@ -56,7 +57,7 @@
 ///
 @property(nonatomic,copy)NSString *systemUpdateUserId;
 ///
-@property(nonatomic,assign)NSInteger productIsOnSale;
+@property(nonatomic,assign)BOOL productIsOnSale;
 ///
 @property(nonatomic,copy)NSString* saleOrderProductQty;
 ///

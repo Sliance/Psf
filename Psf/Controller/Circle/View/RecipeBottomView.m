@@ -24,11 +24,26 @@
     }
     return _collectBtn;
 }
+-(UIButton *)shareBtn{
+    if (!_shareBtn) {
+        _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareBtn setImage:[UIImage imageNamed:@"share_recipe"] forState:UIControlStateNormal];
+        [_shareBtn setImage:[UIImage imageNamed:@"share_recipe"] forState:UIControlStateSelected];
+        
+        [_shareBtn setTitleColor:DSColorFromHex(0x707070) forState:UIControlStateNormal];
+        [_shareBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateSelected];
+        _shareBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+        _shareBtn.frame = CGRectMake(SCREENWIDTH/4, 0, SCREENWIDTH/4, 44);
+        
+    }
+    return _shareBtn;
+}
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.collectBtn];
+        [self addSubview:self.shareBtn];
     }
     return self;
 }

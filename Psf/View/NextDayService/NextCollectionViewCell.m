@@ -178,7 +178,11 @@
 }
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
-    self.nameLabel.text = model.productName;
+    if (model.productStyle ==1) {
+        self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
+    }else{
+        self.nameLabel.text = model.productName;
+    }
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;

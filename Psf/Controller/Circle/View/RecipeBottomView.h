@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecipeBottomView : BaseView
 @property(nonatomic,strong)UIButton *collectBtn;
+@property(nonatomic,strong)UIButton *shareBtn;
 
 @end
 

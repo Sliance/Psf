@@ -12,6 +12,8 @@
 #import "DetailRecipeCell.h"
 #import "detailGoodsViewController.h"
 #import "RecipeBottomView.h"
+#import "WXApiObject.h"
+#import "WXApi.h"
 
 @interface DetailRecipeController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>
 @property(nonatomic,strong)DetailRecipeRes *result;
@@ -45,12 +47,13 @@
     if (!_bottomView) {
         _bottomView = [[RecipeBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight])];
         [_bottomView.collectBtn addTarget:self action:@selector(pressCollect:) forControlEvents:UIControlEventTouchUpInside];
+        [_bottomView.shareBtn addTarget:self action:@selector(pressShare) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomView;
 }
 -(UITableView *)tableview{
     if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) style:UITableViewStylePlain];
         [_tableview registerClass:[DetailRecipeCell class] forCellReuseIdentifier:NSStringFromClass([DetailRecipeCell class])];
         _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableview.delegate = self;
@@ -141,7 +144,9 @@
             weakSelf.allModel = response;
             weakSelf.bottomView.collectBtn.selected = weakSelf.allModel.memberWasCollection;
             [weakSelf.bottomView.collectBtn setTitle:weakSelf.allModel.totalCollection forState:UIControlStateNormal];
+            [weakSelf.bottomView.shareBtn setTitle:weakSelf.allModel.totalForwardCount forState:UIControlStateNormal];
             [weakSelf.bottomView.collectBtn setIconInTopWithSpacing:5];
+            [weakSelf.bottomView.shareBtn setIconInTopWithSpacing:5];
         }
     }];
 }
@@ -197,5 +202,27 @@
         [weakSelf getAllData];
     }];
 }
-
+-(void)pressShare{
+    
+    UIImageView *bgimageview = [[UIImageView alloc]init];
+    
+    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.epicureImgPath]]];
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = self.result.epicureName;
+    message.thumbData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.epicureImgPath]]];
+    message.description = @"邀您一起";
+    
+    [message setThumbImage:bgimageview.image];
+    WXWebpageObject *webpage = [WXWebpageObject object];
+    NSString*url =[NSString stringWithFormat:@"http://xcxb.lxnong.com/share/index.html#/menuDetail?epicureId=%@&erpStoreId=%@",self.result.epicureId,[UserCacheBean share].userInfo.erpStoreId];
+    webpage.webpageUrl = url;
+    //    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
+    message.mediaObject = webpage;
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    
+    [WXApi sendReq:req];
+}
 @end

@@ -12,10 +12,11 @@
 -(UIImageView *)headImage{
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
-        _headImage.image = [UIImage imageNamed:@"mei_icon"];
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         [_headImage.layer setBorderWidth:0.5];
+        _headImage.contentMode = UIViewContentModeScaleToFill;
+        _headImage.clipsToBounds = YES;
         [_headImage.layer setBorderColor:DSColorFromHex(0xDCDCDC).CGColor];
     }
     return _headImage;
@@ -55,24 +56,46 @@
 }
 -(void)setWidth:(NSInteger)width{
     _width = width;
-    [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (width ==160) {
+        [self.headImage mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self).offset(15);
+            make.width.mas_equalTo(width);
+            make.height.mas_equalTo(120);
+            
+        }];
+        [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImage.mas_left);
+            make.top.equalTo(self.headImage.mas_bottom).offset(5);
+            make.width.mas_equalTo(width);
+            
+        }];
+        [self.priceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImage.mas_left);
+            make.top.equalTo(self.nameLabel.mas_bottom).offset(5);
+            make.width.mas_equalTo(width);
+            
+        }];
+    }else{
+    [self.headImage mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(15);
         make.width.height.mas_equalTo(width);
         
     }];
-    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
         make.top.equalTo(self.headImage.mas_bottom).offset(5);
         make.width.mas_equalTo(123);
         
     }];
-    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.priceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(5);
         make.width.mas_equalTo(123);
         
     }];
+    }
 }
 -(void)setModel:(GoodDetailRes *)model{
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];

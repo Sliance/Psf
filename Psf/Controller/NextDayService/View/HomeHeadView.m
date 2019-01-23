@@ -26,7 +26,7 @@
     if (!_headimage) {
         _headimage = [[UIImageView alloc]init];
         [_headimage.layer setMasksToBounds:YES];
-        [_headimage.layer setCornerRadius:60*SCREENWIDTH/375];
+        [_headimage.layer setCornerRadius:6];
         
     }
     return _headimage;
