@@ -8,6 +8,7 @@
 
 #import "BaseTableViewCell.h"
 #import "EpicureProductModel.h"
+#import "CartProductModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel *titleLabel;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
-@property(nonatomic,copy)void(^selectedCollect)(NSInteger);
+@property(nonatomic,copy)void(^selectedCollect)(CartProductModel*);
 @property(nonatomic,strong)EpicureProductModel*model;
 
 @end

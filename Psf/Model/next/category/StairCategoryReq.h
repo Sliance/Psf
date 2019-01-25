@@ -87,6 +87,7 @@
 @property(nonatomic,copy)NSString *memberCollectionType;
 ///菜谱收藏id
 @property(nonatomic,copy)NSString *memberCollectionTypeId;
-
+///热销类型
+@property(nonatomic,copy)NSString *hotType;
 
 @end

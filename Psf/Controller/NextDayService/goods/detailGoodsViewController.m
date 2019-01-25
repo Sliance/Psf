@@ -308,7 +308,7 @@
                     GoodDetailRes *model = _weakSelf.result;
                     double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
                     model.productPrice = [NSString stringWithFormat:@"%.2f",price];
-                    [_weakSelf addShopCount:model Quantity:@"1"];
+                    [_weakSelf addShopCount:nil Quantity:@"1"];
                 }else{
                     if (_weakSelf.result.productSkuList.count>1) {
                         _weakSelf.presaleBuyView.hidden = NO;
@@ -550,7 +550,7 @@
     }];
     [self.storeBuyView setSubmitBlock:^(NSString *weight, GoodDetailRes *detailmodel, StairCategoryListRes *resmodel) {
         _weakSelf.storeBuyView.hidden = YES;
-        [_weakSelf addShopCount:detailmodel Quantity:weight];
+        [_weakSelf addShopCount:nil Quantity:weight];
     }];
 }
 

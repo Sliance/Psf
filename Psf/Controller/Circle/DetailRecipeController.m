@@ -170,9 +170,9 @@
     EpicureProductModel*model = self.result.epicureMobileV1IngredientsInfoWrappers[indexPath.row];
     [cell setModel:model];
     WEAKSELF;
-    [cell setSelectedCollect:^(NSInteger productID) {
+    [cell setSelectedCollect:^(CartProductModel *model) {
         detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
-        [vc setProductID:productID];
+        [vc setProductID:model.productId];
         vc.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];

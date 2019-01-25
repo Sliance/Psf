@@ -14,4 +14,5 @@
 
 @property(nonatomic,strong)NSString *navStr;
 @property(nonatomic,copy)NSString* erpProductId;
+
 @end

@@ -316,6 +316,7 @@ static NSString *cellId = @"cellId";
     req.cityName = @"上海市";
     req.pageIndex = 1;
     req.pageSize = @"10";
+    req.hotType = @"search";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestHotListLoadWithParam:req response:^(id response) {
         NSMutableArray *hotSeaches = [[NSMutableArray alloc]init];

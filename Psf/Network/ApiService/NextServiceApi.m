@@ -132,13 +132,27 @@
 ///获取爆款商品列表
 -(void)requestHotListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/member/search/mobile/v2/hot/list";
+    NSString *url;
+    if ([req.hotType isEqualToString:@"search"]) {
+        url = @"/lxn/member/search/mobile/v1/hot/list";
+    }else{
+        url  = @"/lxn/member/search/mobile/v2/hot/list";
+    }
+    
+   
+    
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = (NSArray*)[GoodDetailRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                NSArray *result;
+                if ([req.hotType isEqualToString:@"search"]) {
+                    result = (NSArray*)[GoodDetailRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                }else{
+                    result = (NSArray*)[GoodDetailRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                }
+                
                 if (responseModel) {
                     responseModel(result);
                 }

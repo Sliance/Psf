@@ -345,8 +345,21 @@
             NSDate *date = [[[NSDate alloc]init]dateByAddingDays:0];
             NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
             NSArray *arr = [time componentsSeparatedByString:@"-"];
-            NSString *end = [NSString stringWithFormat:@"%@ %@",next,arr[1]];
-            next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+            
+            NSString *end;
+            if (self.goodstype ==GOOGSTYPEPresale) {
+                end= [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[1]];
+                next = [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[0]];
+                
+            }else if(self.goodstype ==GOOGSTYPENextday){
+                end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
+                next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+            }else{
+                end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
+                next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+            }
+            
+            
             weakself.calculateModel.couponId = @"";
             weakself.calculateModel.saleOrderDistributionStartTime = next;
             weakself.calculateModel.saleOrderDistributionEndTime = end ;

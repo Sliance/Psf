@@ -92,7 +92,7 @@ static NSString *cellId = @"DetailRecipeProductCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     CartProductModel *model = self.model.epicureMobileV1ProductWrapper[indexPath.row];
     if (model.productIsOnSale ==YES) {
-         self.selectedCollect(model.productId);
+         self.selectedCollect(model);
     }
 }
 -(void)setDataArr:(NSMutableArray *)dataArr{

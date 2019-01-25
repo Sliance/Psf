@@ -256,7 +256,7 @@
     req.userLongitude = [UserCacheBean share].userInfo.longitude;
     req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cityName = @"上海市";
-    __weak typeof(self)weakself = self;
+   
     [[OrderServiceApi share]againOrderWithParam:req response:^(id response) {
         if (response) {
             if ([response[@"code"] integerValue] ==200) {
