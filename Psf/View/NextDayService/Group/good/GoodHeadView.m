@@ -372,18 +372,33 @@
         self.nameLabel.text = model.productName;
     }
     if([model.productType isEqualToString:@"normal"]){//正常
-        [self setCornerLayoutNormal];
-        if (model.productPrice) {
-            if (model.productStyle ==1) {
-                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                self.priceLabel.text = productPrice;
-            }else{
-                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-            }
+        if (model.activityName.length>0) {
+            self.groupLabel.text = @"距离活动结束还剩:";
+            self.originLabel.hidden = NO;
+            self.lineLabel.hidden = YES;
+            [self setCornerLayoutGroup];
+            self.originLabel.text = [NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName];
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productActivityPrice];
+            NSString *date = [NSDate cStringFromTimestamp:_model.activityEndTime Formatter:@"YYYY-MM-dd HH:mm:ss"];
+            NSString *end = [NSDate getCountDownStringWithEndTime:date];
+            self.dateLabel.text = end;
+            NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(groupTime) userInfo:nil repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
             
-        }
-        
+            [timer setFireDate:[NSDate distantPast]];
+        }else{
+            [self setCornerLayoutNormal];
+            if (model.productPrice) {
+                if (model.productStyle ==1) {
+                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                    self.priceLabel.text = productPrice;
+                }else{
+                    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+                }
+                
+            }
+      }
     }else if ([model.productType isEqualToString:@"groupon"]){//团购
          self.groupLabel.text = @"距离拼团结束还剩:";
         self.originLabel.hidden = NO;
@@ -461,7 +476,9 @@
     
 }
 -(void)groupTime{
-    self.dateLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+    NSString *date = [NSDate cStringFromTimestamp:_model.activityEndTime Formatter:@"YYYY-MM-dd HH:mm:ss"];
+    NSString *end = [NSDate getCountDownStringWithEndTime:date];
+    self.dateLabel.text = end;
 }
 -(void)timerAction{
     self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];

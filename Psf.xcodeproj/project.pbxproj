@@ -363,6 +363,8 @@
 		8975944421D0CA0200E6030F /* TopicsListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944321D0CA0200E6030F /* TopicsListRes.m */; };
 		8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944721D0DA0800E6030F /* TopicTopCell.m */; };
 		8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */; };
+		89A7C057221FF85C0073AC49 /* TimeBuyListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7C056221FF85C0073AC49 /* TimeBuyListController.m */; };
+		89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A949EA221E7E0600915FA0 /* TimeBuyModel.m */; };
 		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
 		89C3A07321CB853900FEE6AD /* HomeSubHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07221CB853900FEE6AD /* HomeSubHeadView.m */; };
 		89C3A07721CB9E7200FEE6AD /* TopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A07621CB9E7200FEE6AD /* TopicsController.m */; };
@@ -1111,6 +1113,10 @@
 		8975944721D0DA0800E6030F /* TopicTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicTopCell.m; sourceTree = "<group>"; };
 		8991D3C821E5C8D3001B6A09 /* OrderRuleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRuleController.h; sourceTree = "<group>"; };
 		8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRuleController.m; sourceTree = "<group>"; };
+		89A7C055221FF85C0073AC49 /* TimeBuyListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyListController.h; sourceTree = "<group>"; };
+		89A7C056221FF85C0073AC49 /* TimeBuyListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeBuyListController.m; sourceTree = "<group>"; };
+		89A949E9221E7E0600915FA0 /* TimeBuyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyModel.h; sourceTree = "<group>"; };
+		89A949EA221E7E0600915FA0 /* TimeBuyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeBuyModel.m; sourceTree = "<group>"; };
 		89C3A06E21CB6C4300FEE6AD /* HomeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeadView.h; sourceTree = "<group>"; };
 		89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeadView.m; sourceTree = "<group>"; };
 		89C3A07121CB853900FEE6AD /* HomeSubHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSubHeadView.h; sourceTree = "<group>"; };
@@ -2581,6 +2587,7 @@
 		88D8939820D26CF0007E3C41 /* NextDayService */ = {
 			isa = PBXGroup;
 			children = (
+				89A949E7221E7DD300915FA0 /* TimeBuy */,
 				89C3A07421CB9E5500FEE6AD /* Topics */,
 				89C3A06D21CB6C2300FEE6AD /* View */,
 				88D0F5B32159D251008394E3 /* StoreGoods */,
@@ -2701,6 +2708,25 @@
 				89E009F321EDC43900662FEA /* DetailRecipeController.m */,
 			);
 			path = Circle;
+			sourceTree = "<group>";
+		};
+		89A949E7221E7DD300915FA0 /* TimeBuy */ = {
+			isa = PBXGroup;
+			children = (
+				89A949E8221E7DE400915FA0 /* Model */,
+				89A7C055221FF85C0073AC49 /* TimeBuyListController.h */,
+				89A7C056221FF85C0073AC49 /* TimeBuyListController.m */,
+			);
+			path = TimeBuy;
+			sourceTree = "<group>";
+		};
+		89A949E8221E7DE400915FA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				89A949E9221E7E0600915FA0 /* TimeBuyModel.h */,
+				89A949EA221E7E0600915FA0 /* TimeBuyModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		89C3A06D21CB6C2300FEE6AD /* View */ = {
@@ -3087,6 +3113,7 @@
 				88747E8220EDA812000BC993 /* UseCouponController.m in Sources */,
 				88484D8320EB546500400D16 /* TourDiyGooddetailCell.m in Sources */,
 				88566E4B2112C35400B6C38D /* TZTestCell.m in Sources */,
+				89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */,
 				8881BF3B21184ADB00F6A0CD /* FillEvaluateReq.m in Sources */,
 				888E719320E0CAA300BFBAFF /* VTMagicView.m in Sources */,
 				89C77FDA21F59FE800A6FB04 /* MineCollectController.m in Sources */,
@@ -3224,6 +3251,7 @@
 				88D893A620D26DF5007E3C41 /* MineViewController.m in Sources */,
 				8860DA5620D9E14E009E53B0 /* SortLeftScrollow.m in Sources */,
 				8871B86620DB44BB00DAA5D6 /* DSBaseModel.m in Sources */,
+				89A7C057221FF85C0073AC49 /* TimeBuyListController.m in Sources */,
 				88534C2620E5FAD500D6F43C /* GoodFootView.m in Sources */,
 				88636D2720E24C1C006CE5D8 /* EvaluateTableViewCell.m in Sources */,
 				88566E0B2112A8A200B6C38D /* NSObject+AddKeyValueToObject.m in Sources */,

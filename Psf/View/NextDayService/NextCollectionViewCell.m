@@ -14,6 +14,7 @@
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
         _headImage.image = [UIImage imageNamed:@""];
+        _headImage.backgroundColor = DSColorFromHex(0xFAFAFA);
         [_headImage.layer setMasksToBounds:YES];
         [_headImage.layer setCornerRadius:4];
         _headImage.layer.borderWidth = 0.5;
@@ -60,6 +61,23 @@
         _priceLabel.text = @"";
     }
     return _priceLabel;
+}
+-(UILabel *)oripriceLabel{
+    if (!_oripriceLabel) {
+        _oripriceLabel = [[UILabel alloc]init];
+        _oripriceLabel.textAlignment = NSTextAlignmentLeft;
+        _oripriceLabel.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:13];
+        _oripriceLabel.textColor = DSColorFromHex(0x969696);
+        
+    }
+    return _oripriceLabel;
+}
+-(UILabel *)lineLabel{
+    if (!_lineLabel) {
+        _lineLabel = [[UILabel alloc]init];
+        _lineLabel.backgroundColor = DSColorFromHex(0x969696);
+    }
+    return _lineLabel;
 }
 -(UILabel *)weightLabel{
     if (!_weightLabel) {
@@ -125,6 +143,9 @@
     [self addSubview:self.quickLabel];
     [self addSubview:self.presaleLabel];
     [self addSubview:self.addBtn];
+    [self addSubview:self.oripriceLabel];
+    [self addSubview:self.lineLabel];
+    
     self.backgroundColor = [UIColor whiteColor];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
@@ -215,6 +236,77 @@
     }
     self.weightLabel.text = groupmodel.productUnit;
 }
+-(void)setImageWidth:(CGFloat)imageWidth{
+    _imageWidth = imageWidth;
+    [self.headImage mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self).offset(15);
+        make.width.height.mas_equalTo(imageWidth);
+        
+    }];
+    [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_left);
+        make.top.equalTo(self.headImage.mas_bottom).offset(6);
+        make.width.mas_equalTo(imageWidth);
+        
+    }];
+    [self.contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_left);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(3);
+        make.width.mas_equalTo(imageWidth);
+        
+    }];
+    [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_left);
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(3);
+        
+    }];
+    [self.weightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceLabel.mas_right);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        
+    }];
+    [self.presaleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.headImage.mas_right);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+        
+    }];
+    [self.raiseLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_left);
+        make.top.equalTo(self.priceLabel.mas_bottom).offset(8);
+        make.width.mas_equalTo(50);
+        make.height.mas_equalTo(18);
+    }];
+    [self.quickLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.raiseLabel.mas_right).offset(5);
+        make.top.equalTo(self.priceLabel.mas_bottom).offset(8);
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(18);
+    }];
+    [self.addBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.headImage.mas_right);
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
+    }];
+    [self.oripriceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImage.mas_left);
+        make.top.equalTo(self.priceLabel.mas_bottom).offset(3);
+    }];
+    [self.lineLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.oripriceLabel);
+        make.height.mas_equalTo(0.5);
+        make.centerY.equalTo(self.oripriceLabel);
+    }];
+}
+-(void)setTimeModel:(TimeBuyModel *)timeModel{
+    _timeModel = timeModel;
+    self.nameLabel.text = timeModel.productName;
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,timeModel.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.contentLabel.text = timeModel.productTitle;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productActivityPrice];
+    self.oripriceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productPrice];
+}
+
 -(void)pressAdd{
     self.addBlock();
 }

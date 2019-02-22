@@ -92,4 +92,13 @@
 @property(nonatomic,assign)BOOL productIsWard;
 ///
 @property(nonatomic,copy)NSString *memberSearchKey;
+///
+@property(nonatomic,copy)NSString *activityEndTime;
+///
+@property(nonatomic,copy)NSString *activityName;
+///
+@property(nonatomic,copy)NSString *activityStartTime;
+///
+@property(nonatomic,copy)NSString *productActivityPrice;
+
 @end

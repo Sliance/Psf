@@ -647,4 +647,54 @@
         
     }];
 }
+///限时购
+- (void)timeToBuyWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_To_Buy Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                NSArray *result = [TimeBuyModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///限时购列表
+- (void)timeBuyListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_Buy_list Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                NSArray *result = [TimeBuyModel mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 @end

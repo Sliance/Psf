@@ -10,6 +10,7 @@
 #import "StairCategoryListRes.h"
 #import "ZSConfig.h"
 #import "GroupListRes.h"
+#import "TimeBuyModel.h"
 
 @interface NextCollectionViewCell : UICollectionViewCell
 ///图片
@@ -28,8 +29,13 @@
 @property(nonatomic,strong)UILabel *raiseLabel;
 ///爆款
 @property(nonatomic,strong)UILabel *quickLabel;
+
+@property(nonatomic,strong)UILabel *oripriceLabel;
+@property(nonatomic,strong)UILabel *lineLabel;
 @property(nonatomic,strong)StairCategoryListRes *model;
 @property(nonatomic,strong)GroupListRes *groupmodel;
+@property(nonatomic,strong)TimeBuyModel *timeModel;
+@property(nonatomic,assign)CGFloat imageWidth;
 @property(nonatomic,strong)UIButton*addBtn;
 
 @property(nonatomic,copy)void(^addBlock)(void);

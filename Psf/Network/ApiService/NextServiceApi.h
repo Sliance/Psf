@@ -18,6 +18,7 @@
 #import "CircleListRes.h"
 #import "DetailRecipeRes.h"
 #import "RecipeCollectModel.h"
+#import "TimeBuyModel.h"
 
 
 @interface NextServiceApi : BaseApi
@@ -74,5 +75,8 @@
 - (void)shareDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///我的收藏
 - (void)mineCollectListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
-
+///限时购
+- (void)timeToBuyWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///限时购列表
+- (void)timeBuyListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 @end

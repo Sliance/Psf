@@ -29,6 +29,7 @@
 #import "TopicsController.h"
 #import "ShopServiceApi.h"
 #import "SignInController.h"
+#import "TimeBuyListController.h"
 
 @interface PresaleHomeController ()<UICollectionViewDelegate, UICollectionViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -36,6 +37,9 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *bannerArr;
 @property(nonatomic,strong)HomeLocationView *locView;
+@property(nonatomic,strong)TimeBuyModel*timeModel;
+@property(nonatomic,strong)NSMutableArray *timeArr;
+
 @end
 static NSString *cellId = @"cellId";
 @implementation PresaleHomeController
@@ -89,7 +93,6 @@ static NSString *cellId = @"cellId";
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
-           
             [weakself.collectionView reloadData];
         }
     }];
@@ -143,6 +146,43 @@ static NSString *cellId = @"cellId";
         if (response) {
             [UserCacheBean share].userInfo.productDefaultDes = response[@"data"][@"businessParamValue"];
         }
+        [self requestTimeBuy];
+    }];
+}
+-(void)requestTimeBuy{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.cityName = @"上海市";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"2.0.0";
+    req.platform = @"ios";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    [[NextServiceApi share]timeToBuyWithParam:req response:^(id response) {
+        if (response) {
+            NSArray *arr = response;
+            self.timeModel = [arr firstObject];
+            [self requestTimeBuyList:self.timeModel.ruleActivityId];
+        }
+        
+    }];
+}
+-(void)requestTimeBuyList:(NSString*)ruleId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"";
+    req.platform = @"ios";
+    req.ruleActivityId = ruleId;
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    [[NextServiceApi share]timeBuyListWithParam:req response:^(id response) {
+        if (response) {
+            [self.timeArr removeAllObjects];
+            [self.timeArr addObjectsFromArray:response];
+            
+        }
+        [self.collectionView reloadData];
         [self reloadTuiJian];
     }];
 }
@@ -161,9 +201,9 @@ static NSString *cellId = @"cellId";
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
-            [weakself.collectionView reloadData];
+            
         }
-        
+        [weakself.collectionView reloadData];
     }];
 }
 -(void)getErp{
@@ -259,8 +299,9 @@ static NSString *cellId = @"cellId";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-     _dataArr = [NSMutableArray array];
-    _bannerArr = [NSMutableArray array];
+     _dataArr = [[NSMutableArray alloc]init];
+    _bannerArr = [[NSMutableArray alloc]init];
+    self.timeArr = [[NSMutableArray alloc]init];
     if (@available(iOS 11.0, *)) {
         _collectionView.contentInsetAdjustmentBehavior = NO;
         self.collectionView.frame= CGRectMake(0, self.locView.ctBottom, SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]-1-[self tabBarHeight]);
@@ -303,6 +344,13 @@ static NSString *cellId = @"cellId";
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark--Action
+
+-(void)pressTimeBuyList{
+    TimeBuyListController*vc = [[TimeBuyListController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [vc setActivityId: self.timeModel.ruleActivityId];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(void)pressSearch:(UIButton*)sender{
     
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -381,13 +429,17 @@ static NSString *cellId = @"cellId";
         [self.navigationController pushViewController:cityViewController animated:YES];
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
+    if (self.dataArr.count ==0) {
+        return 1;
+    }
     return self.dataArr.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
+    if (self.dataArr.count >0) {
         SubjectCategoryModel *model = self.dataArr[section];
         return model.subjectCategoryProductList.count;
+    }
+    return 0;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -439,7 +491,11 @@ static NSString *cellId = @"cellId";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section ==0) {
-        return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
+        if (self.timeArr.count>0) {
+            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160+220);
+        }else{
+            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
+        }
     }
     return CGSizeMake(SCREENWIDTH, 120*SCREENWIDTH/375+50+20);
 }
@@ -455,19 +511,37 @@ static NSString *cellId = @"cellId";
             [view removeFromSuperview];
         }
     }
-    SubjectCategoryModel *model = self.dataArr[indexPath.section];
+    SubjectCategoryModel *model;
+    if (self.dataArr.count>0) {
+        model = self.dataArr[indexPath.section];
+    }
+     __weak typeof(self)weakself = self;
     if (indexPath.section ==0) {
         HomeHeadView* validView = [[HomeHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160)];
+        if (self.timeArr.count>0) {
+            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160+220);
+            [validView.moreBtn addTarget:self action:@selector(pressTimeBuyList) forControlEvents:UIControlEventTouchUpInside];
+            [validView setCollectBlock:^(TimeBuyModel * model) {
+                detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
+                [vc setProductID:model.productId];
+                [vc setErpProductId:model.erpProductId];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }];
+        }else{
+            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160);
+        }
         NSMutableArray*arr = [[NSMutableArray alloc]init];
         for (SubjectModel*model in self.bannerArr) {
             if (model.subjectTopImagePath) {
                 [arr addObject:model.subjectImagePath];
             }
         }
+        [validView setTimeModel:self.timeModel];
+        [validView setTimeArr:self.timeArr];
         [validView.cycleScroll setImageUrlGroups:arr];
         [validView setModel:model];
         [headerView addSubview:validView];
-        __weak typeof(self)weakself = self;
         [validView setSelected:^(NSInteger index) {
             if (index ==0) {
                 PresaleSController*VC = [[PresaleSController alloc]init];
@@ -541,6 +615,7 @@ static NSString *cellId = @"cellId";
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
         [vc setProductID:res.productId];
+        [vc setErpProductId:res.erpProductId];
         vc.hidesBottomBarWhenPushed = YES;
        [self.navigationController pushViewController:vc animated:YES];
     

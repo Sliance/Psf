@@ -24,9 +24,10 @@
 #define recipe_detail_collect @"/lxn/member/collection/mobile/v1/toggle"
 ///我的收藏
 #define  mine_collect_list  @"/lxn/member/collection/mobile/v1/my/list"
-
-
-
+///限时购
+#define  Time_To_Buy  @"/lxn/rule/activity/mobile/v1/list"
+///限时购列表
+#define  Time_Buy_list  @"/lxn/rule/product/mobile/v1/list"
 
 
 typedef void(^responseModel)(id response);

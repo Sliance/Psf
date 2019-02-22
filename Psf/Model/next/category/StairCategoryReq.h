@@ -90,4 +90,6 @@
 ///热销类型
 @property(nonatomic,copy)NSString *hotType;
 
+@property(nonatomic,copy)NSString *ruleActivityId;
+
 @end
