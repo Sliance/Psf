@@ -33,7 +33,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setTitle:@"交易明细"];
+        
     }
     return self;
 }
@@ -53,8 +53,10 @@
     _type = type;
     if (type ==1) {
         [self requestRecharge];
+        [self setTitle:@"交易明细"];
     }else if (type ==2){
         [self requestData];
+        [self setTitle:@"积分明细"];
     }
 }
 -(void)requestData{

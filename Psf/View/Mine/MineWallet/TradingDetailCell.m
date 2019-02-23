@@ -70,7 +70,6 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc]init];
         _priceLabel.font = [UIFont systemFontOfSize:18];
-        _priceLabel.textColor = DSColorFromHex(0xFCB043);
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         _priceLabel.text = @"+1000.0";
     }
@@ -85,23 +84,29 @@
         if (model.memberTradeType ==0) {
             self.titleLabel.text = @"充值";
             self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberTradeType == 1){
             self.titleLabel.text = @"消费";
             self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberTradeType ==2){
             self.titleLabel.text = @"退款";
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
+            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }
     }else if (_type ==2){
         if (model.memberPointRecordType ==0) {
             self.titleLabel.text = @"充值";
-            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.memberPointChangePoint];
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
+            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }else if (model.memberPointRecordType == 1){
             self.titleLabel.text = @"消费";
-            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.memberPointChangePoint];
+            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberPointRecordType ==2){
             self.titleLabel.text = @"退款";
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
+            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }
     }
     self.contentLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];

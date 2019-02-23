@@ -44,6 +44,7 @@
 #import "MineViewController.h"
 #import "StoreGoodsController.h"
 #import "DetailRecipeController.h"
+#import "CircleController.h"
 
 @interface detailGoodsViewController ()<UIScrollViewDelegate,ZSCycleScrollViewDelegate,GetCouponsViewDelegate,UIWebViewDelegate>{
     NSInteger _couponHeight;
@@ -358,6 +359,12 @@
                 _weakSelf.tabBarController.selectedIndex = 3;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
+            }else if ([controller isKindOfClass:[CircleController class]]){
+                _weakSelf.tabBarController.selectedIndex = 3;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }else{
+                _weakSelf.tabBarController.selectedIndex = 3;
             }
         }
         
@@ -383,10 +390,9 @@
                 _weakSelf.tabBarController.selectedIndex = 4;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     
-                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                    
                         [_weakSelf.navigationController popToViewController:controller animated:YES];
                         return ;
-                    }
                 }
                 
             }];
@@ -408,13 +414,13 @@
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                            message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { //响应事件
-                _weakSelf.tabBarController.selectedIndex = 3;
+                _weakSelf.tabBarController.selectedIndex = 4;
                 for (UIViewController *controller in _weakSelf.navigationController.viewControllers) {
                     
-                    if ([controller isKindOfClass:[NextDayServiceController class]]) {
+                   
                         [_weakSelf.navigationController popToViewController:controller animated:YES];
                         return ;
-                    }
+                    
                 }
                 
             }];
@@ -439,6 +445,12 @@
                 _weakSelf.tabBarController.selectedIndex = 3;
                 [_weakSelf.navigationController popToViewController:controller animated:YES];
                 
+            }else if ([controller isKindOfClass:[CircleController class]]){
+                _weakSelf.tabBarController.selectedIndex = 3;
+                [_weakSelf.navigationController popToViewController:controller animated:YES];
+                
+            }else{
+                _weakSelf.tabBarController.selectedIndex = 3;
             }
         }
     }];
