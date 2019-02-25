@@ -296,7 +296,9 @@
         }else{
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
         }
-            
+        if (model.activityName.length>0) {
+            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+        }
     }
     
 //    self.weightLabel.text = model.productUnit;

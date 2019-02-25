@@ -82,5 +82,15 @@
 ///售后（refund）；正常（normal）
 @property(nonatomic,copy)NSString *saleOrderProductStatus;
 @property(nonatomic,copy)NSString *ingredientsCategoryId;
+///
+@property(nonatomic,copy)NSString *activityEndTime;
+///
+@property(nonatomic,copy)NSString *activityName;
+///
+@property(nonatomic,copy)NSString *activityStartTime;
+///
+@property(nonatomic,copy)NSString *productActivityPrice;
+///
+@property(nonatomic,assign)NSInteger productLimitedQuantity;
 
 @end

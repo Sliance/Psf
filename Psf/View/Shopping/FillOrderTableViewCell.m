@@ -159,7 +159,9 @@
         }else{
             self.payableLabel.text =  [NSString stringWithFormat:@"￥%@",model.productStorePrice];
         }
-        
+        if (model.activityName.length>0) {
+            self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+        }
     }
     self.countLabel.text = [NSString stringWithFormat:@"X%@",model.productQuantity];
 }

@@ -525,6 +525,8 @@
         req.saleOrderReceiveMobile = self.leftModel.memberAddressMobile;
         req.merchantStoreName = @"";
          req.merchantStoreId = @"";
+        req.memberAddressLatitude = self.leftModel.memberAddressLatitude;
+        req.memberAddressLongitude = self.leftModel.memberAddressLongitude;
         if (self.leftModel.memberAddressName.length<1) {
             [self showInfo:@"请填写收货地址"];
             return;

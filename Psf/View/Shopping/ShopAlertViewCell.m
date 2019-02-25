@@ -145,12 +145,19 @@ static NSString *cellId = @"GoodCollectionViewCell";
     CGFloat totalprice= 0.00;
     NSInteger count = 0;
     for (CartProductModel *model in _dataArr) {
+        if (model.activityName.length>0&&model.productLimitedQuantity>0) {
+            if ([model.productQuantity integerValue]< model.productLimitedQuantity+1) {
+                totalprice = totalprice+[model.productActivityPrice doubleValue]*[model.productQuantity integerValue];
+            }else{
+                totalprice = totalprice+[model.productStorePrice doubleValue]*([model.productQuantity integerValue]- model.productLimitedQuantity)+[model.productActivityPrice doubleValue]*model.productLimitedQuantity;
+            }
+        }else{
         if (model.productStyle ==1) {
              totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
         }else{
             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue];
         }
-       
+    }
         count = count+[model.productQuantity doubleValue];
     }
     

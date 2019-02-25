@@ -25,6 +25,7 @@
 @property(nonatomic,strong)PayTypeView *wxpayView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)RechargeRuleModel *rulemodel;
+@property(nonatomic,strong)UIButton *detailBtn;
 @property(nonatomic,assign)NSInteger type;
 
 @end
@@ -36,6 +37,17 @@
         _bgscrollow.delegate = self;
     }
     return _bgscrollow;
+}
+-(UIButton *)detailBtn{
+    if (!_detailBtn) {
+        _detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_detailBtn setTitle:@"充值未到账？" forState:UIControlStateNormal];
+        [_detailBtn setTitleColor:DSColorFromHex(0x969696) forState:UIControlStateNormal];
+        _detailBtn.backgroundColor = DSColorFromHex(0xF0F0F0);
+        [_detailBtn addTarget:self action:@selector(pressDetail) forControlEvents:UIControlEventTouchUpInside];
+        _detailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    }
+    return _detailBtn;
 }
 -(BottomView *)bottomView{
     if (!_bottomView) {
@@ -89,6 +101,7 @@
     [self.bgscrollow addSubview:self.headView];
     [self.bgscrollow addSubview:self.payView];
     [self.bgscrollow addSubview:self.wxpayView];
+    [self.bgscrollow addSubview:self.detailBtn];
     [self.view addSubview:self.bottomView];
     __weak typeof(self)weakself = self;
     [self.headView setChooseBlock:^(NSInteger index) {
@@ -199,6 +212,24 @@
     self.headView.frame = CGRectMake(0, 0, SCREENWIDTH, (self.dataArr.count+1)/2*105+25);
     self.payView.frame = CGRectMake(0, self.headView.ctBottom+10, SCREENWIDTH, 45);
     self.wxpayView.frame = CGRectMake(0, self.payView.ctBottom+1, SCREENWIDTH, 45);
+    self.detailBtn.frame = CGRectMake(0, self.wxpayView.ctBottom, SCREENWIDTH, 45);
+}
+-(void)pressDetail{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[MineServiceApi share]getRechargrResultWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] == 200) {
+            
+        }
+        [weakself showToast:response[@"message"]];
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

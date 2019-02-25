@@ -28,7 +28,8 @@
 #define  Time_To_Buy  @"/lxn/rule/activity/mobile/v1/list"
 ///限时购列表
 #define  Time_Buy_list  @"/lxn/rule/product/mobile/v1/list"
-
+///查询充值情况
+#define Recharge_result   @"/lxn/pay/mobile/v1/query/rechargehassuccess"
 
 typedef void(^responseModel)(id response);
 @interface BaseApi : NSObject

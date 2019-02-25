@@ -101,4 +101,9 @@
 @property(nonatomic, assign)NSInteger orderType ;
 ///备注
 @property(nonatomic,copy)NSString *saleOrderRemark;
+///
+@property(nonatomic,copy)NSString *memberAddressLatitude;
+///
+@property(nonatomic,copy)NSString *memberAddressLongitude;
+
 @end
