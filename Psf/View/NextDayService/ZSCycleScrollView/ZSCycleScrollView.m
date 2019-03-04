@@ -602,7 +602,7 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (_index ==0) {
-        return 4;
+        return 5;
     }else if (_index ==1){
         return 0;
     }
@@ -623,13 +623,13 @@ static NSString *cellId = @"SortCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(SCREENWIDTH/4, 100);
+    return CGSizeMake(SCREENWIDTH/5, 100);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SortCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    NSArray *imageArr = @[@"hot_home",@"group_next",@"pay_next",@"qian_home"];
-    NSArray *Arr = @[@"预售",@"企业购",@"充值",@"签到"];
+    NSArray *imageArr = @[@"hot_home",@"next_home",@"group_next",@"pay_next",@"qian_home"];
+    NSArray *Arr = @[@"预售",@"次日达",@"企业购",@"充值",@"签到"];
         collectcell.headImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
         collectcell.nameLabel.text = Arr[indexPath.row];
     [collectcell setImageHeight:70];

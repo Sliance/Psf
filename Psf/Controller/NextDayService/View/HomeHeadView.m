@@ -112,7 +112,7 @@
         [self.headimage mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(20);
             make.right.equalTo(self).offset(-20);
-            make.top.equalTo(self).offset(200*SCREENWIDTH/375+110+220);
+            make.top.equalTo(self).offset(200*SCREENWIDTH/375+110+240);
             make.height.mas_equalTo(120*SCREENWIDTH/375);
         }];
         [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

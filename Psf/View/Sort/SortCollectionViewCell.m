@@ -36,15 +36,15 @@
 }
 -(void)setImageHeight:(NSInteger )imageHeight{
     _imageHeight = imageHeight;
-    [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.headImage mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self);
 //        make.width.height.mas_equalTo(imageHeight);
         
     }];
-    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.headImage);
-        make.top.equalTo(self.headImage.mas_bottom).mas_equalTo(14);
+        make.top.equalTo(self).offset(imageHeight-20);
         make.width.mas_equalTo(imageHeight);
         
     }];

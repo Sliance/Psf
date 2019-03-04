@@ -52,7 +52,7 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc]init];
         _detailLabel.font = [UIFont systemFontOfSize:12];
-        _detailLabel.textColor = DSColorFromHex(0x777777);
+        _detailLabel.textColor = DSColorFromHex(0xf29629);
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         _detailLabel.text = @"";
     }
@@ -144,7 +144,7 @@
         self.titleLabel.text = model.productName;
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     }
-    self.detailLabel.text = model.productTitle;
+    self.detailLabel.text = model.productLabel;
     
 //    self.weightLabel.text = model.productUnit;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];

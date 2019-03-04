@@ -27,12 +27,12 @@
     if ([_model.productType isEqualToString:@"nextDay"]){
         [self addSubview:self.typeLabel];
         self.typeLabel.frame = CGRectMake(15, 13, 45, 20);
-        self.nameLabel.frame = CGRectMake(65, 15, SCREENWIDTH-50-self.typeLabel.ctWidth, 17);
+        self.nameLabel.frame = CGRectMake(65, 15, SCREENWIDTH-85-self.typeLabel.ctWidth, 17);
     }else{
-        self.nameLabel.frame = CGRectMake(15, 15, SCREENWIDTH-50, 17);
+        self.nameLabel.frame = CGRectMake(15, 15, SCREENWIDTH-85, 17);
     }
     
-    self.contentLabel.frame = CGRectMake(15, self.nameLabel.ctBottom+11, SCREENWIDTH-30, 15);
+    self.contentLabel.frame = CGRectMake(15, self.nameLabel.ctBottom+11, SCREENWIDTH-85, 15);
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self.contentLabel.mas_bottom).offset(15);
@@ -43,8 +43,8 @@
         make.bottom.equalTo(self.priceLabel.mas_bottom);
     }];
     
-    self.shareBtn.frame = CGRectMake(SCREENWIDTH-45, 15, 32, 32);
-    self.soldLabel.frame = CGRectMake(SCREENWIDTH-15-100, self.shareBtn.ctBottom+41, 100, 21);
+    self.shareBtn.frame = CGRectMake(SCREENWIDTH-60, 11, 45, 45);
+    self.soldLabel.frame = CGRectMake(SCREENWIDTH-15-100, self.shareBtn.ctBottom+21, 100, 21);
     
     self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
     self.weightLabel.textColor =  DSColorFromHex(0xFF4C4D);
@@ -66,7 +66,7 @@
     self.groupView.frame = CGRectMake(0, 0, SCREENWIDTH, 50);
     self.nameLabel.frame = CGRectMake(15, 15+self.groupView.ctBottom, SCREENWIDTH-50, 17);
    
-    self.shareBtn.frame = CGRectMake(SCREENWIDTH-32, 15+self.groupView.ctBottom, 17, 17);
+    self.shareBtn.frame = CGRectMake(SCREENWIDTH-32, self.groupView.ctBottom, 45, 45);
     self.soldLabel.hidden = YES;
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.groupView).offset(10);
@@ -116,12 +116,12 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self).offset(10);
-        make.width.mas_equalTo(SCREENWIDTH-50);
+        make.width.mas_equalTo(SCREENWIDTH-80);
     }];
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-5);
         make.top.equalTo(self).offset(0);
-        make.width.height.mas_equalTo(32);
+        make.width.height.mas_equalTo(45);
     }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
@@ -130,12 +130,12 @@
     }];
     [self.buyerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-15);
-        make.top.equalTo(self.shareBtn.mas_bottom);
+        make.top.equalTo(self.shareBtn.mas_bottom).offset(5);
         
     }];
     [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(self.buyerLabel.mas_bottom).offset(24);
+        make.top.equalTo(self.buyerLabel.mas_bottom).offset(14);
         make.width.mas_equalTo(SCREENWIDTH-30);
     }];
     [self.limitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,6 +174,7 @@
         _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_shareBtn setImage:[UIImage imageNamed:@"shop_share"] forState:UIControlStateNormal];
         _shareBtn.frame = CGRectMake(0, 20, 40, 40);
+        [_shareBtn addTarget:self action:@selector(pressShare) forControlEvents:UIControlEventTouchUpInside];
     }
     return _shareBtn;
 }
@@ -482,5 +483,8 @@
 }
 -(void)timerAction{
     self.remainTitleLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.preSaleExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
+}
+-(void)pressShare{
+    self.shareBlock();
 }
 @end

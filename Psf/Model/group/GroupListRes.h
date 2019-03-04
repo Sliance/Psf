@@ -40,4 +40,7 @@
 @property(nonatomic,copy)NSString *preSaleDeliveryTime;
 //是否已经截单（0、没有。1、已经截单）
 @property(nonatomic,assign)BOOL preSaleIsComplete;
+///
+@property(nonatomic,copy)NSString *productLabel;
+
 @end

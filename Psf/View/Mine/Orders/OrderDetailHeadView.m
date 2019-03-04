@@ -199,12 +199,17 @@
 -(void)setPresaleTime:(NSString *)presaleTime{
     _presaleTime = presaleTime;
 }
+-(void)setNextTime:(NSString *)nextTime{
+    _nextTime = nextTime;
+}
 -(void)setDate:(NSString *)date{
     
     NSDate *now;
     if (_presaleTime) {
         now = [NSDate dateWithString:_presaleTime format:@"yyyy-MM-dd"];
         
+    }else if (_nextTime.length>0){
+        now = [NSDate dateWithString:_nextTime format:@"yyyy-MM-dd"];
     }else{
         now = [[[NSDate alloc]init] dateByAddingDays:0];
         

@@ -18,6 +18,9 @@
 
 ///交易类型(0、充值，1、消费 2、退款)
 @property(nonatomic,assign)NSInteger memberTradeType;
+///0待支付、1支付成功、2支付失败
+@property(nonatomic,assign)NSInteger payPlatformStatus;
+
 ///支付金额
 @property(nonatomic,copy)NSString *payAmount;
 @property(nonatomic,copy)NSString *balancePayAmount;

@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *productActivityPrice;
 ///
 @property(nonatomic,copy)NSString *productPrice;
+///
+@property(nonatomic,strong)NSString *productLabel;
 
 @end
 

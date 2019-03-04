@@ -26,6 +26,7 @@
 #import "CustomFootView.h"
 #import "MembershipCardController.h"
 #import "MineCollectController.h"
+#import "InviteNewFriendController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableview;
@@ -58,7 +59,8 @@
 -(MineFootView *)footView{
     if (!_footView) {
         _footView = [[MineFootView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 175)];
-        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressTap)];
+        [_footView.headImage addGestureRecognizer:tap];
     }
     return _footView;
 }
@@ -317,6 +319,11 @@
 
 -(void)pressMinefootBtnWithIndex:(NSInteger)index{
     
+}
+-(void)pressTap{
+    InviteNewFriendController *vc = [[InviteNewFriendController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

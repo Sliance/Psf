@@ -31,7 +31,7 @@
     [self addSubview:self.priceLabel];
     [self addSubview:self.titleLabel];
     [self addSubview:self.contentLabel];
-    
+    [self addSubview:self.statusLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self).offset(20);
@@ -40,9 +40,13 @@
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
     }];
+    [self.statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-15);
+        make.top.equalTo(self).offset(20);
+    }];
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-16);
-        make.centerY.equalTo(self);
+        make.right.equalTo(self).offset(-15);
+        make.top.equalTo(self.statusLabel.mas_bottom).offset(5);
     }];
     
 }
@@ -66,6 +70,14 @@
     }
     return _contentLabel;
 }
+-(UILabel *)statusLabel{
+    if (!_statusLabel) {
+        _statusLabel = [[UILabel alloc]init];
+        _statusLabel.font = [UIFont systemFontOfSize:15];
+        _statusLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _statusLabel;
+}
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc]init];
@@ -83,18 +95,26 @@
     if(_type ==1){
         if (model.memberTradeType ==0) {
             self.titleLabel.text = @"充值";
-            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
             self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberTradeType == 1){
             self.titleLabel.text = @"消费";
-            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
-            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
+            self.priceLabel.text = model.payAmount;
+            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }else if (model.memberTradeType ==2){
             self.titleLabel.text = @"退款";
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
-            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
+            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
+        }
+        if (model.payPlatformStatus ==0) {
+            self.statusLabel.text = @"待支付";
+        }else if (model.payPlatformStatus ==1){
+            self.statusLabel.text = @"支付成功";
+        }else if (model.payPlatformStatus ==2){
+            self.statusLabel.text = @"支付失败";
         }
     }else if (_type ==2){
+        self.statusLabel.text = @"";
         if (model.memberPointRecordType ==0) {
             self.titleLabel.text = @"充值";
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];

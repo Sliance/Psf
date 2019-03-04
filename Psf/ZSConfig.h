@@ -9,11 +9,10 @@
 #ifndef ZSConfig_h
 #define ZSConfig_h
 #define DPSIGNATURE @"RNKCoeffPosGEwv7FpLsWokxTozPt9ki"//加密key
-#define DPHOST @"http://192.168.1.108:8088" // 开发环境-鹏飞
+#define DPHOST @"http://192.168.1.110:8088" // 开发环境-鹏飞
 //#define DPHOST @"http://192.168.1.156:8088" // 测试环境-梅芳
 //#define DPHOST @"http://192.168.1.174:8088" // 测试环境-李东
-//#define DPHOST @"http://47.97.101.203:8088" // 测试环境1
-//#define DPHOST @"http://47.93.206.149:8088" // 测试环境2
+//#define DPHOST @"http://47.98.233.125:8088" // 测试环境
 //#define DPHOST @"https://xcx.lxnong.com"// 生产环境
 #define IMAGEHOST  @"https://xcxmmeida.lxnong.com/"//图片地址
 #define APPNAME @"Psf"
@@ -38,11 +37,11 @@
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define STRONGSELF typeof(self) __strong strongSelf = self;
 
-#define TopStatuHeight        [[UIApplication sharedApplication] statusBarFrame].size.height
+#define TopStatuHeight       [[UIApplication sharedApplication] statusBarFrame].size.height
 // 适配iPhone x 底栏高度
- #define TabbarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define TabbarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
 // 适配iPhone x 导航高度
-#define NavitionbarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?88:64)
+#define NavitionbarHeight   ([[UIApplication sharedApplication] statusBarFrame].size.height>20?88:64)
 // 适配iPhone x 导航高度
 #define BottomSafebarHeight    ([[UIApplication sharedApplication] statusBarFrame].size.height>20?34:0)
 
@@ -62,4 +61,6 @@
 #import "DPTextViewVerify.h"
 #import "UILabel+String.h"
 #import "UIButton+DNUtility.h"
+#import "UIImage+Resize.h"
+
 #endif /* ZSConfig_h */

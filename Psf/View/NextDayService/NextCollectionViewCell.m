@@ -117,6 +117,17 @@
     }
     return _quickLabel;
 }
+-(UILabel *)productLabel{
+    if (!_productLabel) {
+        _productLabel = [[UILabel alloc]init];
+        _productLabel.backgroundColor = DSColorFromHex(0xff4c4d);
+        _productLabel.textColor = [UIColor whiteColor];
+        _productLabel.textAlignment = NSTextAlignmentCenter;
+        _productLabel.font = [UIFont systemFontOfSize:10];
+    
+    }
+    return _productLabel;
+}
 -(UIButton *)addBtn{
     if (!_addBtn) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -145,7 +156,7 @@
     [self addSubview:self.addBtn];
     [self addSubview:self.oripriceLabel];
     [self addSubview:self.lineLabel];
-    
+    [self.headImage addSubview: self.productLabel];
     self.backgroundColor = [UIColor whiteColor];
     [self.headImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
@@ -218,7 +229,24 @@
         }
         
     }
-//    self.weightLabel.text = model.productUnit;
+    if (model.productLabel.length>0) {
+        self.productLabel.text = model.productLabel;
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+            CGSize size = [self.productLabel sizeWithText:model.productLabel font:[UIFont systemFontOfSize:10]];
+            make.width.mas_equalTo(size.width+20);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }else{
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(15);
+            make.width.mas_equalTo(0);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }
+
 }
 -(void)setGroupmodel:(GroupListRes *)groupmodel{
     _groupmodel = groupmodel;
@@ -235,6 +263,24 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",groupmodel.grouponPrice];
     }
     self.weightLabel.text = groupmodel.productUnit;
+    if (groupmodel.productLabel.length>0) {
+        self.productLabel.text = groupmodel.productLabel;
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+            CGSize size = [self.productLabel sizeWithText:groupmodel.productLabel font:[UIFont systemFontOfSize:10]];
+            make.width.mas_equalTo(size.width+20);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }else{
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(15);
+            make.width.mas_equalTo(0);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }
+
 }
 -(void)setImageWidth:(CGFloat)imageWidth{
     _imageWidth = imageWidth;
@@ -305,6 +351,24 @@
     self.contentLabel.text = timeModel.productTitle;
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productActivityPrice];
     self.oripriceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productPrice];
+    if (timeModel.productLabel.length>0) {
+        self.productLabel.text = timeModel.productLabel;
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+            CGSize size = [self.productLabel sizeWithText:timeModel.productLabel font:[UIFont systemFontOfSize:10]];
+            make.width.mas_equalTo(size.width+20);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }else{
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(15);
+            make.width.mas_equalTo(0);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }
+
 }
 
 -(void)pressAdd{

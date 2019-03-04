@@ -34,5 +34,7 @@
 @property(nonatomic,copy)NSString *subjectProductImagePath;
 ///
 @property(nonatomic,copy)NSString *subjectTopProductId;
+///
+@property(nonatomic,copy)NSString *productLabel;
 
 @end

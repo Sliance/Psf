@@ -362,6 +362,9 @@
 		890D55A5217EF1CB009B33B2 /* IntegralRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D55A4217EF1CB009B33B2 /* IntegralRulesController.m */; };
 		8975944421D0CA0200E6030F /* TopicsListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944321D0CA0200E6030F /* TopicsListRes.m */; };
 		8975944821D0DA0800E6030F /* TopicTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8975944721D0DA0800E6030F /* TopicTopCell.m */; };
+		898B178422250CDE00AC6656 /* InviteNewFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898B178322250CDE00AC6656 /* InviteNewFriendController.m */; };
+		898B17872225161400AC6656 /* CustomJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 898B17862225161400AC6656 /* CustomJSObject.m */; };
+		898B178A22255E4000AC6656 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898B178922255E4000AC6656 /* JavaScriptCore.framework */; };
 		8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */; };
 		89A7C057221FF85C0073AC49 /* TimeBuyListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7C056221FF85C0073AC49 /* TimeBuyListController.m */; };
 		89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A949EA221E7E0600915FA0 /* TimeBuyModel.m */; };
@@ -1111,6 +1114,11 @@
 		8975944321D0CA0200E6030F /* TopicsListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicsListRes.m; sourceTree = "<group>"; };
 		8975944621D0DA0800E6030F /* TopicTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicTopCell.h; sourceTree = "<group>"; };
 		8975944721D0DA0800E6030F /* TopicTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicTopCell.m; sourceTree = "<group>"; };
+		898B178222250CDE00AC6656 /* InviteNewFriendController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteNewFriendController.h; sourceTree = "<group>"; };
+		898B178322250CDE00AC6656 /* InviteNewFriendController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteNewFriendController.m; sourceTree = "<group>"; };
+		898B17852225161400AC6656 /* CustomJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomJSObject.h; sourceTree = "<group>"; };
+		898B17862225161400AC6656 /* CustomJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomJSObject.m; sourceTree = "<group>"; };
+		898B178922255E4000AC6656 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		8991D3C821E5C8D3001B6A09 /* OrderRuleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRuleController.h; sourceTree = "<group>"; };
 		8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRuleController.m; sourceTree = "<group>"; };
 		89A7C055221FF85C0073AC49 /* TimeBuyListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyListController.h; sourceTree = "<group>"; };
@@ -1176,6 +1184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				898B178A22255E4000AC6656 /* JavaScriptCore.framework in Frameworks */,
 				88660CE121215A5100846477 /* CoreMotion.framework in Frameworks */,
 				88660CCB2121133A00846477 /* CFNetwork.framework in Frameworks */,
 				88660CDF21215A3900846477 /* Foundation.framework in Frameworks */,
@@ -1219,6 +1228,7 @@
 		6254B2E541645C8750742314 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				898B178922255E4000AC6656 /* JavaScriptCore.framework */,
 				88671891212D086200D861AD /* libc++abi.tbd */,
 				888630AF212BCCC200B89080 /* AVFoundation.framework */,
 				88660CE021215A5100846477 /* CoreMotion.framework */,
@@ -2061,26 +2071,26 @@
 		8871B89420DB638400DAA5D6 /* ApiService */ = {
 			isa = PBXGroup;
 			children = (
+				886427A120F6FA9B006A160E /* AddressServiceApi.h */,
+				886427A220F6FA9B006A160E /* AddressServiceApi.m */,
 				8871B89520DB639C00DAA5D6 /* BaseApi.h */,
 				8871B89620DB639C00DAA5D6 /* BaseApi.m */,
 				89F6E63521E828BD009FE14D /* BaseModelReq.h */,
 				89F6E63621E828BE009FE14D /* BaseModelReq.m */,
-				8871B89B20DB64C400DAA5D6 /* NextServiceApi.h */,
-				8871B89C20DB64C400DAA5D6 /* NextServiceApi.m */,
-				885303C820F4B4D1009807B2 /* ShopServiceApi.h */,
-				886427A120F6FA9B006A160E /* AddressServiceApi.h */,
-				885303C920F4B4D1009807B2 /* ShopServiceApi.m */,
-				886427A220F6FA9B006A160E /* AddressServiceApi.m */,
 				8868035920F83C5900BFC1BC /* CouponServiceApi.h */,
 				8868035A20F83C5900BFC1BC /* CouponServiceApi.m */,
 				8868035C20F856DF00BFC1BC /* GroupServiceApi.h */,
 				8868035D20F856DF00BFC1BC /* GroupServiceApi.m */,
-				8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */,
-				8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */,
-				886620692100892D00C7923D /* MineServiceApi.h */,
-				8866206A2100892D00C7923D /* MineServiceApi.m */,
 				88828D9121114D6200E366D6 /* LoginServiceApi.h */,
 				88828D9221114D6200E366D6 /* LoginServiceApi.m */,
+				886620692100892D00C7923D /* MineServiceApi.h */,
+				8866206A2100892D00C7923D /* MineServiceApi.m */,
+				8871B89B20DB64C400DAA5D6 /* NextServiceApi.h */,
+				8871B89C20DB64C400DAA5D6 /* NextServiceApi.m */,
+				8857031A20FED5F9002BCDC9 /* OrderServiceApi.h */,
+				8857031B20FED5F9002BCDC9 /* OrderServiceApi.m */,
+				885303C820F4B4D1009807B2 /* ShopServiceApi.h */,
+				885303C920F4B4D1009807B2 /* ShopServiceApi.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -2624,6 +2634,7 @@
 		88D893A320D26DE0007E3C41 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				898B17882225161F00AC6656 /* Invite */,
 				89C77FD721F59FCE00A6FB04 /* Collect */,
 				888630B1212BE39700B89080 /* QrCode */,
 				88D9283D211078B10001B2E3 /* Login */,
@@ -2695,6 +2706,17 @@
 				8975944721D0DA0800E6030F /* TopicTopCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		898B17882225161F00AC6656 /* Invite */ = {
+			isa = PBXGroup;
+			children = (
+				898B178222250CDE00AC6656 /* InviteNewFriendController.h */,
+				898B178322250CDE00AC6656 /* InviteNewFriendController.m */,
+				898B17852225161400AC6656 /* CustomJSObject.h */,
+				898B17862225161400AC6656 /* CustomJSObject.m */,
+			);
+			path = Invite;
 			sourceTree = "<group>";
 		};
 		8991D3C721E5C0FC001B6A09 /* Circle */ = {
@@ -3034,9 +3056,11 @@
 				8860DA7820DA5070009E53B0 /* MineFootView.m in Sources */,
 				88600BF620D8D16E0098CF10 /* UIView+ZJFrame.m in Sources */,
 				89F6E63421E82868009FE14D /* HomeReq.m in Sources */,
+				898B17872225161400AC6656 /* CustomJSObject.m in Sources */,
 				8871B85620DB424A00DAA5D6 /* NSString+Hash.m in Sources */,
 				8871B89320DB4EC800DAA5D6 /* UserDefaultCashe.m in Sources */,
 				885303C720F4B455009807B2 /* EmptyShoppingHeadView.m in Sources */,
+				898B178422250CDE00AC6656 /* InviteNewFriendController.m in Sources */,
 				8857EA7320E3444800D7E167 /* AllOrdersController.m in Sources */,
 				885303CA20F4B4D1009807B2 /* ShopServiceApi.m in Sources */,
 				8871B8C620DBB29200DAA5D6 /* JFCityViewController.m in Sources */,

@@ -15,7 +15,7 @@
     if (!_headImage) {
         _headImage = [[UIImageView alloc]init];
         _headImage.image = [UIImage imageNamed:@"banner_mine"];
-        
+        _headImage.userInteractionEnabled = YES;
     }
     return _headImage;
 }

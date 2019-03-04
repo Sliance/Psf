@@ -29,6 +29,8 @@
 @property(nonatomic,strong)UILabel *raiseLabel;
 ///爆款
 @property(nonatomic,strong)UILabel *quickLabel;
+///商品标签
+@property(nonatomic,strong)UILabel *productLabel;
 
 @property(nonatomic,strong)UILabel *oripriceLabel;
 @property(nonatomic,strong)UILabel *lineLabel;

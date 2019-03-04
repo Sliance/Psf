@@ -77,6 +77,8 @@
 @property(nonatomic,strong)NSMutableArray *groupArr;
 @property(nonatomic,strong)NSMutableArray *couponArr;
 @property(nonatomic,assign)NSInteger recipeHeight;
+@property(strong,nonatomic)UIImageView *bgimageview;
+@property(strong,nonatomic)NSData *shareData;
 
 @end
 
@@ -100,7 +102,11 @@
 -(GoodHeadView *)headView{
     if (!_headView) {
         _headView = [[GoodHeadView alloc]init];
-        [_headView.shareBtn addTarget:self action:@selector(pressShare:) forControlEvents:UIControlEventTouchUpInside];
+        WEAKSELF;
+        [_headView setShareBlock:^{
+            [weakSelf pressShare];
+        }];
+        
     }
     return _headView;
 }
@@ -601,13 +607,16 @@
             
             [weakself.storeBuyView setModel:response];
             NSMutableArray *arr  = [NSMutableArray array];
-            for (ImageModel *model in self.result.productImageList) {
+            for (ImageModel *model in weakself.result.productImageList) {
                 if (model.productImagePath) {
                     [arr addObject:model.productImagePath];
                 }
             }
-            
+            weakself.bgimageview = [[UIImageView alloc]init];
+            ImageModel *model1 = [weakself.result.productImageList firstObject];
+            [weakself.bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model1.productImagePath]]];
             weakself.cycleScroll.imageUrlGroups = arr;
+            weakself.shareData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model1.productImagePath]]];
             [weakself requestEvaluate];
         }else{
             NSString *message=response[@"data"][@"message"];
@@ -953,26 +962,32 @@
     
     }];
 }
--(void)pressShare:(UIButton*)sender{
-    UIImageView *bgimageview = [[UIImageView alloc]init];
-    ImageModel *model = [self.result.productImageList firstObject];
-    [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+-(void)pressShare{
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = self.result.productName;
-    message.thumbData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath]]];
+    UIImage *image = [UIImage compressImageQuality:self.bgimageview.image toByte:30];
+    if (!self.shareData) {
+        NSData *data = [NSData dataWithHexString:@"11111"];
+        message.thumbData = data;
+    }else{
+        NSData *data = UIImageJPEGRepresentation(image, 1);;
+        message.thumbData = data;
+    }
+
     message.description = @"邀您一起";
-    
-    [message setThumbImage:bgimageview.image];
+    if (!image) {
+        [message setThumbImage:[UIImage imageNamed:@"qr_icon"]];
+    }else{
+        [message setThumbImage:image];
+    }
     WXWebpageObject *webpage = [WXWebpageObject object];
     NSString*url =[NSString stringWithFormat:@"http://xcxb.lxnong.com/share/index.html#/?erpStoreId=%@&erpProductId=%@&productId=%ld",[UserCacheBean share].userInfo.erpStoreId,self.result.erpProductId,(long)self.result.productId];
     webpage.webpageUrl = url;
-//    webpage.webpageUrl = @"http://share.imdtlab.com:20516/#/";
     message.mediaObject = webpage;
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
     req.bText = NO;
     req.message = message;
     req.scene = WXSceneSession;
-
     [WXApi sendReq:req];
 }
 - (void)didReceiveMemoryWarning {

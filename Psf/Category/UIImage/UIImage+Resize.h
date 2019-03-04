@@ -24,5 +24,6 @@
 - (UIImage *)resizedImage:(CGSize)newSize transform:(CGAffineTransform)transform drawTransposed:(BOOL)transpose interpolationQuality:(CGInterpolationQuality)quality;
 
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
++ (UIImage *)compressImageQuality:(UIImage *)image toByte:(NSInteger)maxLength;
 
 @end

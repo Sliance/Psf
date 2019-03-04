@@ -46,4 +46,5 @@ typedef NS_ENUM(NSInteger, CLAIMGOODSTYPE){
 
 @property(nonatomic,strong)NSString *date;
 @property(nonatomic,strong)NSString *presaleTime;
+@property(nonatomic,strong)NSString *nextTime;
 @end

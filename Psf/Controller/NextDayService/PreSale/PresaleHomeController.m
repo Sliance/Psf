@@ -492,7 +492,7 @@ static NSString *cellId = @"cellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section ==0) {
         if (self.timeArr.count>0) {
-            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160+220);
+            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160+240);
         }else{
             return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
         }
@@ -519,7 +519,7 @@ static NSString *cellId = @"cellId";
     if (indexPath.section ==0) {
         HomeHeadView* validView = [[HomeHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160)];
         if (self.timeArr.count>0) {
-            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160+220);
+            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160+240);
             [validView.moreBtn addTarget:self action:@selector(pressTimeBuyList) forControlEvents:UIControlEventTouchUpInside];
             [validView setCollectBlock:^(TimeBuyModel * model) {
                 detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
@@ -548,10 +548,14 @@ static NSString *cellId = @"cellId";
                 VC.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:VC animated:YES];
             }else if (index ==1){
+                NextDayListController *vc = [[NextDayListController alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }else if (index ==2){
                 BusinessCooperationController*VC = [[BusinessCooperationController alloc]init];
                 VC.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:VC animated:YES];
-            }else if (index ==2){
+            }else if (index ==3){
                 
                 if ([UserCacheBean share].userInfo.token.length>0) {
                     RechargeViewController*VC = [[RechargeViewController alloc]init];
@@ -571,7 +575,7 @@ static NSString *cellId = @"cellId";
                     [alert addAction:cancelAction];
                     [weakself presentViewController:alert animated:YES completion:nil];
                 }
-            }else if (index ==3){
+            }else if (index ==4){
                 if ([UserCacheBean share].userInfo.token.length>0) {
                     SignInController *signVC = [[SignInController alloc]init];
                     signVC.hidesBottomBarWhenPushed = YES;

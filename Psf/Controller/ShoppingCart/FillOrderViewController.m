@@ -341,38 +341,42 @@
         if ([response[@"code"]integerValue] ==200) {
             [weakself.timeArr removeAllObjects];
             [weakself.timeArr addObjectsFromArray:response[@"data"]];
-            NSString *time = [weakself.timeArr firstObject];
-            NSDate *date = [[[NSDate alloc]init]dateByAddingDays:0];
-            NSString *next = [date stringWithFormat:@"yyyy-MM-dd"];
-            NSArray *arr = [time componentsSeparatedByString:@"-"];
-            
-            NSString *end;
-            if (self.goodstype ==GOOGSTYPEPresale) {
-                end= [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[1]];
-                next = [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[0]];
+            if (weakself.timeArr.count>0) {
+                NSString *time = [weakself.timeArr firstObject];
+                NSDate *date;
+                NSString *next;
+                NSArray *arr = [time componentsSeparatedByString:@"-"];
                 
-            }else if(self.goodstype ==GOOGSTYPENextday){
-                end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
-                next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
-            }else{
-                end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
-                next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+                NSString *end;
+                if (self.goodstype ==GOOGSTYPEPresale) {
+                    end= [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[1]];
+                    next = [NSString stringWithFormat:@"%@ %@",self.presaleTime,arr[0]];
+                    [weakself.dateView setNextDate:weakself.presaleTime];
+                    [weakself.headView setPresaleTime:weakself.presaleTime];
+                }else if(self.goodstype ==GOOGSTYPENextday){
+                    date = [[[NSDate alloc]init]dateByAddingDays:1];
+                    next = [date stringWithFormat:@"yyyy-MM-dd"];
+                    [weakself.dateView setNextDate:next];
+                    [weakself.headView setNextTime:next];
+                    end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
+                    next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+                    
+                }else{
+                    date = [[[NSDate alloc]init]dateByAddingDays:0];
+                    next = [date stringWithFormat:@"yyyy-MM-dd"];
+                    end= [NSString stringWithFormat:@"%@ %@",next,arr[1]];
+                    next = [NSString stringWithFormat:@"%@ %@",next,arr[0]];
+                }
+                
+                
+                weakself.calculateModel.couponId = @"";
+                weakself.calculateModel.saleOrderDistributionStartTime = next;
+                weakself.calculateModel.saleOrderDistributionEndTime = end ;
+               [weakself.dateView setDatearr:weakself.timeArr];
+                [weakself.headView setDate:time];
             }
-            
-            
-            weakself.calculateModel.couponId = @"";
-            weakself.calculateModel.saleOrderDistributionStartTime = next;
-            weakself.calculateModel.saleOrderDistributionEndTime = end ;
-            [weakself calculatePrice:weakself.calculateModel];
-            if (self.goodstype ==GOOGSTYPEPresale) {
-                [weakself.dateView setNextDate:weakself.presaleTime];
-                [weakself.dateView setDatearr:weakself.timeArr];
-            }else{
-              [weakself.dateView setDatearr:weakself.timeArr];
-            }
-            [weakself.headView setPresaleTime:weakself.presaleTime];
-            [weakself.headView setDate:time];
         }
+         [weakself calculatePrice:weakself.calculateModel];
     }];
 }
 -(void)reloadLeftAddress{
@@ -442,7 +446,9 @@
 
 -(void)calculateNormal:(CalculateReq*)req{
     __weak typeof(self)weakself = self;
-    
+    if (req.couponId.length<1) {
+        req.couponId = @"";
+    }
     [[ShopServiceApi share]CalculateThePriceWithParam:req response:^(id response) {
         if (response) {
             weakself.resModel = [[CalculateThePriceRes alloc]init];
@@ -535,6 +541,10 @@
     }else if (self.type ==2){
         req.saleOrderReceiveName = @"";
         req.saleOrderReceiveType = @"0";
+        req.saleOrderDistributionStartTime = @"";
+        req.saleOrderDistributionEndTime = @"";
+        req.memberAddressLatitude = @"11";
+        req.memberAddressLongitude = @"11";
         if (self.storemodel.storeName.length<1) {
             req.merchantStoreName = @"";
         }else{

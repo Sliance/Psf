@@ -190,5 +190,23 @@
     
     return transform;
 }
-
++ (UIImage *)compressImageQuality:(UIImage *)image toByte:(NSInteger)maxLength {
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    if (data.length < maxLength) return image;
+    
+    for (int i = 0; i < 6; ++i) {
+        if (data.length < maxLength * 0.9) {
+            data = UIImageJPEGRepresentation(image, compression);
+            break;
+        } else if (data.length > maxLength) {
+            compression = compression/2;
+            data = UIImageJPEGRepresentation(image, compression);
+            
+        }
+    }
+    
+    UIImage *resultImage = [UIImage imageWithData:data];
+    return resultImage;
+}
 @end

@@ -45,4 +45,7 @@
 @property(nonatomic,strong)UILabel *arriveTitleLabel;
 @property(nonatomic,strong)UILabel *remainLabel;
 @property(nonatomic,strong)UILabel *remainTitleLabel;
+@property(nonatomic,copy)void (^shareBlock)(void);
+
+
 @end
