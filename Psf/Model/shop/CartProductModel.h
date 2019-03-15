@@ -92,5 +92,9 @@
 @property(nonatomic,copy)NSString *productActivityPrice;
 ///
 @property(nonatomic,assign)NSInteger productLimitedQuantity;
+///余额抵扣金额
+@property(nonatomic,copy)NSString *saleOrderBalanceAmount;
+///实付金额
+@property(nonatomic,copy)NSString *saleOrderPayAmount;
 
 @end

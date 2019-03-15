@@ -1,0 +1,1 @@
+../../../CHGAdapter/CHGAdapter/CHGAdapterLib/AdapterKit/cell/CHGOneViewTableViewHeaderFooterView.h

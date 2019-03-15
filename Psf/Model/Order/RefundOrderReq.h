@@ -21,7 +21,10 @@
 @property(nonatomic,copy)NSString *saleOrderRefundReason;
 ///退款金额
 @property(nonatomic,copy)NSString *saleOrderRefundAmount;
-
+///余额抵扣
+@property(nonatomic,copy)NSString *saleOrderRefundApproverbReturnBalance;
+///实付金额
+@property(nonatomic,copy)NSString *saleOrderRefundApproveReturnWxpay;;
 ///
 @property(nonatomic,strong)NSArray *saleOrderRefundImageList;
 ///

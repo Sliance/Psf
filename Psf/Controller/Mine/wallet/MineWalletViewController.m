@@ -137,7 +137,7 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }else if (indexPath.row ==1) {
             cell.titleLabel.text = @"积分";
-            cell.contentLabel.text = @"满额积分自动抵扣现金";
+            cell.contentLabel.text = @"";
             if (self.resultDic[@"memberPoint"]) {
                 cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
             }
@@ -148,7 +148,7 @@
     }else if (_isOpen ==0){
          if (indexPath.row ==0) {
             cell.titleLabel.text = @"积分";
-            cell.contentLabel.text = @"满额积分自动抵扣现金";
+            cell.contentLabel.text = @"";
             if (self.resultDic[@"memberPoint"]) {
                 cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.resultDic[@"memberPoint"]];
             }

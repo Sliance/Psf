@@ -25,7 +25,11 @@
     [self addSubview:self.lineLabel];
     [self addSubview:self.ratingView];
     [self addSubview:self.titleLabel];
-    self.lineLabel.frame = CGRectMake(0, 90, SCREENWIDTH, 0.5);
+    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self).offset(90);
+        make.height.mas_equalTo(0.5);
+    }];
     self.allBtn.frame = CGRectMake(15, 46, 85, 30);
     self.photoBtn.frame = CGRectMake(15+self.allBtn.ctRight, 46, 85, 30);
     self.contentBtn.frame = CGRectMake(15+self.photoBtn.ctRight, 46, 85, 30);
@@ -35,7 +39,7 @@
 -(UILabel *)lineLabel{
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc]init];
-        _lineLabel.backgroundColor = DSColorFromHex(0xDCDCDC);
+        _lineLabel.backgroundColor = DSColorFromHex(0xF0F0F0);
     }
     return _lineLabel;
 }
@@ -66,7 +70,7 @@
          [_photoBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_photoBtn.layer setBorderWidth:0.5];
         _photoBtn.tag = 1;
-        [_photoBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_photoBtn.layer setBorderColor:DSColorFromHex(0xF0F0F0).CGColor];
     }
     return _photoBtn;
 }
@@ -81,7 +85,7 @@
         [_contentBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_contentBtn.layer setBorderWidth:0.5];
         _contentBtn.tag = 2;
-        [_contentBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_contentBtn.layer setBorderColor:DSColorFromHex(0xF0F0F0).CGColor];
     }
     return _contentBtn;
 }
@@ -119,7 +123,7 @@
          [sender.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
     }else if (_tmpBtn!= sender && _tmpBtn!=nil){
         _tmpBtn.selected = NO;
-        [_tmpBtn.layer setBorderColor:DSColorFromHex(0x464646).CGColor];
+        [_tmpBtn.layer setBorderColor:DSColorFromHex(0xF0F0F0).CGColor];
          [sender.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
         sender.selected = YES;
         _tmpBtn = sender;

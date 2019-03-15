@@ -14,10 +14,10 @@
 #import "RecipeBottomView.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import "DNFoundCommentController.h"
 
 @interface DetailRecipeController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>
 @property(nonatomic,strong)DetailRecipeRes *result;
-@property(nonatomic,strong)RecipeCollectModel*allModel;
 @property(nonatomic,strong)DetailRecipeHeadView*headView;
 @property(nonatomic,strong)RecipeBottomView*bottomView;
 @property(nonatomic,strong)UITableView*tableview;
@@ -46,8 +46,6 @@
 -(RecipeBottomView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[RecipeBottomView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT-[self tabBarHeight], SCREENWIDTH, [self tabBarHeight])];
-        [_bottomView.collectBtn addTarget:self action:@selector(pressCollect:) forControlEvents:UIControlEventTouchUpInside];
-        [_bottomView.shareBtn addTarget:self action:@selector(pressShare) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomView;
 }
@@ -80,7 +78,32 @@
     [self.headView setHeighrBlock:^(CGFloat height) {
         weakSelf.headView.frame = CGRectMake(0, 0, SCREENWIDTH, height);
     }];
-    
+    [self.bottomView setSelectedBlock:^(NSInteger index) {
+        switch (index) {
+            case 4:
+            {
+                [weakSelf pressZan];
+            }
+                break;
+            case 1:
+            {
+                [weakSelf pressComment];
+            }
+                break;
+            case 2:
+            {
+                [weakSelf pressCollect];
+            }
+                break;
+            case 3:
+            {
+                [weakSelf pressShare];
+            }
+                break;
+            default:
+                break;
+        }
+    }];
    
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -137,16 +160,11 @@
     req.pageSize = @"10";
     req.sign = @"ffc18def63af3916f4d39165697f228f";
     req.epicureId = self.epicureId;
-    self.allModel = [[RecipeCollectModel alloc]init];
     WEAKSELF;
     [[NextServiceApi share]shareDetailRecipeWithParam:req response:^(id response) {
         if (response) {
-            weakSelf.allModel = response;
-            weakSelf.bottomView.collectBtn.selected = weakSelf.allModel.memberWasCollection;
-            [weakSelf.bottomView.collectBtn setTitle:weakSelf.allModel.totalCollection forState:UIControlStateNormal];
-            [weakSelf.bottomView.shareBtn setTitle:weakSelf.allModel.totalForwardCount forState:UIControlStateNormal];
-            [weakSelf.bottomView.collectBtn setIconInTopWithSpacing:5];
-            [weakSelf.bottomView.shareBtn setIconInTopWithSpacing:5];
+            [weakSelf.bottomView setModel:response];
+            
         }
     }];
 }
@@ -178,9 +196,7 @@
     }];
     return cell;
 }
--(void)pressCollect:(UIButton*)sender{
-    
-    
+-(void)pressCollect{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.token = [UserCacheBean share].userInfo.token;
     req.platform = @"ios";
@@ -194,24 +210,21 @@
     WEAKSELF;
     [[NextServiceApi share]collectDetailRecipeWithParam:req response:^(id response) {
         if ([response[@"code"]integerValue] ==200) {
-            sender.selected = !sender.selected;
             [weakSelf showInfo:response[@"data"][@"message"]];
+            [weakSelf getAllData];
         }else{
             [weakSelf showInfo:response[@"message"]];
         }
-        [weakSelf getAllData];
+
     }];
 }
 -(void)pressShare{
-    
     UIImageView *bgimageview = [[UIImageView alloc]init];
-    
     [bgimageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.epicureImgPath]]];
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = self.result.epicureName;
     message.thumbData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.epicureImgPath]]];
     message.description = @"邀您一起";
-    
     [message setThumbImage:bgimageview.image];
     WXWebpageObject *webpage = [WXWebpageObject object];
     NSString*url =[NSString stringWithFormat:@"http://xcxb.lxnong.com/share/index.html#/menuDetail?epicureId=%@&erpStoreId=%@",self.result.epicureId,[UserCacheBean share].userInfo.erpStoreId];
@@ -225,4 +238,35 @@
     
     [WXApi sendReq:req];
 }
+-(void)pressComment{
+    DNFoundCommentController *vc = [[DNFoundCommentController alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    [vc setContentId:self.epicureId];
+    [self presentViewController:vc animated:NO completion:nil];
+}
+-(void)pressZan{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.appId = @"993335466657415169";
+    req.cityName = @"上海市";
+    req.cityId = @"310100";
+    req.timestamp = @"0";
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    req.referenceType = @"EPICURE";
+    req.referenceId = self.epicureId;
+    WEAKSELF;
+    [[NextServiceApi share]likeDetailRecipeWithParam:req response:^(id response) {
+        if ([response[@"code"]integerValue] ==200) {
+            [weakSelf showInfo:response[@"data"][@"operationType"]];
+            [weakSelf getAllData];
+        }else{
+            [weakSelf showInfo:response[@"message"]];
+        }
+        
+    }];
+}
+
+
+
 @end

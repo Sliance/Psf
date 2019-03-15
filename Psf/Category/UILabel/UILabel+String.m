@@ -9,7 +9,18 @@
 #import "UILabel+String.h"
 
 @implementation UILabel (String)
++ (UILabel *)createFont:(UIFont *)font color:(UIColor *)color {
+    UILabel *label = [[UILabel alloc] init];
+    label.font = font;
+    label.textColor = color;
+    return label;
+}
 
++ (UILabel *)createFont:(UIFont *)font color:(UIColor *)color alignment:(NSTextAlignment)alignment {
+    UILabel *label = [self createFont:font color:color];
+    label.textAlignment = alignment;
+    return label;
+}
 
 -(void)setTotal:(NSString *)text stringArray:(NSArray *)strArray colorArray:(NSArray *)colorArray fontArray:(NSArray *)fontArray{
     NSMutableAttributedString *mutAttStr = [[NSMutableAttributedString alloc] initWithString:text];;

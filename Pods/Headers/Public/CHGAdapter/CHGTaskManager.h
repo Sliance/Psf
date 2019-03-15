@@ -1,0 +1,1 @@
+../../../CHGAdapter/CHGAdapter/CHGAdapterLib/tools/CHGTaskManager.h

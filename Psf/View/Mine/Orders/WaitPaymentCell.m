@@ -364,7 +364,6 @@
 }
 -(void)setModel:(OrderListRes *)model{
     _model = model;
-    
     if (model.saleOrderReceiveType ==0) {
          _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@(自提)",model.saleOrderId];
     }else if(model.saleOrderReceiveType ==1){
@@ -379,7 +378,6 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
         self.nameLabel.text = carmodel.productName;
-        self.weightLabel.text = carmodel.productUnit;
         self.countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
     }else if (model.saleOrderProductList.count ==2){
         _headImageTwo.hidden = NO;

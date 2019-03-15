@@ -1,0 +1,1 @@
+../../../CHGAdapter/CHGAdapter/CHGAdapterLib/CHGCollectionViewAdapter/category/UICollectionView+CHGCollectionViewAdapter.h

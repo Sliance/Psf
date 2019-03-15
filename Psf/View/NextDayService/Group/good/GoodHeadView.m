@@ -55,18 +55,17 @@
     [self.groupView addSubview:self.groupLabel];
     [self.groupView addSubview:self.dateLabel];
     [self addSubview:self.nameLabel];
-    [self.groupView addSubview:self.priceLabel];
     [self.groupView addSubview:self.weightLabel];
     [self.groupView addSubview:self.groupLabel];
     [self.groupView addSubview:self.priceLabel];
-    [self.groupView addSubview:self.originLabel];
+    [self addSubview:self.originLabel];
     [self.originLabel addSubview:self.lineLabel];
     [self addSubview:self.soldLabel];
     [self addSubview:self.shareBtn];
     self.groupView.frame = CGRectMake(0, 0, SCREENWIDTH, 50);
     self.nameLabel.frame = CGRectMake(15, 15+self.groupView.ctBottom, SCREENWIDTH-50, 17);
    
-    self.shareBtn.frame = CGRectMake(SCREENWIDTH-32, self.groupView.ctBottom, 45, 45);
+    self.shareBtn.frame = CGRectMake(SCREENWIDTH-55, self.groupView.ctBottom, 45, 45);
     self.soldLabel.hidden = YES;
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.groupView).offset(10);
@@ -78,8 +77,8 @@
         make.centerY.equalTo(self.priceLabel).offset(5);
     }];
     [self.originLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.weightLabel.mas_right);
-        make.centerY.equalTo(self.weightLabel);
+        make.left.equalTo(self).offset(15);
+        make.top.equalTo(self.groupView.mas_bottom).offset(35);
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.originLabel.mas_left);
@@ -98,6 +97,8 @@
         
     }];
     _priceLabel.textColor = [UIColor whiteColor];
+    _originLabel.textColor = DSColorFromHex(0x969696);
+    _lineLabel.backgroundColor = DSColorFromHex(0x969696);
     _weightLabel.textColor =  [UIColor whiteColor];
 }
 -(void)setLauoutPreSale{
@@ -119,7 +120,7 @@
         make.width.mas_equalTo(SCREENWIDTH-80);
     }];
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-5);
+        make.right.equalTo(self).offset(-15);
         make.top.equalTo(self).offset(0);
         make.width.height.mas_equalTo(45);
     }];
@@ -376,10 +377,24 @@
         if (model.activityName.length>0) {
             self.groupLabel.text = @"距离活动结束还剩:";
             self.originLabel.hidden = NO;
-            self.lineLabel.hidden = YES;
+            self.lineLabel.hidden = NO;
             [self setCornerLayoutGroup];
-            self.originLabel.text = [NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName];
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productActivityPrice];
+            double price = 0.0;
+            NSString* productPrice;
+            double oriprice = 0.0;
+            NSString* oriproductPrice;
+            if (model.productStyle ==1) {
+                price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                oriprice = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
+            }else{
+                productPrice = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+                oriproductPrice = [NSString stringWithFormat:@"￥%@",model.productPrice];
+            }
+            self.originLabel.text = oriproductPrice;
+            [self.priceLabel setText:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] lineSpacing:5];
+            [self.priceLabel setTotal:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] stringArray:@[productPrice,[NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName]] colorArray:@[[UIColor whiteColor],[UIColor whiteColor]] fontArray:@[[UIFont systemFontOfSize:24],[UIFont systemFontOfSize:12]]];
             NSString *date = [NSDate cStringFromTimestamp:_model.activityEndTime Formatter:@"YYYY-MM-dd HH:mm:ss"];
             NSString *end = [NSDate getCountDownStringWithEndTime:date];
             self.dateLabel.text = end;
@@ -406,7 +421,7 @@
         self.lineLabel.hidden = NO;
         [self setCornerLayoutGroup];
         self.originLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.grouponPrice];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@/",model.productActivityPrice];
         self.dateLabel.text = [NSDate getCountDownStringWithEndTime:[NSDate cStringFromTimestamp:_model.grouponExpireTime Formatter:@"yyyy-MM-dd HH:mm:ss.0"]];
         NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(groupTime) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];

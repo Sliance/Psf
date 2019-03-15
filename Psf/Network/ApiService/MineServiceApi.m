@@ -104,13 +104,13 @@
 ///获取会员积分明细信息
 - (void)getMemberBalanceHistoryWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/member/point/record/mobile/v1/find";
+    NSString *url = @"/lxn/member/point/record/mobile/findPoint";
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                NSArray *result = [IntegralRecord mj_objectArrayWithKeyValuesArray:dicResponse[@"data"]];
+                NSArray *result = [IntegralRecord mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
                 if (responseModel) {
                     responseModel(result);
                 }

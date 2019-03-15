@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UILabel (String)
++ (UILabel *)createFont:(UIFont *)font color:(UIColor *)color;
++ (UILabel *)createFont:(UIFont *)font color:(UIColor *)color alignment:(NSTextAlignment)alignment;
 /**
  设置文本,并指定行间距
  

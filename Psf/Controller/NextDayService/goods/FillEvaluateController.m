@@ -54,6 +54,7 @@
     if (!_tableview) {
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self navHeightWithHeight]) style:UITableViewStylePlain];
         _tableview.separatorColor = [UIColor clearColor];
+        _tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 200)];
         _tableview.delegate = self;
         _tableview.dataSource = self;
     }
@@ -77,7 +78,7 @@
     self.imageArr = [NSMutableArray array];
     self.imageurlArr = [NSMutableArray array];
     [self.view addSubview:self.tableview];
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 46)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 246)];
     [headView addSubview:self.sumitBtn];
     self.tableview.tableFooterView = headView;
     
@@ -206,7 +207,9 @@
     self.contentTXT = cell.contentTXT ;
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.view endEditing:YES];
+}
 -(void)pressSubmit{
     FillEvaluateReq *req = [[FillEvaluateReq alloc]init];
     req.appId = @"993335466657415169";

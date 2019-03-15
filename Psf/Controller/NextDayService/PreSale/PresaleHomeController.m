@@ -164,7 +164,6 @@ static NSString *cellId = @"cellId";
             self.timeModel = [arr firstObject];
             [self requestTimeBuyList:self.timeModel.ruleActivityId];
         }
-        
     }];
 }
 -(void)requestTimeBuyList:(NSString*)ruleId{
@@ -175,6 +174,8 @@ static NSString *cellId = @"cellId";
     req.version = @"";
     req.platform = @"ios";
     req.ruleActivityId = ruleId;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     [[NextServiceApi share]timeBuyListWithParam:req response:^(id response) {
         if (response) {
@@ -240,8 +241,8 @@ static NSString *cellId = @"cellId";
                 [UserCacheBean share].userInfo.storeName = response[@"data"][@"storeName"];
                 [weakself.locView.locBtn setTitle:response[@"data"][@"storeName"] forState:UIControlStateNormal];
             }
+            [self requestBanner];
         }
-        [self requestBanner];
     }];
 }
 -(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
@@ -492,7 +493,7 @@ static NSString *cellId = @"cellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section ==0) {
         if (self.timeArr.count>0) {
-            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160+240);
+            return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160+250);
         }else{
             return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
         }
@@ -518,8 +519,11 @@ static NSString *cellId = @"cellId";
      __weak typeof(self)weakself = self;
     if (indexPath.section ==0) {
         HomeHeadView* validView = [[HomeHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160)];
+        [validView setAddBlock:^(NSString * message) {
+            [weakself showInfo:message];
+        }];
         if (self.timeArr.count>0) {
-            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160+240);
+            validView.frame = CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160+250);
             [validView.moreBtn addTarget:self action:@selector(pressTimeBuyList) forControlEvents:UIControlEventTouchUpInside];
             [validView setCollectBlock:^(TimeBuyModel * model) {
                 detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];

@@ -61,7 +61,7 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc]init];
         _detailLabel.font = [UIFont systemFontOfSize:15];
-        _detailLabel.text = @"满额积分自动抵扣现金";
+        _detailLabel.text = @"";
         _detailLabel.textColor = DSColorFromHex(0x969696);
     }
     return _detailLabel;

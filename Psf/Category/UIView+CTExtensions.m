@@ -234,6 +234,25 @@
     myFrame.origin.x = (self.superview.frame.size.width - myFrame.size.width)/2;
     self.frame = myFrame;
 }
+- (void)setCorner:(UIRectCorner)corners radius:(float)radius {
+    UIBezierPath *maskPath;
+    maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                     byRoundingCorners:corners
+                                           cornerRadii:CGSizeMake(radius, radius)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+#pragma mark - 圆角
+- (void)addMaskLayer {
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.fillColor = [UIColor blackColor].CGColor;
+    maskLayer.strokeColor = [UIColor clearColor].CGColor;
+    maskLayer.path = path.CGPath;
+    self.layer.mask = maskLayer;
+}
 
 -(void)setupAccessibility:(NSString *)accessibilityLabel{
 #ifdef InDev

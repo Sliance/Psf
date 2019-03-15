@@ -15,6 +15,7 @@
 @property(nonatomic,copy)NSString *memberPointChangePoint;
 ///创建时间
 @property(nonatomic,copy)NSString *systemCreateTime;
+@property(nonatomic,copy)NSString *remark;
 
 ///交易类型(0、充值，1、消费 2、退款)
 @property(nonatomic,assign)NSInteger memberTradeType;

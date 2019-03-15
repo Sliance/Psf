@@ -93,13 +93,16 @@
 -(void)setModel:(IntegralRecord *)model{
     _model = model;
     if(_type ==1){
+        if ([model.payAmount isEqualToString:@"0"]) {
+            model.payAmount = model.balancePayAmount;
+        }
         if (model.memberTradeType ==0) {
             self.titleLabel.text = @"充值";
             self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
             self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberTradeType == 1){
             self.titleLabel.text = @"消费";
-            self.priceLabel.text = model.payAmount;
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
             self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }else if (model.memberTradeType ==2){
             self.titleLabel.text = @"退款";
@@ -115,19 +118,9 @@
         }
     }else if (_type ==2){
         self.statusLabel.text = @"";
-        if (model.memberPointRecordType ==0) {
-            self.titleLabel.text = @"充值";
-            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
-            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
-        }else if (model.memberPointRecordType == 1){
-            self.titleLabel.text = @"消费";
-            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.memberPointChangePoint];
-            self.priceLabel.textColor = DSColorFromHex(0x72BF34);
-        }else if (model.memberPointRecordType ==2){
-            self.titleLabel.text = @"退款";
-            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.memberPointChangePoint];
-            self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
-        }
+        self.titleLabel.text = model.remark;
+        self.priceLabel.text = model.memberPointChangePoint;
+        self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
     }
     self.contentLabel.text = [NSDate cStringFromTimestamp:model.systemCreateTime Formatter:@"yyyy.MM.dd HH:mm"];
 }

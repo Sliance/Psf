@@ -290,15 +290,27 @@
     
     if (model.productStorePrice) {
         if (model.productStyle ==1) {
-            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-            self.priceLabel.text = productPrice;
+            double price;
+            NSString* productPrice;
+            
+            if (model.activityName.length>0) {
+                 price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.priceLabel.text = productPrice;
+            }else{
+                price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.priceLabel.text = productPrice;
+            }
         }else{
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+            
+            if (model.activityName.length>0) {
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+            }else{
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+            }
         }
-        if (model.activityName.length>0) {
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
-        }
+        
     }
     
 //    self.weightLabel.text = model.productUnit;

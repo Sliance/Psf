@@ -1,0 +1,1 @@
+../../../CHGAdapter/CHGAdapter/CHGAdapterLib/CHGTableViewAdapter/model/CHGTableViewAdapterData.h

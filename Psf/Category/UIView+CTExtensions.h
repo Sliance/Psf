@@ -107,4 +107,8 @@
  *  @param value <#value description#>
  */
 -(void)setupAccessibilityValue:(NSString*)value;
+/*! 设置圆角 左右四个角都可以单独或组合设置 */
+- (void)setCorner:(UIRectCorner)corners radius:(float)radius;
+/*! 圆形遮罩层 一般用于头像 */
+- (void)addMaskLayer;
 @end

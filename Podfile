@@ -16,4 +16,5 @@ platform :ios, '9.0'
   pod 'WechatOpenSDK'
   pod 'SVProgressHUD'
   pod 'JPush'
+  pod 'CHGAdapter', '~> 0.3.2'        #简化UITableView、UICollectionView的使用
 end

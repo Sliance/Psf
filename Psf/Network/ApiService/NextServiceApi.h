@@ -19,6 +19,7 @@
 #import "DetailRecipeRes.h"
 #import "RecipeCollectModel.h"
 #import "TimeBuyModel.h"
+#import "DNCommentList.h"
 
 
 @interface NextServiceApi : BaseApi
@@ -79,4 +80,12 @@
 - (void)timeToBuyWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///限时购列表
 - (void)timeBuyListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///菜谱详情（点赞）
+- (void)likeDetailRecipeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///评论列表
+- (void)getCommentListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///评论添加
+- (void)addCommenttWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+
+
 @end

@@ -10,6 +10,8 @@
 #import "NextCollectionViewCell.h"
 #import "detailGoodsViewController.h"
 #import "NextServiceApi.h"
+#import "ShopServiceApi.h"
+
 @interface NextDayListController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -110,7 +112,35 @@ static NSString *cellId = @"cellId";
         }
     }];
 }
-
+-(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.productId =  productId ;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.productSkuId = @"";
+    req.productQuantity = quantity;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        
+        if (response!= nil) {
+            [weakself showInfo:response[@"message"]];
+        }
+        
+    }];
+}
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
@@ -149,10 +179,12 @@ static NSString *cellId = @"cellId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
     StairCategoryListRes *model = self.dataArr[indexPath.row];
     [cell setModel:model];
-    
+    cell.addBtn.hidden = NO;
+    [cell setAddBlock:^{
+        [self addShopCountQuantity:@"1" productId:model.productId];
+    }];
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{

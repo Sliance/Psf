@@ -1,0 +1,1 @@
+../../../CHGAdapter/CHGAdapter/CHGAdapterLib/AdapterKit/UIView+AdapterContentModel.h

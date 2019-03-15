@@ -308,7 +308,6 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [[ShopServiceApi share]clearLoseProductWithParam:req response:^(id response) {
         if ([response[@"code"] integerValue] ==200) {
             [self showToast:response[@"message"]];
-            self.result.cartProductList = nil;
             [weakself.loseArr removeAllObjects];
             [weakself.collectionView reloadData];
         }
@@ -425,7 +424,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section ==2) {
-       return CGSizeMake(165, 260);
+       return CGSizeMake(165, 270);
     }
     
      return CGSizeMake(SCREENWIDTH+1, 121);
@@ -463,9 +462,9 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==2) {
-        return CGSizeMake(SCREENWIDTH, SCREENHEIGHT);
+        return CGSizeMake(SCREENWIDTH, 50);
     }
-    return CGSizeMake(SCREENWIDTH, 0);
+    return CGSizeMake(SCREENWIDTH, 5);
 }
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath

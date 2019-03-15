@@ -359,12 +359,16 @@
     _totalamount.text = [NSString stringWithFormat:@"￥%@",self.result.saleOrderRefundAmount];
     if (self.result.saleOrderRefundStatus ==0) {
         self.toplabel.text = @"待审核";
+        self.toplabel.textColor = [UIColor orangeColor];
     }else if (self.result.saleOrderRefundStatus ==1) {
         self.toplabel.text = @"退款中";
+        self.toplabel.textColor = [UIColor orangeColor];
     }else if (self.result.saleOrderRefundStatus ==2) {
         self.toplabel.text = @"已退款";
+        self.toplabel.textColor = DSColorFromHex(0x63C94B);
     }else if (self.result.saleOrderRefundStatus ==3) {
         self.toplabel.text = @"审核不通过";
+        self.toplabel.textColor = DSColorFromHex(0x969696);
     }
      _numberLabel.text = [NSString stringWithFormat:@"申请编号：%@",self.result.saleOrderRefundId];
     _whylabel.text = [NSString stringWithFormat:@"退款原因：%@",self.result.saleOrderRefundReason];

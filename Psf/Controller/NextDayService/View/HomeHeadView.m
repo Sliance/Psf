@@ -8,6 +8,7 @@
 
 #import "HomeHeadView.h"
 #import "NextCollectionViewCell.h"
+#import "ShopServiceApi.h"
 
 @implementation HomeHeadView
 
@@ -119,7 +120,7 @@
             make.left.right.equalTo(self);
             make.top.equalTo(self.headimage.mas_bottom).offset(15);
         }];
-        self.collectionView.frame =  CGRectMake(0,200*SCREENWIDTH/375+140, SCREENWIDTH, 200);
+        self.collectionView.frame =  CGRectMake(0,200*SCREENWIDTH/375+140, SCREENWIDTH, 210);
     }else{
         [self.headimage mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(20);
@@ -176,7 +177,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(120, 180);
+    return CGSizeMake(120, 210);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,11 +185,43 @@
     TimeBuyModel *model = self.timeArr[indexPath.row];
     [collectcell setImageWidth:100];
     [collectcell setTimeModel:model];
+    collectcell.addBtn.hidden = NO;
+    [collectcell setAddBlock:^{
+        [self addShopCountQuantity:@"1" productId:model.productId];
+    }];
     return collectcell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TimeBuyModel *model = self.timeArr[indexPath.row];
     self.collectBlock(model);
+}
+-(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.productId =  productId ;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.productSkuId = @"";
+    req.productQuantity = quantity;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        
+        if (response!= nil) {
+            self.addBlock(response[@"message"]);
+        }
+        
+    }];
 }
 @end

@@ -196,7 +196,8 @@
     [[OrderServiceApi share]getOrderCountWithParam:req response:^(id response) {
         if (response) {
             NSDictionary *dic = [response firstObject];
-                        NSArray *countArr = @[[dic[@"saleOrderUnpayCount"] stringValue],[dic[@"saleOrderUnDeliveryCount"] stringValue] ,[dic[@"saleOrderUnReceivedCount"] stringValue],[dic[@"saleOrderUnevaluateCount"] stringValue],[dic[@"saleOrderBackCount"] stringValue]];
+                        NSArray *countArr = @[[dic[@"saleOrderUnpayCount"] stringValue],[dic[@"saleOrderUnDeliveryCount"] stringValue] ,[dic[@"saleOrderUnReceivedCount"] stringValue],[dic[@"saleOrderUnevaluateCount"] stringValue],@""];
+//            [dic[@"saleOrderBackCount"] stringValue]
             
                         [weakself.footView setArr:countArr];
         }

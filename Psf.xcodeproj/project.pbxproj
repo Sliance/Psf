@@ -366,6 +366,13 @@
 		898B17872225161400AC6656 /* CustomJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 898B17862225161400AC6656 /* CustomJSObject.m */; };
 		898B178A22255E4000AC6656 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898B178922255E4000AC6656 /* JavaScriptCore.framework */; };
 		8991D3CA21E5C8D3001B6A09 /* OrderRuleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */; };
+		899AF25C223B4E9900A1F46B /* DNFoundCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF23E223B4E9900A1F46B /* DNFoundCommentCell.m */; };
+		899AF260223B4E9900A1F46B /* DNCommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF243223B4E9900A1F46B /* DNCommentHeadView.m */; };
+		899AF261223B4E9900A1F46B /* DNCommentInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF248223B4E9900A1F46B /* DNCommentInputBar.m */; };
+		899AF269223B4E9900A1F46B /* DNFoundCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF25B223B4E9900A1F46B /* DNFoundCommentController.m */; };
+		899AF271223B504500A1F46B /* DNCommentExtsReplysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26C223B504500A1F46B /* DNCommentExtsReplysModel.m */; };
+		899AF272223B504500A1F46B /* DNCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26E223B504500A1F46B /* DNCommentList.m */; };
+		899AF273223B504500A1F46B /* DNTotalCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26F223B504500A1F46B /* DNTotalCommentList.m */; };
 		89A7C057221FF85C0073AC49 /* TimeBuyListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7C056221FF85C0073AC49 /* TimeBuyListController.m */; };
 		89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A949EA221E7E0600915FA0 /* TimeBuyModel.m */; };
 		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
@@ -1121,6 +1128,20 @@
 		898B178922255E4000AC6656 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		8991D3C821E5C8D3001B6A09 /* OrderRuleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRuleController.h; sourceTree = "<group>"; };
 		8991D3C921E5C8D3001B6A09 /* OrderRuleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRuleController.m; sourceTree = "<group>"; };
+		899AF23D223B4E9900A1F46B /* DNFoundCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNFoundCommentCell.h; sourceTree = "<group>"; };
+		899AF23E223B4E9900A1F46B /* DNFoundCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNFoundCommentCell.m; sourceTree = "<group>"; };
+		899AF243223B4E9900A1F46B /* DNCommentHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentHeadView.m; sourceTree = "<group>"; };
+		899AF244223B4E9900A1F46B /* DNCommentInputBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentInputBar.h; sourceTree = "<group>"; };
+		899AF248223B4E9900A1F46B /* DNCommentInputBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentInputBar.m; sourceTree = "<group>"; };
+		899AF254223B4E9900A1F46B /* DNCommentHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentHeadView.h; sourceTree = "<group>"; };
+		899AF255223B4E9900A1F46B /* DNFoundCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNFoundCommentController.h; sourceTree = "<group>"; };
+		899AF25B223B4E9900A1F46B /* DNFoundCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNFoundCommentController.m; sourceTree = "<group>"; };
+		899AF26B223B504500A1F46B /* DNCommentExtsReplysModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentExtsReplysModel.h; sourceTree = "<group>"; };
+		899AF26C223B504500A1F46B /* DNCommentExtsReplysModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentExtsReplysModel.m; sourceTree = "<group>"; };
+		899AF26D223B504500A1F46B /* DNTotalCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTotalCommentList.h; sourceTree = "<group>"; };
+		899AF26E223B504500A1F46B /* DNCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentList.m; sourceTree = "<group>"; };
+		899AF26F223B504500A1F46B /* DNTotalCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTotalCommentList.m; sourceTree = "<group>"; };
+		899AF270223B504500A1F46B /* DNCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentList.h; sourceTree = "<group>"; };
 		89A7C055221FF85C0073AC49 /* TimeBuyListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyListController.h; sourceTree = "<group>"; };
 		89A7C056221FF85C0073AC49 /* TimeBuyListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeBuyListController.m; sourceTree = "<group>"; };
 		89A949E9221E7E0600915FA0 /* TimeBuyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyModel.h; sourceTree = "<group>"; };
@@ -2722,6 +2743,7 @@
 		8991D3C721E5C0FC001B6A09 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				899AF23A223B4E9900A1F46B /* Comment */,
 				89F6E62521E8251E009FE14D /* Model */,
 				89F6E61D21E8251E009FE14D /* View */,
 				89F6E61321E82509009FE14D /* CircleController.h */,
@@ -2730,6 +2752,59 @@
 				89E009F321EDC43900662FEA /* DetailRecipeController.m */,
 			);
 			path = Circle;
+			sourceTree = "<group>";
+		};
+		899AF23A223B4E9900A1F46B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				899AF26A223B503000A1F46B /* model */,
+				899AF255223B4E9900A1F46B /* DNFoundCommentController.h */,
+				899AF25B223B4E9900A1F46B /* DNFoundCommentController.m */,
+				899AF23B223B4E9900A1F46B /* Tables */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		899AF23B223B4E9900A1F46B /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				899AF23C223B4E9900A1F46B /* Cells */,
+				899AF23F223B4E9900A1F46B /* Views */,
+			);
+			path = Tables;
+			sourceTree = "<group>";
+		};
+		899AF23C223B4E9900A1F46B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				899AF23D223B4E9900A1F46B /* DNFoundCommentCell.h */,
+				899AF23E223B4E9900A1F46B /* DNFoundCommentCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		899AF23F223B4E9900A1F46B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				899AF254223B4E9900A1F46B /* DNCommentHeadView.h */,
+				899AF243223B4E9900A1F46B /* DNCommentHeadView.m */,
+				899AF244223B4E9900A1F46B /* DNCommentInputBar.h */,
+				899AF248223B4E9900A1F46B /* DNCommentInputBar.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		899AF26A223B503000A1F46B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				899AF26B223B504500A1F46B /* DNCommentExtsReplysModel.h */,
+				899AF26C223B504500A1F46B /* DNCommentExtsReplysModel.m */,
+				899AF270223B504500A1F46B /* DNCommentList.h */,
+				899AF26E223B504500A1F46B /* DNCommentList.m */,
+				899AF26D223B504500A1F46B /* DNTotalCommentList.h */,
+				899AF26F223B504500A1F46B /* DNTotalCommentList.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		89A949E7221E7DD300915FA0 /* TimeBuy */ = {
@@ -3098,6 +3173,7 @@
 				8857EA7720E3597500D7E167 /* WaitPaymentCell.m in Sources */,
 				88636D0920E1FD73006CE5D8 /* BaseTableViewCell.m in Sources */,
 				886A9ECC20ECBAAF000503D2 /* ChooseServiceTypeController.m in Sources */,
+				899AF25C223B4E9900A1F46B /* DNFoundCommentCell.m in Sources */,
 				88566E512112C35400B6C38D /* TZAssetCell.m in Sources */,
 				886AC40A2101D79000B6F32F /* PointAmountCell.m in Sources */,
 				888E719520E0CAA300BFBAFF /* UIScrollView+VTMagic.m in Sources */,
@@ -3120,8 +3196,10 @@
 				89F6E63721E828BE009FE14D /* BaseModelReq.m in Sources */,
 				89C77FD621F59A4800A6FB04 /* RecipeCollectModel.m in Sources */,
 				88747AE5212AC0B70058ED5B /* PlaceOrderRes.m in Sources */,
+				899AF260223B4E9900A1F46B /* DNCommentHeadView.m in Sources */,
 				88566E172112A8FB00B6C38D /* UIImage+Alpha.m in Sources */,
 				885F408920DD0F9B009F04D6 /* ShopFootView.m in Sources */,
+				899AF269223B4E9900A1F46B /* DNFoundCommentController.m in Sources */,
 				885303CE20F4BF6C009807B2 /* ShoppingListRes.m in Sources */,
 				886A9EC820EC9DE8000503D2 /* SureOrderTableViewCell.m in Sources */,
 				887081E02133979B0083E540 /* HomeTableViewCell.m in Sources */,
@@ -3130,8 +3208,10 @@
 				88484D7D20EB38A900400D16 /* MyIntegralController.m in Sources */,
 				8857EA8F20E3A83700D7E167 /* OrderCollectionViewCell.m in Sources */,
 				88A2B43C20F73238007F338A /* ZHMapView.m in Sources */,
+				899AF272223B504500A1F46B /* DNCommentList.m in Sources */,
 				888B17EC211EF42F00501322 /* ADBaseResp.m in Sources */,
 				8871B8C720DBB29200DAA5D6 /* JFCityCollectionFlowLayout.m in Sources */,
+				899AF273223B504500A1F46B /* DNTotalCommentList.m in Sources */,
 				886A9ECF20ECBAC5000503D2 /* RefundViewController.m in Sources */,
 				888B17DF211EF3B300501322 /* AES.m in Sources */,
 				88747E8220EDA812000BC993 /* UseCouponController.m in Sources */,
@@ -3194,6 +3274,7 @@
 				885F408620DCFCBA009F04D6 /* NavgationView.m in Sources */,
 				89C77FD321F5908100A6FB04 /* UIButton+DNUtility.m in Sources */,
 				88484D8F20EB81FA00400D16 /* AboutViewController.m in Sources */,
+				899AF271223B504500A1F46B /* DNCommentExtsReplysModel.m in Sources */,
 				89E00A0321EDCEFD00662FEA /* DetailRecipeProductCell.m in Sources */,
 				888E719420E0CAA300BFBAFF /* UIColor+VTMagic.m in Sources */,
 				888E71B420E1078B00BFBAFF /* MyCouponCell.m in Sources */,
@@ -3323,6 +3404,7 @@
 				88600BD320D890B80098CF10 /* ZSPageControl.m in Sources */,
 				8858ACEB214F57F2003A7957 /* PresaleListRes.m in Sources */,
 				8871B88A20DB491B00DAA5D6 /* UserCacheBean.m in Sources */,
+				899AF261223B4E9900A1F46B /* DNCommentInputBar.m in Sources */,
 				88662064210051E500C7923D /* CalculateReq.m in Sources */,
 				88671890212CFAC500D861AD /* ZSNotification.m in Sources */,
 				89E009F421EDC43900662FEA /* DetailRecipeController.m in Sources */,

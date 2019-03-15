@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) void (^selected)(NSInteger);
 @property(nonatomic,copy) void (^imageBlock)(NSInteger);
 @property(nonatomic,copy) void (^collectBlock)(TimeBuyModel*);
+@property(nonatomic,copy) void (^addBlock)(NSString*);
 @property(nonatomic,strong)TimeBuyModel*timeModel;
 @property(nonatomic,strong)NSMutableArray*timeArr;
 @property(nonatomic,strong)UILabel *dateLabel;

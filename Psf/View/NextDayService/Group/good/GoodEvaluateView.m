@@ -32,7 +32,12 @@
     self.detailLabel.frame = CGRectMake(130, 5, SCREENWIDTH-169, 45);
     self.rightImage.frame = CGRectMake(SCREENWIDTH-28, 20, 8, 14);
     self.topBtn.frame = CGRectMake(0, 0, SCREENWIDTH, 45);
-    self.lineLabel.frame = CGRectMake(15, 50, SCREENWIDTH-15, 0.5);
+    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(15);
+        make.right.equalTo(self).offset(-15);
+        make.top.equalTo(self).offset(50);
+        make.height.mas_equalTo(0.5);
+    }];
     [self addSubview:self.headImage];
     [self addSubview:self.nameLabel];
     [self addSubview:self.dateLabel];
@@ -40,8 +45,7 @@
     [self addSubview:self.ratingView];
     _cardImgsView = [[UIView alloc] init];
     [self addSubview:_cardImgsView];
-    
-    self.headImage.frame = CGRectMake(15,self.lineLabel.ctBottom+ 15, 40, 40);
+    self.headImage.frame = CGRectMake(15,65, 40, 40);
 }
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
@@ -119,7 +123,7 @@
 -(UILabel *)lineLabel{
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc]init];
-        _lineLabel.backgroundColor =  DSColorFromHex(0xDCDCDC);
+        _lineLabel.backgroundColor =  DSColorFromHex(0xF0F0F0);
     }
     return _lineLabel;
 }

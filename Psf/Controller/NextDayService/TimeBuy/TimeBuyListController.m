@@ -14,6 +14,9 @@
 @interface TimeBuyListController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,assign)NSInteger pageIndex;
+
+
 @end
 
 @implementation TimeBuyListController
@@ -40,36 +43,56 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.view addSubview:self.collectionView];
-    
     self.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     self.view.backgroundColor = [UIColor whiteColor];
     _dataArr = [NSMutableArray array];
-    
-    
-    
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
 }
 -(void)setActivityId:(NSString *)activityId{
     _activityId = activityId;
-    [self requestTimeBuyList:activityId];
+    [self headerRefreshing];
 }
--(void)requestTimeBuyList:(NSString*)ruleId{
+- (void)headerRefreshing {
+    self.pageIndex = 1;
+    [self requestTimeBuyList];
+}
+- (void)footerRefreshing {
+    self.pageIndex++;
+    [self requestTimeBuyList];
+}
+-(void)requestTimeBuyList{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"";
     req.platform = @"ios";
-    req.ruleActivityId = ruleId;
+    req.ruleActivityId = self.activityId;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    req.pageIndex = self.pageIndex;
+    req.pageSize = @"10";
+    WEAKSELF;
     [[NextServiceApi share]timeBuyListWithParam:req response:^(id response) {
         if (response) {
-            [self.dataArr removeAllObjects];
-            [self.dataArr addObjectsFromArray:response];
+            if (self.pageIndex ==1) {
+                [weakSelf.dataArr removeAllObjects];
+                [weakSelf.dataArr addObjectsFromArray:response];
+                [weakSelf.collectionView.mj_header endRefreshing];
+            } else {
+                [weakSelf.dataArr addObjectsFromArray:response];
+                [weakSelf.collectionView.mj_header endRefreshing];
+                [weakSelf.collectionView.mj_footer endRefreshing];
+            }
             
+            if ([response count] <10) {
+                [weakSelf.collectionView.mj_footer removeFromSuperview];
+                
+            } else {
+                weakSelf.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:weakSelf refreshingAction:@selector(footerRefreshing)];
+            }
+            [self.collectionView reloadData];
         }
-        [self.collectionView reloadData];
     }];
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -96,7 +119,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(SCREENWIDTH/2-45/2, SCREENWIDTH/2-45/2+90);
+    return CGSizeMake(SCREENWIDTH/2-45/2, SCREENWIDTH/2-45/2+100);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

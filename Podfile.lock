@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - CHGAdapter (0.3.2):
+    - DZNEmptyDataSet (~> 1.8.1)
+  - DZNEmptyDataSet (1.8.1)
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
@@ -41,6 +44,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - CHGAdapter (~> 0.3.2)
   - FMDB (~> 2.7.2)
   - JPush
   - Mantle
@@ -57,6 +61,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - CHGAdapter
+    - DZNEmptyDataSet
     - FMDB
     - HappyDNS
     - JCore
@@ -74,6 +80,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  CHGAdapter: b6b12aa7b986022b9cd8644cf8f0cab704db3cb7
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   JCore: 14706de2640b25fb77dbd02332696491407f37c9
@@ -89,6 +97,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: e7e225c2c0da5f577a793c48beca60751f423b1c
+PODFILE CHECKSUM: 67c9462399966ad5f7602c15301444b030cbf06f
 
 COCOAPODS: 1.5.3

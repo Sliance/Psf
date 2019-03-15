@@ -160,7 +160,13 @@
             self.payableLabel.text =  [NSString stringWithFormat:@"￥%@",model.productStorePrice];
         }
         if (model.activityName.length>0) {
-            self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+            if (model.productStyle ==1) {
+                double price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+                self.payableLabel.text =productPrice;
+            }else{
+                self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
+            }
         }
     }
     self.countLabel.text = [NSString stringWithFormat:@"X%@",model.productQuantity];

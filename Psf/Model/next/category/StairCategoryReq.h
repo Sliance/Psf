@@ -87,9 +87,21 @@
 @property(nonatomic,copy)NSString *memberCollectionType;
 ///菜谱收藏id
 @property(nonatomic,copy)NSString *memberCollectionTypeId;
+///菜谱点赞类型
+@property(nonatomic,copy)NSString *referenceType;
+///菜谱点赞id
+@property(nonatomic,copy)NSString *referenceId;
 ///热销类型
 @property(nonatomic,copy)NSString *hotType;
+///评论id
+@property(nonatomic,copy)NSString *memberCommentTypeId;
+@property(nonatomic,copy)NSString *memberCommentId;
+@property(nonatomic,copy)NSString *commentContent;
+@property(nonatomic,copy)NSString *memberCommentType;
 
+///
 @property(nonatomic,copy)NSString *ruleActivityId;
+///
+@property(nonatomic,copy)NSString *saleOrderRefundId;
 
 @end
