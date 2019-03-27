@@ -120,11 +120,11 @@ static NSString *cellId = @"GoodCollectionViewCell";
     self.titleLabel.text = model.productName;
     self.weightLabel.text = model.productUnit;
     NSString *price ;
-    if (model.productStyle ==1) {
-        price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue]];
-    }else{
+//    if (model.productStyle ==1) {
+//        price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue]];
+//    }else{
         price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]];
-    }
+//    }
     
     NSString *string = [NSString stringWithFormat:@"共%@件，商品金额%@",model.productQuantity,price];
     NSRange rang = [string rangeOfString:price];
@@ -152,11 +152,11 @@ static NSString *cellId = @"GoodCollectionViewCell";
                 totalprice = totalprice+[model.productStorePrice doubleValue]*([model.productQuantity integerValue]- model.productLimitedQuantity)+[model.productActivityPrice doubleValue]*model.productLimitedQuantity;
             }
         }else{
-        if (model.productStyle ==1) {
-             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        }else{
+//        if (model.productStyle ==1) {
+//             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//        }else{
             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue];
-        }
+//        }
     }
         count = count+[model.productQuantity doubleValue];
     }

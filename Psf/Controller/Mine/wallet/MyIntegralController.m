@@ -108,7 +108,7 @@
 }
 -(void)setDic:(NSMutableDictionary *)dic{
     _dic = dic;
-    _countLabel.text = [NSString stringWithFormat:@"%@积分",dic[@"memberPoint"]];
+    _countLabel.text = [NSString stringWithFormat:@"%ld积分",[dic[@"memberPoint"] integerValue]];
 }
 -(void)pressDetail:(UIButton*)sender{
     TradingDetailController *detailVC = [[TradingDetailController alloc]init];

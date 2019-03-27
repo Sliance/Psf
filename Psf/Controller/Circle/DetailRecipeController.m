@@ -191,6 +191,8 @@
     [cell setSelectedCollect:^(CartProductModel *model) {
         detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
         [vc setProductID:model.productId];
+        [vc setErpProductId:model.erpProductId];
+        [vc setProductType:@"normal"];
         vc.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];

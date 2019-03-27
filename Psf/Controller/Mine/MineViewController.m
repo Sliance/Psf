@@ -46,7 +46,7 @@
         _tableview.dataSource = self;
         _tableview.backgroundColor = DSColorFromHex(0xF0F0F0);
         _tableview.tableFooterView = [[UIView alloc]init];
-        
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableview;
 }
@@ -229,7 +229,7 @@
     return _footView;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 45;
+    return 50;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identify = @"identify";

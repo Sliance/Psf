@@ -101,6 +101,7 @@
     req.cityName = @"上海市";
     req.productSkuId = @"";
     req.productQuantity = quantity;
+    req.productType = @"normal";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         
@@ -158,6 +159,7 @@
             detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
             [vc setProductID:model.productId];
             vc.hidesBottomBarWhenPushed = YES;
+             [vc setProductType:@"normal"];
             [self.navigationController pushViewController:vc animated:YES];
         }];
         return cell;
@@ -250,7 +252,7 @@
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
         [vc setProductID:res.productId];
     }
-
+     [vc setProductType:@"normal"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

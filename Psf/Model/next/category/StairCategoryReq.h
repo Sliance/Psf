@@ -83,6 +83,8 @@
 @property(nonatomic,copy)NSString *saleOrderProductId;
 @property(nonatomic,copy)NSString *sign;
 @property(nonatomic,copy)NSString *epicureId;
+@property(nonatomic,copy)NSString* productType;
+
 ///菜谱收藏类型
 @property(nonatomic,copy)NSString *memberCollectionType;
 ///菜谱收藏id

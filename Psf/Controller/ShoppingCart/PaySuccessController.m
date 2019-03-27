@@ -200,7 +200,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
         StairCategoryListRes *model = _likeArr[indexPath.row];
         [vc setProductID:model.productId];
-
+     [vc setProductType:@"normal"];
     [self.navigationController showViewController:vc sender:nil];
 }
 - (void)didReceiveMemoryWarning {

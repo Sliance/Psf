@@ -49,7 +49,7 @@
     if (self) {
         [self addSubview:self.titleLabel];
         [self addSubview:self.detailLabel];
-        [self.detailLabel addSubview:self.lineLabel];
+//        [self.detailLabel addSubview:self.lineLabel];
        
     }
     return self;
@@ -74,12 +74,12 @@
         make.left.equalTo(self).offset(offect);
         make.height.mas_equalTo(45);
     }];
-    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.detailLabel.mas_bottom).offset(-1);
-        make.left.equalTo(self).offset(offect);
-        make.right.equalTo(self);
-        make.height.mas_equalTo(0.5);
-    }];
+//    [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.detailLabel.mas_bottom).offset(-1);
+//        make.left.equalTo(self).offset(offect);
+//        make.right.equalTo(self);
+//        make.height.mas_equalTo(0.5);
+//    }];
 }
 -(void)setIndex:(NSInteger)index{
     _index = index;

@@ -608,6 +608,10 @@ static NSString *cellId = @"SortCollectionViewCell";
     }
     return _dataArr.count;
 }
+-(void)setIsOpen:(NSInteger)isOpen{
+    _isOpen = isOpen;
+    [self.collectionView reloadData];
+}
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
@@ -628,8 +632,16 @@ static NSString *cellId = @"SortCollectionViewCell";
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SortCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    NSArray *imageArr = @[@"hot_home",@"next_home",@"group_next",@"pay_next",@"qian_home"];
-    NSArray *Arr = @[@"预售",@"次日达",@"企业购",@"充值",@"签到"];
+    NSArray *imageArr;
+   
+    NSArray *Arr;
+    if (_isOpen ==0) {
+        imageArr = @[@"hot_home",@"next_home",@"group_next",@"pay_next",@"qian_home"];
+        Arr = @[@"预售",@"次日达",@"企业购",@"钱包",@"签到"];
+    }else if (_isOpen ==1){
+        imageArr = @[@"hot_home",@"next_home",@"group_next",@"pay_next",@"qian_home"];
+        Arr = @[@"预售",@"次日达",@"企业购",@"充值",@"签到"];
+    }
         collectcell.headImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
         collectcell.nameLabel.text = Arr[indexPath.row];
     [collectcell setImageHeight:70];

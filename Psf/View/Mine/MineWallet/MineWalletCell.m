@@ -77,7 +77,7 @@
         _priceLabel.font = [UIFont systemFontOfSize:24];
         _priceLabel.textColor = DSColorFromHex(0x464646);
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        _priceLabel.text = @"¥ 0";
+        _priceLabel.text = @"0";
     }
     return _priceLabel;
 }

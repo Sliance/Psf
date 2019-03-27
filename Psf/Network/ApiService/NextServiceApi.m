@@ -77,7 +77,7 @@
 ///商品详情页
 -(void)requestGoodDetailLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/product/mobile/v1/find";
+    NSString *url = Psf_GetProductDetail;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -105,7 +105,7 @@
 ///获取推荐商品列表
 -(void)requestRecommendListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/product/mobile/v1/recommend/list";
+    NSString *url = Psf_GetRecommendList;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -134,9 +134,9 @@
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSString *url;
     if ([req.hotType isEqualToString:@"search"]) {
-        url = @"/lxn/member/search/mobile/v1/hot/list";
+        url = Psf_GetHotSearchList;
     }else{
-        url  = @"/lxn/member/search/mobile/v2/hot/list";
+        url  = Psf_GetHotProductList;
     }
     
    
@@ -201,7 +201,7 @@
 ///
 - (void)requestHomeLoadWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/subjectCustomCategory/mobile/v1/list";
+    NSString *url = Psf_GetHomeTopicList;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -281,7 +281,7 @@
 }
 ///搜索商品列表
 - (void)SearchDataListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/mobile/v1/search/list";
+    NSString *url = Psf_GetSearchProductList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -335,7 +335,7 @@
 }
 ///根据分类编号查询商品列表
 - (void)getCategoryListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/mobile/v1/list/by/category/id";
+    NSString *url = Psf_GetCategoryProductList;
     NSDictionary *dic = [req mj_keyValues];
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -390,7 +390,7 @@
 
 ///次日达列表
 - (void)nextDayWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/mobile/v1/next/day/list";
+    NSString *url = Psf_GetNextProductList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -420,7 +420,7 @@
     NSString *url = @"/lxn/merchant/store/mobile/v1/find/member/default/or/recent";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
@@ -700,7 +700,7 @@
 ///限时购
 - (void)timeToBuyWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_To_Buy Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_To_Buy Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
@@ -725,7 +725,7 @@
 ///限时购列表
 - (void)timeBuyListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     NSDictionary *dic = [req mj_keyValues];
-    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_Buy_list Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Time_Buy_list Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {

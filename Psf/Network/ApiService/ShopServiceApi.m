@@ -21,7 +21,7 @@
 }
 -(void)requestShopListModelListLoadWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/cart/mobile/v1/list";
+    NSString *url = Psf_GetShopList;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -48,7 +48,7 @@
 ///选中单条购物车信息
 - (void)requestShopCartSelectedSingleWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/cart/mobile/v1/active";
+    NSString *url = Psf_SelectedSingleShop;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -75,7 +75,7 @@
 ///全选或者反选购物车信息
 - (void)requestShopCartSelectedAllWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/cart/mobile/v1/active/all";
+    NSString *url = Psf_SelectedAllShop;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -158,7 +158,7 @@
 ///新增购物车信息
 - (void)addShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/cart/mobile/v1/save";
+    NSString *url = Psf_AddShopUrl;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -186,7 +186,7 @@
 ///修改购物车信息
 - (void)changeShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
-    NSString *url = @"/lxn/cart/mobile/v1/update";
+    NSString *url = Psf_UpdateShopInfo;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
@@ -213,7 +213,7 @@
 }
 ///猜你喜欢
 - (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/mobile/v1/guest/list";
+    NSString *url = Psf_GetYouLikeList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {
@@ -241,7 +241,7 @@
 }
 ///填写订单计算价格
 -(void)CalculateThePriceWithParam:(CalculateReq*)req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v1/cal/amount";
+    NSString *url = Psf_CalculatePrice;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -268,7 +268,7 @@
 }
 ///下单
 -(void)placeThePriceWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v2/save";
+    NSString *url = Psf_PlaceOrder;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -297,7 +297,7 @@
 
 ///结算列表
 -(void)settlementListWithParam:(PlaceOrderReq*)req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/cart/mobile/v1/cart/product/type";
+    NSString *url = Psf_TlementList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:NO successCallBack:^(ZSURLResponse *response) {

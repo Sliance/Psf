@@ -119,13 +119,13 @@
     if (model.productIsOnSale ==NO) {
         self.notLabel.hidden = NO;
         if (model.productStorePrice.length>0) {
-            if (model.productStyle ==1) {
-                double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                self.priceLabel.text = productPrice;
-            }else{
+//            if (model.productStyle ==1) {
+//                double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//                self.priceLabel.text = productPrice;
+//            }else{
                 self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-            }
+//            }
         
         }else{
             self.priceLabel.text = @"";
@@ -134,13 +134,13 @@
     }else{
         self.notLabel.hidden = YES;
         self.addBtn.hidden = NO;
-        if (model.productStyle ==1) {
-            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-            self.priceLabel.text = productPrice;
-        }else{
+//        if (model.productStyle ==1) {
+//            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//            self.priceLabel.text = productPrice;
+//        }else{
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-        }
+//        }
         
     }
     if (model.productStyle ==1) {
@@ -173,6 +173,7 @@
     req.cityName = @"上海市";
     req.productSkuId = @"";
     req.productQuantity = quantity;
+    req.productType = @"normal";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         

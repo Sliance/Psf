@@ -155,7 +155,7 @@
 }
 ///获取预售信息列表
 - (void)getPresaleListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/pre/sale/mobile/v1/list/all/week";
+    NSString *url = Psf_GetPresaleProductList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -317,7 +317,7 @@
 }
 ///获取门店商品列表
 - (void)StoreGoodListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/product/category/mobile/v1/list/store/product";
+    NSString *url = Psf_GetStoreProductList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {

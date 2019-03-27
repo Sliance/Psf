@@ -220,13 +220,13 @@
     self.contentLabel.text = model.productTitle;
     
     if (model.productPrice) {
-        if (model.productStyle ==1) {
-            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-            self.priceLabel.text = productPrice;
-        }else{
+//        if (model.productStyle ==1) {
+//            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//            self.priceLabel.text = productPrice;
+//        }else{
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-        }
+//        }
         
     }
     if (model.productLabel.length>0) {
@@ -348,17 +348,17 @@
     self.nameLabel.text = timeModel.productName;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,timeModel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    if (timeModel.productStyle ==1) {
-        double price = [timeModel.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-        self.priceLabel.text = productPrice;
-        double oriprice = [timeModel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        NSString* oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
-        self.oripriceLabel.text = oriproductPrice;
-    }else{
+//    if (timeModel.productStyle ==1) {
+//        double price = [timeModel.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//        self.priceLabel.text = productPrice;
+//        double oriprice = [timeModel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//        NSString* oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
+//        self.oripriceLabel.text = oriproductPrice;
+//    }else{
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productActivityPrice];
         self.oripriceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productPrice];
-    }
+//    }
     
     if (timeModel.productLabel.length>0) {
         self.productLabel.text = timeModel.productLabel;

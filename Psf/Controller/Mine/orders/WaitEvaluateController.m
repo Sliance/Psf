@@ -215,6 +215,7 @@
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [detailVC setProductType:@"preSale"];
                     [weakself.navigationController pushViewController:detailVC animated:YES];
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];

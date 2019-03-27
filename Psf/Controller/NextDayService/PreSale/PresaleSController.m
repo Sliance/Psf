@@ -38,16 +38,17 @@ static NSString *cellId = @"cellId";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.view addSubview:self.collectionView];
-   
     self.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     self.view.backgroundColor = [UIColor whiteColor];
-    _dataArr = [NSMutableArray array];
+    _dataArr = [[NSMutableArray alloc]init];
     self.imageArr = [NSMutableArray array];
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-    self.pageIndex = 1;
-    [self getPresaleList];
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.collectionView.mj_header beginRefreshing];
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -267,7 +268,7 @@ static NSString *cellId = @"cellId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
-    
+    [vc setProductType:@"preSale"];
     PresaleListRes *res = [[PresaleListRes alloc]init];
     res = self.dataArr[indexPath.section];
     GroupListRes *model = res.preSaleMobileV1ListResponseList[indexPath.row];

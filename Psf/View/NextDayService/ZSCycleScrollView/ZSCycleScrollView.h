@@ -172,4 +172,7 @@ typedef NS_ENUM(NSInteger,ZSCycleScrollPageControlAliment){
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,assign)NSInteger collectionHeight;
 @property(nonatomic,assign)CGSize  imageSize;
+@property(nonatomic,assign)NSInteger isOpen;
+
+
 @end

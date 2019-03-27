@@ -1342,6 +1342,7 @@ static NSString *cellId = @"cellId";
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
      StairCategoryListRes *res = self.dataArr[indexPath.row];
     [vc setErpProductId:res.erpProductId];
+    [vc setProductType:@"normal"];
     [vc setProductID:res.productId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

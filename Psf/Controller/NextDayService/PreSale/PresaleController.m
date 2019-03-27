@@ -168,6 +168,7 @@
         detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
         GroupListRes *model = weakSelf.dataArr[indexPath.row];
         [detailVC setProductID:model.productId];
+        [detailVC setProductType:@"preSale"];
         [weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
     return cell;

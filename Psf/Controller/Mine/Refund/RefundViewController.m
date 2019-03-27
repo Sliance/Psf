@@ -91,13 +91,13 @@
     self.orderReq.saleOrderId = [carmodel.saleOrderId integerValue];
     self.orderReq.saleOrderProductId = carmodel.saleOrderProductId;
     self.orderReq.saleOrderRefundType = _type;
-    if (carmodel.productStyle ==1) {
-       double price = [carmodel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-       NSString* productPrice = [NSString stringWithFormat:@"%.2f",price];
-        self.orderReq.saleOrderRefundAmount = productPrice;
-    }else{
+//    if (carmodel.productStyle ==1) {
+//       double price = [carmodel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//       NSString* productPrice = [NSString stringWithFormat:@"%.2f",price];
+//        self.orderReq.saleOrderRefundAmount = productPrice;
+//    }else{
         self.orderReq.saleOrderRefundAmount = carmodel.productPrice;
-    }
+//    }
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -177,13 +177,13 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
             }
-            if (_carmodel.productStyle ==1) {
-                double price = [_carmodel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                NSString* productPrice = [NSString stringWithFormat:@"%.2f",price];
-                cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",productPrice];
-            }else{
+//            if (_carmodel.productStyle ==1) {
+//                double price = [_carmodel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                NSString* productPrice = [NSString stringWithFormat:@"%.2f",price];
+//                cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",productPrice];
+//            }else{
                 cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",_carmodel.productPrice];
-            }
+//            }
             
             cell.detailTextLabel.textColor = DSColorFromHex(0xFF4C4D);
             cell.accessoryType = UITableViewCellAccessoryNone;

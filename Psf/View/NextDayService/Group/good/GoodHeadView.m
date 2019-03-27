@@ -383,15 +383,15 @@
             NSString* productPrice;
             double oriprice = 0.0;
             NSString* oriproductPrice;
-            if (model.productStyle ==1) {
-                price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                oriprice = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
-            }else{
+//            if (model.productStyle ==1) {
+//                price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//                oriprice = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
+//            }else{
                 productPrice = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
                 oriproductPrice = [NSString stringWithFormat:@"￥%@",model.productPrice];
-            }
+//            }
             self.originLabel.text = oriproductPrice;
             [self.priceLabel setText:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] lineSpacing:5];
             [self.priceLabel setTotal:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] stringArray:@[productPrice,[NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName]] colorArray:@[[UIColor whiteColor],[UIColor whiteColor]] fontArray:@[[UIFont systemFontOfSize:24],[UIFont systemFontOfSize:12]]];
@@ -405,13 +405,13 @@
         }else{
             [self setCornerLayoutNormal];
             if (model.productPrice) {
-                if (model.productStyle ==1) {
-                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                    self.priceLabel.text = productPrice;
-                }else{
+//                if (model.productStyle ==1) {
+//                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//                    self.priceLabel.text = productPrice;
+//                }else{
                     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-                }
+//                }
                 
             }
       }
@@ -431,13 +431,13 @@
         
         [self setLauoutPreSale];
         if (model.productPrice) {
-            if (model.productStyle ==1) {
-                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                self.priceLabel.text = productPrice;
-            }else{
+//            if (model.productStyle ==1) {
+//                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//                self.priceLabel.text = productPrice;
+//            }else{
                 self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-            }
+//            }
             
         }
         self.priceLabel.textColor = DSColorFromHex(0xFF4C4D);
@@ -472,13 +472,13 @@
     }else if ([model.productType isEqualToString:@"nextDay"]){
         [self setCornerLayoutNormal];
         if (model.productPrice) {
-            if (model.productStyle ==1) {
-                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-                self.priceLabel.text = productPrice;
-            }else{
+//            if (model.productStyle ==1) {
+//                double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//                self.priceLabel.text = productPrice;
+//            }else{
                 self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-            }
+//            }
             
         }
         self.nameLabel.text = model.productName;

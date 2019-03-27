@@ -228,13 +228,13 @@
         self.nameLabel.text = model.productName;
         self.weightLabel.text = model.productUnit;
     
-    if (model.productStyle ==1) {
-        double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-        self.payableLabel.text = productPrice;
-    }else{
+//    if (model.productStyle ==1) {
+//        double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
+//        self.payableLabel.text = productPrice;
+//    }else{
         self.payableLabel.text =  [NSString stringWithFormat:@"￥%@",model.productPrice];
-    }
+//    }
     self.weightLabel.text = model.productUnit;
     _countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderProductQty];
     if (_ordertype ==2) {

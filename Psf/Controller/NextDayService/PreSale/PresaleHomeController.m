@@ -26,10 +26,12 @@
 #import "NextCollectionViewCell.h"
 #import "BusinessCooperationController.h"
 #import "RechargeViewController.h"
+#import "MineWalletViewController.h"
 #import "TopicsController.h"
 #import "ShopServiceApi.h"
 #import "SignInController.h"
 #import "TimeBuyListController.h"
+#import "MineServiceApi.h"
 
 @interface PresaleHomeController ()<UICollectionViewDelegate, UICollectionViewDataSource,PYSearchViewControllerDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
@@ -39,6 +41,7 @@
 @property(nonatomic,strong)HomeLocationView *locView;
 @property(nonatomic,strong)TimeBuyModel*timeModel;
 @property(nonatomic,strong)NSMutableArray *timeArr;
+@property(nonatomic,assign)NSInteger isOpen;
 
 @end
 static NSString *cellId = @"cellId";
@@ -74,30 +77,26 @@ static NSString *cellId = @"cellId";
     return _collectionView;
 }
 
--(void)getPresaleList{
+-(void)topUp{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
     req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"";
+    req.version = @"1.0.0";
     req.platform = @"ios";
-    req.userLongitude = [UserCacheBean share].userInfo.longitude;
-    req.userLatitude = [UserCacheBean share].userInfo.latitude;
-    req.pageIndex = 1;
-    req.pageSize = @"10";
-    req.productCategoryParentId = @"";
     req.cityId = @"310100";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
-    [[GroupServiceApi share]getPresaleListWithParam:req response:^(id response) {
-        if (response!= nil) {
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
-            [weakself.collectionView reloadData];
+    [[MineServiceApi share]openTopUpWithParam:req response:^(id response) {
+        if ([response[@"code"] integerValue] ==200) {
+            weakself.isOpen = [response[@"data"][@"businessParamValue"] integerValue];
+            
         }
+        [weakself getDefautWeight];
+        [weakself.collectionView reloadData];
+        
     }];
 }
-
 
 -(void)requestBanner{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -116,7 +115,8 @@ static NSString *cellId = @"cellId";
             [weakself.bannerArr addObjectsFromArray:response];
             [weakself.collectionView reloadData];
         }
-        [weakself getDefautWeight];
+        [weakself topUp];
+        
     }];
 }
 -(void)getDefautWeight{
@@ -265,6 +265,7 @@ static NSString *cellId = @"cellId";
     req.cityName = @"上海市";
     req.productSkuId = @"";
     req.productQuantity = quantity;
+    req.productType = @"preSale";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         
@@ -519,6 +520,7 @@ static NSString *cellId = @"cellId";
      __weak typeof(self)weakself = self;
     if (indexPath.section ==0) {
         HomeHeadView* validView = [[HomeHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 320*SCREENWIDTH/375+160)];
+        [validView.cycleScroll setIsOpen:weakself.isOpen];
         [validView setAddBlock:^(NSString * message) {
             [weakself showInfo:message];
         }];
@@ -530,6 +532,7 @@ static NSString *cellId = @"cellId";
                 [vc setProductID:model.productId];
                 [vc setErpProductId:model.erpProductId];
                 vc.hidesBottomBarWhenPushed = YES;
+                 [vc setProductType:@"normal"];
                 [weakself.navigationController pushViewController:vc animated:YES];
             }];
         }else{
@@ -562,9 +565,16 @@ static NSString *cellId = @"cellId";
             }else if (index ==3){
                 
                 if ([UserCacheBean share].userInfo.token.length>0) {
-                    RechargeViewController*VC = [[RechargeViewController alloc]init];
-                    VC.hidesBottomBarWhenPushed = YES;
-                    [weakself.navigationController pushViewController:VC animated:YES];
+                    if (self.isOpen ==0) {
+                        MineWalletViewController*VC = [[MineWalletViewController alloc]init];
+                        VC.hidesBottomBarWhenPushed = YES;
+                        [weakself.navigationController pushViewController:VC animated:YES];
+                    }else if (self.isOpen ==1){
+                        RechargeViewController*VC = [[RechargeViewController alloc]init];
+                        VC.hidesBottomBarWhenPushed = YES;
+                        [weakself.navigationController pushViewController:VC animated:YES];
+                    }
+                    
                 }else{
                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"
                                                                                    message:@"" preferredStyle:UIAlertControllerStyleAlert];
@@ -625,6 +635,7 @@ static NSString *cellId = @"cellId";
         [vc setProductID:res.productId];
         [vc setErpProductId:res.erpProductId];
         vc.hidesBottomBarWhenPushed = YES;
+        [vc setProductType:@"normal"];
        [self.navigationController pushViewController:vc animated:YES];
     
 }

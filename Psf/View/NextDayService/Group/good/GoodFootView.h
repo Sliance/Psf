@@ -21,5 +21,5 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,assign)NSInteger pruductId;
 
-@property(nonatomic,copy)void(^selectedCollect)(NSInteger);
+@property(nonatomic,copy)void(^selectedCollect)(NSInteger,NSString *);
 @end

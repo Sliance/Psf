@@ -545,6 +545,7 @@
         req.saleOrderDistributionEndTime = @"";
         req.memberAddressLatitude = @"11";
         req.memberAddressLongitude = @"11";
+        
         if (self.storemodel.storeName.length<1) {
             req.merchantStoreName = @"";
         }else{
@@ -586,12 +587,20 @@
             return;
         }
     }
-    
-    req.saleOrderDistributionStartTime = self.calculateModel.saleOrderDistributionStartTime;
-    req.saleOrderDistributionEndTime = self.calculateModel.saleOrderDistributionEndTime;
+    NSDate *date = [[NSDate alloc]init];
+    NSString *datestr = [date stringWithFormat:@"yyyy-MM-dd"];
+    NSString* time = [NSDate cTimestampFromString:datestr];
+    if (self.calculateModel.saleOrderDistributionStartTime.length>0) {
+        req.saleOrderDistributionStartTime = self.calculateModel.saleOrderDistributionStartTime;
+    }else{
+        req.saleOrderDistributionStartTime = time;
+    }
+    if (self.calculateModel.saleOrderDistributionEndTime.length>0) {
+        req.saleOrderDistributionEndTime = self.calculateModel.saleOrderDistributionEndTime;
+    }else{
+        req.saleOrderDistributionEndTime = time;
+    }
     NSMutableArray *arr = [NSMutableArray array];
-    
-    
     if (_goodstype == GOOGSTYPENormal) {
         for (CartProductModel *model in self.dataArr) {
             if (model.productQuantity) {

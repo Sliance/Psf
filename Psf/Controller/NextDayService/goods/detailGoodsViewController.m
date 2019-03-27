@@ -300,9 +300,10 @@
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
    
-    [self.footView setSelectedCollect:^(NSInteger productId) {
+    [self.footView setSelectedCollect:^(NSInteger productId, NSString *erpproductId) {
         detailGoodsViewController*detailVC = [[detailGoodsViewController alloc]init];
         [detailVC setProductID:productId];
+        [detailVC setErpProductId:erpproductId];
         [detailVC setNavStr:_weakSelf.navStr];
         [_weakSelf.navigationController pushViewController:detailVC animated:YES];
     }];
@@ -313,8 +314,8 @@
 //                    _weakSelf.storeBuyView.hidden = NO;
                     _weakSelf.storeBuyView.countField.text = [UserCacheBean share].userInfo.productDefaultWeight;
                     GoodDetailRes *model = _weakSelf.result;
-                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-                    model.productPrice = [NSString stringWithFormat:@"%.2f",price];
+//                    double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//                    model.productPrice = [NSString stringWithFormat:@"%.2f",price];
                     [_weakSelf addShopCount:nil Quantity:@"1"];
                 }else{
                     if (_weakSelf.result.productSkuList.count>1) {
@@ -570,6 +571,7 @@
         _weakSelf.storeBuyView.hidden = YES;
         [_weakSelf addShopCount:nil Quantity:weight];
     }];
+    [self getShopCount:0];
 }
 
 -(void)setProductID:(NSInteger )productID{
@@ -578,6 +580,9 @@
 }
 -(void)setErpProductId:(NSString*)erpProductId{
     _erpProductId = erpProductId;
+}
+-(void)setProductType:(NSString *)productType{
+    _productType = productType;
 }
 -(void)reloadGoodDetail{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -599,6 +604,7 @@
     req.cityId = @"310100";
     req.cityName = @"上海市";
     req.erpProductId = _erpProductId;
+    req.productType = _productType;
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestGoodDetailLoadWithParam:req response:^(id response) {
         if([response isKindOfClass:[GoodDetailRes class]]){
@@ -745,6 +751,7 @@
     req.cityName = @"上海市";
     req.productSkuId = [NSString stringWithFormat:@"%ld",(long)model.productSkuId];
     req.productQuantity = quantity;
+    req.productType = self.productType;
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
        
@@ -932,7 +939,7 @@
     [super viewWillAppear:animated];
     
     [self adjustNavigationUI:self.navigationController];
-    [self getShopCount:0];
+    
 }
 
 -(void)cycleScrollView:(ZSCycleScrollView *)cycleScrollView didSelectItemAtRow:(NSInteger)row{

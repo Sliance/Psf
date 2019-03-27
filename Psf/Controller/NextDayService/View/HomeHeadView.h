@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *moreBtn;
 @property (nonatomic, strong)UICollectionView *collectionView;
 
+
 @end
 
 NS_ASSUME_NONNULL_END

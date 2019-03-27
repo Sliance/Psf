@@ -20,7 +20,7 @@
     return global;
 }
 -(void)getOrderListWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v1/list";
+    NSString *url = Psf_GetOrderList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -47,7 +47,7 @@
 }
 ///获取订单详情
 - (void)getDetailOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/sale/order/mobile/v1/find";
+    NSString *url = Psf_GetDetailOrder;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {

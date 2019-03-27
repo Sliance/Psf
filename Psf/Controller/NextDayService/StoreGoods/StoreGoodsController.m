@@ -170,6 +170,7 @@
     req.cityName = @"上海市";
     req.productSkuId = @"";
     req.productQuantity = quantity;
+    req.productType = @"normal";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         
@@ -315,6 +316,7 @@
     [vc setErpProductId:res.erpProductId];
     [vc setProductID:res.productId];
     vc.hidesBottomBarWhenPushed = YES;
+     [vc setProductType:@"normal"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{

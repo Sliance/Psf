@@ -141,6 +141,7 @@
     [vc setErpProductId:model.erpProductId];
     [vc setProductID:model.productId];
     vc.hidesBottomBarWhenPushed = YES;
+     [vc setProductType:@"normal"];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

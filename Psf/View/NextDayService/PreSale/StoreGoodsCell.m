@@ -138,15 +138,14 @@
         }else{
             self.titleLabel.text = model.productName;
         }
-        double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",price];
+//        double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
+//        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",price];
     }else{
         self.titleLabel.text = model.productName;
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
+        
     }
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     self.detailLabel.text = model.productLabel;
-    
-//    self.weightLabel.text = model.productUnit;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     

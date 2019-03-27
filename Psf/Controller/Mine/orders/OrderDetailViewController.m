@@ -337,6 +337,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"preSale"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
                     [detailVC setProductID:[response[@"data"][@"productId"] integerValue]];
+                    [detailVC setProductType:@"preSale"];
                     [weakself.navigationController pushViewController:detailVC animated:YES];
                 }else if ([response[@"data"][@"productType"] isEqualToString:@"groupon"]){
                     detailGoodsViewController *detailVC = [[detailGoodsViewController alloc]init];
@@ -652,12 +653,16 @@ static NSString *cellIds = @"NextCollectionViewCell";
         detailGoodsViewController *vc = [detailGoodsViewController new];
         CartProductModel *ordermodel =  self.result.saleOrderProductList[indexPath.row];
         [vc setProductID:ordermodel.productId];
+        [vc setErpProductId:ordermodel.erpProductId];
+        [vc setProductType:self.result.saleOrderType];
         [self.navigationController showViewController:vc sender:nil];
         
     }else if (indexPath.section ==1){
         detailGoodsViewController *vc = [detailGoodsViewController new];
         StairCategoryListRes *model = _likeArr[indexPath.row];
         [vc setProductID:model.productId];
+        [vc setErpProductId:model.erpProductId];
+        [vc setProductType:@"normal"];
         [self.navigationController showViewController:vc sender:nil];
     }
     
