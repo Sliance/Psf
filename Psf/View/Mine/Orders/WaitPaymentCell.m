@@ -67,6 +67,13 @@
             [_sendBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         }
             break;
+        case ORDERSTYPEWaitRefund:
+        {
+            [self updatePayBtn];
+            [_payBtn setTitle:@"查看详情" forState:UIControlStateNormal];
+            _sendBtn.hidden = YES;
+        }
+            break;
         default:
             break;
     }
@@ -291,7 +298,7 @@
             break;
         case 4:
         {
-            self.remindBlock(_model);
+            self.afterBlock(_model);
         }
             break;
         case 5:
@@ -306,7 +313,7 @@
             break;
         case 7:
         {
-           
+            self.afterBlock(_model);
         }
             break;
         default:
@@ -364,51 +371,69 @@
 }
 -(void)setModel:(OrderListRes *)model{
     _model = model;
-    if (model.saleOrderReceiveType ==0) {
-         _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@(自提)",model.saleOrderId];
-    }else if(model.saleOrderReceiveType ==1){
-         _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.saleOrderId];
+    if (_ordertype ==ORDERSTYPEWaitRefund) {
+        _orderNumLabel.text = [NSString stringWithFormat:@"退款编号：%@",model.saleOrderRefundId];
+        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+        self.nameLabel.text = model.productName;
+        self.countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderProductQty];
+        if (model.saleOrderRefundStatus ==0) {
+            _payableLabel.text = @"待审核";
+        }else if (model.saleOrderRefundStatus ==1){
+            _payableLabel.text = @"退款中";
+        }else if (model.saleOrderRefundStatus ==2){
+            _payableLabel.text = @"已退款";
+        }else if (model.saleOrderRefundStatus ==3){
+            _payableLabel.text = @"审核不通过";
+        }
+    }else{
+        if (model.saleOrderReceiveType ==0) {
+            _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@(自提)",model.saleOrderId];
+        }else if(model.saleOrderReceiveType ==1){
+            _orderNumLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.saleOrderId];
+        }
+        if (model.saleOrderProductList.count==1 ) {
+            _headImageTwo.hidden = YES;
+            _headImageThree.hidden = YES;
+            _nameLabel.hidden = NO;
+            _weightLabel.hidden = NO;
+            CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+            [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+            self.nameLabel.text = carmodel.productName;
+            self.countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
+        }else if (model.saleOrderProductList.count ==2){
+            _headImageTwo.hidden = NO;
+            _headImageThree.hidden = YES;
+            _nameLabel.hidden = YES;
+            _weightLabel.hidden = YES;
+            CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+            [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+            CartProductModel *carmodel2 = model.saleOrderProductList[1];
+            NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
+            [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
+            _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
+        }else if(model.saleOrderProductList.count>2){
+            _headImageTwo.hidden = NO;
+            _headImageThree.hidden = NO;
+            _nameLabel.hidden = YES;
+            _weightLabel.hidden = YES;
+            CartProductModel *carmodel = [model.saleOrderProductList firstObject];
+            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
+            [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+            CartProductModel *carmodel2 = model.saleOrderProductList[1];
+            NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
+            [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
+            CartProductModel *carmodel3 = model.saleOrderProductList[2];
+            NSString *url3 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel3.productImagePath];
+            [self.headImageThree sd_setImageWithURL:[NSURL URLWithString:url3]];
+            _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
+            
+        }
+        _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
     }
-    if (model.saleOrderProductList.count==1 ) {
-        _headImageTwo.hidden = YES;
-        _headImageThree.hidden = YES;
-        _nameLabel.hidden = NO;
-        _weightLabel.hidden = NO;
-        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
-        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-        self.nameLabel.text = carmodel.productName;
-        self.countLabel.text = [NSString stringWithFormat:@"X%@",model.saleOrderTotalQuantity];
-    }else if (model.saleOrderProductList.count ==2){
-        _headImageTwo.hidden = NO;
-        _headImageThree.hidden = YES;
-        _nameLabel.hidden = YES;
-        _weightLabel.hidden = YES;
-        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
-        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-        CartProductModel *carmodel2 = model.saleOrderProductList[1];
-        NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
-        [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
-        _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
-    }else if(model.saleOrderProductList.count>2){
-        _headImageTwo.hidden = NO;
-        _headImageThree.hidden = NO;
-        _nameLabel.hidden = YES;
-        _weightLabel.hidden = YES;
-        CartProductModel *carmodel = [model.saleOrderProductList firstObject];
-        NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-        CartProductModel *carmodel2 = model.saleOrderProductList[1];
-        NSString *url2 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel2.productImagePath];
-        [self.headImageTwo sd_setImageWithURL:[NSURL URLWithString:url2]];
-        CartProductModel *carmodel3 = model.saleOrderProductList[2];
-        NSString *url3 = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel3.productImagePath];
-        [self.headImageThree sd_setImageWithURL:[NSURL URLWithString:url3]];
-        _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
-        
-    }
-    _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+    
     switch (model.saleOrderStatus) {
         case 0:
             {
@@ -469,7 +494,7 @@
             _statusLabel.text = @"退款/售后";
             
             _sendBtn.hidden = YES;
-            _payBtn.hidden = YES;
+            _payBtn.hidden = NO;
         }
             break;
         case 5:

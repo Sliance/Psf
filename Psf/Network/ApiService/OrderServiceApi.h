@@ -19,6 +19,8 @@
 + (instancetype)share;
 ///获取订单列表
 - (void)getOrderListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///获取售后列表
+- (void)getRefundListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///获取订单详情
 - (void)getDetailOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///提醒发货

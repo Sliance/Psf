@@ -10,6 +10,10 @@
 #import "CartProductModel.h"
 
 @interface DetailsRefundController : BaseViewController
-@property(nonatomic,strong)CartProductModel * model;
+
+///
+@property(nonatomic,copy)NSString* saleOrderRefundId;
+///
+@property(nonatomic,copy)NSString* saleOrderProductType;
 
 @end

@@ -396,6 +396,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";
     req.saleOrderId = _model.saleOrderId;
+    req.productType = _model.saleOrderType;
     __weak typeof(self)weakself = self;
     weakself.result = [[OrderDetailRes alloc]init];
     [[OrderServiceApi share]getDetailOrderWithParam:req response:^(id response) {
@@ -623,7 +624,6 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }];
         [cell setDetailBlock:^(CartProductModel * model) {
             DetailsRefundController *detailVC = [[DetailsRefundController alloc]init];
-            [detailVC setModel:model];
             [self.navigationController pushViewController:detailVC animated:YES];
         }];
         return cell;

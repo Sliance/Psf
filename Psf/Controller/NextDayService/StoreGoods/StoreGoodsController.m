@@ -224,13 +224,15 @@
 #pragma mark--SortLeftScrollowDelegate
 -(void)selectedSortIndex:(NSInteger)index{
     StairCategoryRes *model =_sortArr[index];
-    [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    [self requestGoodList:model.productCategoryId];
-    
+    if (model.productList.count >0) {
+        [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self requestGoodList:model.productCategoryId];
+    }
 }
 -(void)chooseButtonType:(NSInteger)type{
-//    self.tableview.contentOffset = CGPointMake(0, type*115*5+type*24);
-    [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:type] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (self.dataArr.count >0) {
+        [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:type] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
     [self.selShowView setCurrentPage:type];
     self.selShowView.hidden = YES;
     self.selectorView.rightBtn.selected = NO;

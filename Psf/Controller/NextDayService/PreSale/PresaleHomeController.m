@@ -265,7 +265,7 @@ static NSString *cellId = @"cellId";
     req.cityName = @"上海市";
     req.productSkuId = @"";
     req.productQuantity = quantity;
-    req.productType = @"preSale";
+    req.productType = @"normal";
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
         

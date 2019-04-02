@@ -13,6 +13,8 @@
 #import "ChooseServiceTypeController.h"
 #import "EmptyShoppingHeadView.h"
 #import "detailGoodsViewController.h"
+#import "DetailsRefundController.h"
+
 #import "CustomFootView.h"
 
 @interface AfterSalesViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -67,12 +69,9 @@
     _dataArr = [NSMutableArray array];
     
     self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    [self.tableview.mj_header beginRefreshing];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.pageIndex = 1;
-    [self requestData];
-}
+
 -(void)headerRefreshing
 {
     self.pageIndex = 1;
@@ -103,7 +102,7 @@
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";
     __weak typeof(self)weakself = self;
-    [[OrderServiceApi share]getOrderListWithParam:req response:^(id response) {
+    [[OrderServiceApi share]getRefundListWithParam:req response:^(id response) {
         if (response!= nil) {
             if (self.pageIndex ==1) {
                 [weakself.dataArr removeAllObjects];
@@ -250,6 +249,8 @@
         cell = [[WaitPaymentCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
     }
     OrderListRes *model = self.dataArr[indexPath.row];
+    model.saleOrderStatus = 4;
+    [cell setOrdertype:ORDERSTYPEWaitRefund];
     [cell setModel:model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak typeof(self)weakself = self;
@@ -276,23 +277,24 @@
         [detailVC setModel:model];
         [self.navigationController pushViewController:detailVC animated:YES];
     }];
-    
-    [cell setEvaBlock:^(OrderListRes * model) {
-        FillEvaluateController *fillVC = [[FillEvaluateController alloc]init];
-        [fillVC setModel:model];
-        [weakself.navigationController pushViewController:fillVC animated:YES];
-    }];
     [cell setDeleteBlock:^(OrderListRes * model) {//删除订单
         [weakself deleteOrder:model.saleOrderId];
+    }];
+    [cell setAfterBlock:^(OrderListRes * model){
+        DetailsRefundController *vc = [[DetailsRefundController alloc]init];
+        [vc setSaleOrderProductType:model.saleOrderType];
+        [vc setSaleOrderRefundId:model.saleOrderRefundId];
+        [weakself.navigationController pushViewController:vc animated:YES];
     }];
     
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrderDetailViewController *detailVC = [[OrderDetailViewController alloc]init];
     OrderListRes *model = self.dataArr[indexPath.row];
-    [detailVC setModel:model];
-    [self.navigationController pushViewController:detailVC animated:YES];
+    DetailsRefundController *vc = [[DetailsRefundController alloc]init];
+    [vc setSaleOrderProductType:model.saleOrderType];
+    [vc setSaleOrderRefundId:model.saleOrderRefundId];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

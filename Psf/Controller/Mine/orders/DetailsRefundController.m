@@ -318,10 +318,14 @@
     [self.footView addSubview:self.onlineBtn];
     
 }
--(void)setModel:(CartProductModel *)model{
-    _model = model;
+
+-(void)setSaleOrderProductType:(NSString *)saleOrderProductType{
+    _saleOrderProductType = saleOrderProductType;
+}
+
+-(void)setSaleOrderRefundId:(NSString *)saleOrderRefundId{
+    _saleOrderRefundId = saleOrderRefundId;
     [self requestDetail];
-    
 }
 -(void)requestDetail{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -337,7 +341,7 @@
     req.pageSize = @"10";
     req.productCategoryParentId = @"";
     req.cityName = @"上海市";
-    req.saleOrderProductId = _model.saleOrderProductId;
+    req.saleOrderRefundId = _saleOrderRefundId;
     __weak typeof(self)weakself = self;
     weakself.result = [[OrderListRes alloc]init];
     [[OrderServiceApi share]getDetailRefundWithParam:req response:^(id response) {

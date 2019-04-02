@@ -65,7 +65,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [super viewDidLoad];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]-49) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[ShoppingCollectionViewCell class] forCellWithReuseIdentifier:cellId];

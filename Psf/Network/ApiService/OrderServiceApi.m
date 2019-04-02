@@ -19,11 +19,38 @@
     });
     return global;
 }
+///获取订单列表
 -(void)getOrderListWithParam:(StairCategoryReq *)req response:(responseModel)responseModel{
     NSString *url = Psf_GetOrderList;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                NSArray *result = [OrderListRes mj_objectArrayWithKeyValuesArray:dicResponse[@"data"][@"list"]];
+                if (responseModel) {
+                    responseModel(result);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(nil);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
+///获取售后列表
+- (void)getRefundListWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Psf_RefundList Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {

@@ -79,8 +79,8 @@ static NSString *const Psf_GetDetailOrder = @"/lxn/sale/order/mobile/v2/find";
 static NSString *const Psf_PlaceOrder = @"/lxn/sale/order/mobile/v3/save";
 /// 购物车商品分类计算显示/结算列表
 static NSString *const Psf_TlementList = @"/lxn/cart/mobile/v2/cart/product/type";
-
-
+/// 售后列表
+static NSString *const Psf_RefundList =@"/lxn/sale/order/refund/mobile/v1/list";
 
 
 typedef void(^responseModel)(id response);
