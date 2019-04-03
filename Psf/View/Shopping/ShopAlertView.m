@@ -116,8 +116,7 @@
     
     [cell setProductType:indexPath.section];
     if (indexPath.section ==0) {
-        
-            [cell setDataArr:self.model.cartProductList];
+        [cell setDataArr:self.model.cartProductList];
         [cell.submitBtn setTitle:@"结算" forState:UIControlStateNormal];
     }else if(indexPath.section ==1){
         NSArray *timearr = [NSArray array];

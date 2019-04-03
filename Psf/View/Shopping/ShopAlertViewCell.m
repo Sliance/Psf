@@ -120,12 +120,16 @@ static NSString *cellId = @"GoodCollectionViewCell";
     self.titleLabel.text = model.productName;
     self.weightLabel.text = model.productUnit;
     NSString *price ;
-//    if (model.productStyle ==1) {
-//        price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue]];
-//    }else{
-        price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]];
-//    }
-    
+    if (model.productActivityPrice.length >0&&![model.productActivityPrice isEqualToString:@"0"]) {
+        if ([model.productQuantity integerValue] < model.productLimitedQuantity||model.productLimitedQuantity ==0) {
+             price= [NSString stringWithFormat:@"￥%.2f",[model.productActivityPrice doubleValue]*[model.productQuantity doubleValue]];
+        }else{
+            CGFloat amount = model.productLimitedQuantity*[model.productActivityPrice doubleValue]+([model.productQuantity integerValue]-model.productLimitedQuantity)*[model.productStorePrice doubleValue];
+            price= [NSString stringWithFormat:@"￥%.2f",amount];
+        }
+    }else{
+       price= [NSString stringWithFormat:@"￥%.2f",[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]];
+    }
     NSString *string = [NSString stringWithFormat:@"共%@件，商品金额%@",model.productQuantity,price];
     NSRange rang = [string rangeOfString:price];
     NSMutableAttributedString *attributStr = [[NSMutableAttributedString alloc]initWithString:string];
@@ -145,19 +149,15 @@ static NSString *cellId = @"GoodCollectionViewCell";
     CGFloat totalprice= 0.00;
     NSInteger count = 0;
     for (CartProductModel *model in _dataArr) {
-        if (model.activityName.length>0&&model.productLimitedQuantity>0) {
-            if ([model.productQuantity integerValue]< model.productLimitedQuantity+1) {
+        if (model.productActivityPrice.length>0&&![model.productActivityPrice isEqualToString:@"0"]) {
+            if ([model.productQuantity integerValue]< model.productLimitedQuantity||model.productLimitedQuantity ==0) {
                 totalprice = totalprice+[model.productActivityPrice doubleValue]*[model.productQuantity integerValue];
             }else{
-                totalprice = totalprice+[model.productStorePrice doubleValue]*([model.productQuantity integerValue]- model.productLimitedQuantity)+[model.productActivityPrice doubleValue]*model.productLimitedQuantity;
+                totalprice = totalprice+model.productLimitedQuantity*[model.productActivityPrice doubleValue]+([model.productQuantity integerValue]-model.productLimitedQuantity)*[model.productStorePrice doubleValue];
             }
         }else{
-//        if (model.productStyle ==1) {
-//             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//        }else{
             totalprice = totalprice+[model.productStorePrice doubleValue]*[model.productQuantity doubleValue];
-//        }
-    }
+       }
         count = count+[model.productQuantity doubleValue];
     }
     
@@ -253,6 +253,7 @@ static NSString *cellId = @"GoodCollectionViewCell";
     }
     if (dataArr.count ==1) {
         [self setLayout];
+        [_collectionView reloadData];
     }else if (dataArr.count>1){
         [self setMoreLayout];
         [_collectionView reloadData];

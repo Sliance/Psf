@@ -19,6 +19,8 @@
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property (nonatomic, strong)TopicsListRes *result;
 @property (nonatomic, assign)NSInteger chooseIndex;
+@property (nonatomic, assign)CGFloat headHeight;
+@property (nonatomic, strong)UIImage *topImage;
 
 @end
 
@@ -54,6 +56,7 @@
         self.collectionView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    self.headHeight = SCREENWIDTH;
     [self.view addSubview:self.collectionView];
   
 }
@@ -77,7 +80,16 @@
     [[NextServiceApi share] getTopicListWithParam:req response:^(id response) {
         if (response) {
             weakself.result = response;
-            [weakself.collectionView reloadData];
+            if (weakself.result.subjectTopImagePath.length>0) {
+                UIImageView*images = [[UIImageView alloc]init];
+                NSString*url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.subjectTopImagePath];
+                WEAKSELF;
+                [images sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    weakSelf.headHeight = image.size.height*SCREENWIDTH/image.size.width;
+                    weakSelf.topImage = images.image;
+                    [weakSelf.collectionView reloadData];
+                }];
+            }
         }
     }];
 }
@@ -99,7 +111,7 @@
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.productSkuId = @"";
+    req.productSkuId = @"0";
     req.productQuantity = quantity;
     req.productType = @"normal";
     __weak typeof(self)weakself = self;
@@ -189,7 +201,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section ==0) {
-        return CGSizeMake(SCREENWIDTH, SCREENWIDTH);
+        return CGSizeMake(SCREENWIDTH, self.headHeight);
     }else if (section ==1&&self.result.subjectCategoryList.count>0){
         return CGSizeMake(SCREENWIDTH,60);
     }else if (section>1){
@@ -199,24 +211,20 @@
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
-    
-    
     for (UIView *view in headerView.subviews) {
         if ([view isKindOfClass:[UIView class]]) {
             [view removeFromSuperview];
         }
     }
     if (indexPath.section ==0) {
-        UIImageView*image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENWIDTH)];
-        NSString*url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.subjectTopImagePath];
-        [image sd_setImageWithURL:[NSURL URLWithString:url]];
-        [headerView addSubview:image];
+        UIImageView*images = [[UIImageView alloc]init];
+        images.image = self.topImage;
+        images.frame = CGRectMake(0, 0, SCREENWIDTH, self.headHeight);
+        [headerView addSubview:images];
     }else if (indexPath.section ==1){
         ZSSortSelectorView *selectorView = [[ZSSortSelectorView alloc]initWithFrame:CGRectMake(0, 10, SCREENWIDTH, 40)];
         selectorView.delegate = self;
-        
         NSMutableArray*arr = [[NSMutableArray alloc]init];
         for (SubjectCategoryModel*model in self.result.subjectCategoryList) {
             StairCategoryRes*res = [[StairCategoryRes alloc]init];

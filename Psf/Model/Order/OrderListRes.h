@@ -35,6 +35,9 @@
 @property(nonatomic,copy)NSString* saleOrderId;
 ///实付金额
 @property(nonatomic,copy)NSString* saleOrderPayAmount;
+///余额支付
+@property(nonatomic,copy)NSString* saleOrderBalanceAmount;
+
 ///支付过期时间
 @property(nonatomic,copy)NSString* saleOrderPayExpireTime;
 ///积分优惠金额

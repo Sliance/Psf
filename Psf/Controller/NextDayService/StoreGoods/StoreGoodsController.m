@@ -168,7 +168,7 @@
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
-    req.productSkuId = @"";
+    req.productSkuId = @"0";
     req.productQuantity = quantity;
     req.productType = @"normal";
     __weak typeof(self)weakself = self;

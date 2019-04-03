@@ -270,7 +270,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
     
     __weak typeof(self)weakself = self;
     [[ShopServiceApi share]guessYouLikeWithParam:req response:^(id response) {
-        [self jieSuanData];
+        
         if ([response isKindOfClass:[NSArray class]]) {
             [weakself.likeArr removeAllObjects];
             [weakself.likeArr addObjectsFromArray:response];
@@ -294,6 +294,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             weakself.jisuanmodel = response;
             [weakself.shopAlertView setModel:weakself.jisuanmodel];
         }
+        [weakself showAlert];
     }];
 }
 -(void)clearGoodCount{
@@ -386,7 +387,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
-        [self jieSuanData];
+        
     }];
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -584,38 +585,40 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
-    
-if(self.jisuanmodel.cartProductList.count>0||[self.jisuanmodel.preSaleProductList count]>0||self.jisuanmodel.nextDayProductList.count>0) {
-     self.tabBarController.tabBar.hidden = YES;
-     self.shopAlertView.hidden = NO;
- }else{
-    FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
-    fillVC.hidesBottomBarWhenPushed = YES;
-    NSMutableArray *Arr = [NSMutableArray array];
-     GOOGSTYPE type = GOOGSTYPENormal;
-    for (CartProductModel *model in self.result.cartProductList) {
-        if (model.cartProductIsActive ==1) {
-            [Arr addObject:model];
+    [self jieSuanData];
+}
+-(void)showAlert{
+    if(self.jisuanmodel.cartProductList.count>0||[self.jisuanmodel.preSaleProductList count]>0||self.jisuanmodel.nextDayProductList.count>0) {
+        self.tabBarController.tabBar.hidden = YES;
+        self.shopAlertView.hidden = NO;
+    }else{
+        FillOrderViewController *fillVC = [[FillOrderViewController alloc]init];
+        fillVC.hidesBottomBarWhenPushed = YES;
+        NSMutableArray *Arr = [NSMutableArray array];
+        GOOGSTYPE type = GOOGSTYPENormal;
+        for (CartProductModel *model in self.result.cartProductList) {
+            if (model.cartProductIsActive ==1) {
+                [Arr addObject:model];
+            }
+            if (model.productIsPreSale==1&&model.cartProductIsActive ==1) {
+                type = GOOGSTYPEPresale;
+            }else if (model.productIsSaleNextDay==1&&model.cartProductIsActive ==1){
+                type = GOOGSTYPENextday;
+            }else{
+                type = GOOGSTYPENormal;
+            }
         }
-        if (model.productIsPreSale==1&&model.cartProductIsActive ==1) {
-            type = GOOGSTYPEPresale;
-        }else if (model.productIsSaleNextDay==1&&model.cartProductIsActive ==1){
-            type = GOOGSTYPENextday;
+        if (Arr.count>0) {
+            [fillVC setOrderType:1];
+            [fillVC setGoodstype:type];
+            [fillVC setProductArr:Arr];
+            [fillVC setResult:self.result];
+            [self.navigationController pushViewController:fillVC animated:YES];
         }else{
-            type = GOOGSTYPENormal;
+            [self showInfo:@"请选择结算商品"];
         }
+        
     }
-     if (Arr.count>0) {
-         [fillVC setOrderType:1];
-          [fillVC setGoodstype:type];
-         [fillVC setProductArr:Arr];
-         [fillVC setResult:self.result];
-         [self.navigationController pushViewController:fillVC animated:YES];
-     }else{
-         [self showInfo:@"请选择结算商品"];
-     }
-
-  }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

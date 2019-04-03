@@ -478,7 +478,7 @@
         if ([response.content isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicResponse = (NSDictionary *) response.content;
             if ([dicResponse[@"code"] integerValue] == 200) {
-                TopicsListRes *result = [TopicsListRes mj_objectWithKeyValues:dicResponse[@"result"]];
+                TopicsListRes *result = [TopicsListRes mj_objectWithKeyValues:dicResponse[@"data"]];
                 if (responseModel) {
                     responseModel(result);
                 }

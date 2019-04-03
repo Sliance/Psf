@@ -431,7 +431,8 @@
             _countLabel.text = [NSString stringWithFormat:@"共%@件",model.saleOrderTotalQuantity];
             
         }
-        _payableLabel.text = [NSString stringWithFormat:@"应付:￥%@",model.saleOrderPayAmount];
+        CGFloat payamount = [model.saleOrderPayAmount doubleValue] +[model.saleOrderBalanceAmount doubleValue];
+        _payableLabel.text = [NSString stringWithFormat:@"应付:￥%.2f",payamount];
     }
     
     switch (model.saleOrderStatus) {

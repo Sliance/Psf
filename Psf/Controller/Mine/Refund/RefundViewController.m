@@ -112,9 +112,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==1) {
-        return 5;
+        return 0.01;
     }else if (section ==2){
-        return 30;
+        return 5;
     }
     return 0;
 }
@@ -122,10 +122,10 @@
     if (section ==2) {
         return 145;
     }
-    return 0;
+    return 0.01;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==1||indexPath.section ==2) {
+    if (indexPath.section ==2) {
         return 45;
     }else if (indexPath.section ==0){
         return 120;
@@ -136,12 +136,12 @@
     UIView *headView;
     if (section ==1) {
         headView= [[UIView alloc]init];
-        headView.frame = CGRectMake(0, 0, SCREENWIDTH, 5);
+        headView.frame = CGRectMake(0, 0, SCREENWIDTH, 0);
         headView.backgroundColor = DSColorFromHex(0xF0F0F0);
     }else if (section ==2){
         UILabel *label = [[UILabel alloc]init];
 //        label.text = @"   最多 ¥ 56.0，含发货邮费¥ 0.0";
-        label.frame = CGRectMake(15, 0, SCREENWIDTH-30, 30);
+        label.frame = CGRectMake(15, 0, SCREENWIDTH-30, 5);
         label.font = [UIFont systemFontOfSize:12];
         label.textColor = DSColorFromHex(0x959595);
         return label;
@@ -177,17 +177,10 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
             }
-//            if (_carmodel.productStyle ==1) {
-//                double price = [_carmodel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//                NSString* productPrice = [NSString stringWithFormat:@"%.2f",price];
-//                cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",productPrice];
-//            }else{
                 cell.textLabel.text = [NSString stringWithFormat:@"退款金额：¥%@",_carmodel.productPrice];
-//            }
-            
             cell.detailTextLabel.textColor = DSColorFromHex(0xFF4C4D);
             cell.accessoryType = UITableViewCellAccessoryNone;
-            
+            cell.hidden = YES;
         }
        
     }else if (indexPath.section ==2){

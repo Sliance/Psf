@@ -73,21 +73,21 @@
 
 -(UIView *)goodsView{
     if (!_goodsView) {
-        _goodsView = [[UIView alloc]initWithFrame:CGRectMake(0, 185, SCREENWIDTH, 150)];
+        _goodsView = [[UIView alloc]initWithFrame:CGRectMake(0, 130, SCREENWIDTH, 150)];
         _goodsView.backgroundColor = [UIColor whiteColor];
     }
     return _goodsView;
 }
 -(UIView *)detailView{
     if (!_detailView) {
-        _detailView = [[UIView alloc]initWithFrame:CGRectMake(0, 345, SCREENWIDTH, 165)];
+        _detailView = [[UIView alloc]initWithFrame:CGRectMake(0, 290, SCREENWIDTH, 165)];
         _detailView.backgroundColor = [UIColor whiteColor];
     }
     return _detailView;
 }
 -(UIView *)footView{
     if (!_footView) {
-        _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 515, SCREENWIDTH, 80)];
+        _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 460, SCREENWIDTH, 80)];
         _footView.backgroundColor = [UIColor whiteColor];
     }
     return _footView;
@@ -291,14 +291,14 @@
     [super viewDidLoad];
     [self.view addSubview:self.bgScrollow];
     [self.bgScrollow addSubview:self.titleView];
-    [self.bgScrollow addSubview:self.priceView];
+//    [self.bgScrollow addSubview:self.priceView];
     [self.bgScrollow addSubview:self.goodsView];
     [self.bgScrollow addSubview:self.detailView];
     [self.bgScrollow addSubview:self.footView];
     [self.titleView addSubview:self.toplabel];
     [self.titleView addSubview:self.topdate];
-    [self.priceView addSubview:self.totallabel];
-    [self.priceView addSubview:self.totalamount];
+//    [self.priceView addSubview:self.totallabel];
+//    [self.priceView addSubview:self.totalamount];
     
     [self.goodsView addSubview:self.goodlabel];
     [self.goodsView addSubview:self.topline];
@@ -357,10 +357,10 @@
     CartProductModel *model = [self.result.saleOrderProductList firstObject];
      _nameLabel.text = model.productName;
    
-    _payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPayPrice];
+    _payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [_headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    _totalamount.text = [NSString stringWithFormat:@"￥%@",self.result.saleOrderRefundAmount];
+//    _totalamount.text = [NSString stringWithFormat:@"￥%@",self.result.productPrice];
     if (self.result.saleOrderRefundStatus ==0) {
         self.toplabel.text = @"待审核";
         self.toplabel.textColor = [UIColor orangeColor];

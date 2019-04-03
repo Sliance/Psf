@@ -374,7 +374,7 @@
         self.nameLabel.text = model.productName;
     }
     if([model.productType isEqualToString:@"normal"]){//正常
-        if (model.activityName.length>0) {
+        if (model.productActivityPrice.length>0&&![model.productActivityPrice isEqualToString:@"0"]) {
             self.groupLabel.text = @"距离活动结束还剩:";
             self.originLabel.hidden = NO;
             self.lineLabel.hidden = NO;
@@ -383,18 +383,19 @@
             NSString* productPrice;
             double oriprice = 0.0;
             NSString* oriproductPrice;
-//            if (model.productStyle ==1) {
-//                price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//                productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//                oriprice = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//                oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
-//            }else{
+
                 productPrice = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
                 oriproductPrice = [NSString stringWithFormat:@"￥%@",model.productPrice];
-//            }
-            self.originLabel.text = oriproductPrice;
-            [self.priceLabel setText:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] lineSpacing:5];
-            [self.priceLabel setTotal:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] stringArray:@[productPrice,[NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName]] colorArray:@[[UIColor whiteColor],[UIColor whiteColor]] fontArray:@[[UIFont systemFontOfSize:24],[UIFont systemFontOfSize:12]]];
+            if (model.activityName.length >0) {
+                self.originLabel.text = oriproductPrice;
+                [self.priceLabel setText:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] lineSpacing:5];
+                [self.priceLabel setTotal:[NSString stringWithFormat:@"%@/%@  (%@)",productPrice,model.productUnit,model.activityName] stringArray:@[productPrice,[NSString stringWithFormat:@"%@  (%@)",model.productUnit,model.activityName]] colorArray:@[[UIColor whiteColor],[UIColor whiteColor]] fontArray:@[[UIFont systemFontOfSize:24],[UIFont systemFontOfSize:12]]];
+            }else{
+                self.originLabel.text = oriproductPrice;
+                [self.priceLabel setText:[NSString stringWithFormat:@"%@/%@",productPrice,model.productUnit] lineSpacing:5];
+                [self.priceLabel setTotal:[NSString stringWithFormat:@"%@/%@  ",productPrice,model.productUnit] stringArray:@[productPrice,model.productUnit] colorArray:@[[UIColor whiteColor],[UIColor whiteColor]] fontArray:@[[UIFont systemFontOfSize:24],[UIFont systemFontOfSize:12]]];
+            }
+            
             NSString *date = [NSDate cStringFromTimestamp:_model.activityEndTime Formatter:@"YYYY-MM-dd HH:mm:ss"];
             NSString *end = [NSDate getCountDownStringWithEndTime:date];
             self.dateLabel.text = end;

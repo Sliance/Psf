@@ -159,6 +159,6 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,carmodel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = carmodel.productName;
-    self.weightLabel.text = carmodel.productUnit;
+//    self.weightLabel.text = carmodel.productUnit;
 }
 @end
