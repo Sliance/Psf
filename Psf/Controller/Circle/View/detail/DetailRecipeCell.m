@@ -102,6 +102,11 @@ static NSString *cellId = @"DetailRecipeProductCell";
 -(void)setModel:(EpicureProductModel *)model{
     _model = model;
     self.titleLabel.text = [NSString stringWithFormat:@"- %@",model.ingredientsCategoryName];
+    for (CartProductModel *models in model.epicureMobileV1ProductWrapper) {
+        if (models.productIsOnSale ==NO) {
+            [model.epicureMobileV1ProductWrapper removeObject:models];
+        }
+    }
     [self.collectionView reloadData];
 }
 

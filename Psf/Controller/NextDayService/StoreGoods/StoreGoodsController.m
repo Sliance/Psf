@@ -224,10 +224,8 @@
 #pragma mark--SortLeftScrollowDelegate
 -(void)selectedSortIndex:(NSInteger)index{
     StairCategoryRes *model =_sortArr[index];
-    if (model.productList.count >0) {
         [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         [self requestGoodList:model.productCategoryId];
-    }
 }
 -(void)chooseButtonType:(NSInteger)type{
     if (self.dataArr.count >0) {

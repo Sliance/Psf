@@ -41,6 +41,7 @@
 @property(nonatomic,strong)HomeLocationView *locView;
 @property(nonatomic,strong)TimeBuyModel*timeModel;
 @property(nonatomic,strong)NSMutableArray *timeArr;
+@property(nonatomic,strong)NSMutableArray *likeArr;
 @property(nonatomic,assign)NSInteger isOpen;
 
 @end
@@ -202,9 +203,10 @@ static NSString *cellId = @"cellId";
         if (response!= nil) {
             [weakself.dataArr removeAllObjects];
             [weakself.dataArr addObjectsFromArray:response];
-            
+            [weakself.collectionView reloadData];
         }
-        [weakself.collectionView reloadData];
+        
+        [weakself guessLikeList];
     }];
 }
 -(void)getErp{
@@ -243,6 +245,61 @@ static NSString *cellId = @"cellId";
             }
             [self requestBanner];
         }
+    }];
+}
+-(void)requestRecommend{
+    
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+//    req.productId = _pruductId;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    __weak typeof(self)weakself = self;
+    [[NextServiceApi share]requestRecommendListLoadWithParam:req response:^(id response) {
+        if (response!= nil) {
+            [weakself.dataArr removeAllObjects];
+            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
+        
+    }];
+}
+-(void)guessLikeList{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.platform = @"ios";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.goodsCategoryId = @"";
+    req.productCategoryParentId = @"";
+    req.productCategoryId = @"";
+    req.cityName = @"上海市";
+    
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]guessYouLikeWithParam:req response:^(id response) {
+        
+        if ([response isKindOfClass:[NSArray class]]) {
+            [weakself.likeArr removeAllObjects];
+            [weakself.likeArr addObjectsFromArray:response];
+            [weakself.collectionView reloadData];
+        }
+//        [weakself requestRecommend];
     }];
 }
 -(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
@@ -303,6 +360,7 @@ static NSString *cellId = @"cellId";
     [super viewDidLoad];
      _dataArr = [[NSMutableArray alloc]init];
     _bannerArr = [[NSMutableArray alloc]init];
+    _likeArr = [[NSMutableArray alloc]init];
     self.timeArr = [[NSMutableArray alloc]init];
     if (@available(iOS 11.0, *)) {
         _collectionView.contentInsetAdjustmentBehavior = NO;
@@ -434,12 +492,15 @@ static NSString *cellId = @"cellId";
     if (self.dataArr.count ==0) {
         return 1;
     }
-    return self.dataArr.count;
+    return self.dataArr.count+1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.dataArr.count >0) {
+    if (self.dataArr.count >0&& section<self.dataArr.count) {
         SubjectCategoryModel *model = self.dataArr[section];
         return model.subjectCategoryProductList.count;
+    }
+    if (section ==self.dataArr.count) {
+        return self.likeArr.count;
     }
     return 0;
 }
@@ -467,7 +528,12 @@ static NSString *cellId = @"cellId";
        NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
        cell.addBtn.hidden = NO;
         SubjectCategoryModel *model = self.dataArr[indexPath.section];
-        StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+    StairCategoryListRes *res;
+    if (indexPath.section ==self.dataArr.count+1) {
+        res = self.likeArr[indexPath.row];
+    }else{
+        res = model.subjectCategoryProductList[indexPath.row];
+    }
         [cell setModel:res];
     __weak typeof(self)weakSelf = self;
     [cell setAddBlock:^{

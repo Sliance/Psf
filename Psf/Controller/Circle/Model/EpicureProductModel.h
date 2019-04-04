@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EpicureProductModel : NSObject
 ///
-@property(nonatomic,strong)NSArray *epicureMobileV1ProductWrapper;
+@property(nonatomic,strong)NSMutableArray *epicureMobileV1ProductWrapper;
 ///
 @property(nonatomic,copy)NSString *ingredientsCategoryId;
 ///
