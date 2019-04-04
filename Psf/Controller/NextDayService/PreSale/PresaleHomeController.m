@@ -593,6 +593,7 @@ static NSString *cellId = @"cellId";
                 if ([UserCacheBean share].userInfo.token.length>0) {
                     SignInController *signVC = [[SignInController alloc]init];
                     signVC.hidesBottomBarWhenPushed = YES;
+                    [signVC setType:0];
                     [weakself.navigationController pushViewController:signVC animated:YES];
                 }else{
                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"请您先登录"

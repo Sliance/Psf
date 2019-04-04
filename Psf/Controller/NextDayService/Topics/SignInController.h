@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignInController : BaseViewController
 
+@property(nonatomic,assign)NSInteger type;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

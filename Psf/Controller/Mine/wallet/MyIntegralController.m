@@ -8,7 +8,7 @@
 
 #import "MyIntegralController.h"
 #import "BottomView.h"
-#import "TradingDetailController.h"
+#import "SignInController.h"
 #import "MineViewController.h"
 
 @interface MyIntegralController ()<UIScrollViewDelegate>
@@ -111,8 +111,8 @@
     _countLabel.text = [NSString stringWithFormat:@"%ld积分",[dic[@"memberPoint"] integerValue]];
 }
 -(void)pressDetail:(UIButton*)sender{
-    TradingDetailController *detailVC = [[TradingDetailController alloc]init];
-    detailVC.type =2;
+    SignInController *detailVC = [[SignInController alloc]init];
+    [detailVC setType:1];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressBottom:(UIButton*)sedner{

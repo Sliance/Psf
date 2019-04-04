@@ -250,7 +250,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [weakself.footView setModel:weakself.result];
             [weakself.collectionView reloadData];
         }
-        [weakself jieSuanData];
+        
     }];
 }
 -(void)guessLikeList{

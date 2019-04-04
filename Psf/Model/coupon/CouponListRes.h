@@ -10,11 +10,11 @@
 
 @interface CouponListRes : NSObject
 ///优惠券过期时间
-@property(nonatomic,assign)NSInteger couponExpireTime;
+@property(nonatomic,copy)NSString *couponExpireTime;
 ///优惠券编号
-@property(nonatomic,copy)NSString* couponId;
+@property(nonatomic,copy)NSString *couponId;
 ///优惠券生效时间
-@property(nonatomic,assign)NSInteger couponValidTime;
+@property(nonatomic,copy)NSString *couponValidTime;
 ///优惠券会员编号
 @property(nonatomic,copy)NSString* memberCouponId;
 

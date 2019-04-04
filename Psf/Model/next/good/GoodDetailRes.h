@@ -90,6 +90,8 @@
 @property(nonatomic,assign)BOOL productIsGroupon;
 ///是否满减
 @property(nonatomic,assign)BOOL productIsWard;
+///是否活动
+@property(nonatomic,assign)BOOL productIsActivity;
 ///
 @property(nonatomic,copy)NSString *memberSearchKey;
 ///

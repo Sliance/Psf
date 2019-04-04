@@ -106,11 +106,13 @@
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_right).offset(10);
+        make.right.equalTo(self).offset(-80);
         make.top.equalTo(self.bgView).offset(25);
         
     }];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImage.mas_right).offset(10);
+        make.right.equalTo(self).offset(-80);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
     }];
     [self.getBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,6 +126,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.couponImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.nameLabel.text = model.couponName;
-    self.contentLabel.text = [NSString stringWithFormat:@"自领取之日起，%@天有效",model.couponValidDay];
+    NSString *start = [NSDate cStringFromTimestamp:model.couponValidTime Formatter:@"yyyy-MM-dd"];
+    NSString *end = [NSDate cStringFromTimestamp:model.couponExpireTime Formatter:@"yyyy-MM-dd"];
+    self.contentLabel.text = [NSString stringWithFormat:@"使用期限%@-%@",start,end];
 }
 @end

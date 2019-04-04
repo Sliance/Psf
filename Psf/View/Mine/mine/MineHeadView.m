@@ -79,7 +79,7 @@
     }];
     [self.vbtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headbtn.mas_right).offset(10);
-        make.top.equalTo(self.headbtn.mas_top).offset(18);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
         
     }];
     [self.cardbtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -374,16 +374,13 @@
         self.nameLabel.text = model.productName;
     }
     if([model.productType isEqualToString:@"normal"]){//正常
-        if (model.productActivityPrice.length>0&&![model.productActivityPrice isEqualToString:@"0"]) {
+        if (model.productIsActivity == YES) {
             self.groupLabel.text = @"距离活动结束还剩:";
             self.originLabel.hidden = NO;
             self.lineLabel.hidden = NO;
             [self setCornerLayoutGroup];
-            double price = 0.0;
             NSString* productPrice;
-            double oriprice = 0.0;
             NSString* oriproductPrice;
-
                 productPrice = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
                 oriproductPrice = [NSString stringWithFormat:@"￥%@",model.productPrice];
             if (model.activityName.length >0) {
