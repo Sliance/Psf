@@ -57,7 +57,7 @@
 ///
 @property(nonatomic,copy)NSString *systemUpdateUserId;
 ///
-@property(nonatomic,assign)BOOL productIsOnSale;
+@property(nonatomic,assign)NSInteger productIsOnSale;
 ///
 @property(nonatomic,copy)NSString* saleOrderProductQty;
 ///

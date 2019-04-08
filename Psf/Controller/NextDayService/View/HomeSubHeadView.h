@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong) SubjectCategoryModel *model;
+@property(nonatomic,strong) NSString *title;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -51,4 +51,19 @@
     [self.headimage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.titleLabel.text = model.subjectCategoryName;
 }
+
+-(void)setTitle:(NSString *)title{
+    _title = title;
+    self.titleLabel.text = title;
+    [self.headimage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(15);
+        make.right.equalTo(self).offset(-15);
+        make.top.equalTo(self).offset(0);
+        make.height.mas_equalTo(0);
+    }];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self);
+    }];
+}
 @end

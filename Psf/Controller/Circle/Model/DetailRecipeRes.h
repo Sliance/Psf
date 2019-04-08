@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 @property(nonatomic,copy)NSString *epicureImgPath;
 ///
-@property(nonatomic,strong)NSArray *epicureMobileV1IngredientsInfoWrappers;
+@property(nonatomic,strong)NSMutableArray *epicureMobileV1IngredientsInfoWrappers;
 ///
 @property(nonatomic,copy)NSString *howTOMake;
 ///

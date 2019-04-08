@@ -62,7 +62,7 @@ static NSString *cellId = @"DetailRecipeProductCell";
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.model.epicureMobileV1ProductWrapper.count;
+    return self.dataArr.count;
 }
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -84,30 +84,29 @@ static NSString *cellId = @"DetailRecipeProductCell";
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DetailRecipeProductCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    CartProductModel *model = self.model.epicureMobileV1ProductWrapper[indexPath.row];
+    CartProductModel *model = self.dataArr[indexPath.row];
     [collectcell setModel:model];
     return collectcell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    CartProductModel *model = self.model.epicureMobileV1ProductWrapper[indexPath.row];
-    if (model.productIsOnSale ==YES) {
+    CartProductModel *model = self.dataArr[indexPath.row];
          self.selectedCollect(model);
-    }
 }
--(void)setDataArr:(NSMutableArray *)dataArr{
-    _dataArr = dataArr;
-    
-}
+
 -(void)setModel:(EpicureProductModel *)model{
     _model = model;
     self.titleLabel.text = [NSString stringWithFormat:@"- %@",model.ingredientsCategoryName];
-    for (CartProductModel *models in model.epicureMobileV1ProductWrapper) {
-        if (models.productIsOnSale ==NO) {
-            [model.epicureMobileV1ProductWrapper removeObject:models];
+    _dataArr = [[NSMutableArray alloc]init];
+    [self screenData];
+    [self.collectionView reloadData];
+}
+-(void)screenData{
+    for (CartProductModel *model in self.model.epicureMobileV1ProductWrapper) {
+        if (model.productIsOnSale == 1) {
+            [_dataArr addObject:model];
         }
     }
-    [self.collectionView reloadData];
 }
 
 @end

@@ -16,10 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 <UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic,strong)UILabel *titleLabel;
 @property (nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,copy)void(^selectedCollect)(CartProductModel*);
 @property(nonatomic,strong)EpicureProductModel*model;
-
+@property(nonatomic,strong)NSMutableArray *dataArr;
 @end
 
 NS_ASSUME_NONNULL_END

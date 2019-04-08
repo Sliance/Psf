@@ -149,8 +149,6 @@
                     [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
                 }
             }];
-            
-            
         }];
     }
     return cell;

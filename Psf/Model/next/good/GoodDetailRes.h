@@ -25,7 +25,7 @@
 ///0，计数，1.称重，2.69码(计数
 @property(nonatomic,assign)NSInteger productStyle;
 ///
-//@property(nonatomic,copy)NSNumber *productWeight;
+@property(nonatomic,copy)NSString *productLabel;
 @property(nonatomic,copy)NSString *productImagePath;
 ///
 @property(nonatomic,strong)NSArray *productImageList;

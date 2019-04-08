@@ -211,13 +211,41 @@ static NSString *cellIds = @"NextCollectionViewCell";
         
     }];
 }
-
+-(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.couponType = @"allProduct";
+    req.saleOrderStatus = @"0";
+    req.userLongitude = [UserCacheBean share].userInfo.longitude;
+    req.userLatitude = [UserCacheBean share].userInfo.latitude;
+    req.productId =  productId ;
+    req.pageIndex = 1;
+    req.pageSize = @"10";
+    req.productCategoryParentId = @"";
+    req.saleOrderId = @"1013703405872041985";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.productSkuId = @"0";
+    req.productQuantity = quantity;
+    req.productType = @"normal";
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]addShopCartCountWithParam:req response:^(id response) {
+        
+        if (response!= nil) {
+            [weakself showInfo:response[@"message"]];
+        }
+        [weakself getShopCount];
+    }];
+}
 
 -(void)changeShopCount:(CartProductModel*)model{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
-    
     req.token = [UserCacheBean share].userInfo.token;
     req.version = @"1.0.0";
     req.platform = @"ios";
@@ -225,7 +253,6 @@ static NSString *cellIds = @"NextCollectionViewCell";
     req.userLatitude = [UserCacheBean share].userInfo.latitude;
     req.cartProductId = model.cartProductId;
     req.productCategoryParentId = @"";
-   
     req.cityId = @"310100";
     req.cityName = @"上海市";
     req.productQuantity = model.productQuantity;
@@ -523,12 +550,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NextCollectionViewCell *collectcell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIds forIndexPath:indexPath];
     ShoppingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    
+    __weak typeof(self)weakself = self;
     if (indexPath.section ==0) {
         [cell setGoodtype:TYPEVALID];
         CartProductModel *model = _dataArr[indexPath.row];
         [cell setModel:model];
-        __weak typeof(self)weakself = self;
+        
         [cell setAddBlock:^(CartProductModel* req) {
             
             if ([req.productQuantity isEqualToString:@"0"] ) {
@@ -560,8 +587,11 @@ static NSString *cellIds = @"NextCollectionViewCell";
         return cell;
     }
     StairCategoryListRes *model = _likeArr[indexPath.row];
-    
+    collectcell.addBtn.hidden = NO;
     [collectcell setModel:model];
+    [collectcell setAddBlock:^{
+        [weakself addShopCountQuantity:@"1" productId:model.productId];
+    }];
     return collectcell;
 }
 

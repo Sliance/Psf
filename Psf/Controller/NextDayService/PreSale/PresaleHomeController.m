@@ -42,6 +42,7 @@
 @property(nonatomic,strong)TimeBuyModel*timeModel;
 @property(nonatomic,strong)NSMutableArray *timeArr;
 @property(nonatomic,strong)NSMutableArray *likeArr;
+@property(nonatomic,strong)NSMutableArray *recommendArr;
 @property(nonatomic,assign)NSInteger isOpen;
 
 @end
@@ -269,8 +270,8 @@ static NSString *cellId = @"cellId";
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestRecommendListLoadWithParam:req response:^(id response) {
         if (response!= nil) {
-            [weakself.dataArr removeAllObjects];
-            [weakself.dataArr addObjectsFromArray:response];
+            [weakself.recommendArr removeAllObjects];
+            [weakself.recommendArr addObjectsFromArray:response];
             [weakself.collectionView reloadData];
         }
         
@@ -299,7 +300,7 @@ static NSString *cellId = @"cellId";
             [weakself.likeArr addObjectsFromArray:response];
             [weakself.collectionView reloadData];
         }
-//        [weakself requestRecommend];
+        [weakself requestRecommend];
     }];
 }
 -(void)addShopCountQuantity:(NSString*)quantity productId:(NSInteger)productId{
@@ -361,6 +362,7 @@ static NSString *cellId = @"cellId";
      _dataArr = [[NSMutableArray alloc]init];
     _bannerArr = [[NSMutableArray alloc]init];
     _likeArr = [[NSMutableArray alloc]init];
+    _recommendArr = [[NSMutableArray alloc]init];
     self.timeArr = [[NSMutableArray alloc]init];
     if (@available(iOS 11.0, *)) {
         _collectionView.contentInsetAdjustmentBehavior = NO;
@@ -492,7 +494,7 @@ static NSString *cellId = @"cellId";
     if (self.dataArr.count ==0) {
         return 1;
     }
-    return self.dataArr.count+1;
+    return self.dataArr.count+2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.dataArr.count >0&& section<self.dataArr.count) {
@@ -501,6 +503,8 @@ static NSString *cellId = @"cellId";
     }
     if (section ==self.dataArr.count) {
         return self.likeArr.count;
+    }else if (section ==self.dataArr.count +1) {
+        return self.recommendArr.count;
     }
     return 0;
 }
@@ -520,6 +524,7 @@ static NSString *cellId = @"cellId";
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     return CGSizeMake(SCREENWIDTH/2-45/2, SCREENWIDTH/2-45/2+90);
     
 }
@@ -527,14 +532,22 @@ static NSString *cellId = @"cellId";
     
        NextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
        cell.addBtn.hidden = NO;
-        SubjectCategoryModel *model = self.dataArr[indexPath.section];
+    SubjectCategoryModel *model;
+    if (indexPath.section <self.dataArr.count) {
+        model = self.dataArr[indexPath.section];
+    }
     StairCategoryListRes *res;
-    if (indexPath.section ==self.dataArr.count+1) {
+    if (indexPath.section ==self.dataArr.count) {
         res = self.likeArr[indexPath.row];
+        [cell setModel:res];
+    }else if (indexPath.section == self.dataArr.count +1){
+       GoodDetailRes* detailRes = self.recommendArr[indexPath.row];
+        [cell setDetailmodel:detailRes];
     }else{
         res = model.subjectCategoryProductList[indexPath.row];
-    }
         [cell setModel:res];
+    }
+    
     __weak typeof(self)weakSelf = self;
     [cell setAddBlock:^{
         if ([UserCacheBean share].userInfo.token.length>0) {
@@ -564,6 +577,8 @@ static NSString *cellId = @"cellId";
         }else{
             return CGSizeMake(SCREENWIDTH, 320*SCREENWIDTH/375+160);
         }
+    }else if (section >self.dataArr.count-1) {
+        return CGSizeMake(SCREENWIDTH, 50);
     }
     return CGSizeMake(SCREENWIDTH, 120*SCREENWIDTH/375+50+20);
 }
@@ -580,7 +595,7 @@ static NSString *cellId = @"cellId";
         }
     }
     SubjectCategoryModel *model;
-    if (self.dataArr.count>0) {
+    if (self.dataArr.count>0&&indexPath.section <self.dataArr.count) {
         model = self.dataArr[indexPath.section];
     }
      __weak typeof(self)weakself = self;
@@ -685,11 +700,19 @@ static NSString *cellId = @"cellId";
             vc.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
-    }else{
+    }else if(indexPath.section <self.dataArr.count){
         HomeSubHeadView*subView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 120*SCREENWIDTH/375+50)];
         [subView setModel:model];
         [headerView addSubview:subView];
         
+    }else if (indexPath.section ==self.dataArr.count){
+        HomeSubHeadView*likeView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 50)];
+        [likeView setTitle:@"猜你喜欢"];
+        [headerView addSubview:likeView];
+    }else if (indexPath.section ==self.dataArr.count+1){
+        HomeSubHeadView*likeView = [[HomeSubHeadView alloc]initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 50)];
+        [likeView setTitle:@"为你推荐"];
+        [headerView addSubview:likeView];
     }
   
     return headerView;

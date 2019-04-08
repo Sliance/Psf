@@ -220,14 +220,7 @@
     self.contentLabel.text = model.productTitle;
     
     if (model.productPrice) {
-//        if (model.productStyle ==1) {
-//            double price = [model.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//            self.priceLabel.text = productPrice;
-//        }else{
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productPrice];
-//        }
-        
     }
     if (model.productLabel.length>0) {
         self.productLabel.text = model.productLabel;
@@ -348,18 +341,8 @@
     self.nameLabel.text = timeModel.productName;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,timeModel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-//    if (timeModel.productStyle ==1) {
-//        double price = [timeModel.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//        NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//        self.priceLabel.text = productPrice;
-//        double oriprice = [timeModel.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//        NSString* oriproductPrice = [NSString stringWithFormat:@"￥%.2f",oriprice];
-//        self.oripriceLabel.text = oriproductPrice;
-//    }else{
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productActivityPrice];
-        self.oripriceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productPrice];
-//    }
-    
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productActivityPrice];
+    self.oripriceLabel.text = [NSString stringWithFormat:@"￥%@",timeModel.productPrice];
     if (timeModel.productLabel.length>0) {
         self.productLabel.text = timeModel.productLabel;
         [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -379,7 +362,38 @@
     }
 
 }
-
+-(void)setDetailmodel:(GoodDetailRes *)detailmodel{
+    _detailmodel = detailmodel;
+    if (_detailmodel.productStyle ==1) {
+        self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_detailmodel.productName,[UserCacheBean share].userInfo.productDefaultDes];
+    }else{
+        self.nameLabel.text = _detailmodel.productName;
+    }
+    NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,_detailmodel.productImagePath];
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+    self.contentLabel.text = _detailmodel.productTitle;
+    
+    if (_detailmodel.productPrice) {
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",_detailmodel.productPrice];
+    }
+    if (_detailmodel.productLabel.length>0) {
+        self.productLabel.text = _detailmodel.productLabel;
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+            CGSize size = [self.productLabel sizeWithText:_detailmodel.productLabel font:[UIFont systemFontOfSize:10]];
+            make.width.mas_equalTo(size.width+20);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }else{
+        [self.productLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(15);
+            make.width.mas_equalTo(0);
+            make.bottom.equalTo(self.headImage.mas_bottom).offset(-5);
+            make.centerX.equalTo(self.headImage);
+        }];
+    }
+}
 -(void)pressAdd{
     self.addBlock();
 }

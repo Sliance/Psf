@@ -63,7 +63,8 @@
     if (!_webView) {
         _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 35, SCREENWIDTH, SCREENHEIGHT)];
         _webView.delegate = self;
-//        _webView.scrollView.scrollEnabled = NO;
+        _webView.scrollView.scrollEnabled = NO;
+    
     }
     return _webView;
 }
@@ -135,17 +136,45 @@
     req.pageSize = @"10";
     req.sign = @"ffc18def63af3916f4d39165697f228f";
     req.epicureId = self.epicureId;
+    self.result = [[DetailRecipeRes alloc]init];
     WEAKSELF;
     [[NextServiceApi share]getDetailRecipeWithParam:req response:^(id response) {
         if (response) {
             weakSelf.result = response;
-            [weakSelf.headView setModel:weakSelf.result];
+            
             NSString *html_str = [NSString stringWithFormat:@"<head><style>img{width:%fpx !important;}</style></head>%@",SCREENWIDTH-15,self.result.howTOMake];
             [weakSelf.webView loadHTMLString:html_str baseURL:nil];
+            [weakSelf screenData];
+            [weakSelf.tableview reloadData];
+            [weakSelf.headView setModel:weakSelf.result];
         }
-        [weakSelf.tableview reloadData];
+        
         [weakSelf getAllData];
     }];
+}
+-(void)screenData{
+    WEAKSELF;
+    [self.result.epicureMobileV1IngredientsInfoWrappers enumerateObjectsUsingBlock:^(EpicureProductModel* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.epicureMobileV1ProductWrapper enumerateObjectsUsingBlock:^(CartProductModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (model.productIsOnSale == 0) {
+                [obj.epicureMobileV1ProductWrapper removeObject:model];
+            }
+        }];
+    }];
+    int i = (int)self.result.epicureMobileV1IngredientsInfoWrappers.count-1;
+    for(;i >= 0;i --){
+        //containsObject 判断元素是否存在于数组中(根据两者的内存地址判断，相同：YES  不同：NO）
+        EpicureProductModel*epmodel = self.result.epicureMobileV1IngredientsInfoWrappers[i];
+        if(epmodel.epicureMobileV1ProductWrapper.count ==0) {
+            [self.result.epicureMobileV1IngredientsInfoWrappers removeObjectAtIndex:i];
+        }
+    }
+    
+//    [self.result.epicureMobileV1IngredientsInfoWrappers enumerateObjectsUsingBlock:^(EpicureProductModel* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (obj.epicureMobileV1ProductWrapper.count ==0) {
+//            [weakSelf.result.epicureMobileV1IngredientsInfoWrappers removeObject:obj];
+//        }
+//    }];
 }
 -(void)getAllData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];

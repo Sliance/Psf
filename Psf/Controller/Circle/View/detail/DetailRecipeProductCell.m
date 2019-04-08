@@ -116,33 +116,19 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     
-    if (model.productIsOnSale ==NO) {
-        self.notLabel.hidden = NO;
-        if (model.productStorePrice.length>0) {
-//            if (model.productStyle ==1) {
-//                double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//                self.priceLabel.text = productPrice;
-//            }else{
-                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-//            }
-        
-        }else{
-            self.priceLabel.text = @"";
-        }
-        self.addBtn.hidden = YES;
-    }else{
+//    if (model.productIsOnSale ==NO) {
+//        self.notLabel.hidden = NO;
+//        if (model.productStorePrice.length>0) {
+//                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
+//        }else{
+//            self.priceLabel.text = @"";
+//        }
+//        self.addBtn.hidden = YES;
+//    }else{
         self.notLabel.hidden = YES;
         self.addBtn.hidden = NO;
-//        if (model.productStyle ==1) {
-//            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//            self.priceLabel.text = productPrice;
-//        }else{
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-//        }
-        
-    }
+//    }
     if (model.productStyle ==1) {
        self.titleLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
     }else{

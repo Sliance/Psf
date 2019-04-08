@@ -7,18 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CartProductModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EpicureProductModel : NSObject
 ///
-@property(nonatomic,strong)NSMutableArray *epicureMobileV1ProductWrapper;
+@property(nonatomic,strong)NSMutableArray <CartProductModel*>*epicureMobileV1ProductWrapper;
 ///
-@property(nonatomic,copy)NSString *ingredientsCategoryId;
+@property(nonatomic,strong)NSString *ingredientsCategoryId;
 ///
-@property(nonatomic,copy)NSString *ingredientsCategoryName;
+@property(nonatomic,strong)NSString *ingredientsCategoryName;
 ///
-@property(nonatomic,copy)NSString *priority;
+@property(nonatomic,strong)NSString *priority;
 
 @end
 

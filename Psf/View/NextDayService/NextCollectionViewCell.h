@@ -11,6 +11,7 @@
 #import "ZSConfig.h"
 #import "GroupListRes.h"
 #import "TimeBuyModel.h"
+#import "GoodDetailRes.h"
 
 @interface NextCollectionViewCell : UICollectionViewCell
 ///图片
@@ -37,6 +38,7 @@
 @property(nonatomic,strong)StairCategoryListRes *model;
 @property(nonatomic,strong)GroupListRes *groupmodel;
 @property(nonatomic,strong)TimeBuyModel *timeModel;
+@property(nonatomic,strong)GoodDetailRes *detailmodel;
 @property(nonatomic,assign)CGFloat imageWidth;
 @property(nonatomic,strong)UIButton*addBtn;
 
