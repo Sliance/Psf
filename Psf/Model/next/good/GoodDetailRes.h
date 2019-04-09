@@ -102,5 +102,5 @@
 @property(nonatomic,copy)NSString *activityStartTime;
 ///
 @property(nonatomic,copy)NSString *productActivityPrice;
-
+@property(nonatomic,copy)NSString *productWeight;
 @end

@@ -115,26 +115,10 @@
     _model = model;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    
-//    if (model.productIsOnSale ==NO) {
-//        self.notLabel.hidden = NO;
-//        if (model.productStorePrice.length>0) {
-//                self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-//        }else{
-//            self.priceLabel.text = @"";
-//        }
-//        self.addBtn.hidden = YES;
-//    }else{
         self.notLabel.hidden = YES;
         self.addBtn.hidden = NO;
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-//    }
-    if (model.productStyle ==1) {
-       self.titleLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-    }else{
+       self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.productStorePrice];
        self.titleLabel.text = model.productName;
-    }
-        
 }
 -(void)pressAdd{
     [self addShopCountQuantity:@"1" productId:self.model.productId];

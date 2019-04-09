@@ -278,16 +278,7 @@
     _model = model;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    if (model.productStyle ==1) {
-        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
-            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-        }else{
-            self.nameLabel.text = model.productName;
-        }
-    }else{
         self.nameLabel.text = model.productName;
-    }
-    
     if (model.productStorePrice) {
 //        if (model.productStyle ==1) {
 //            double price;

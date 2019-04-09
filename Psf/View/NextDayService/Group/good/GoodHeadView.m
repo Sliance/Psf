@@ -362,17 +362,7 @@
 }
 -(void)setModel:(GoodDetailRes *)model{
     _model = model;
-    
-    
-    if (model.productStyle ==1) {
-        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
-            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-        }else{
-            self.nameLabel.text = model.productName;
-        }
-    }else{
         self.nameLabel.text = model.productName;
-    }
     if([model.productType isEqualToString:@"normal"]){//正常
         if (model.productIsActivity == YES) {
             self.groupLabel.text = @"距离活动结束还剩:";

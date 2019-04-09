@@ -210,11 +210,7 @@
 }
 -(void)setModel:(StairCategoryListRes *)model{
     _model = model;
-    if (model.productStyle ==1) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@%@",model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-    }else{
         self.nameLabel.text = model.productName;
-    }
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = model.productTitle;
@@ -364,11 +360,7 @@
 }
 -(void)setDetailmodel:(GoodDetailRes *)detailmodel{
     _detailmodel = detailmodel;
-    if (_detailmodel.productStyle ==1) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_detailmodel.productName,[UserCacheBean share].userInfo.productDefaultDes];
-    }else{
-        self.nameLabel.text = _detailmodel.productName;
-    }
+    self.nameLabel.text = _detailmodel.productName;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,_detailmodel.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
     self.contentLabel.text = _detailmodel.productTitle;

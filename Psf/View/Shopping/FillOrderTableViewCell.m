@@ -141,32 +141,11 @@
     _model = model;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    if (_model.productStyle ==1) {
-        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
-            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-        }else{
-            self.nameLabel.text = _model.productName;
-        }
-    }else{
         self.nameLabel.text = _model.productName;
-    }
-    
     if (model.productStorePrice) {
-//        if (model.productStyle ==1) {
-//            double price = [model.productStorePrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//            self.payableLabel.text = productPrice;
-//        }else{
             self.payableLabel.text =  [NSString stringWithFormat:@"￥%@",model.productStorePrice];
-//        }
         if (model.activityName.length>0) {
-//            if (model.productStyle ==1) {
-//                double price = [model.productActivityPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//                NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//                self.payableLabel.text =productPrice;
-//            }else{
                 self.payableLabel.text = [NSString stringWithFormat:@"￥%@",model.productActivityPrice];
-//            }
         }
     }
     self.countLabel.text = [NSString stringWithFormat:@"X%@",model.productQuantity];
@@ -175,29 +154,10 @@
     _res = res;
     NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,res.productImagePath];
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
-    if (_model.productStyle ==1) {
-        if ([UserCacheBean share].userInfo.productDefaultDes.length>0) {
-            self.nameLabel.text = [NSString stringWithFormat:@"%@%@",_model.productName,[UserCacheBean share].userInfo.productDefaultDes];
-        }else{
-            self.nameLabel.text = _model.productName;
-        }
-    }else{
         self.nameLabel.text = _model.productName;
-    }
-    
-    double price = [res.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-    NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
     if (res.productPrice) {
-//        if (res.productStyle ==1) {
-//            double price = [res.productPrice doubleValue]*[[UserCacheBean share].userInfo.productDefaultWeight doubleValue];
-//            NSString* productPrice = [NSString stringWithFormat:@"￥%.2f",price];
-//            self.payableLabel.text = productPrice;
-//        }else{
             self.payableLabel.text = [NSString stringWithFormat:@"￥%@",res.productPrice];
-//        }
-        
     }
-
     self.countLabel.text = [NSString stringWithFormat:@"X%ld",(long)res.saleOrderProductQty];
 }
 @end

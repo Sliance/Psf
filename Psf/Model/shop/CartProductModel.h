@@ -68,6 +68,7 @@
 @property(nonatomic,assign)CGFloat cellH;
 
 @property(nonatomic,assign)NSInteger index;
+@property(nonatomic,copy)NSString *productWeight;
 ///是否预售
 @property(nonatomic,assign)BOOL productIsPreSale;
 ///是否次日达
