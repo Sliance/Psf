@@ -14,26 +14,16 @@
 
 #import "WXApi.h"
 #import "BindMobileController.h"
+#import "LoginNextViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *headImage;
 @property(nonatomic,strong)UITextField *phoneField;
-@property(nonatomic,strong)UITextField *codeField;
-@property(nonatomic,strong)UILabel *phoneLine;
-@property(nonatomic,strong)UILabel *codelLine;
-@property(nonatomic,strong)UIButton *sendCodeBtn;
 @property(nonatomic,strong)UIButton *finishBtn;
-@property(nonatomic,strong)UIButton *passLoginBtn;
 @property(nonatomic,strong)UIButton *wechartBtn;
-@property(nonatomic,strong)UIButton *qqBtn;
-@property(nonatomic,strong)UIButton *weiboBtn;
-@property(nonatomic,strong)UILabel* noticeLabel;
 @property(nonatomic,strong)UILabel *loginLabel;
-
 @property(nonatomic,strong)UILabel* leftLineLabel;
 @property(nonatomic,strong)UILabel *rightlineLabel;
-@property(nonatomic,strong)NSTimer* timer;
-@property(nonatomic,assign)NSInteger count;
 
 @end
 
@@ -54,55 +44,18 @@
         _phoneField.borderStyle = UITextBorderStyleNone;
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneField.maxLength =11;
-        
+        _phoneField.backgroundColor = DSColorFromHex(0xFAFAFA);
+        [_phoneField.layer setCornerRadius:3];
+        [_phoneField.layer setMasksToBounds:YES];
+        [self setTextFieldLeftView:_phoneField :@"请输入手机号" :10];
     }
     return _phoneField;
 }
--(UITextField *)codeField{
-    if (!_codeField) {
-        _codeField = [[UITextField alloc]init];
-        _codeField.placeholder = @"短信验证码";
-        _codeField.delegate = self;
-        _codeField.font = [UIFont systemFontOfSize:12];
-        _codeField.borderStyle = UITextBorderStyleNone;
-        _codeField.keyboardType = UIKeyboardTypeNumberPad;
-        _codeField.maxLength = 6;
-    }
-    return _codeField;
-}
--(UILabel *)phoneLine{
-    if (!_phoneLine) {
-        _phoneLine = [[UILabel alloc]init];
-        _phoneLine.backgroundColor = DSColorFromHex(0xDCDCDC);
-    }
-    return _phoneLine;
-}
--(UILabel *)codelLine{
-    if (!_codelLine) {
-        _codelLine = [[UILabel alloc]init];
-        _codelLine.backgroundColor = DSColorFromHex(0xDCDCDC);
-    }
-    return _codelLine;
-}
--(UIButton *)sendCodeBtn{
-    if (!_sendCodeBtn) {
-        _sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sendCodeBtn.enabled = NO;
-        _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
-        [_sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [_sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _sendCodeBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-        [_sendCodeBtn addTarget:self action:@selector(pressCode:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _sendCodeBtn;
-    
-}
-
 -(UIButton *)finishBtn{
     if (!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_finishBtn setBackgroundImage:[UIImage imageNamed:@"shopping_submit"] forState:UIControlStateNormal];
-        [_finishBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_finishBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_finishBtn addTarget:self action:@selector(pressFinishBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -110,20 +63,6 @@
         [_finishBtn.layer setMasksToBounds:YES];
     }
     return _finishBtn;
-}
--(UIButton *)passLoginBtn{
-    if (!_passLoginBtn) {
-        _passLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_passLoginBtn setTitle:@"密码登录" forState:UIControlStateNormal];
-        [_passLoginBtn setTitleColor:DSColorFromHex(0xFF4C4D) forState:UIControlStateNormal];
-        _passLoginBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_passLoginBtn addTarget:self action:@selector(pressPassWord) forControlEvents:UIControlEventTouchUpInside];
-        [_passLoginBtn.layer setBorderColor:DSColorFromHex(0xFF4C4D).CGColor];
-        [_passLoginBtn.layer setBorderWidth:0.5];
-        [_passLoginBtn.layer setCornerRadius:4];
-        [_passLoginBtn.layer setMasksToBounds:YES];
-    }
-    return _passLoginBtn;
 }
 -(UIButton *)wechartBtn{
     if (!_wechartBtn) {
@@ -134,31 +73,7 @@
     }
     return _wechartBtn;
 }
--(UIButton *)qqBtn{
-    if (!_qqBtn) {
-        _qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_qqBtn setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
-//        [_qqBtn addTarget:self action:@selector(getAuthWithUserInfoFromQQ) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _qqBtn;
-}
--(UIButton *)weiboBtn{
-    if (!_weiboBtn) {
-        _weiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_weiboBtn setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
-//        [_weiboBtn addTarget:self action:@selector(getAuthWithUserInfoFromSina) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _weiboBtn;
-}
--(UILabel*)noticeLabel{
-    if (!_noticeLabel) {
-        _noticeLabel = [[UILabel alloc]init];
-        _noticeLabel.text = @"首次登陆将自动注册";
-        _noticeLabel.textColor = DSColorFromHex(0x222425);
-        _noticeLabel.font = [UIFont systemFontOfSize:10];
-    }
-    return _noticeLabel;
-}
+
 -(UILabel *)loginLabel{
     if (!_loginLabel) {
         _loginLabel = [[UILabel alloc]init];
@@ -189,11 +104,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-//    [self setLeftButtonWithIcon:[UIImage imageNamed:@"date_dismiss"]];
     if ([UserCacheBean share].userInfo.token.length==0) {
          [UserCacheBean share].userInfo.token = @"0";
     }
-   
     [self setTitle:@""];
     [self iswechart];
 }
@@ -202,27 +115,17 @@
     if (self) {
         self.view.backgroundColor = [UIColor whiteColor];
         self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-        
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
+    [self setRightButtonWithTitle:@"密码登录    "];
     [self.view addSubview:self.headImage];
     [self.view addSubview:self.phoneField];
-    [self.view addSubview:self.codeField];
-    [self.view addSubview:self.sendCodeBtn];
     [self.view addSubview:self.finishBtn];
-    [self.view addSubview:self.passLoginBtn];
-//    [self.view addSubview:self.weiboBtn];
     [self.view addSubview:self.wechartBtn];
-//    [self.view addSubview:self.qqBtn];
-    [self.view addSubview:self.noticeLabel];
-    [self.phoneField addSubview:self.phoneLine];
-    [self.codeField addSubview:self.codelLine];
     [self.view addSubview:self.loginLabel];
     [self.view addSubview:self.leftLineLabel];
     [self.view addSubview:self.rightlineLabel];
@@ -235,54 +138,19 @@
     [self.phoneField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(40);
-        make.top.equalTo(self.headImage.mas_bottom).offset(41);
+        make.top.equalTo(self.headImage.mas_bottom).offset(56);
         make.centerX.equalTo(self.view);
-    }];
-    [self.codeField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(240);
-        make.height.mas_equalTo(40);
-        make.top.equalTo(self.phoneField.mas_bottom).offset(12);
-        make.centerX.equalTo(self.view);
-    }];
-    [self.phoneLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(240);
-        make.height.mas_equalTo(1);
-        make.bottom.equalTo(self.phoneField.mas_bottom);
-        make.centerX.equalTo(self.view);
-    }];
-    
-    [self.codelLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(240);
-        make.height.mas_equalTo(1);
-        make.bottom.equalTo(self.codeField.mas_bottom);
-        make.centerX.equalTo(self.view);
-    }];
-    [self.noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.codelLine.mas_left);
-        make.top.equalTo(self.codelLine.mas_bottom).offset(10);
-    }];
-    [self.sendCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(64);
-        make.height.mas_equalTo(24);
-        make.bottom.equalTo(self.codeField.mas_bottom).offset(-9);
-        make.right.equalTo(self.codeField.mas_right);
     }];
     [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(39);
-        make.top.equalTo(self.codeField.mas_bottom).offset(40);
-        make.centerX.equalTo(self.view);
-    }];
-    [self.passLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(240);
-        make.height.mas_equalTo(39);
-        make.top.equalTo(self.finishBtn.mas_bottom).offset(15);
+        make.top.equalTo(self.phoneField.mas_bottom).offset(40);
         make.centerX.equalTo(self.view);
     }];
     [self.loginLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.top.equalTo(self.passLoginBtn.mas_bottom).offset(30);
+       make.top.equalTo(self.finishBtn.mas_bottom).offset(30);
         make.width.mas_equalTo(70);
-        make.centerX.equalTo(self.passLoginBtn);
+        make.centerX.equalTo(self.finishBtn);
     }];
     [self.leftLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.loginLabel.mas_left);
@@ -296,32 +164,15 @@
         make.centerY.equalTo(self.loginLabel);
         make.height.mas_equalTo(0.5);
     }];
-//    [self.qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(40);
-//        make.height.mas_equalTo(40);
-//        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
-//        make.centerX.equalTo(self.view);
-//    }];
-
     [self.wechartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(40);
-        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(62);
-        make.centerX.equalTo(self.passLoginBtn);
+        make.top.equalTo(self.finishBtn.mas_bottom).offset(62);
+        make.centerX.equalTo(self.finishBtn);
     }];
-//    [self.weiboBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(40);
-//        make.height.mas_equalTo(40);
-//        make.top.equalTo(self.passLoginBtn.mas_bottom).offset(52);
-//        make.left.equalTo(self.qqBtn.mas_right).offset(27);
-//    }];
-//
-    
-       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledTextChange:) name:UITextFieldTextDidChangeNotification object:nil];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
     [tap addTarget:self action:@selector(pressTap)];
     [self.view addGestureRecognizer:tap];
-   
     [ZSNotification addWeixinLoginResultNotification:self action:@selector(weChartLgin:)];
 }
 -(void)iswechart{
@@ -366,30 +217,8 @@
 }
 -(void)pressTap{
     [_phoneField resignFirstResponder];
-    [_codeField resignFirstResponder];
 }
-- (void)dealloc{
-   
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
-}
-//
-- (void)textFiledTextChange:(NSNotification *)noti{
-    if (_phoneField.text.length>0&&(self.count==0||self.count<0)) {
-        self.sendCodeBtn.enabled = YES;
-        [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
-    }else if (_phoneField.text.length==0) {
-        self.sendCodeBtn.enabled = NO;
-        [_sendCodeBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        _sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
-    }
-}
-
-
 -(void)sendCode{
-    if (_phoneField.text.length<1) {
-        [self showToast:@"请输入手机号码"];
-        return;
-    }
     LoginReq *req = [[LoginReq alloc]init];
     req.memberMobile = _phoneField.text;
     req.token = @"";
@@ -402,74 +231,26 @@
         if (response) {
             if ([response[@"code"] integerValue] == 200) {
                 [weakself showToast:@"发送验证码成功"];
+                LoginNextViewController *nextVC = [[LoginNextViewController alloc]init];
+                nextVC.phone = weakself.phoneField.text;
+                [weakself.navigationController pushViewController:nextVC animated:YES];
             }
         }
     }];
 }
--(void)goToLogin{
-    if (_phoneField.text.length<1) {
-        [self showToast:@"请输入手机号码"];
-        return;
-    }
-    if (_codeField.text.length<1) {
-        [self showToast:@"请输入验证码"];
-        return;
-    }
-    LoginReq *req = [[LoginReq alloc]init];
-    req.memberMobile = _phoneField.text;
-    req.smsCaptchaCode = _codeField.text;
-    req.token = @"";
-    req.timestamp = @"0";
-    req.version = @"1.0.0";
-    req.appId = @"993335466657415169";
-    req.platform = @"ios";
-    __weak typeof(self)weakself = self;
-    [[LoginServiceApi share]requestLoginWithParam:req response:^(id response) {
-        if ([response[@"code"]integerValue] ==200 ) {
-                NSError *error = nil;
-                UserBaseInfoModel *userInfoModel = [MTLJSONAdapter modelOfClass:UserBaseInfoModel.class fromJSONDictionary:response[@"data"] error:&error];
-                [UserCacheBean share].userInfo = userInfoModel;
-                [ZSNotification postRefreshLocationResultNotification:nil];
-                [weakself.navigationController popViewControllerAnimated:YES];
-            
-        }else{
-            [self showToast:response[@"message"]];
-        }
-    }];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
 }
--(void)pressCode:(UIButton*)sender{
-    self.count = 60;
-    self.sendCodeBtn.enabled = NO;
-    // 加1个定时器
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeDown) userInfo: nil repeats:YES];
+
+-(void)pressFinishBtn:(UIButton*)sender{
+    if (_phoneField.text.length !=11) {
+        [self showInfo:@"请输入正确的手机号"];
+        return;
+    }
     [self sendCode];
 }
--(void)pressFinishBtn:(UIButton*)sender{
-    [self goToLogin];
-}
-- (void)timeDown
-{
-    if (self.count != 1){
-        
-        self.count -=1;
-        self.sendCodeBtn.enabled = NO;
-        [self.sendCodeBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        self.sendCodeBtn.backgroundColor = DSColorFromHex(0xB4B4B4);
-        [self.sendCodeBtn setTitle:[NSString stringWithFormat:@"%ld", (long)self.count] forState:UIControlStateNormal];
-        
-    } else {
-        
-        self.sendCodeBtn.enabled = YES;
-        [self.sendCodeBtn setBackgroundImage:[UIImage imageNamed:@"login_sendcode"] forState:UIControlStateNormal];
-        [self.sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [self.timer invalidate];
-    }
-    
-}
+
 
 -(void)pressPassWord{
     PassWordLoginController *passVC = [[PassWordLoginController alloc]init];
@@ -480,8 +261,6 @@
 
 - (void)getAuthWithUserInfoFromWechat
 {
-//    [[WXApiManager sharedManager] sendAuthRequestWithController:self
-//                                                       delegate:self];
      [self sendAuthRequest];
 }
 

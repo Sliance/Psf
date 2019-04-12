@@ -237,8 +237,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
         
         if (response!= nil) {
             [weakself showInfo:response[@"message"]];
+            [weakself requestData];
         }
-        [weakself getShopCount];
     }];
 }
 

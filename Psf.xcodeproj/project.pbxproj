@@ -373,6 +373,7 @@
 		899AF271223B504500A1F46B /* DNCommentExtsReplysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26C223B504500A1F46B /* DNCommentExtsReplysModel.m */; };
 		899AF272223B504500A1F46B /* DNCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26E223B504500A1F46B /* DNCommentList.m */; };
 		899AF273223B504500A1F46B /* DNTotalCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 899AF26F223B504500A1F46B /* DNTotalCommentList.m */; };
+		89A1F7A022601E2A006877AF /* LoginNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1F79F22601E2A006877AF /* LoginNextViewController.m */; };
 		89A7C057221FF85C0073AC49 /* TimeBuyListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7C056221FF85C0073AC49 /* TimeBuyListController.m */; };
 		89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A949EA221E7E0600915FA0 /* TimeBuyModel.m */; };
 		89C3A07021CB6C4300FEE6AD /* HomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3A06F21CB6C4300FEE6AD /* HomeHeadView.m */; };
@@ -1142,6 +1143,8 @@
 		899AF26E223B504500A1F46B /* DNCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentList.m; sourceTree = "<group>"; };
 		899AF26F223B504500A1F46B /* DNTotalCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTotalCommentList.m; sourceTree = "<group>"; };
 		899AF270223B504500A1F46B /* DNCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentList.h; sourceTree = "<group>"; };
+		89A1F79E22601E2A006877AF /* LoginNextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginNextViewController.h; sourceTree = "<group>"; };
+		89A1F79F22601E2A006877AF /* LoginNextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginNextViewController.m; sourceTree = "<group>"; };
 		89A7C055221FF85C0073AC49 /* TimeBuyListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyListController.h; sourceTree = "<group>"; };
 		89A7C056221FF85C0073AC49 /* TimeBuyListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeBuyListController.m; sourceTree = "<group>"; };
 		89A949E9221E7E0600915FA0 /* TimeBuyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeBuyModel.h; sourceTree = "<group>"; };
@@ -2714,6 +2717,8 @@
 				88D92842211079760001B2E3 /* PassWordLoginController.m */,
 				88D9283F211078E70001B2E3 /* LoginViewController.h */,
 				88D9283E211078E70001B2E3 /* LoginViewController.m */,
+				89A1F79E22601E2A006877AF /* LoginNextViewController.h */,
+				89A1F79F22601E2A006877AF /* LoginNextViewController.m */,
 				88671894212D08B800D861AD /* BindMobileController.m */,
 				88671893212D08B800D861AD /* BindMobileController.h */,
 			);
@@ -3220,6 +3225,7 @@
 				89A949EB221E7E0600915FA0 /* TimeBuyModel.m in Sources */,
 				8881BF3B21184ADB00F6A0CD /* FillEvaluateReq.m in Sources */,
 				888E719320E0CAA300BFBAFF /* VTMagicView.m in Sources */,
+				89A1F7A022601E2A006877AF /* LoginNextViewController.m in Sources */,
 				89C77FDA21F59FE800A6FB04 /* MineCollectController.m in Sources */,
 				8871B86020DB441000DAA5D6 /* DeviceModel.m in Sources */,
 				88636D0120E1C977006CE5D8 /* ZSPageViewController.m in Sources */,
