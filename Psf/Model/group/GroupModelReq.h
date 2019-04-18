@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface GroupModelReq : NSObject
-///preSale、Groupon
+///preSale、Groupon,my(分享优惠券),
 @property(nonatomic,copy)NSString* productBannerPosition;
 ///(181)
 @property(nonatomic,copy)NSString *erpStoreId;

@@ -20,6 +20,7 @@
 #import "MineWalletViewController.h"
 #import "ChooseServiceTypeController.h"
 #import "MineServiceApi.h"
+#import "GroupServiceApi.h"
 #import "AfterSalesViewController.h"
 #import "OrderServiceApi.h"
 #import "ScanQrCodeController.h"
@@ -197,12 +198,33 @@
         if (response) {
             NSDictionary *dic = [response firstObject];
                         NSArray *countArr = @[[dic[@"saleOrderUnpayCount"] stringValue],[dic[@"saleOrderUnDeliveryCount"] stringValue] ,[dic[@"saleOrderUnReceivedCount"] stringValue],[dic[@"saleOrderUnevaluateCount"] stringValue],@""];
-//            [dic[@"saleOrderBackCount"] stringValue]
             
                         [weakself.footView setArr:countArr];
-        }
+          }
+        [weakself getBanner];
     }];
     
+}
+-(void)getBanner{
+    GroupModelReq *req = [[GroupModelReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityName = @"上海市";
+    req.productBannerPosition = @"my";
+    __weak typeof(self)weakself = self;
+    [[GroupServiceApi share]getPreAndGroupBannerWithParam:req response:^(id response) {
+        if (response!= nil) {
+            NSMutableArray*imagArr = [NSMutableArray array];
+            [imagArr addObjectsFromArray:response];
+            GroupBannerModel *model = [imagArr firstObject];
+            NSString *url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,model.productBannerImagePath];
+            [weakself.footView.headImage sd_setImageWithURL:[NSURL URLWithString:url]];
+            
+        }
+    }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

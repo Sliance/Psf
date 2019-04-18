@@ -76,14 +76,15 @@
     req.subjectId = self.model.subjectId;
     req.cityName = @"上海市";
     self.result = [[TopicsListRes alloc]init];
-    __weak typeof(self)weakself = self;
+    WEAKSELF;
     [[NextServiceApi share] getTopicListWithParam:req response:^(id response) {
         if (response) {
-            weakself.result = response;
-            if (weakself.result.subjectTopImagePath.length>0) {
+            weakSelf.result = response;
+            [weakSelf.collectionView reloadData];
+            if (weakSelf.result.subjectTopImagePath.length>0) {
                 UIImageView*images = [[UIImageView alloc]init];
                 NSString*url = [NSString stringWithFormat:@"%@%@",IMAGEHOST,self.result.subjectTopImagePath];
-                WEAKSELF;
+                
                 [images sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     weakSelf.headHeight = image.size.height*SCREENWIDTH/image.size.width;
                     weakSelf.topImage = images.image;
@@ -143,6 +144,9 @@
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
+    if (section ==0) {
+        return UIEdgeInsetsMake(0, 0, 0, 0);
+    }
     return UIEdgeInsetsMake(0, 15, 0, 15);
     
 }
@@ -150,6 +154,9 @@
 //设置每个item水平间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
+    if (section ==0) {
+        return 0;
+    }
     return -10;
 }
 
@@ -169,6 +176,7 @@
         [cell setModel:model];
         [cell setGoBlock:^{
             detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
+            [vc setErpProductId:model.erpProductId];
             [vc setProductID:model.productId];
             vc.hidesBottomBarWhenPushed = YES;
              [vc setProductType:@"normal"];
@@ -250,17 +258,20 @@
     detailGoodsViewController *vc = [[detailGoodsViewController alloc]init];
     if (indexPath.section ==0) {
         StairCategoryListRes*model = self.result.subjectTopProductList[indexPath.row];
+        [vc setErpProductId:model.erpProductId];
         [vc setProductID:model.productId];
     }else if (indexPath.section ==1){
-        SubjectCategoryModel *model = self.result.subjectCustomCategoryList[self.chooseIndex];
+        SubjectCategoryModel *model = self.result.subjectCategoryList[self.chooseIndex];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [vc setErpProductId:res.erpProductId];
         [vc setProductID:res.productId];
     }else if(indexPath.section >1){
         SubjectCategoryModel *model = self.result.subjectCustomCategoryList[indexPath.section-2];
         StairCategoryListRes *res = model.subjectCategoryProductList[indexPath.row];
+        [vc setErpProductId:res.erpProductId];
         [vc setProductID:res.productId];
     }
-     [vc setProductType:@"normal"];
+    [vc setProductType:@"normal"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

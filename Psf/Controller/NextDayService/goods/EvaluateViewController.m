@@ -72,9 +72,9 @@
 }
 - (void)setProductId:(NSInteger)productId{
     _productId = productId;
-    [self requestEvaluate];
+    [self requestEvaluateType:@""];
 }
--(void)requestEvaluate{
+-(void)requestEvaluateType:(NSString*)type{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -92,10 +92,22 @@
     req.saleOrderId = @"1013703405872041985";
     req.cityId = @"310100";
     req.cityName = @"上海市";
+    req.type = type;
     __weak typeof(self)weakself = self;
     [[NextServiceApi share]requestEvaluateListModelListLoadWithParam:req response:^(id response) {
-      
-        weakself.evaRes = response;
+        if ([type isEqualToString:@""]) {
+            weakself.evaRes = response;
+            [weakself requestEvaluateType:@"img"];
+        }else if ([type isEqualToString:@"img"]){
+            [weakself requestEvaluateType:@"content"];
+            [self.imageDataArr removeAllObjects];
+            EvaluateListRes*image = response;
+            [self.imageDataArr addObjectsFromArray:image.saleOrderProductCommentList];
+        }else if ([type isEqualToString:@"content"]){
+            EvaluateListRes*content = response;
+            [self.contentDataArr removeAllObjects];
+            [self.contentDataArr addObjectsFromArray:content.saleOrderProductCommentList];
+        }
         [weakself updateData];
     }];
     [self.headView setChooseTypeBlock:^(NSInteger index) {
@@ -104,16 +116,15 @@
     }];
 }
 -(void)updateData{
-    [self.imageDataArr removeAllObjects];
-    [self.contentDataArr removeAllObjects];
-    for (EvaluateListModel *model in self.evaRes.saleOrderProductCommentList) {
-        if (model.saleOrderProductCommentImageList.count>0) {
-            [self.imageDataArr addObject:model];
-        }else if(model.saleOrderProductCommentImageList.count==0&&model.saleOrderProductCommentContent.length>0&&![model.saleOrderProductCommentContent isEqualToString:@"此用户没有填写评价。"]){
-            [self.contentDataArr addObject:model];
-        }
-        
-    }
+    
+//    for (EvaluateListModel *model in self.evaRes.saleOrderProductCommentList) {
+//        if (model.saleOrderProductCommentImageList.count>0) {
+//            [self.imageDataArr addObject:model];
+//        }else if(model.saleOrderProductCommentImageList.count==0&&model.saleOrderProductCommentContent.length>0&&![model.saleOrderProductCommentContent isEqualToString:@"此用户没有填写评价。"]){
+//            [self.contentDataArr addObject:model];
+//        }
+//
+//    }
     [self.headView.allBtn setTitle:[NSString stringWithFormat:@"全部（%ld）",self.evaRes.saleOrderProductCommentList.count] forState:UIControlStateNormal];
     [self.headView.photoBtn setTitle:[NSString stringWithFormat:@"有图（%ld）",self.imageDataArr.count] forState:UIControlStateNormal];
     [self.headView.contentBtn setTitle:[NSString stringWithFormat:@"有内容（%ld）",self.contentDataArr.count] forState:UIControlStateNormal];
