@@ -107,5 +107,7 @@
 @property(nonatomic,copy)NSString *saleOrderRefundId;
 ///评论类型
 @property(nonatomic,copy)NSString *type;
+///
+@property(nonatomic,strong)NSMutableArray *cartProductIdList;
 
 @end

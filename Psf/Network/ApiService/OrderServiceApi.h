@@ -35,6 +35,8 @@
 - (void)confirmOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///确认发货
 - (void)confirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///达达确认发单
+- (void)dadaConfirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///退款
 - (void)refundOrderWithParam:(RefundOrderReq *) req response:(responseModel) responseModel;
 ///统一下单(支付宝支付时用)

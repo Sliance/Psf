@@ -323,4 +323,31 @@
         
     }];
 }
+///批量删除购物车
+- (void)batchDeleteShopCartWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSString *url = Psf_BatchDeleteShop;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 @end

@@ -33,6 +33,8 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *loseArr;
 @property(nonatomic,strong)NSMutableArray *likeArr;
+@property(nonatomic,strong)NSMutableArray *deleteArr;
+@property(nonatomic,assign)BOOL isEdit;
 
 @end
 static NSString *cellId = @"ShoppingCollectionViewCell";
@@ -63,7 +65,8 @@ static NSString *cellIds = @"NextCollectionViewCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setRightButtonWithTitle:@"编辑"];
+    self.isEdit = NO;
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, [self navHeightWithHeight], SCREENWIDTH, SCREENHEIGHT-[self tabBarHeight]) collectionViewLayout:layout];
     self.collectionView.delegate = self;
@@ -78,9 +81,10 @@ static NSString *cellIds = @"NextCollectionViewCell";
      registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footreusableView"];
     [self.view addSubview:self.footView];
     [self.view addSubview:self.shopAlertView];
-    _dataArr = [NSMutableArray array];
-    _loseArr = [NSMutableArray array];
-    _likeArr = [NSMutableArray array];
+    _dataArr = [[NSMutableArray alloc]init];
+    _loseArr = [[NSMutableArray alloc]init];
+    _likeArr = [[NSMutableArray alloc]init];
+    _deleteArr = [[NSMutableArray alloc]init];
     __weak typeof(self)weakself = self;
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-[weakself tabBarHeight]);
@@ -130,12 +134,12 @@ static NSString *cellIds = @"NextCollectionViewCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setLeftButtonWithIcon:[UIImage imageNamed:@""]];
-//    self.footView.hidden = YES;
+    [self setRightButtonWithTitle:@"编辑"];
+    self.isEdit = NO;
     [self requestData];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-//    self.footView.hidden = NO;
 }
 -(void)requestData{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
@@ -381,7 +385,23 @@ static NSString *cellIds = @"NextCollectionViewCell";
         }
     }];
 }
-
+-(void)batchDeleteShop{
+    StairCategoryReq *req = [[StairCategoryReq alloc]init];
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    req.cityId = @"310100";
+    req.cityName = @"上海市";
+    req.cartProductIdList = self.deleteArr;
+    __weak typeof(self)weakself = self;
+    [[ShopServiceApi share]batchDeleteShopCartWithParam:req response:^(id response) {
+        if (response) {
+            [weakself requestData];
+        }
+    }];
+}
 -(void)selectedSingle:(CartProductModel*)model{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -615,8 +635,35 @@ static NSString *cellIds = @"NextCollectionViewCell";
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 -(void)pressSubmitBtn:(UIButton*)sender{
-    [self jieSuanData];
+    if (self.isEdit ==YES) {
+        [self screenDelete];
+        [self batchDeleteShop];
+    }else{
+         [self jieSuanData];
+    }
+   
 }
+-(void)didRightClick{
+    if (self.isEdit == NO) {
+        [self setRightButtonWithTitle:@"完成"];
+        [self.footView.submitBtn setTitle:@"删除" forState:UIControlStateNormal];
+    }else if (self.isEdit ==YES){
+        [self setRightButtonWithTitle:@"编辑"];
+        [self.footView.submitBtn setTitle:@"结算" forState:UIControlStateNormal];
+    }
+    self.isEdit = !self.isEdit;
+}
+-(void)screenDelete{
+    [self.deleteArr removeAllObjects];
+    for (CartProductModel *model  in self.dataArr) {
+        if (model.cartProductIsActive ==1) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setValue:model.cartProductId forKey:@"cartProductId"];
+            [self.deleteArr addObject:dic];
+        }
+    }
+}
+    
 -(void)showAlert{
     if(self.jisuanmodel.cartProductList.count>0||[self.jisuanmodel.preSaleProductList count]>0||self.jisuanmodel.nextDayProductList.count>0) {
         self.tabBarController.tabBar.hidden = YES;

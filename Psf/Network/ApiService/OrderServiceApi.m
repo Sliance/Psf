@@ -418,6 +418,32 @@
         
     }];
 }
+///达达确认发单
+- (void)dadaConfirmDeliveryOrderWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
+    req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
+    NSDictionary *dic = [req mj_keyValues];
+    [[ZSAPIProxy shareProxy] callPOSTWithUrl:Psf_SendBill Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
+        if ([response.content isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicResponse = (NSDictionary *) response.content;
+            if ([dicResponse[@"code"] integerValue] == 200) {
+                
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }else {
+                if (responseModel) {
+                    responseModel(dicResponse);
+                }
+            }
+        } else {
+            if (responseModel) {
+                responseModel(nil);
+            }
+        }
+    } faildCallBack:^(ZSURLResponse *response) {
+        
+    }];
+}
 ///获取配送时间
 -(void)getDeliveryTimeWithParam:(RefundOrderReq *) req response:(responseModel) responseModel{
     NSString *url = @"/lxn/business/param/mobile/v1/findTime";

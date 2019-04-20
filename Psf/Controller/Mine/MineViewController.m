@@ -176,12 +176,11 @@
             [weakself.headView setResult:weakself.result];
             [weakself requestorderData];
             if ([weakself.result.memberRoleType integerValue] ==2) {
-                //@"\U0000e908",
-                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"collect_mine",@"set_mine"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的收藏",@"设置"];
+                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"online_mine",@"collect_mine",@"set_mine"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的客服",@"我的收藏",@"设置"];
             }else{
-                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"collect_mine",@"set_mine",@"qr_mine"];
-                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的收藏",@"设置",@"扫码入口"];
+                weakself.listArr = @[@"loc_mine",@"qian_mine",@"coupon_mine",@"online_mine",@"collect_mine",@"set_mine",@"qr_mine"];
+                weakself.dataArr = @[@"我的收货地址",@"我的钱包",@"我的优惠券",@"我的客服",@"我的收藏",@"设置",@"扫码入口"];
             }
             [weakself.tableview reloadData];
         }
@@ -287,27 +286,11 @@
     }else if (indexPath.section ==1) {
         switch (indexPath.row) {
             case 0:
-                {
-                    MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
-                    addressVC.hidesBottomBarWhenPushed = YES;
-                    addressVC.type = ADDRESSTYPEMine;
-                    [self.navigationController pushViewController:addressVC animated:YES];
-                }
-                break;
-
-            case 2:
             {
-                MyCouponController *couponVC = [[MyCouponController alloc]init];
-                couponVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:couponVC animated:YES];
-            }
-                break;
-            
-            case 4:
-            {
-                SettingViewController *setVC = [[SettingViewController alloc]init];
-                setVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:setVC animated:YES];
+                MyReceiveAddressController *addressVC = [[MyReceiveAddressController alloc]init];
+                addressVC.hidesBottomBarWhenPushed = YES;
+                addressVC.type = ADDRESSTYPEMine;
+                [self.navigationController pushViewController:addressVC animated:YES];
             }
                 break;
             case 1:
@@ -317,14 +300,35 @@
                 [self.navigationController pushViewController:walletVC animated:YES];
             }
                 break;
-                case 3:
+
+            case 2:
+            {
+                MyCouponController *couponVC = [[MyCouponController alloc]init];
+                couponVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:couponVC animated:YES];
+            }
+                break;
+            case 3:
+            {
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",[UserCacheBean share].userInfo.storeTel];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            }
+                break;
+            case 4:
             {
                 MineCollectController *walletVC = [[MineCollectController alloc]init];
                 walletVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:walletVC animated:YES];
             }
-            break;
+                break;
             case 5:
+            {
+                SettingViewController *setVC = [[SettingViewController alloc]init];
+                setVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:setVC animated:YES];
+            }
+                break;
+            case 6:
             {
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 ScanQrCodeController *qrVC = [story instantiateViewControllerWithIdentifier:@"ScanQrCodeController"];

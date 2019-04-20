@@ -40,6 +40,9 @@
 @property(nonatomic,strong)NSString *erpStoreId;
 
 @property(nonatomic,strong)NSString *storeName;
+@property(nonatomic,strong)NSString *storeTel;
+
+
 - (NSDictionary *)getUserInfoDictionary;
 - (void)configUserInfoModelWithDic:(NSDictionary *) dic;
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic;

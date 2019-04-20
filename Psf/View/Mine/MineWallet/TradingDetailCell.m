@@ -93,20 +93,18 @@
 -(void)setModel:(IntegralRecord *)model{
     _model = model;
     if(_type ==1){
-        if ([model.payAmount isEqualToString:@"0"]) {
-            model.payAmount = model.balancePayAmount;
-        }
+        
         if (model.memberTradeType ==0) {
             self.titleLabel.text = @"充值";
-            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.balancePayAmount];
             self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }else if (model.memberTradeType == 1){
             self.titleLabel.text = @"消费";
-            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.payAmount];
+            self.priceLabel.text = [NSString stringWithFormat:@"-%@",model.balancePayAmount];
             self.priceLabel.textColor = DSColorFromHex(0xea6d6b);
         }else if (model.memberTradeType ==2){
             self.titleLabel.text = @"退款";
-            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.payAmount];
+            self.priceLabel.text = [NSString stringWithFormat:@"+%@",model.balancePayAmount];
             self.priceLabel.textColor = DSColorFromHex(0x72BF34);
         }
         if (model.payPlatformStatus ==0) {

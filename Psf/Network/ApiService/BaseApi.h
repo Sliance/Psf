@@ -81,7 +81,12 @@ static NSString *const Psf_PlaceOrder = @"/lxn/sale/order/mobile/v3/save";
 static NSString *const Psf_TlementList = @"/lxn/cart/mobile/v2/cart/product/type";
 /// 售后列表
 static NSString *const Psf_RefundList =@"/lxn/sale/order/refund/mobile/v1/list";
-
+///达达确认发单
+static NSString *const Psf_SendBill = @"/lxn/sale/order/delivery/dada/mobile/v1/save";
+///意见反馈
+static NSString *const Psf_FeedBack = @"/lxn/member/feedback/mobile/v1/save";
+///购物车批量删除
+static NSString *const Psf_BatchDeleteShop = @"/lxn/cart/mobile/v1/deleteList";
 
 typedef void(^responseModel)(id response);
 @interface BaseApi : NSObject

@@ -17,12 +17,12 @@
 @property(nonatomic,strong)UIScrollView *bgscrollow;
 @property(nonatomic,strong)RefundfootView *footView;
 @property(nonatomic,strong)BottomView *bottomView;
-@property(nonatomic,strong)UITextField *phoneField;
+//@property(nonatomic,strong)UITextField *phoneField;
 @property(nonatomic,strong)UIPlaceHolderTextView *contentTXT;
-@property(nonatomic,strong)UILabel *titleLabel;
-@property(nonatomic,strong)UIImageView *titleimage;
+//@property(nonatomic,strong)UILabel *titleLabel;
+//@property(nonatomic,strong)UIImageView *titleimage;
 @property(nonatomic,strong)UIButton *titlebtn;
-@property(nonatomic,strong)FeedbackTypeView *feedView;
+//@property(nonatomic,strong)FeedbackTypeView *feedView;
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,strong)NSMutableArray *imageArr;
 @end
@@ -37,15 +37,15 @@
     }
     return _bottomView;
 }
--(FeedbackTypeView *)feedView{
-    if (!_feedView) {
-        _feedView = [[FeedbackTypeView alloc]init];
-        [_feedView setHeight:[self tabBarHeight]];
-        _feedView.hidden = YES;
-        _feedView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
-    }
-    return _feedView;
-}
+//-(FeedbackTypeView *)feedView{
+//    if (!_feedView) {
+//        _feedView = [[FeedbackTypeView alloc]init];
+//        [_feedView setHeight:[self tabBarHeight]];
+//        _feedView.hidden = YES;
+//        _feedView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+//    }
+//    return _feedView;
+//}
 -(RefundfootView *)footView{
     if (!_footView) {
         _footView = [[RefundfootView alloc]init];
@@ -64,16 +64,16 @@
     }
     return _bgscrollow;
 }
--(UITextField *)phoneField{
-    if (!_phoneField) {
-        _phoneField = [[UITextField alloc]init];
-       
-        _phoneField.backgroundColor = [UIColor whiteColor];
-        _phoneField.font = [UIFont systemFontOfSize:15];
-        _phoneField.placeholder = @"请填写手机号码，方便我们与你联系";
-    }
-    return _phoneField;
-}
+//-(UITextField *)phoneField{
+//    if (!_phoneField) {
+//        _phoneField = [[UITextField alloc]init];
+//
+//        _phoneField.backgroundColor = [UIColor whiteColor];
+//        _phoneField.font = [UIFont systemFontOfSize:15];
+//        _phoneField.placeholder = @"请填写手机号码，方便我们与你联系";
+//    }
+//    return _phoneField;
+//}
 -(UIPlaceHolderTextView *)contentTXT{
     if (!_contentTXT) {
         _contentTXT = [[UIPlaceHolderTextView alloc]init];
@@ -82,26 +82,26 @@
     }
     return _contentTXT;
 }
--(UILabel *)titleLabel{
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc]init];
-        _titleLabel.textColor = DSColorFromHex(0x464646);
-        _titleLabel.font = [UIFont systemFontOfSize:15];
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.text = @"   请选择反馈类型（售后）";
-        _titleLabel.backgroundColor = [UIColor whiteColor];
-        _titleLabel.userInteractionEnabled = YES;
-    }
-    return _titleLabel;
-}
--(UIImageView *)titleimage{
-    if (!_titleimage) {
-        _titleimage = [[UIImageView alloc]init];
-        _titleimage.image = [UIImage imageNamed:@"down_icon"];
-        
-    }
-    return _titleimage;
-}
+//-(UILabel *)titleLabel{
+//    if (!_titleLabel) {
+//        _titleLabel = [[UILabel alloc]init];
+//        _titleLabel.textColor = DSColorFromHex(0x464646);
+//        _titleLabel.font = [UIFont systemFontOfSize:15];
+//        _titleLabel.textAlignment = NSTextAlignmentLeft;
+//        _titleLabel.text = @"   请选择反馈类型（售后）";
+//        _titleLabel.backgroundColor = [UIColor whiteColor];
+//        _titleLabel.userInteractionEnabled = YES;
+//    }
+//    return _titleLabel;
+//}
+//-(UIImageView *)titleimage{
+//    if (!_titleimage) {
+//        _titleimage = [[UIImageView alloc]init];
+//        _titleimage.image = [UIImage imageNamed:@"down_icon"];
+//
+//    }
+//    return _titleimage;
+//}
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -121,45 +121,44 @@
     _imageArr = [NSMutableArray array];
     [self.view addSubview:self.bgscrollow];
     [self.view addSubview:self.bottomView];
-    [self.view addSubview:self.feedView];
+//    [self.view addSubview:self.feedView];
     [self.bgscrollow addSubview:self.footView];
-    [self.bgscrollow addSubview:self.phoneField];
+//    [self.bgscrollow addSubview:self.phoneField];
     [self.bgscrollow addSubview:self.contentTXT];
     
-    [self.bgscrollow addSubview:self.titleLabel];
-    [self.bgscrollow addSubview:self.titleimage];
-    [self setTextFieldLeftView:self.phoneField :@"" :15];
-    self.titleimage.frame = CGRectMake(SCREENWIDTH-30, 23, 14, 8);
-    self.titleLabel.frame = CGRectMake(0, 5, SCREENWIDTH, 44);
+//    [self.bgscrollow addSubview:self.titleLabel];
+//    [self.bgscrollow addSubview:self.titleimage];
+//    [self setTextFieldLeftView:self.phoneField :@"" :15];
+//    self.titleimage.frame = CGRectMake(SCREENWIDTH-30, 23, 14, 8);
+//    self.titleLabel.frame = CGRectMake(0, 5, SCREENWIDTH, 44);
     
-    self.phoneField.frame = CGRectMake(0, self.titleLabel.ctBottom+5, SCREENWIDTH, 44);
-    self.contentTXT.frame = CGRectMake(0, self.phoneField.ctBottom+5, SCREENWIDTH, 180);
+//    self.phoneField.frame = CGRectMake(0, self.titleLabel.ctBottom+5, SCREENWIDTH, 44);
+    self.contentTXT.frame = CGRectMake(0, 0, SCREENWIDTH, 180);
     self.footView.frame = CGRectMake(0, self.contentTXT.ctBottom+5, SCREENWIDTH, 135);
     __weak typeof(self)weakself = self;
     [self.footView setPhotoBlock:^(NSMutableArray *arr) {
         weakself.imageArr = arr;
     }];
-    [self.feedView setIndex:_index];
-    
-    [self.feedView setSelectedBlock:^(NSInteger index,NSString *text) {
-        weakself.index = index;
-        [weakself.feedView setIndex:weakself.index];
-        weakself.feedView.hidden = YES;
-        weakself.titleLabel.text = [NSString stringWithFormat:@"   请选择反馈类型（%@）",text];
-    }];
-    [self.feedView setYinBlock:^{
-         weakself.feedView.hidden = YES;
-    }];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(presstap)];
-    [self.titleLabel addGestureRecognizer:tap];
+//    [self.feedView setIndex:_index];
+//
+//    [self.feedView setSelectedBlock:^(NSInteger index,NSString *text) {
+//        weakself.index = index;
+//        [weakself.feedView setIndex:weakself.index];
+//        weakself.feedView.hidden = YES;
+//        weakself.titleLabel.text = [NSString stringWithFormat:@"   请选择反馈类型（%@）",text];
+//    }];
+//    [self.feedView setYinBlock:^{
+//         weakself.feedView.hidden = YES;
+//    }];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(presstap)];
+//    [self.titleLabel addGestureRecognizer:tap];
 }
 -(void)presstap{
-    self.feedView.hidden = NO;
+//    self.feedView.hidden = NO;
 }
 -(void)pressBottom{
     FeetbackReq *req = [[FeetbackReq alloc]init];
-    req.memberFeedbackType = @"";
-    req.memberFeedbackPhone = _phoneField.text;
+//    req.memberFeedbackType = @"";
     req.memberFeedbackContent = _contentTXT.text;
     req.memberFeedbackImage = self.imageArr;
     req.appId = @"993335466657415169";

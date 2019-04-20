@@ -94,7 +94,8 @@ static NSString *cellId = @"cellId";
             weakself.isOpen = [response[@"data"][@"businessParamValue"] integerValue];
             
         }
-        [weakself getDefautWeight];
+       
+        [weakself requestTimeBuy];
         [weakself.collectionView reloadData];
         
     }];
@@ -121,36 +122,6 @@ static NSString *cellId = @"cellId";
         
     }];
 }
--(void)getDefautWeight{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"";
-    req.platform = @"ios";
-    req.businessParamKey = @"productDefaultWeight";
-    [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
-        if (response) {
-            [UserCacheBean share].userInfo.productDefaultWeight = response[@"data"][@"businessParamValue"];
-            [self getDefautDes];
-        }
-    }];
-}
--(void)getDefautDes{
-    StairCategoryReq *req = [[StairCategoryReq alloc]init];
-    req.appId = @"993335466657415169";
-    req.timestamp = @"529675086";
-    req.token = [UserCacheBean share].userInfo.token;
-    req.version = @"";
-    req.platform = @"ios";
-    req.businessParamKey = @"productDefaultWeightSuffixDesc";
-    [[NextServiceApi share]getDefaultWeightWithParam:req response:^(id response) {
-        if (response) {
-            [UserCacheBean share].userInfo.productDefaultDes = response[@"data"][@"businessParamValue"];
-        }
-        [self requestTimeBuy];
-    }];
-}
 -(void)requestTimeBuy{
     StairCategoryReq *req = [[StairCategoryReq alloc]init];
     req.appId = @"993335466657415169";
@@ -164,6 +135,7 @@ static NSString *cellId = @"cellId";
         if (response) {
             NSArray *arr = response;
             self.timeModel = [arr firstObject];
+            [self.collectionView reloadData];
             [self requestTimeBuyList:self.timeModel.ruleActivityId];
         }
     }];
@@ -242,6 +214,7 @@ static NSString *cellId = @"cellId";
             }else{
                 [UserCacheBean share].userInfo.erpStoreId = response[@"data"][@"erpStoreId"];
                 [UserCacheBean share].userInfo.storeName = response[@"data"][@"storeName"];
+                [UserCacheBean share].userInfo.storeTel = response[@"data"][@"storeTel"];
                 [weakself.locView.locBtn setTitle:response[@"data"][@"storeName"] forState:UIControlStateNormal];
             }
             [self requestBanner];

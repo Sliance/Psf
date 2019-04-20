@@ -31,6 +31,8 @@
 - (void)addShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///修改购物车信息
 - (void)changeShopCartCountWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
+///批量删除购物车
+- (void)batchDeleteShopCartWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///猜你喜欢
 - (void)guessYouLikeWithParam:(StairCategoryReq *) req response:(responseModel) responseModel;
 ///填写订单计算价格

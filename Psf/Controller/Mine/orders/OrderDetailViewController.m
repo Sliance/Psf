@@ -229,6 +229,25 @@ static NSString *cellIds = @"NextCollectionViewCell";
     }];
     
 }
+///达达发单成功接口
+-(void)dadaSendOrder:(StairCategoryReq*)req{
+///saleOrderId 所需参数
+    req.appId = @"993335466657415169";
+    req.timestamp = @"529675086";
+    req.token = [UserCacheBean share].userInfo.token;
+    req.version = @"1.0.0";
+    req.platform = @"ios";
+    __weak typeof(self)weakself = self;
+    [[OrderServiceApi share]dadaConfirmDeliveryOrderWithParam:req response:^(id response) {
+        if (response) {
+            if ([response[@"code"] integerValue] ==200) {
+                    [weakself showInfo:@"达达发单成功"];
+            }else{
+                [weakself showInfo:response[@"message"]];
+            }
+        }
+    }];
+}
 -(void)deliverOrder:(StairCategoryReq*)req{
     req.appId = @"993335466657415169";
     req.timestamp = @"529675086";
@@ -555,7 +574,7 @@ static NSString *cellIds = @"NextCollectionViewCell";
             [footViews setModel:self.result];
             [footview addSubview:footViews];
             [footViews setPhoneBlock:^{
-                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",@"400-821-6094"];
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt:%@",[UserCacheBean share].userInfo.storeTel];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
                 
             }];

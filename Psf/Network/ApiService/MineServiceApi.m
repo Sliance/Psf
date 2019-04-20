@@ -157,7 +157,7 @@
 }
 ///交易记录
 - (void)rechargeRecordWithParam:(StairCategoryReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/trade/record/mobile/v1/find";
+    NSString *url = @"/lxn/member/trade/record/mobile/v1/list";
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {
@@ -184,7 +184,7 @@
 }
 ///意见反馈
 - (void)feedBackWithParam:(FeetbackReq *) req response:(responseModel) responseModel{
-    NSString *url = @"/lxn/member/feedback/mobile/v1/save";
+    NSString *url = Psf_FeedBack;
     req.erpStoreId = [UserCacheBean share].userInfo.erpStoreId;
     NSDictionary *dic = [req mj_keyValues];
     [[ZSAPIProxy shareProxy] callPOSTWithUrl:url Params:dic isShowLoading:YES successCallBack:^(ZSURLResponse *response) {

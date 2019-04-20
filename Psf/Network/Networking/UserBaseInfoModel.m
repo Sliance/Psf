@@ -34,6 +34,7 @@
              @"storeName":@"storeName",
              @"productDefaultWeight":@"productDefaultWeight",
              @"productDefaultDes":@"productDefaultDes",
+             @"storeTel":@"storeTel",
              };
 }
 
@@ -58,6 +59,7 @@
                           @"storeName" : self.storeName == nil?@"":self.storeName,
                           @"productDefaultWeight" : self.productDefaultWeight == nil?@"":self.productDefaultWeight,
                           @"productDefaultDes" : self.productDefaultDes == nil?@"":self.productDefaultDes,
+                          @"storeTel" : self.storeTel == nil?@"":self.storeTel,
                           };
     return dic;
 }
@@ -80,6 +82,7 @@
     self.storeName = dic[@"storeName"];
     self.productDefaultWeight = dic[@"productDefaultWeight"];
     self.productDefaultDes = dic[@"productDefaultDes"];
+    self.storeTel = dic[@"storeTel"];
 }
 
 - (void)updateUserInfoModelWithDic:(NSDictionary *) dic {
@@ -100,6 +103,7 @@
     self.storeName = dic[@"storeName"];
     self.productDefaultWeight = dic[@"productDefaultWeight"];
     self.productDefaultDes = dic[@"productDefaultDes"];
+    self.storeTel = dic[@"storeTel"];
 }
 
 @end
